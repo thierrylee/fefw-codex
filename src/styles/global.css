@@ -1,0 +1,10 @@
+html, body, #root { height: 100%; }
+body{margin:0;background:#0f0e0c}
+a{color:oklch(0.8 0.11 75)}
+a:hover{color:oklch(0.88 0.09 75)}
+*{box-sizing:border-box}
+select,input,button{font:inherit;color:inherit}
+select option,select optgroup{background:#1c1a17;color:#eee}
+input[type=range]{accent-color:oklch(0.8 0.11 75)}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:8px}

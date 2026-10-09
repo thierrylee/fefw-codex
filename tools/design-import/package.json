@@ -1,0 +1,11 @@
+{
+  "name": "design-import",
+  "private": true,
+  "type": "module",
+  "description": "Converts Claude Design exports of the Weave Codex into this repo's React/TS source.",
+  "dependencies": {
+    "parse5": "^7.3.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  }
+}

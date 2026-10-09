@@ -1,0 +1,20 @@
+/* :hover / :focus styles from the design template. */
+.hv-0:hover { color:var(--tx, oklch(0.94 0.008 80)) !important;background:var(--panel2, oklch(0.24 0.01 60)) !important }
+.hv-1:hover { background:var(--panel2, oklch(0.24 0.01 60)) !important }
+.hv-2:hover { background:var(--panel2, oklch(0.3 0.055 165)) !important }
+.hv-3:hover { color:var(--ac, oklch(0.82 0.12 85)) !important;text-decoration:underline !important }
+.hv-4:hover { border-color:var(--ac, oklch(0.82 0.12 85)) !important }
+.hv-5:hover { border-color:var(--ac, oklch(0.8 0.11 75)) !important }
+.hv-6:hover { background:var(--panel2, oklch(0.25 0.012 60)) !important }
+.hv-7:hover { filter:brightness(1.08) !important }
+.hv-8:hover { color:var(--tx, #eee) !important }
+.focus-9:focus { border-color:var(--ac, oklch(0.8 0.11 75)) !important }
+.hv-10:hover { border-color:oklch(0.74 0.1 300) !important }
+.hv-11:hover { border-color:var(--ac, oklch(0.8 0.11 75)) !important;border-style:solid !important }
+.hv-12:hover { border-color:var(--ac, oklch(0.8 0.11 75)) !important;color:var(--tx, #eee) !important }
+.hv-13:hover { color:oklch(0.75 0.14 25) !important }
+.hv-14:hover { border-color:var(--line, oklch(0.29 0.012 60)) !important }
+.focus-15:focus { border-color:var(--ac, oklch(0.8 0.11 75)) !important;background:var(--panel2, oklch(0.25 0.012 60)) !important }
+.hv-16:hover { color:var(--tx, #eee) !important;border-color:var(--ac, oklch(0.8 0.11 75)) !important }
+.hv-17:hover { color:var(--tx, #eee) !important;background:var(--panel2, rgba(255,255,255,.06)) !important }
+.hv-18:hover { background:var(--panel2, rgba(255,255,255,.06)) !important }
