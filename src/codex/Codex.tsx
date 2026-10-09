@@ -1123,7 +1123,7 @@ export class Codex extends Component<CodexProps, any> {
         }
         return gu + dist.length - 1
       }
-      const lo = qt(0.1),
+      let lo = qt(0.1),
         hi = qt(0.9)
       let ex = 0
       if (SS) {
@@ -1150,6 +1150,45 @@ export class Codex extends Component<CodexProps, any> {
         })
       }
       const bv = SS ? SS.s[i] + (k.mods[i] || 0) - (stages[0].k.mods[i] || 0) + MA.st[i] + ex : null
+      if (SS) {
+        let D = new Map<number, number>([[SS.s[i], 1]])
+        stages.forEach((x?: any, si?: any) => {
+          if (si > 0) {
+            const fl = ((x.k.mn && x.k.mn[i]) || 0) + (stages[0].k.mods[i] || 0)
+            const N = new Map<number, number>()
+            D.forEach((p?: any, v?: any) => {
+              const w = Math.max(v, fl)
+              N.set(w, (N.get(w) || 0) + p)
+            })
+            D = N
+          }
+          const mg = x.mo ? x.mo.g[i] : 0
+          for (let j = x.pre; j < x.n; j++) {
+            const L = x.from + 1 + j,
+              p = Math.max(0, a + (L >= 6 ? x.k.g[i] : 0) + mg),
+              g = Math.floor(p / 100),
+              f = (p % 100) / 100
+            const N = new Map<number, number>()
+            D.forEach((q?: any, v?: any) => {
+              N.set(v + g, (N.get(v + g) || 0) + q * (1 - f))
+              if (f > 0) N.set(v + g + 1, (N.get(v + g + 1) || 0) + q * f)
+            })
+            D = N
+          }
+        })
+        const E = [...D].sort((x, y) => x[0] - y[0])
+        const qv = (P?: any) => {
+          let c = 0
+          for (const [v, p] of E) {
+            c += p
+            if (c >= P - 1e-9) return v
+          }
+          return E[E.length - 1][0]
+        }
+        const off = (k.mods[i] || 0) - (stages[0].k.mods[i] || 0) + MA.st[i]
+        lo = Math.min(qv(0.1) + off - (bv as number), up)
+        hi = Math.max(qv(0.9) + off - (bv as number), up)
+      }
       return {
         s,
         ex,

@@ -37,7 +37,7 @@ as additions to `renderVals()` in `src/codex/Codex.tsx`. Prefer moving a new
 screen's logic into its own function or component rather than growing
 `renderVals()`.
 
-The new export then becomes the baseline (currently `FEFWCodex-20261009-21-33.html`). The 20261009 exports ship no `codex.json`, so `public/database/codex.json` is kept as is.
+The new export then becomes the baseline (currently `FEFWCodex-20261009-22-00.html`). The 20261009 exports ship no `codex.json`, so `public/database/codex.json` is kept as is.
 
 ## Check the result against the design
 
