@@ -4,7 +4,7 @@ Companion codex for _Fire Emblem: Fortune's Weave_ — characters, unit builder,
 compare, charts, classes, abilities, combat arts and items.
 
 Vite + React + TypeScript, deployed to GitHub Pages at
-`https://<user>.github.io/fefw-codex/`.
+[https://thierrylee.github.io/fefw-codex/](https://thierrylee.github.io/fefw-codex/).
 
 ## Credits & AI disclosure
 
