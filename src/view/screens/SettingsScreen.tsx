@@ -805,6 +805,16 @@ export function SettingsScreen({ v }: { v: VM }) {
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '2px 12px' }}>
               <a
+                href="https://marigoldfe.com/fortunes-weave/"
+                target="_blank"
+                rel="noopener"
+                style={{ fontSize: '13px' }}
+              >
+                Marigold
+              </a>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '2px 12px' }}>
+              <a
                 href="https://docs.google.com/spreadsheets/d/1YW5AdvPUbLPr1RAGlnotcRaNTFCQPTKiIgshwrcdUtE"
                 target="_blank"
                 rel="noopener"

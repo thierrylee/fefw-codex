@@ -13,7 +13,7 @@ and reviewed, directed and tested by Thierry LEE.
 
 - Concept, scope, feature design, and QA: Thierry LEE
 - Code, UI, and tooling: largely AI-generated under Thierry LEE's direction
-- Game data: in-game collected, Game8, Serenes Forest, FextraLife, FortunesWeave.co.uk, Fortune's Weave Learnset List (community Google Sheet), Reddit; the data may contain errors.
+- Game data: in-game collected, Game8, Serenes Forest, FextraLife, FortunesWeave.co.uk, Marigold, Fortune's Weave Learnset List (community Google Sheet), Reddit; the data may contain errors.
 
 Unofficial fan project. _Fire Emblem: Fortune's Weave_ and all related assets, names, and
 data belong to their respective owners (Intelligent Systems / Nintendo / Koei Tecmo).

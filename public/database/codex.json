@@ -438,7 +438,9 @@
     }
    ],
    "gf": {
-    "loved": [],
+    "loved": [
+     "Select Coffee"
+    ],
     "liked": []
    },
    "pr": [],
@@ -633,7 +635,9 @@
     }
    ],
    "gf": {
-    "loved": [],
+    "loved": [
+     "Kitten Figurine"
+    ],
     "liked": []
    },
    "pr": [],
@@ -923,6 +927,8 @@
    ],
    "gf": {
     "loved": [
+     "Dagda Beard Grass",
+     "Horse-Grooming Kit",
      "Pegasus Panorama",
      "Portrait of Yu Phas",
      "Rancid Garum"
@@ -1006,8 +1012,22 @@
     5
    ],
    "ml": {
-    "loves": [],
-    "likes": [],
+    "loves": [
+     "Fish-Sauce Soup",
+     "Sweet-and-Sour Stick Bugs",
+     "Sand Boar and Beans",
+     "Salt-Crusted Ham",
+     "Charred Fish Grill",
+     "Honey-Poached Pear",
+     "Goat Roast",
+     "Garlic Seared Scallops",
+     "Cheese-Coated Crayfish"
+    ],
+    "likes": [
+     "Coffee-Berry Paste",
+     "Madazins",
+     "Pumpkin Soup"
+    ],
     "neutral": [],
     "dislikes": []
    },
@@ -1606,7 +1626,10 @@
     }
    ],
    "gf": {
-    "loved": [],
+    "loved": [
+     "Mellow Pastries",
+     "Simple Pastries"
+    ],
     "liked": [
      "Arrowhead Gem",
      "Board-Game Tactics",
@@ -2025,9 +2048,24 @@
    ],
    "ml": {
     "loves": [],
-    "likes": [],
-    "neutral": [],
-    "dislikes": []
+    "likes": [
+     "Charred Fish Grill",
+     "Fish-Sauce Soup",
+     "Garlic Seared Scallops",
+     "Sand Boar and Beans",
+     "Cheese-Coated Crayfish",
+     "Salt-Crusted Ham",
+     "Goat Roast"
+    ],
+    "neutral": [
+     "Honey-Poached Pear",
+     "Pumpkin Soup",
+     "Coffee-Berry Paste",
+     "Madazins"
+    ],
+    "dislikes": [
+     "Sweet-and-Sour Stick Bugs"
+    ]
    },
    "lab": [
     {
@@ -2373,9 +2411,23 @@
    ],
    "ml": {
     "loves": [],
-    "likes": [],
+    "likes": [
+     "Charred Fish Grill",
+     "Garlic Seared Scallops",
+     "Coffee-Berry Paste",
+     "Fish-Sauce Soup",
+     "Sweet-and-Sour Stick Bugs",
+     "Honey-Poached Pear",
+     "Salt-Crusted Ham",
+     "Pumpkin Soup",
+     "Sand Boar and Beans"
+    ],
     "neutral": [],
-    "dislikes": []
+    "dislikes": [
+     "Cheese-Coated Crayfish",
+     "Madazins",
+     "Goat Roast"
+    ]
    },
    "lab": [
     {
@@ -4207,7 +4259,8 @@
      "Dual Fish Knives",
      "Portrait of Yu Phas",
      "Rancid Garum",
-     "Tales of Adventure"
+     "Tales of Adventure",
+     "Village Recipes"
     ],
     "liked": [
      "Ahm Lu Cloth",
@@ -7322,10 +7375,26 @@
     7
    ],
    "ml": {
-    "loves": [],
-    "likes": [],
-    "neutral": [],
-    "dislikes": []
+    "loves": [
+     "Honey-Poached Pear",
+     "Fish-Sauce Soup",
+     "Garlic Seared Scallops",
+     "Charred Fish Grill"
+    ],
+    "likes": [
+     "Pumpkin Soup",
+     "Sweet-and-Sour Stick Bugs",
+     "Coffee-Berry Paste"
+    ],
+    "neutral": [
+     "Sand Boar and Beans",
+     "Cheese-Coated Crayfish",
+     "Salt-Crusted Ham"
+    ],
+    "dislikes": [
+     "Goat Roast",
+     "Madazins"
+    ]
    },
    "lab": [
     {
@@ -7682,10 +7751,13 @@
     "loves": [
      "Salt-Crusted Ham",
      "Fish-Sauce Soup",
-     "Sand Boar and Beans"
+     "Sand Boar and Beans",
+     "Sweet-and-Sour Stick Bugs",
+     "Charred Fish Grill"
     ],
     "likes": [
-     "Pumpkin Soup"
+     "Pumpkin Soup",
+     "Coffee-Berry Paste"
     ],
     "neutral": [
      "Goat Roast",
@@ -8763,10 +8835,11 @@
      "Shield Portrait"
     ],
     "liked": [
-     "Wing Fletching",
      "Dagda Beard Grass",
+     "Eastern Tea Leaves",
      "Horse-Grooming Kit",
-     "Eastern Tea Leaves"
+     "Mane Ornament",
+     "Wing Fletching"
     ]
    },
    "pr": [
@@ -11890,6 +11963,11 @@
    ],
    "gf": {
     "loved": [
+     "Common Coffee",
+     "Garum",
+     "Kitten Figurine",
+     "Morfis Tea",
+     "Select Coffee",
      "Tales of Adventure"
     ],
     "liked": [
@@ -13462,7 +13540,8 @@
      "Poems of the Greats",
      "Portrait of Yu Phas",
      "Rancid Garum",
-     "Tales of Adventure"
+     "Tales of Adventure",
+     "Trader's Handbook"
     ],
     "liked": [
      "Arrowhead Gem",
@@ -14984,6 +15063,7 @@
    ],
    "gf": {
     "loved": [
+     "Eastern Black Silk",
      "Portrait of Yu Phas",
      "Rancid Garum",
      "Shield Portrait"
@@ -19441,8 +19521,10 @@
    "gf": {
     "loved": [
      "Ceremonial Spear",
+     "Dagda Beard Grass",
      "Pegasus Panorama",
      "Portrait of Yu Phas",
+     "Select Coffee",
      "Shield Portrait"
     ],
     "liked": [
@@ -25814,9 +25896,24 @@
    ],
    "ml": {
     "loves": [],
-    "likes": [],
-    "neutral": [],
-    "dislikes": []
+    "likes": [
+     "Fish-Sauce Soup",
+     "Charred Fish Grill"
+    ],
+    "neutral": [
+     "Salt-Crusted Ham",
+     "Madazins",
+     "Garlic Seared Scallops",
+     "Sand Boar and Beans",
+     "Pumpkin Soup",
+     "Coffee-Berry Paste",
+     "Goat Roast"
+    ],
+    "dislikes": [
+     "Cheese-Coated Crayfish",
+     "Honey-Poached Pear",
+     "Sweet-and-Sour Stick Bugs"
+    ]
    },
    "lab": [
     {
@@ -26506,7 +26603,8 @@
      "Ceremonial Spear",
      "Portrait of Yu Phas",
      "Rugged Blade",
-     "Shield Portrait"
+     "Shield Portrait",
+     "Simple Pastries"
     ],
     "liked": [
      "Arrowhead Gem",
@@ -33957,7 +34055,10 @@
     }
    ],
    "gf": {
-    "loved": [],
+    "loved": [
+     "Garum",
+     "Saraminian Sweets"
+    ],
     "liked": [
      "Arrowhead Gem",
      "Crimson Ghosh",
@@ -35239,8 +35340,13 @@
     }
    ],
    "gf": {
-    "loved": [],
-    "liked": []
+    "loved": [
+     "History of a Master"
+    ],
+    "liked": [
+     "Sharp Dagger",
+     "The Works of Dante"
+    ]
    },
    "pr": [],
    "ml": {
@@ -35422,8 +35528,13 @@
     }
    ],
    "gf": {
-    "loved": [],
-    "liked": []
+    "loved": [
+     "History of a Master"
+    ],
+    "liked": [
+     "Sharp Dagger",
+     "Sun Ghosh"
+    ]
    },
    "pr": [],
    "ml": {
@@ -35581,16 +35692,25 @@
     }
    ],
    "gf": {
-    "loved": [],
+    "loved": [
+     "Alecto Garum",
+     "Legendary Garum"
+    ],
     "liked": [
-     "Garum"
+     "Garum",
+     "Smooth Garum",
+     "Tales of Adventure",
+     "Training Bracelet"
     ]
    },
    "pr": [],
    "ml": {
     "loves": [],
     "likes": [],
-    "neutral": [],
+    "neutral": [
+     "Cheese-Coated Crayfish",
+     "Honey-Poached Pear"
+    ],
     "dislikes": []
    },
    "lab": [
@@ -35824,6 +35944,8 @@
    ],
    "gf": {
     "loved": [
+     "Blue-Rose Bouquet",
+     "Crimson Ghosh",
      "Volcano Ghosh"
     ],
     "liked": [
@@ -36517,13 +36639,31 @@
     }
    ],
    "gf": {
-    "loved": [],
-    "liked": []
+    "loved": [
+     "History of a Master"
+    ],
+    "liked": [
+     "Eastern Black Silk",
+     "Eastern Tea Leaves"
+    ]
    },
    "pr": [],
    "ml": {
     "loves": [],
-    "likes": [],
+    "likes": [
+     "Madazins",
+     "Garlic Seared Scallops",
+     "Sand Boar and Beans",
+     "Salt-Crusted Ham",
+     "Cheese-Coated Crayfish",
+     "Sweet-and-Sour Stick Bugs",
+     "Charred Fish Grill",
+     "Fish-Sauce Soup",
+     "Goat Roast",
+     "Pumpkin Soup",
+     "Coffee-Berry Paste",
+     "Honey-Poached Pear"
+    ],
     "neutral": [],
     "dislikes": []
    },
@@ -37158,12 +37298,14 @@
     "loved": [
      "Blue-Rose Bouquet",
      "Flower Painting",
+     "Garum",
      "Portrait of Yu Phas",
      "Shield Portrait"
     ],
     "liked": [
      "Exquisite Ring",
      "Home-Recipe Book",
+     "Kitten Figurine",
      "Outdoor Cooking Set",
      "Saraminian Sweets"
     ]
@@ -37185,7 +37327,20 @@
    },
    "pr": [],
    "ml": {
-    "loves": [],
+    "loves": [
+     "Salt-Crusted Ham",
+     "Goat Roast",
+     "Sand Boar and Beans",
+     "Cheese-Coated Crayfish",
+     "Pumpkin Soup",
+     "Honey-Poached Pear",
+     "Fish-Sauce Soup",
+     "Garlic Seared Scallops",
+     "Coffee-Berry Paste",
+     "Sweet-and-Sour Stick Bugs",
+     "Charred Fish Grill",
+     "Madazins"
+    ],
     "likes": [],
     "neutral": [],
     "dislikes": []
@@ -37771,18 +37926,34 @@
    ],
    "gf": {
     "loved": [
+     "Common Coffee",
      "Pegasus Panorama",
      "Portrait of Yu Phas",
      "Rancid Garum",
+     "Select Coffee",
      "Shield Portrait"
     ],
     "liked": []
    },
    "pr": [],
    "ml": {
-    "loves": [],
+    "loves": [
+     "Charred Fish Grill",
+     "Coffee-Berry Paste",
+     "Salt-Crusted Ham",
+     "Fish-Sauce Soup",
+     "Pumpkin Soup",
+     "Madazins",
+     "Sand Boar and Beans",
+     "Cheese-Coated Crayfish",
+     "Goat Roast"
+    ],
     "likes": [],
-    "neutral": [],
+    "neutral": [
+     "Garlic Seared Scallops",
+     "Honey-Poached Pear",
+     "Sweet-and-Sour Stick Bugs"
+    ],
     "dislikes": []
    },
    "lab": []
@@ -37950,7 +38121,11 @@
    ],
    "gf": {
     "loved": [],
-    "liked": []
+    "liked": [
+     "Full Sewing Kit",
+     "Pack of Pastels",
+     "The Works of Dante"
+    ]
    },
    "pr": [],
    "ml": {
@@ -38074,8 +38249,13 @@
    "la": "",
    "sup": [],
    "gf": {
-    "loved": [],
-    "liked": []
+    "loved": [
+     "History of a Master"
+    ],
+    "liked": [
+     "Full Sewing Kit",
+     "The Works of Dante"
+    ]
    },
    "pr": [],
    "ml": {
@@ -43251,7 +43431,7 @@
   },
   {
    "n": "Paired Magic-Focus",
-   "e": "",
+   "e": "When equipped with magic, grants Hit+10",
    "m": "Magonius"
   },
   {
@@ -43813,7 +43993,7 @@
   {
    "n": "Furious Strike",
    "c": "Sword",
-   "e": "",
+   "e": "High Mt/Hit.",
    "k": "Combat Art",
    "s": {
     "mt": 12,
@@ -43919,7 +44099,7 @@
    "k": "Combat Art",
    "s": {
     "mt": -3,
-    "hit": null,
+    "hit": 0,
     "crt": 0,
     "rn": "1",
     "wt": null,
@@ -43927,7 +44107,7 @@
     "dc": 5,
     "b": true,
     "u": true,
-    "src": "community spreadsheet"
+    "src": "community spreadsheet, Marigold"
    },
    "kd": "combat_art"
   },
@@ -44016,13 +44196,13 @@
     "mt": 4,
     "hit": 0,
     "crt": 5,
-    "rn": "",
+    "rn": "1",
     "wt": null,
     "us": null,
     "dc": 2,
     "b": true,
     "u": true,
-    "src": "community spreadsheet"
+    "src": "community spreadsheet, Marigold"
    },
    "kd": "combat_art"
   },
@@ -44247,7 +44427,19 @@
    "c": "Lance",
    "e": "",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": -20,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Graceful Blow",
@@ -44275,15 +44467,15 @@
    "k": "Combat Art",
    "s": {
     "mt": 7,
-    "hit": null,
-    "crt": null,
+    "hit": 0,
+    "crt": 0,
     "rn": "2",
     "wt": null,
     "us": null,
     "dc": 6,
     "b": true,
     "u": true,
-    "src": "community spreadsheet"
+    "src": "community spreadsheet, Marigold"
    },
    "kd": "combat_art"
   },
@@ -44451,14 +44643,38 @@
    "c": "Axe",
    "e": "Grants Avo+ 10 during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Hurl",
    "c": "Axe",
    "e": "Only usable with axes of range 1-2. The magic equivalent is Magic Throw.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 20,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Spike",
@@ -44503,42 +44719,114 @@
    "c": "Axe",
    "e": "Grants Atk+5 when making a follow-up.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 5,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 4,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Instant Strike",
    "c": "Axe",
    "e": "",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 2,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Discerning Blow",
    "c": "Axe",
    "e": "Very high hit. Deals half damage.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 50,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Guard Spike",
    "c": "Axe",
    "e": "Grants Prt+10 during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 6,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Power Throw",
    "c": "Axe",
    "e": "Only usable with axes of range 1-2. The magic equivalent is Magic Throw.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 10,
+    "hit": 10,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 7,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Magic Throw",
    "c": "Axe",
    "e": "Only usable with axes of range 1-2.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 1,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Triple Spike",
@@ -44546,16 +44834,16 @@
    "e": "3 hits at Hit -50; each miss grants Hit +10.",
    "k": "Combat Art",
    "s": {
-    "mt": null,
+    "mt": 0,
     "hit": -50,
-    "crt": null,
-    "rn": "",
+    "crt": 0,
+    "rn": "1",
     "wt": null,
     "us": null,
-    "dc": null,
+    "dc": 10,
     "b": true,
     "u": true,
-    "src": "community spreadsheet"
+    "src": "community spreadsheet, Marigold"
    },
    "kd": "combat_art"
   },
@@ -44583,7 +44871,19 @@
    "c": "Axe",
    "e": "Effective vs. armored.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Reflecting Dance",
@@ -44593,14 +44893,14 @@
    "s": {
     "mt": -10,
     "hit": -20,
-    "crt": null,
+    "crt": 0,
     "rn": "1",
     "wt": null,
     "us": null,
     "dc": 10,
     "b": true,
     "u": true,
-    "src": "community spreadsheet"
+    "src": "community spreadsheet, Marigold"
    },
    "kd": "combat_art"
   },
@@ -44616,10 +44916,10 @@
     "rn": "1",
     "wt": null,
     "us": null,
-    "dc": null,
+    "dc": 4,
     "b": true,
     "u": true,
-    "src": "Fire Emblem Wiki"
+    "src": "Fire Emblem Wiki, Marigold"
    },
    "kd": "combat_art"
   },
@@ -44628,63 +44928,171 @@
    "c": "Axe",
    "e": "High Crit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 4,
+    "hit": 0,
+    "crt": 5,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Killer Spike",
    "c": "Axe",
-   "e": "",
+   "e": "High Mt/Crit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 10,
+    "hit": 0,
+    "crt": 15,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 7,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Power Spike",
    "c": "Axe",
    "e": "High Mt/Hit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 12,
+    "hit": 10,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 8,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Double Attack",
    "c": "Axe",
    "e": "",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": -30,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Battleblade Strike",
    "c": "Axe",
    "e": "After combat, grants Dex+2 until the end of the map. (Max +10)",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Careful Attack",
    "c": "Axe",
    "e": "When foe avoids attack, foe cannot counter. Deals half damage. Cannot make a follow-up.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Bloodbath",
    "c": "Axe",
    "e": "After defeating a foe, gain Shld +10 for the next combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 5,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 7,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Lightning Axe",
    "c": "Axe",
-   "e": "",
+   "e": "Treated as a magical attack.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Spear Buster",
    "c": "Axe",
    "e": "If foe uses a spear, grants Atk+7.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Giant Breaker",
@@ -44712,14 +45120,38 @@
    "c": "Bow",
    "e": "Grants Avo+10 during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Snipe",
    "c": "Bow",
    "e": "If foe's HP is less than or equal to 50%, grants Atk+3, Hit+10.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 5,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 4,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Curved Shot",
@@ -44745,14 +45177,38 @@
    "c": "Bow",
    "e": "High Crit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 4,
+    "hit": 0,
+    "crt": 5,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Encloser",
    "c": "Bow",
    "e": "If unit's attack hits, inflicts Mov -3 on foe until unit's next phase.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Haphazard",
@@ -44760,53 +45216,113 @@
    "e": "Strikes 4 times at 90% power",
    "k": "Combat Art",
    "s": {
-    "mt": null,
+    "mt": 0,
     "hit": -50,
-    "crt": null,
-    "rn": "",
+    "crt": 0,
+    "rn": "2",
     "wt": null,
     "us": null,
-    "dc": null,
+    "dc": 10,
     "b": true,
     "u": true,
-    "src": "community spreadsheet"
+    "src": "community spreadsheet, Marigold"
    },
    "kd": "combat_art"
   },
   {
    "n": "Leg Shot",
    "c": "Bow",
-   "e": "",
+   "e": "If unit's attack hits, inflicts Avo-20 on foe through their next combat. Cannot make a follow-up.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Breakaway Shot",
    "c": "Bow",
    "e": "After combat, unit can move up to 1 space.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": -5,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 10,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Surprise Shot",
    "c": "Bow",
    "e": "If foe's HP = 100%, grants Atk +5. Trigger % = 30.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Twin-Shot Flow",
    "c": "Bow",
    "e": "Hits twice at 70%.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 10,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Shadow Arrow",
    "c": "Bow",
-   "e": "",
+   "e": "Grants Avo+10 during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 7,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Lead Arrow",
@@ -44818,65 +45334,173 @@
   {
    "n": "Mighty Shot",
    "c": "Bow",
-   "e": "",
+   "e": "Low Hit. Very high Mt.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 12,
+    "hit": -30,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 4,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Leaden Draw",
    "c": "Bow",
    "e": "High Mt/Hit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 12,
+    "hit": 10,
+    "crt": 0,
+    "rn": "",
+    "wt": null,
+    "us": null,
+    "dc": 8,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Spiral Shot",
    "c": "Bow",
    "e": "Grants Atk+5 for the attack. Trigger % = Dex / 2.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Arrowcrack",
    "c": "Bow",
    "e": "50% chance to add +15 damage",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Sneaky Shot",
    "c": "Bow",
    "e": "If unit is on favorable terrain, grants Atk+5, Hit/Crit +10.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 5,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 4,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Calm Call",
    "c": "Bow",
-   "e": "",
+   "e": "After defeating a foe, grants Avo+30 through unit's next combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 1,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Magic Arrow",
    "c": "Bow",
    "e": "Treated as a magical attack.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Cautious Blow",
    "c": "Brawl",
    "e": "Grants Avo+10 during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Curtail Magic",
    "c": "Brawl",
    "e": "Grants Rsl+5 during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Mighty Fist",
@@ -44902,28 +45526,76 @@
    "c": "Brawl",
    "e": "If unit's HP = 100%, grants Atk+3.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 4,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 4,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Fading Blow",
    "c": "Brawl",
    "e": "After combat, unit can move up to 1 space.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": -5,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 10,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Beatdown",
    "c": "Brawl",
    "e": "After combat, grants Spd+1 until the end of the map. (Max+10)",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Deal Death",
    "c": "Brawl",
    "e": "High Crit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 4,
+    "hit": 0,
+    "crt": 5,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "One-on-One",
@@ -44931,16 +45603,16 @@
    "e": "Inflicts Immobilize on hit",
    "k": "Combat Art",
    "s": {
-    "mt": null,
+    "mt": 0,
     "hit": -50,
-    "crt": null,
-    "rn": "",
+    "crt": 0,
+    "rn": "1",
     "wt": null,
     "us": null,
-    "dc": null,
+    "dc": 3,
     "b": true,
     "u": true,
-    "src": "community spreadsheet"
+    "src": "community spreadsheet, Marigold"
    },
    "kd": "combat_art"
   },
@@ -44949,7 +45621,19 @@
    "c": "Brawl",
    "e": "Effective vs. armored.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 5,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 4,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Knockout",
@@ -44963,21 +45647,57 @@
    "c": "Brawl",
    "e": "After combat, inflicts Avo-20 on foe through their next combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": -50,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Battle Rush",
    "c": "Brawl",
    "e": "Follow-up occurs before foe's counter.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": -2,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 7,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Spirit Blow",
    "c": "Brawl",
-   "e": "",
+   "e": "High Mt/Hit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 12,
+    "hit": 10,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 8,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Fading Assault",
@@ -44989,9 +45709,21 @@
   {
    "n": "One-Two Punch",
    "c": "Brawl",
-   "e": "",
+   "e": "Foe attacks first. Grants Avo+20 during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 10,
+    "hit": 20,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Saving Fist",
@@ -45000,15 +45732,15 @@
    "k": "Combat Art",
    "s": {
     "mt": 12,
-    "hit": null,
-    "crt": null,
-    "rn": "",
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
     "wt": null,
     "us": null,
-    "dc": null,
+    "dc": 4,
     "b": true,
     "u": true,
-    "src": "community spreadsheet"
+    "src": "community spreadsheet, Marigold"
    },
    "kd": "combat_art"
   },
@@ -45022,9 +45754,21 @@
   {
    "n": "Spirit Fist",
    "c": "Brawl",
-   "e": "",
+   "e": "Grants Atk+5 for the attack. Trigger % = Res ÷ 2.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Wind",
@@ -45257,7 +46001,7 @@
   {
    "n": "Sagittae",
    "c": "Reason",
-   "e": "",
+   "e": "Magic that strikes a foe with a sharp arrow of magical power.",
    "k": "Spell",
    "s": {
     "mt": 13,
@@ -45575,7 +46319,7 @@
   {
    "n": "Warp",
    "c": "Faith",
-   "e": "",
+   "e": "Magic that moves the target to a distant place. Moves an ally to a space within 5 spaces.",
    "k": "Spell",
    "s": {
     "mt": null,
@@ -45923,7 +46667,7 @@
   {
    "n": "Counter Snipers",
    "c": "Authority",
-   "e": "",
+   "e": "Inflicts Hit/Avo-5 on foes using a bow within 2 spaces.",
    "k": "Authority Art",
    "kd": "passive"
   },
@@ -46156,7 +46900,19 @@
    "c": "Armor",
    "e": "Grants Def +3 at cost of Avo -10 to unit until unit's next phase.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "",
+    "wt": null,
+    "us": null,
+    "dc": 0,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Heavy Break",
@@ -46177,7 +46933,19 @@
    "c": "Armor",
    "e": "(Infantry) Grants Res +3 at cost of Avo -10 to unit until unit's next phase.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "",
+    "wt": null,
+    "us": null,
+    "dc": 0,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Armored Combat",
@@ -46245,14 +47013,14 @@
   {
    "n": "Counterflurry",
    "c": "Armor",
-   "e": "",
+   "e": "If foe attacks first, unit makes a follow-up regardless of AS during combat. Trigger % = 20.",
    "k": "Ability",
    "kd": "passive"
   },
   {
    "n": "Armored Leap",
    "c": "Armor",
-   "e": "",
+   "e": "[Armored] Grants Avo+10.",
    "k": "Ability",
    "kd": "passive"
   },
@@ -46289,70 +47057,190 @@
    "c": "Lance",
    "e": "Unit cannot suffer a follow-up during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 10,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Soulrend",
    "c": "Axe",
    "e": "Unit recovers HP equal to half the damage they deal.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 2,
+    "hit": -20,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Truesnipe",
    "c": "Bow",
    "e": "Long Rng. Very high durability cost. Cannot make a follow-up.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": -20,
+    "crt": 0,
+    "rn": "3–5",
+    "wt": null,
+    "us": null,
+    "dc": 30,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Evilbreak",
    "c": "Brawl",
    "e": "If unit's attack hits, neutralizes Underworld Boon on foe through their next combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 1,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Windpierce",
    "c": "Lance",
    "e": "If foe's AS ≥ unit's AS +4, grants Hit +20 to unit. (Only usable by spears with Rng= 1-2.)",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Birdbane",
    "c": "Sword",
    "e": "If foe is flying and unit's attack hits, inflicts Mov-3 on foe until unit's next phase.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Flowform",
    "c": "Sword",
    "e": "Grants Avo+20 and makes a follow-up regardless of AS, but unit deals half damage during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 6,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Giantsbane",
    "c": "Sword",
    "e": "If foe is large scale, unit takes half damage during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 2,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Twinblade",
    "c": "Sword",
    "e": "Grants Ddg+20 to unit during combat and after combat until unit's next phase.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 5,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 4,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Hidden Bladerule",
    "c": "Sword",
    "e": "Extremely high Crit. Sets Hit % to 10. Cannot make a follow-up.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 10,
+    "hit": 0,
+    "crt": 100,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 3,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Song of Courage",
@@ -46364,23 +47252,59 @@
   {
    "n": "Poisoner's Talent",
    "c": "Axe",
-   "e": "",
+   "e": "If foe is Poisoned, grants Atk+8, Hit+20 to unit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Flame Ring",
    "c": "Axe",
-   "e": "",
+   "e": "First hit is imbued with magic. High Mt. Treated as a magical attack.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 10,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Bloodletting",
    "c": "Sword",
-   "e": "",
+   "e": "Very high Crit. Effective vs. dragons.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 3,
+    "hit": 0,
+    "crt": 20,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 2,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Poison Harvest",
@@ -46399,65 +47323,173 @@
   {
    "n": "Deadeye",
    "c": "Bow",
-   "e": "",
+   "e": "Long Rng. Cannot make a follow-up.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": -30,
+    "crt": 0,
+    "rn": "3–5",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Light of Bonds",
    "c": "Brawl",
-   "e": "",
+   "e": "Treated as a magical attack. Grants Atk+2 per adjacent ally when attacking.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 2,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1–2",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Strike and Heal",
    "c": "Brawl",
    "e": "After combat, unit can use assist magic.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": null,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Assassin's Fist",
    "c": "Brawl",
    "e": "Deals at least 20 damage.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 0,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 6,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Magic Strike",
    "c": "Axe",
    "e": "First hit is imbued with magic. Treated as a magical attack.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 4,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 1,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Devilwind Flurry",
    "c": "Axe",
    "e": "Will make a follow-up regardless of AS during combat. Trigger % = Mag ÷ 2.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Spirit Bow",
    "c": "Bow",
    "e": "Grants Rsl+7 during combat.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 8,
+    "hit": 0,
+    "crt": 0,
+    "rn": "2",
+    "wt": null,
+    "us": null,
+    "dc": 6,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Jack Hit",
    "c": "Brawl",
    "e": "Grants Atk+10 for the attack. Trigger % = 5.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 1,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 1,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Mind's-Eye Blow",
    "c": "Brawl",
    "e": "Very high Hit.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 7,
+    "hit": 30,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Lend Luck+",
@@ -46858,9 +47890,21 @@
   {
    "n": "Leave No Dust",
    "c": "Lance",
-   "e": "",
+   "e": "Effective against beasts and dragons.",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 10,
+    "hit": 0,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 5,
+    "b": true,
+    "u": true,
+    "src": "Marigold"
+   }
   },
   {
    "n": "Blade Slam",
@@ -46891,7 +47935,7 @@
   {
    "n": "Single Sunder",
    "c": "Sword",
-   "e": "",
+   "e": "Low Hit, durability cost. High Mt.",
    "k": "Combat Art",
    "s": {
     "mt": 12,
@@ -46931,7 +47975,19 @@
    "c": "Axe",
    "e": "",
    "k": "Combat Art",
-   "kd": "combat_art"
+   "kd": "combat_art",
+   "s": {
+    "mt": 5,
+    "hit": 40,
+    "crt": 0,
+    "rn": "1",
+    "wt": null,
+    "us": null,
+    "dc": 7,
+    "b": true,
+    "u": true,
+    "src": "community spreadsheet, Marigold"
+   }
   },
   {
    "n": "Power Combo",
@@ -53232,8 +54288,8 @@
    "t": "weapon",
    "rk": "E",
    "mt": 5,
-   "hit": null,
-   "crt": null,
+   "hit": 90,
+   "crt": 0,
    "wt": 4,
    "r1": 1,
    "r2": 1,
@@ -53266,17 +54322,17 @@
    "code": "SISW",
    "cat": "Sword",
    "t": "weapon",
-   "rk": "",
-   "mt": null,
-   "hit": null,
-   "crt": null,
-   "wt": null,
-   "r1": null,
-   "r2": null,
-   "us": null,
+   "rk": "B",
+   "mt": 18,
+   "hit": 95,
+   "crt": 0,
+   "wt": 4,
+   "r1": 1,
+   "r2": 1,
+   "us": 20,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "A powerful sword made of refined silver."
   },
   {
    "id": "twin_blades",
@@ -53284,17 +54340,17 @@
    "code": "TWBL",
    "cat": "Sword",
    "t": "weapon",
-   "rk": "",
+   "rk": "C",
    "mt": null,
    "hit": null,
    "crt": null,
    "wt": null,
-   "r1": null,
-   "r2": null,
+   "r1": 1,
+   "r2": 1,
    "us": null,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "Slashing attacks with a sword in each hand."
   },
   {
    "id": "venin_edge",
@@ -53339,16 +54395,16 @@
    "cat": "Sword",
    "t": "weapon",
    "rk": "C",
-   "mt": null,
-   "hit": null,
-   "crt": null,
-   "wt": null,
+   "mt": 8,
+   "hit": 90,
+   "crt": 0,
+   "wt": 2,
    "r1": 1,
    "r2": 1,
    "us": 20,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "A sword imbued with the power of wind spirits."
   },
   {
    "id": "wooden_sword",
@@ -53788,14 +54844,14 @@
    "code": "STSP",
    "cat": "Lance",
    "t": "weapon",
-   "rk": "",
-   "mt": null,
-   "hit": null,
-   "crt": null,
-   "wt": null,
-   "r1": null,
-   "r2": null,
-   "us": null,
+   "rk": "C",
+   "mt": 16,
+   "hit": 85,
+   "crt": 0,
+   "wt": 8,
+   "r1": 1,
+   "r2": 1,
+   "us": 25,
    "rel": false,
    "w": "",
    "e": "UNVERIFIED effect and type; named in fireemblemwiki.org's weapon category index but not yet given a data row by any source checked (type recorded elsewhere only as \"Spear (implied)\")."
@@ -53897,10 +54953,10 @@
    "cat": "Axe",
    "t": "weapon",
    "rk": "E",
-   "mt": null,
-   "hit": null,
-   "crt": null,
-   "wt": null,
+   "mt": 3,
+   "hit": 90,
+   "crt": 0,
+   "wt": 5,
    "r1": 1,
    "r2": 1,
    "us": 20,
@@ -53950,17 +55006,17 @@
    "code": "SIAX",
    "cat": "Axe",
    "t": "weapon",
-   "rk": "",
-   "mt": null,
-   "hit": null,
-   "crt": null,
-   "wt": null,
-   "r1": null,
-   "r2": null,
-   "us": null,
+   "rk": "B",
+   "mt": 23,
+   "hit": 70,
+   "crt": 0,
+   "wt": 9,
+   "r1": 1,
+   "r2": 1,
+   "us": 25,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "A powerful axe made of refined silver."
   },
   {
    "id": "smashing_axe",
@@ -53968,17 +55024,17 @@
    "code": "SMAX",
    "cat": "Axe",
    "t": "weapon",
-   "rk": "",
+   "rk": "C",
    "mt": 14,
-   "hit": null,
-   "crt": null,
+   "hit": 65,
+   "crt": 0,
    "wt": 10,
    "r1": 1,
    "r2": 1,
    "us": 25,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "An axe heavy enough to crush stone. Allows use of the Pulverize combat art."
   },
   {
    "id": "velheit",
@@ -54027,8 +55083,8 @@
    "hit": null,
    "crt": null,
    "wt": null,
-   "r1": null,
-   "r2": null,
+   "r1": 2,
+   "r2": 2,
    "us": null,
    "rel": false,
    "w": "",
@@ -54094,10 +55150,10 @@
    "code": "KABO",
    "cat": "Bow",
    "t": "weapon",
-   "rk": "",
+   "rk": "A",
    "mt": 13,
-   "hit": null,
-   "crt": null,
+   "hit": 70,
+   "crt": 0,
    "wt": 6,
    "r1": 2,
    "r2": 2,
@@ -54130,11 +55186,11 @@
    "code": "MIBO",
    "cat": "Bow",
    "t": "weapon",
-   "rk": "",
-   "mt": null,
-   "hit": null,
-   "crt": null,
-   "wt": null,
+   "rk": "D",
+   "mt": 5,
+   "hit": 75,
+   "crt": 0,
+   "wt": 5,
    "r1": 2,
    "r2": 2,
    "us": 20,
@@ -54184,14 +55240,14 @@
    "code": "WABO",
    "cat": "Bow",
    "t": "weapon",
-   "rk": "",
-   "mt": null,
-   "hit": null,
-   "crt": null,
-   "wt": null,
-   "r1": null,
-   "r2": null,
-   "us": null,
+   "rk": "C",
+   "mt": 14,
+   "hit": 50,
+   "crt": 0,
+   "wt": 14,
+   "r1": 2,
+   "r2": 2,
+   "us": 25,
    "rel": false,
    "w": "",
    "e": "Effective+ against flying units."
@@ -54238,17 +55294,17 @@
    "code": "DOGA",
    "cat": "Brawl",
    "t": "weapon",
-   "rk": "",
+   "rk": "C",
    "mt": 11,
-   "hit": null,
-   "crt": null,
+   "hit": 80,
+   "crt": 0,
    "wt": 3,
    "r1": 1,
    "r2": 1,
    "us": 20,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "Gauntlets of lighter design for nimble fighting. Makes it easier to avoid attacks"
   },
   {
    "id": "iron_gauntlets",
@@ -54327,9 +55383,9 @@
    "t": "weapon",
    "rk": "B",
    "mt": 18,
-   "hit": null,
-   "crt": null,
-   "wt": null,
+   "hit": 90,
+   "crt": 0,
+   "wt": 5,
    "r1": 1,
    "r2": 1,
    "us": 20,
@@ -54363,9 +55419,9 @@
    "t": "weapon",
    "rk": "A",
    "mt": 9,
-   "hit": null,
-   "crt": null,
-   "wt": null,
+   "hit": 80,
+   "crt": 0,
+   "wt": 5,
    "r1": 1,
    "r2": 2,
    "us": 5,
@@ -54545,13 +55601,13 @@
    "mt": null,
    "hit": null,
    "crt": null,
-   "wt": null,
+   "wt": 5,
    "r1": null,
    "r2": null,
    "us": null,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "When a magic attack hits, 20% chance: foe becomes Confused."
   },
   {
    "id": "healing_staff",
@@ -54734,13 +55790,13 @@
    "mt": null,
    "hit": null,
    "crt": null,
-   "wt": null,
+   "wt": 3,
    "r1": null,
    "r2": null,
    "us": null,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "Grants Avo+5."
   },
   {
    "id": "red_jewel",
@@ -54992,7 +56048,7 @@
    "us": 7,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "Basic ice magic that freezes the target."
   },
   {
    "id": "bolganone",
@@ -55244,7 +56300,7 @@
    "us": 3,
    "rel": false,
    "w": "",
-   "e": ""
+   "e": "Sacred magic that strikes a foe with a concentrated beam of starlight."
   }
  ],
  "islot": 6

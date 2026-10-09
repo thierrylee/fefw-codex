@@ -74,12 +74,8 @@ export class Codex extends Component<CodexProps, any> {
       .then((d?: any) =>
         this.setState((st?: any) => ({
           d,
-          builds: st.builds || [
-            { id: 1, c: 'Dietrich', k: 'Swordmaster', m: 'None', lv: 20 },
-            { id: 2, c: 'Cai', k: 'Bardinger', m: 'Wild Horse', lv: 20 },
-            { id: 3, c: 'Leda', k: 'Sniper', m: 'None', lv: 20 },
-          ],
-          cmp: st.cmp && st.cmp.length ? st.cmp : [1, 2, 3],
+          builds: st.builds || [],
+          cmp: st.cmp || [],
         })),
       )
     window.addEventListener('popstate', this.pop)
