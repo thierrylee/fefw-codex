@@ -1136,9 +1136,10 @@ export class Codex extends Component<CodexProps, any> {
             cur += u - ap + (x.k.mods[i] || 0) - (stages[si - 1].k.mods[i] || 0)
             ap = u
             const mn = (x.k.mn && x.k.mn[i]) || 0
-            if (cur < mn) {
-              ex += mn - cur
-              cur = mn
+            const rw = cur - (x.k.mods[i] || 0)
+            if (rw < mn) {
+              ex += mn - rw
+              cur += mn - rw
             }
           }
           const mg = x.mo ? x.mo.g[i] : 0
