@@ -191,7 +191,13 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Dietrich",
@@ -199,11 +205,23 @@
     },
     {
      "n": "Esmeralda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Lysander",
@@ -211,7 +229,13 @@
     },
     {
      "n": "Theodora",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -270,7 +294,14 @@
       29
      ]
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Authority"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Hong Hua",
@@ -430,11 +461,23 @@
    "sup": [
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Sha Lan",
-     "r": ""
+     "r": "",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -482,7 +525,17 @@
       23
      ]
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Reason",
+     "Faith"
+    ],
+    "w": [
+     "Axe",
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Troy",
@@ -631,7 +684,13 @@
    "sup": [
     {
      "n": "Theodora",
-     "r": ""
+     "r": "",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -679,7 +738,15 @@
       21
      ]
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Brawl",
+     "Reason",
+     "Faith"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Cai",
@@ -866,15 +933,33 @@
    "sup": [
     {
      "n": "Alexandra",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Anatolia",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Bertrand",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Centurio",
@@ -882,15 +967,33 @@
     },
     {
      "n": "Dietrich",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Esmeralda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Goliath",
@@ -898,31 +1001,73 @@
     },
     {
      "n": "Leda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Mu",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Ninae",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Peter",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Tialla",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Ultand",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -1413,7 +1558,19 @@
     5,
     6,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Lance",
+     "Faith",
+     "Cavalry"
+    ],
+    "w": [
+     "Bow",
+     "Flying"
+    ]
+   }
   },
   {
    "n": "Dietrich",
@@ -1582,7 +1739,13 @@
     },
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Catania",
@@ -1594,11 +1757,23 @@
     },
     {
      "n": "Esmeralda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Fabio",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Halvin",
@@ -1745,7 +1920,16 @@
       10
      ]
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Infantry"
+    ],
+    "w": [
+     "Faith"
+    ]
+   }
   },
   {
    "n": "Theodora",
@@ -1921,23 +2105,53 @@
    "sup": [
     {
      "n": "Alexandra",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Bertrand",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Bonaventure",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Diego",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Dietrich",
@@ -1945,31 +2159,73 @@
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Lilian",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Lysander",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Nezha",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Talimun",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Tialla",
@@ -1977,7 +2233,13 @@
     },
     {
      "n": "Tobias",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Troy",
@@ -2097,7 +2359,17 @@
       8
      ]
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Faith",
+     "Authority"
+    ],
+    "w": [
+     "Reason"
+    ]
+   }
   },
   {
    "n": "Leda",
@@ -2266,15 +2538,33 @@
     },
     {
      "n": "Buccar",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Dante",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Dietrich",
@@ -2282,23 +2572,53 @@
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Esmeralda",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Guzran",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Jester",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Mu",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Olympia",
@@ -2306,19 +2626,43 @@
     },
     {
      "n": "Orchel",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Sirocco",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Talimun",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -2453,7 +2797,18 @@
       10
      ]
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Bow",
+     "Faith",
+     "Infantry"
+    ],
+    "w": [
+     "Lance"
+    ]
+   }
   },
   {
    "n": "Tialla",
@@ -2679,11 +3034,23 @@
    "sup": [
     {
      "n": "Bonaventure",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     },
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Creek",
@@ -2695,11 +3062,23 @@
     },
     {
      "n": "Io",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Ludia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Noctula",
@@ -2707,15 +3086,33 @@
     },
     {
      "n": "Peter",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Seteth",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Talimun",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Theodora",
@@ -2723,7 +3120,13 @@
     },
     {
      "n": "Ultand",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -3254,7 +3657,17 @@
     6,
     7,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Reason",
+     "Faith",
+     "Authority"
+    ],
+    "w": [
+     "Sword"
+    ]
+   }
   },
   {
    "n": "Peter",
@@ -3469,11 +3882,23 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Dadao",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -3481,15 +3906,33 @@
     },
     {
      "n": "Jester",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Mu",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Ninae",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Noctula",
@@ -3497,19 +3940,43 @@
     },
     {
      "n": "Sofia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Tialla",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Ultand",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Ursula",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -3995,7 +4462,16 @@
     4,
     5,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Bow",
+     "Infantry"
+    ],
+    "w": [
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Ultand",
@@ -4210,7 +4686,13 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Centurio",
@@ -4218,39 +4700,93 @@
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Goliath",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Loretta",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Nezha",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Orchel",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Peppe",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Peter",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Tialla",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     },
     {
      "n": "Tobias",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -4791,7 +5327,16 @@
     5,
     8,
     10
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Faith"
+    ],
+    "w": [
+     "Sword"
+    ]
+   }
   },
   {
    "n": "Fabio",
@@ -4997,11 +5542,23 @@
     },
     {
      "n": "Dietrich",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Esmeralda",
@@ -5517,7 +6074,16 @@
     8,
     6,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Reason",
+     "Authority"
+    ],
+    "w": [
+     "Bow"
+    ]
+   }
   },
   {
    "n": "Esmeralda",
@@ -5743,23 +6309,53 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Dadao",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Diego",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Dietrich",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Fabio",
@@ -5767,23 +6363,53 @@
     },
     {
      "n": "Kiroc",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Ludia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Lysander",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Mikaela",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -6322,7 +6948,17 @@
     3,
     6,
     6
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Axe",
+     "Armor"
+    ],
+    "w": [
+     "Sword"
+    ]
+   }
   },
   {
    "n": "Mikaela",
@@ -6534,7 +7170,13 @@
     },
     {
      "n": "Esmeralda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Fabio",
@@ -6542,27 +7184,63 @@
     },
     {
      "n": "Guzran",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Jester",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Loretta",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Mu",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": ""
+     "r": "",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Sofia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -7076,7 +7754,15 @@
     4,
     6,
     8
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Bow",
+     "Infantry"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Bonaventure",
@@ -7255,39 +7941,93 @@
    "sup": [
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Halvin",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Lilian",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Lysander",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Nydine",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Orchel",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Tialla",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     },
     {
      "n": "Tobias",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Troy",
@@ -7426,7 +8166,20 @@
       7
      ]
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Reason",
+     "Faith",
+     "Authority",
+     "Cavalry"
+    ],
+    "w": [
+     "Armor",
+     "Flying"
+    ]
+   }
   },
   {
    "n": "Tobias",
@@ -7616,15 +8369,33 @@
    "sup": [
     {
      "n": "Anatolia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Bonaventure",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       1
+      ]
+     ]
     },
     {
      "n": "Fabio",
@@ -7632,31 +8403,73 @@
     },
     {
      "n": "Lilian",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Loretta",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Lysander",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Olympia",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Sofia",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Ultand",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -8003,11 +8816,23 @@
    "sup": [
     {
      "n": "Bonaventure",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Diego",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -8015,35 +8840,83 @@
     },
     {
      "n": "Gaitz",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Lysander",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Mu",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Nydine",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Talimun",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Tobias",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -8587,7 +9460,16 @@
     3,
     5,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Bow",
+     "Infantry"
+    ],
+    "w": [
+     "Brawl"
+    ]
+   }
   },
   {
    "n": "Lysander",
@@ -8791,11 +9673,23 @@
    "sup": [
     {
      "n": "Bonaventure",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Catania",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -8803,27 +9697,63 @@
     },
     {
      "n": "Esmeralda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Fianna",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     },
     {
      "n": "Lilian",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Ninae",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Tobias",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -9364,7 +10294,20 @@
     5,
     7,
     6
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Axe",
+     "Cavalry",
+     "Flying"
+    ],
+    "w": [
+     "Sword",
+     "Brawl",
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Buccar",
@@ -9589,7 +10532,13 @@
    "sup": [
     {
      "n": "Dadao",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Dietrich",
@@ -9601,27 +10550,63 @@
     },
     {
      "n": "Jasmine",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Jester",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Ludia",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Mu",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Olympia",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Sirocco",
@@ -10119,7 +11104,17 @@
     3,
     6,
     6
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Axe"
+    ],
+    "w": [
+     "Reason",
+     "Faith"
+    ]
+   }
   },
   {
    "n": "Sirocco",
@@ -10334,11 +11329,23 @@
    "sup": [
     {
      "n": "Alexandra",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Anatolia",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Buccar",
@@ -10346,35 +11353,83 @@
     },
     {
      "n": "Dante",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Mu",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Ninae",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Olympia",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Sha Lan",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Ursula",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -10910,7 +11965,18 @@
     7,
     8,
     8
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Reason",
+     "Faith",
+     "Authority"
+    ],
+    "w": [
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Olympia",
@@ -11136,11 +12202,23 @@
    "sup": [
     {
      "n": "Alexandra",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Buccar",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Creek",
@@ -11148,19 +12226,43 @@
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Fianna",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Goliath",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Jasmine",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Leda",
@@ -11168,15 +12270,33 @@
     },
     {
      "n": "Mu",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Sirocco",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Tobias",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -11714,7 +12834,16 @@
     6,
     7,
     8
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Faith"
+    ],
+    "w": [
+     "Lance"
+    ]
+   }
   },
   {
    "n": "Mu",
@@ -11918,11 +13047,23 @@
    "sup": [
     {
      "n": "Buccar",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Cai",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -11930,35 +13071,83 @@
     },
     {
      "n": "Guzran",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Lilian",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Mikaela",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Olympia",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Peppe",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Peter",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Sirocco",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -12507,7 +13696,16 @@
     5,
     4,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Axe",
+     "Brawl",
+     "Faith"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Gaitz",
@@ -12697,11 +13895,23 @@
    "sup": [
     {
      "n": "Alexandra",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Dante",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -12709,23 +13919,53 @@
     },
     {
      "n": "Goliath",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Lilian",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Ludia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Ursula",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Zarcone",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -13289,7 +14529,18 @@
     3,
     5,
     7
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Axe",
+     "Cavalry"
+    ],
+    "w": [
+     "Reason",
+     "Faith"
+    ]
+   }
   },
   {
    "n": "Dante",
@@ -13493,43 +14744,103 @@
    "sup": [
     {
      "n": "Anatolia",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Gaitz",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Goliath",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Jester",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Nydine",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Seteth",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Sirocco",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Talimun",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -14074,7 +15385,17 @@
     8,
     8,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Reason",
+     "Faith",
+     "Authority"
+    ],
+    "w": [
+     "Brawl"
+    ]
+   }
   },
   {
    "n": "Ursula",
@@ -14266,7 +15587,13 @@
    "sup": [
     {
      "n": "Bonaventure",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -14274,27 +15601,63 @@
     },
     {
      "n": "Fianna",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Gaitz",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Jasmine",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Peter",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Sirocco",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -14818,7 +16181,14 @@
     5,
     7,
     8
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Bow"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Simon",
@@ -15026,39 +16396,93 @@
     },
     {
      "n": "Fianna",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Lilian",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Ludia",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Mikaela",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Ninae",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Talimun",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Ursula",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Zarcone",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -15576,7 +17000,15 @@
     3,
     10,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Axe",
+     "Infantry"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Diego",
@@ -15736,11 +17168,23 @@
    "sup": [
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Esmeralda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Halvin",
@@ -15752,7 +17196,13 @@
     },
     {
      "n": "Lilian",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Ninae",
@@ -15760,7 +17210,13 @@
     },
     {
      "n": "Nuzzuo",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Seteth",
@@ -15772,7 +17228,13 @@
     },
     {
      "n": "Theodora",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -16301,7 +17763,15 @@
     3,
     7,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Bow",
+     "Infantry"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Ninae",
@@ -16527,7 +17997,13 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Diego",
@@ -16535,15 +18011,33 @@
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     },
     {
      "n": "Lysander",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Orchel",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Peppe",
@@ -16551,15 +18045,33 @@
     },
     {
      "n": "Peter",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Sirocco",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -17086,7 +18598,16 @@
     9,
     7,
     6
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Faith"
+    ],
+    "w": [
+     "Bow"
+    ]
+   }
   },
   {
    "n": "Sha Lan",
@@ -17292,11 +18813,23 @@
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Halvin",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Hong Hua",
@@ -17304,19 +18837,43 @@
     },
     {
      "n": "Loretta",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Nezha",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Sirocco",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Yang Jie",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -17828,7 +19385,17 @@
     8,
     7,
     7
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Faith",
+     "Authority"
+    ],
+    "w": [
+     "Sword"
+    ]
+   }
   },
   {
    "n": "Nezha",
@@ -18032,11 +19599,23 @@
    "sup": [
     {
      "n": "Dadao",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Fabio",
@@ -18044,23 +19623,53 @@
     },
     {
      "n": "Halvin",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Majide",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Sha Lan",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Ultand",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -18582,7 +20191,17 @@
     5,
     7,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Brawl",
+     "Infantry"
+    ],
+    "w": [
+     "Lance"
+    ]
+   }
   },
   {
    "n": "Guzran",
@@ -18812,15 +20431,33 @@
     },
     {
      "n": "Leda",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Mikaela",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Mu",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -19303,7 +20940,18 @@
     3,
     9,
     6
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Brawl",
+     "Infantry"
+    ],
+    "w": [
+     "Reason",
+     "Faith"
+    ]
+   }
   },
   {
    "n": "Io",
@@ -19515,7 +21163,13 @@
     },
     {
      "n": "Tialla",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -20011,7 +21665,15 @@
     4,
     7,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Axe",
+     "Cavalry"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Catania",
@@ -20245,7 +21907,13 @@
     },
     {
      "n": "Lysander",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -20803,7 +22471,16 @@
     7,
     6,
     8
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Lance"
+    ],
+    "w": [
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Nydine",
@@ -21029,11 +22706,23 @@
    "sup": [
     {
      "n": "Bonaventure",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Dante",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -21041,7 +22730,13 @@
     },
     {
      "n": "Lilian",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -21556,7 +23251,18 @@
     6,
     6,
     6
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Cavalry",
+     "Flying"
+    ],
+    "w": [
+     "Brawl",
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Benditz",
@@ -21753,7 +23459,13 @@
     },
     {
      "n": "Ludia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -22265,7 +23977,14 @@
     3,
     5,
     2
-   ]
+   ],
+   "af": {
+    "p": [
+     "Bow",
+     "Cavalry"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Alexandra",
@@ -22491,7 +24210,13 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -22499,19 +24224,43 @@
     },
     {
      "n": "Gaitz",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Olympia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Sirocco",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -22647,7 +24396,18 @@
      "lv": 35,
      "src": "game8"
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Lance",
+     "Flying"
+    ],
+    "w": [
+     "Axe",
+     "Reason"
+    ]
+   }
   },
   {
    "n": "Yang Jie",
@@ -22851,19 +24611,43 @@
    "sup": [
     {
      "n": "Anatolia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Loretta",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     },
     {
      "n": "Sha Lan",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -23368,7 +25152,17 @@
     7,
     6,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Faith"
+    ],
+    "w": [
+     "Sword",
+     "Cavalry"
+    ]
+   }
   },
   {
    "n": "Noctula",
@@ -23576,11 +25370,23 @@
     },
     {
      "n": "Goliath",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Jester",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Majide",
@@ -24074,7 +25880,17 @@
     4,
     7,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Brawl",
+     "Infantry"
+    ],
+    "w": [
+     "Sword"
+    ]
+   }
   },
   {
    "n": "Sofia",
@@ -24282,11 +26098,23 @@
     },
     {
      "n": "Mikaela",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Peter",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Seteth",
@@ -24294,7 +26122,13 @@
     },
     {
      "n": "Tobias",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -24833,7 +26667,16 @@
     9,
     6,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Bow",
+     "Faith"
+    ],
+    "w": [
+     "Axe"
+    ]
+   }
   },
   {
    "n": "Peppe",
@@ -25029,7 +26872,13 @@
     },
     {
      "n": "Mu",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Ninae",
@@ -25037,7 +26886,13 @@
     },
     {
      "n": "Ultand",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -25577,7 +27432,15 @@
     5,
     8,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Bow",
+     "Infantry"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Seteth",
@@ -25791,11 +27654,23 @@
    "sup": [
     {
      "n": "Dadao",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Dante",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Diego",
@@ -25807,11 +27682,23 @@
     },
     {
      "n": "Loretta",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Ludia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Sofia",
@@ -25819,7 +27706,13 @@
     },
     {
      "n": "Tialla",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -26363,7 +28256,15 @@
     6,
     6,
     8
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Axe",
+     "Authority"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Loretta",
@@ -26571,31 +28472,73 @@
     },
     {
      "n": "Goliath",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Mikaela",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Seteth",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Sha Lan",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Tobias",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Ultand",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Yang Jie",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -27122,7 +29065,16 @@
     4,
     6,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Lance"
+    ],
+    "w": [
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Jester",
@@ -27326,11 +29278,23 @@
    "sup": [
     {
      "n": "Buccar",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Dante",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -27338,27 +29302,63 @@
     },
     {
      "n": "Goliath",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Halvin",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Mikaela",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Noctula",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Peter",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -27887,7 +29887,17 @@
     4,
     6,
     8
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Bow",
+     "Infantry"
+    ],
+    "w": [
+     "Axe"
+    ]
+   }
   },
   {
    "n": "Goliath",
@@ -28069,11 +30079,23 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Dante",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -28081,27 +30103,63 @@
     },
     {
      "n": "Gaitz",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Jester",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Loretta",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Noctula",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Olympia",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Ultand",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -28648,7 +30706,14 @@
     2,
     5,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Armor"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Ludia",
@@ -28841,39 +30906,93 @@
    "sup": [
     {
      "n": "Benditz",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Buccar",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Esmeralda",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Fianna",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Gaitz",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Seteth",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Tialla",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -29406,7 +31525,17 @@
     3,
     5,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Infantry"
+    ],
+    "w": [
+     "Axe",
+     "Reason"
+    ]
+   }
   },
   {
    "n": "Dadao",
@@ -29610,7 +31739,13 @@
    "sup": [
     {
      "n": "Buccar",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -29618,23 +31753,53 @@
     },
     {
      "n": "Esmeralda",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Inyoni",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Nezha",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Peter",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Seteth",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -30165,7 +32330,18 @@
     4,
     8,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Armor"
+    ],
+    "w": [
+     "Lance",
+     "Reason",
+     "Faith"
+    ]
+   }
   },
   {
    "n": "Fianna",
@@ -30380,35 +32556,83 @@
    "sup": [
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Ludia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Lysander",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     },
     {
      "n": "Olympia",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Orchel",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Talimun",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Ursula",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -30929,7 +33153,17 @@
     9,
     4,
     7
-   ]
+   ],
+   "af": {
+    "p": [
+     "Reason",
+     "Faith"
+    ],
+    "w": [
+     "Sword",
+     "Brawl"
+    ]
+   }
   },
   {
    "n": "Halvin",
@@ -31155,7 +33389,13 @@
    "sup": [
     {
      "n": "Bonaventure",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Diego",
@@ -31167,7 +33407,13 @@
     },
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Fabio",
@@ -31175,19 +33421,43 @@
     },
     {
      "n": "Jester",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     },
     {
      "n": "Nezha",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Sha Lan",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Zarcone",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -31712,7 +33982,16 @@
     5,
     7,
     5
-   ]
+   ],
+   "af": {
+    "p": [
+     "Bow",
+     "Cavalry"
+    ],
+    "w": [
+     "Axe"
+    ]
+   }
   },
   {
    "n": "Zarcone",
@@ -31924,11 +34203,23 @@
     },
     {
      "n": "Halvin",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -32426,7 +34717,17 @@
     4,
     6,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Axe"
+    ],
+    "w": [
+     "Reason",
+     "Faith"
+    ]
+   }
   },
   {
    "n": "Majide",
@@ -32630,11 +34931,23 @@
    "sup": [
     {
      "n": "Eshmel",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Nezha",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Noctula",
@@ -33116,7 +35429,16 @@
     3,
     5,
     3
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Brawl"
+    ],
+    "w": [
+     "Reason"
+    ]
+   }
   },
   {
    "n": "Kiroc",
@@ -33320,7 +35642,13 @@
    "sup": [
     {
      "n": "Esmeralda",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -33813,7 +36141,13 @@
     4,
     8,
     4
-   ]
+   ],
+   "af": {
+    "p": [
+     "Bow"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Jasmine",
@@ -34039,7 +36373,13 @@
    "sup": [
     {
      "n": "Buccar",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -34047,7 +36387,13 @@
     },
     {
      "n": "Olympia",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Ursula",
@@ -34547,7 +36893,18 @@
     3,
     7,
     7
-   ]
+   ],
+   "af": {
+    "p": [
+     "Lance",
+     "Axe",
+     "Armor"
+    ],
+    "w": [
+     "Sword",
+     "Flying"
+    ]
+   }
   },
   {
    "n": "Nuzzuo",
@@ -34751,7 +37108,13 @@
    "sup": [
     {
      "n": "Diego",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -34868,7 +37231,14 @@
       10
      ]
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Bow"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Inyoni",
@@ -35072,7 +37442,13 @@
    "sup": [
     {
      "n": "Dadao",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Eshmel",
@@ -35170,7 +37546,14 @@
      "lv": 35,
      "src": "game8"
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Bow"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Creek",
@@ -35328,15 +37711,33 @@
    "sup": [
     {
      "n": "Nathan",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Olympia",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Tialla",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -35355,7 +37756,14 @@
     "neutral": [],
     "dislikes": []
    },
-   "lab": []
+   "lab": [],
+   "af": {
+    "p": [
+     "Sword",
+     "Cavalry"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Nathan",
@@ -35524,7 +37932,13 @@
    "sup": [
     {
      "n": "Creek",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -35543,7 +37957,15 @@
     "neutral": [],
     "dislikes": []
    },
-   "lab": []
+   "lab": [],
+   "af": {
+    "p": [
+     "Lance",
+     "Cavalry",
+     "Armor"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Bertrand",
@@ -35680,15 +38102,33 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "attack_speed",
+       1
+      ]
+     ]
     },
     {
      "n": "Talimun",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -35726,7 +38166,19 @@
      "lv": 35,
      "src": "fortunesweave"
     }
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Axe",
+     "Brawl",
+     "Authority"
+    ],
+    "w": [
+     "Reason",
+     "Faith"
+    ]
+   }
   },
   {
    "n": "Talimun",
@@ -35907,11 +38359,23 @@
    "sup": [
     {
      "n": "Bertrand",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Dante",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "critical",
+       5
+      ]
+     ]
     },
     {
      "n": "Dietrich",
@@ -35919,27 +38383,63 @@
     },
     {
      "n": "Fianna",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Lilian",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Simon",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Theodora",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Tialla",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -36446,7 +38946,17 @@
     6,
     12,
     9
-   ]
+   ],
+   "af": {
+    "p": [
+     "Sword",
+     "Reason",
+     "Authority"
+    ],
+    "w": [
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Anatolia",
@@ -36615,11 +39125,23 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "A"
+     "r": "A",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Dante",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Fabio",
@@ -36627,15 +39149,33 @@
     },
     {
      "n": "Sirocco",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Tobias",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "dodge",
+       5
+      ]
+     ]
     },
     {
      "n": "Yang Jie",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "resilience",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -37100,7 +39640,17 @@
     6,
     6,
     8
-   ]
+   ],
+   "af": {
+    "p": [
+     "Brawl",
+     "Reason",
+     "Infantry"
+    ],
+    "w": [
+     "Armor"
+    ]
+   }
   },
   {
    "n": "Orchel",
@@ -37271,27 +39821,63 @@
    "sup": [
     {
      "n": "Bonaventure",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "mystical",
+       1
+      ]
+     ]
     },
     {
      "n": "Fianna",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     },
     {
      "n": "Leda",
-     "r": "B"
+     "r": "B",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Majide",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "avoid",
+       5
+      ]
+     ]
     },
     {
      "n": "Ninae",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Ultand",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "physical",
+       1
+      ]
+     ]
     }
    ],
    "gf": {
@@ -37790,7 +40376,19 @@
     12,
     5,
     10
-   ]
+   ],
+   "af": {
+    "p": [
+     "Axe",
+     "Reason",
+     "Faith"
+    ],
+    "w": [
+     "Sword",
+     "Cavalry",
+     "Flying"
+    ]
+   }
   },
   {
    "n": "Centurio",
@@ -37917,11 +40515,23 @@
    "sup": [
     {
      "n": "Cai",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "protection",
+       1
+      ]
+     ]
     },
     {
      "n": "Ultand",
-     "r": "C"
+     "r": "C",
+     "b": [
+      [
+       "hit",
+       5
+      ]
+     ]
     }
    ],
    "gf": {
@@ -37956,7 +40566,15 @@
     ],
     "dislikes": []
    },
-   "lab": []
+   "lab": [],
+   "af": {
+    "p": [
+     "Lance",
+     "Axe",
+     "Armor"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Aswan",
@@ -38134,7 +40752,15 @@
     "neutral": [],
     "dislikes": []
    },
-   "lab": []
+   "lab": [],
+   "af": {
+    "p": [
+     "Bow",
+     "Authority",
+     "Infantry"
+    ],
+    "w": []
+   }
   },
   {
    "n": "Tahonia",
@@ -38264,7 +40890,13 @@
     "neutral": [],
     "dislikes": []
    },
-   "lab": []
+   "lab": [],
+   "af": {
+    "p": [
+     "Brawl"
+    ],
+    "w": []
+   }
   }
  ],
  "classes": [
@@ -39871,7 +42503,15 @@
    "arm": false,
    "sp": [],
    "cs": 3,
-   "cas": 5
+   "cas": 5,
+   "un": [
+    {
+     "r": "Leda",
+     "ch": 9,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 9."
+    }
+   ]
   },
   {
    "n": "Blacksmith",
@@ -39933,7 +42573,15 @@
    "arm": false,
    "sp": [],
    "cs": 3,
-   "cas": 3
+   "cas": 3,
+   "un": [
+    {
+     "r": "Dietrich",
+     "ch": "",
+     "ren": 8,
+     "d": "Unlocked by reaching renown level 8."
+    }
+   ]
   },
   {
    "n": "Sniper",
@@ -40134,7 +42782,21 @@
    "arm": false,
    "sp": [],
    "cs": 3,
-   "cas": 5
+   "cas": 5,
+   "un": [
+    {
+     "r": "Dietrich",
+     "ch": 12,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 12."
+    },
+    {
+     "r": "Leda",
+     "ch": "",
+     "ren": 10,
+     "d": "Unlocked by reaching renown level 10."
+    }
+   ]
   },
   {
    "n": "Cataphract",
@@ -40204,7 +42866,15 @@
     "Horse"
    ],
    "cs": 3,
-   "cas": 4
+   "cas": 4,
+   "un": [
+    {
+     "r": "Theodora",
+     "ch": 8,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 8."
+    }
+   ]
   },
   {
    "n": "Guardian",
@@ -40267,7 +42937,21 @@
    "arm": false,
    "sp": [],
    "cs": 3,
-   "cas": 5
+   "cas": 5,
+   "un": [
+    {
+     "r": "Dietrich",
+     "ch": 9,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 9."
+    },
+    {
+     "r": "Theodora",
+     "ch": 9,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 9."
+    }
+   ]
   },
   {
    "n": "Elephant Rider",
@@ -40529,7 +43213,21 @@
     "Bau"
    ],
    "cs": 3,
-   "cas": 4
+   "cas": 4,
+   "un": [
+    {
+     "r": "Cai",
+     "ch": "",
+     "ren": 8,
+     "d": "Unlocked by reaching renown level 8."
+    },
+    {
+     "r": "Theodora",
+     "ch": 11,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 11."
+    }
+   ]
   },
   {
    "n": "Caladrius",
@@ -40599,7 +43297,15 @@
     "Ornius"
    ],
    "cs": 3,
-   "cas": 4
+   "cas": 4,
+   "un": [
+    {
+     "r": "Cai",
+     "ch": "",
+     "ren": 7,
+     "d": "Unlocked by reaching renown level 7."
+    }
+   ]
   },
   {
    "n": "Ovate",
@@ -40792,7 +43498,21 @@
     "Horse"
    ],
    "cs": 3,
-   "cas": 3
+   "cas": 3,
+   "un": [
+    {
+     "r": "Cai",
+     "ch": "",
+     "ren": 10,
+     "d": "Unlocked by reaching renown level 10."
+    },
+    {
+     "r": "Leda",
+     "ch": "",
+     "ren": 10,
+     "d": "Unlocked by reaching renown level 10."
+    }
+   ]
   },
   {
    "n": "Swordmaster",
