@@ -995,15 +995,20 @@ export function ProfileScreen({ v }: { v: VM }) {
                       {L(v.p?.sup).map((s: any, $index: number) => (
                         <Fragment key={$index}>
                           <span
-                            style={{
-                              display: 'flex',
-                              gap: '8px',
-                              alignItems: 'baseline',
-                              padding: '5px 10px',
-                              borderRadius: '999px',
-                              background: 'var(--panel2, oklch(0.25 0.012 60))',
-                              fontSize: '12px',
-                            }}
+                            onMouseEnter={s?.enter}
+                            onMouseLeave={s?.leave}
+                            style={
+                              {
+                                display: 'flex',
+                                gap: '8px',
+                                alignItems: 'baseline',
+                                padding: '5px 10px',
+                                borderRadius: '999px',
+                                background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                fontSize: '12px',
+                                cursor: str(s?.cur),
+                              } as CSSProperties
+                            }
                           >
                             {T(s?.n)}
                             <span
@@ -1380,8 +1385,36 @@ export function ProfileScreen({ v }: { v: VM }) {
                 {L(v.p?.lsList).map((l: any, $index: number) => (
                   <Fragment key={$index}>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                      <span style={{ font: "600 14px/1.2 'Cinzel',serif", color: 'var(--ac, oklch(0.82 0.12 85))' }}>
+                      <span
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          font: "600 14px/1.2 'Cinzel',serif",
+                          color: 'var(--ac, oklch(0.82 0.12 85))',
+                        }}
+                      >
                         {T(l?.c)}
+                        {l?.af ? (
+                          <>
+                            <span
+                              onMouseEnter={l?.afEnter}
+                              onMouseLeave={l?.afLeave}
+                              onClick={l?.afEnter}
+                              style={
+                                {
+                                  padding: '6px 4px',
+                                  margin: '-6px -4px',
+                                  font: "600 11px/1 'IBM Plex Mono',monospace",
+                                  color: str(l?.afc),
+                                  cursor: 'help',
+                                } as CSSProperties
+                              }
+                            >
+                              {T(l?.af)}
+                            </span>
+                          </>
+                        ) : null}
                       </span>
                       {L(l?.items).map((x: any, $index: number) => (
                         <Fragment key={$index}>
@@ -1546,9 +1579,32 @@ export function ProfileScreen({ v }: { v: VM }) {
                           background: 'var(--panel, oklch(0.2 0.01 60))',
                           fontWeight: '600',
                           fontSize: '12px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
                         }}
                       >
                         {T(l?.c)}
+                        {l?.af ? (
+                          <>
+                            <span
+                              onMouseEnter={l?.afEnter}
+                              onMouseLeave={l?.afLeave}
+                              onClick={l?.afEnter}
+                              style={
+                                {
+                                  padding: '6px 4px',
+                                  margin: '-6px -4px',
+                                  font: "600 11px/1 'IBM Plex Mono',monospace",
+                                  color: str(l?.afc),
+                                  cursor: 'help',
+                                } as CSSProperties
+                              }
+                            >
+                              {T(l?.af)}
+                            </span>
+                          </>
+                        ) : null}
                       </div>
                       {L(l?.r).map((x: any, $index: number) => (
                         <Fragment key={$index}>

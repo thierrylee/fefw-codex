@@ -565,6 +565,24 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           {' ('}
                           {T(s?.gain)})
                         </span>
+                        {s?.warn ? (
+                          <>
+                            <span
+                              onMouseEnter={s?.enter}
+                              onMouseLeave={s?.leave}
+                              onClick={s?.enter}
+                              style={{
+                                fontSize: '12px',
+                                textTransform: 'none',
+                                color: 'oklch(0.74 0.12 30)',
+                                textWrap: 'pretty',
+                                cursor: 'help',
+                              }}
+                            >
+                              {T(s?.warnTxt)}
+                            </span>
+                          </>
+                        ) : null}
                       </span>
                     </div>
                   </Fragment>
@@ -647,6 +665,24 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       </>
                     ) : null}
                   </div>
+                  {v.curWarn ? (
+                    <>
+                      <span
+                        onMouseEnter={v.curEnter}
+                        onMouseLeave={v.curLeave}
+                        onClick={v.curEnter}
+                        style={{
+                          fontSize: '12px',
+                          textTransform: 'none',
+                          color: 'oklch(0.74 0.12 30)',
+                          textWrap: 'pretty',
+                          cursor: 'help',
+                        }}
+                      >
+                        {T(v.curWarnTxt)}
+                      </span>
+                    </>
+                  ) : null}
                   {v.mountOk ? (
                     <>
                       <label

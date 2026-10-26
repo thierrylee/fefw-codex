@@ -1010,6 +1010,15 @@ export function AppView({ v }: { v: VM }) {
                                 >
                                   {T(r?.sub)}
                                 </span>
+                                {r?.isLock ? (
+                                  <>
+                                    <span
+                                      style={{ fontSize: '12px', color: 'oklch(0.74 0.12 30)', textWrap: 'pretty' }}
+                                    >
+                                      {T(r?.lock)}
+                                    </span>
+                                  </>
+                                ) : null}
                               </span>
                               <span
                                 style={
@@ -1054,6 +1063,33 @@ export function AppView({ v }: { v: VM }) {
                         </button>
                       </div>
                     </div>
+                  </div>
+                </>
+              ) : null}
+              {v.afOn ? (
+                <>
+                  <div
+                    style={
+                      {
+                        position: 'fixed',
+                        left: str(v.afTip?.x),
+                        top: str(v.afTip?.y),
+                        transform: 'translateY(-100%)',
+                        zIndex: '95',
+                        maxWidth: 'calc(100vw - 24px)',
+                        padding: '8px 12px',
+                        borderRadius: '8px',
+                        background: 'var(--panel2, oklch(0.3 0.055 165))',
+                        border: '1px solid var(--ac, oklch(0.82 0.12 85))',
+                        boxShadow: '0 18px 50px -12px rgba(0,0,0,.6)',
+                        pointerEvents: 'none',
+                        fontSize: '13px',
+                        lineHeight: '1.3',
+                        color: 'var(--tx, oklch(0.94 0.008 80))',
+                      } as CSSProperties
+                    }
+                  >
+                    {T(v.afTip?.t)}
                   </div>
                 </>
               ) : null}

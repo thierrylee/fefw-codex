@@ -346,14 +346,33 @@ export class Codex extends Component<CodexProps, any> {
   }
   lsAll(c?: any) {
     const U = this.state.d.univ || []
+    const A: any = c.af || { p: [], w: [] }
     return (c.ls || []).map((l?: any) => {
+      const ap = A.p.includes(l.c),
+        aw = A.w.includes(l.c),
+        af = ap ? '▲' : aw ? '▼' : '',
+        aft = ap ? l.c + ' +1 EXP' : aw ? l.c + ' -1 EXP' : '',
+        afc = ap ? 'oklch(0.78 0.1 150)' : 'oklch(0.72 0.1 25)'
       const u = U.find((x?: any) => x.c === l.c)
+      const afEnter = (ev?: any) => {
+          if (!aft) return
+          const r = ev.currentTarget.getBoundingClientRect()
+          this.setState({
+            afTip: { t: aft, x: Math.max(12, Math.min(r.left, window.innerWidth - 260)) + 'px', y: r.top - 6 + 'px' },
+          })
+        },
+        afLeave = () => this.setState({ afTip: null })
       return u
         ? {
             ...l,
+            af,
+            aft,
+            afc,
+            afEnter,
+            afLeave,
             r: l.r.map((v?: any, i?: any) => (i < 5 && u.r[i] ? [v && v !== '?' ? v : '', u.r[i]].filter(Boolean).join(', ') : v)),
           }
-        : l
+        : { ...l, af, aft, afc, afEnter, afLeave }
     })
   }
   lsLines(v?: any, t?: any) {
@@ -582,20 +601,35 @@ export class Codex extends Component<CodexProps, any> {
       }
     const SN = ['HP', 'Str', 'Mag', 'Spd', 'Dex', 'Def', 'Res', 'Lck', 'Cha']
     const stats = (k.g || []).map((v?: any, i?: any) => ({ l: SN[i], v: (v > 0 ? '+' : '') + v + '%' }))
-    const ab = (k.ab || []).map((a?: any) => a.n + ': ' + a.e).join('\n')
+    const st0 = this.state,
+      P0 = st0.part,
+      R0 = st0.route
+    const ok0 = new Set<any>([
+      ...(st0.cleared || []),
+      ...(st0.cleared2 || []),
+      ...(P0 >= 1 && P0 <= 2 && R0 !== 'All' ? [R0] : []),
+    ])
+    const lock = !!(k.un && k.un.length && P0 >= 1 && !k.un.some((u?: any) => ok0.has(u.r)))
     return {
       stats,
       hasStats: stats.length > 0,
       statNote: 'Class growth',
       t: k.n,
       sub: [k.tier, k.type].filter(Boolean).join(' · ') + (k.lv ? ' · Lv ' + k.lv : ''),
-      body: ab || 'No class ability recorded.',
-      bodyCol: ab ? 'var(--tx, #eee)' : 'var(--mu, #aaa)',
-      note: [k.comp ? 'Weapons: ' + k.comp : '', k.mov ? 'Mov ' + k.mov : ''].filter(Boolean).join(' · '),
-      who: '',
-      whoLbl: '',
-      whoGroups: [],
-      hasGroups: false,
+      body: lock
+        ? 'Locked · needs to complete ' + [...new Set<any>(k.un.map((u?: any) => u.r))].join(' / ') + ' path'
+        : k.comp
+          ? 'Skills: ' + k.comp
+          : '',
+      bodyCol: lock ? 'oklch(0.74 0.12 30)' : 'var(--mu, #aaa)',
+      note: k.mov ? 'Mov ' + k.mov : '',
+      who: (k.ab || []).length ? ' ' : '',
+      whoLbl: 'Class abilities',
+      whoGroups: (k.ab || []).map((a?: any) => ({
+        rank: a.t === 'Master ability' ? 'Master' : 'Class',
+        names: a.n + ': ' + a.e,
+      })),
+      hasGroups: (k.ab || []).length > 0,
     }
   }
   hd(ids?: any, id?: any, onMove?: any) {
@@ -1677,6 +1711,50 @@ export class Codex extends Component<CodexProps, any> {
       (c.part === 1 || c.part === 2) &&
       c.routes.length &&
       !c.routes.some((r?: any) => (c.part === 1 ? clSet : clSet2).includes(r))
+    const uOk = new Set<any>([
+      ...(st.cleared || []),
+      ...(st.cleared2 || []),
+      ...(P >= 1 && P <= 2 && R !== 'All' ? [R] : []),
+    ])
+    const uLock = (k?: any) => !!(k && k.un && k.un.length && P >= 1 && !k.un.some((u?: any) => uOk.has(u.r)))
+    const uNeed = (k?: any) => [...new Set<any>(k.un.map((u?: any) => u.r))].join(' / ')
+    const uW = (k?: any) => {
+      const lk = uLock(k)
+      return {
+        warn: lk,
+        warnTxt: lk ? 'Locked · needs to complete ' + uNeed(k) + ' path' : '',
+        enter: (ev?: any) => {
+          const r = ev.currentTarget.getBoundingClientRect()
+          const W = window.innerWidth,
+            H = window.innerHeight
+          const x = Math.max(12, Math.min(r.left, W - 312))
+          const below = r.bottom + 260 < H
+          this.setState({
+            tip: {
+              t: k.n,
+              sub: 'Unlock requirements',
+              body: 'Needs to complete ' + uNeed(k) + ' path.',
+              bodyCol: 'oklch(0.74 0.12 30)',
+              stats: [],
+              hasStats: false,
+              statNote: '',
+              note: '',
+              whoLbl: 'Complete any one',
+              who: 'Quests',
+              hasGroups: true,
+              whoGroups: k.un.map((u?: any) => ({ rank: u.r + ' · ' + (u.ch ? 'Ch ' + u.ch : 'Ren ' + u.ren), names: u.d })),
+              x: x + 'px',
+              y: (below ? r.bottom + 8 : r.top - 8) + 'px',
+              tf: below ? 'none' : 'translateY(-100%)',
+            },
+          })
+        },
+        leave: () => this.setState({ tip: null }),
+        reqs: lk
+          ? k.un.map((u?: any) => ({ t: u.r + "'s route · " + (u.ch ? 'Chapter ' + u.ch : 'Renown ' + u.ren), d: u.d }))
+          : [],
+      }
+    }
     const avail = d.chars.filter((c?: any) => onR(c) && c.part <= P && !gone(c))
     const sealed = d.chars.filter((c?: any) => onR(c) && c.part > P)
     const tot = (c?: any) => (c.g ? sum(c.g) : 0)
@@ -2694,6 +2772,8 @@ export class Codex extends Component<CodexProps, any> {
                 tier: k.tier,
                 tc: TC[k.tier] || t.mu,
                 sub: [k.type, k.comp].filter(Boolean).join(' · ') + (+k.lv > lvN ? ' · Requires Lv ' + k.lv : ''),
+                lock: uLock(k) ? 'Locked · needs to complete ' + uNeed(k) + ' path' : '',
+                isLock: uLock(k),
                 op: +k.lv > lvN ? 0.45 : 1,
                 cur: 'pointer',
                 mark: k.n === sel ? '✓' : '',
@@ -2947,6 +3027,7 @@ export class Codex extends Component<CodexProps, any> {
             tc: TC[x.k.tier] || t.mu,
             idx: i + 1,
             k: x.k.n,
+            ...uW(x.k),
             range: `Lv ${x.from}–${x.lv}`,
             mOn: mountSp(x.k).length > 0,
             mVal: x.mo ? x.mo.n : 'None',
@@ -2968,6 +3049,11 @@ export class Codex extends Component<CodexProps, any> {
           curFirst: L === 0,
           curNotFirst: L > 0,
           curK: cur.k.n,
+          curWarn: uLock(cur.k),
+          curWarnTxt: uW(cur.k).warnTxt,
+          curEnter: uW(cur.k).enter,
+          curLeave: uW(cur.k).leave,
+          curReqs: uW(cur.k).reqs,
           curFrom: L === 0 ? Math.max(cur.from, B ? B.rl : 1) : cur.from,
           curGain: '+' + (cur.lv - (L === 0 ? Math.max(cur.from, B ? B.rl : 1) : cur.from)) + ' lv',
           onCurK: (e?: any) =>
@@ -4640,12 +4726,23 @@ export class Codex extends Component<CodexProps, any> {
         fg: kf === l ? t.tx : t.mu,
         click: () => this.setState({ kf: l }),
       }))
+      const kP = st.part,
+        kR = st.route
+      const okR = new Set<any>([
+        ...(st.cleared || []),
+        ...(st.cleared2 || []),
+        ...(kP >= 1 && kP <= 2 && kR !== 'All' ? [kR] : []),
+      ])
+      const kLock = (k?: any) => !!(k.un && k.un.length && kP >= 1 && !k.un.some((u?: any) => okR.has(u.r)))
+      const kNeed = (k?: any) => [...new Set<any>(k.un.map((u?: any) => u.r))].join(' / ')
       vals.kGroups = TIERS.map((g?: any) => ({
         t: g,
         items: list
           .filter((k?: any) => k.tier === g)
           .map((k?: any) => ({
             n: k.n,
+            locked: kLock(k),
+            lockTxt: kLock(k) ? 'needs to complete ' + kNeed(k) + ' path' : '',
             code: k.code || '',
             type: k.type.replace('(no Fextralife page)', '—'),
             mov: k.mov || '—',
@@ -4724,6 +4821,16 @@ export class Codex extends Component<CodexProps, any> {
           ]
             .filter(([a, b]: any) => b && b !== 'None')
             .map(([k, v]: any) => ({ k, v })),
+          hasUn: !!(k.un && k.un.length),
+          unLocked: kLock(k),
+          unWarn: kLock(k) ? 'Not unlocked on your cleared routes. Needs to complete ' + kNeed(k) + ' path.' : '',
+          un: (k.un || []).map((u?: any) => ({
+            r: u.r + "'s route",
+            d: u.d,
+            where: u.ch ? 'Chapter ' + u.ch : 'Renown ' + u.ren,
+            bd: okR.has(u.r) ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--line, oklch(0.42 0.06 110 / .55))',
+            tag: okR.has(u.r) ? ' · Available' : '',
+          })),
           g: cellsG,
           gt: sum(k.g) + sum(mg),
           mods: cellsS,
@@ -4791,6 +4898,8 @@ export class Codex extends Component<CodexProps, any> {
     }
     vals.tipOn = !!st.tip
     vals.tip = st.tip || {}
+    vals.afOn = !!st.afTip
+    vals.afTip = st.afTip || {}
     vals.gItems = G[gtab].filter((g?: any) => !gq || (g.t + ' ' + g.body + ' ' + g.meta).toLowerCase().includes(gq))
     vals.gCount = vals.gItems.length
     vals.gq = st.gq
@@ -5079,6 +5188,11 @@ export class Codex extends Component<CodexProps, any> {
         hasLs: c.ls.length > 0,
         ls: this.lsAll(c).map((l?: any) => ({
           c: l.c,
+          af: l.af,
+          aft: l.aft,
+          afc: l.afc,
+          afEnter: l.afEnter,
+          afLeave: l.afLeave,
           n: ((r?: any) =>
             r
               .slice(0, 5)
@@ -5109,7 +5223,55 @@ export class Codex extends Component<CodexProps, any> {
         vals.p.hasGifts = gf.loved.length + gf.liked.length > 0
         vals.p.hasMeals = vals.p.meals.length > 0
         vals.p.hasRel = sp.length > 0 || gf.loved.length + gf.liked.length > 0 || vals.p.meals.length > 0
-        vals.p.sup = sp.map((s?: any) => ({ n: s.n, r: s.r || '?' }))
+        {
+          const SL: Record<string, any> = {
+            hit: 'Hit',
+            avoid: 'Avoid',
+            physical: 'Physical',
+            protection: 'Protection',
+            mystical: 'Mystical',
+            resilience: 'Resilience',
+            critical: 'Critical',
+            dodge: 'Dodge',
+            attack_speed: 'Attack speed',
+          }
+          vals.p.sup = sp.map((s?: any) => {
+            const has = !!(s.b && s.b.length)
+            const body = has ? s.b.map(([k, v]: any) => (SL[k] || k) + ' +' + v).join(', ') : ''
+            return {
+              n: s.n,
+              r: s.r || '?',
+              cur: has ? 'help' : 'default',
+              enter: has
+                ? (ev?: any) => {
+                    const r = ev.currentTarget.getBoundingClientRect()
+                    const x = Math.max(12, Math.min(r.left, window.innerWidth - 312))
+                    const below = r.bottom + 160 < window.innerHeight
+                    this.setState({
+                      tip: {
+                        t: s.n,
+                        sub: 'Support bonus' + (s.nc ? ' · no support conversation' : ''),
+                        body,
+                        bodyCol: 'var(--tx, #eee)',
+                        note: '',
+                        who: '',
+                        whoLbl: '',
+                        whoGroups: [],
+                        hasGroups: false,
+                        x: x + 'px',
+                        y: (below ? r.bottom + 8 : r.top - 8) + 'px',
+                        tf: below ? 'none' : 'translateY(-100%)',
+                        raw: null,
+                      },
+                    })
+                  }
+                : () => {},
+              leave: () => {
+                if (window.matchMedia && window.matchMedia('(hover:hover)').matches) this.setState({ tip: null })
+              },
+            }
+          })
+        }
         vals.p.hasSup = sp.length > 0
         vals.p.gfLoved = gf.loved.join(', ')
         vals.p.gfLiked = gf.liked.join(', ')
@@ -5218,6 +5380,11 @@ export class Codex extends Component<CodexProps, any> {
       vals.p.lsList = this.lsAll(c)
         .map((l?: any) => ({
           c: l.c,
+          af: l.af,
+          aft: l.aft,
+          afc: l.afc,
+          afEnter: l.afEnter,
+          afLeave: l.afLeave,
           n: ((r?: any) =>
             r
               .slice(0, 5)

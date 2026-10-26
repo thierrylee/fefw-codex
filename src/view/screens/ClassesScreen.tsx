@@ -268,6 +268,14 @@ export function ClassesScreen({ v }: { v: VM }) {
                             {' · Mov '}
                             {T(k?.mov)}
                           </span>
+                          {k?.locked ? (
+                            <>
+                              <span style={{ fontSize: '12px', color: 'oklch(0.74 0.12 30)', textWrap: 'pretty' }}>
+                                {'Locked · '}
+                                {T(k?.lockTxt)}
+                              </span>
+                            </>
+                          ) : null}
                         </button>
                       </Fragment>
                     ))}
@@ -349,6 +357,87 @@ export function ClassesScreen({ v }: { v: VM }) {
                     </Fragment>
                   ))}
                 </div>
+                {v.k?.hasUn ? (
+                  <>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      <span
+                        style={{
+                          font: "500 10px/1 'IBM Plex Mono',monospace",
+                          letterSpacing: '.14em',
+                          textTransform: 'uppercase',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
+                        }}
+                      >
+                        Unlock requirements
+                      </span>
+                      {v.k?.unLocked ? (
+                        <>
+                          <span
+                            style={{
+                              padding: '10px 12px',
+                              borderRadius: '8px',
+                              border: '1px solid oklch(0.74 0.12 30)',
+                              fontSize: '13px',
+                              color: 'oklch(0.74 0.12 30)',
+                              textWrap: 'pretty',
+                            }}
+                          >
+                            {T(v.k?.unWarn)}
+                          </span>
+                        </>
+                      ) : null}
+                      <div
+                        style={{
+                          display: 'grid',
+                          gridTemplateColumns: 'repeat(auto-fill,minmax(240px,1fr))',
+                          gap: '8px',
+                        }}
+                      >
+                        {L(v.k?.un).map((u: any, $index: number) => (
+                          <Fragment key={$index}>
+                            <div
+                              style={
+                                {
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '6px',
+                                  padding: '12px 14px',
+                                  borderRadius: '10px',
+                                  border: `1px solid ${str(u?.bd)}`,
+                                  background: 'var(--panel2, oklch(0.3 0.055 165))',
+                                } as CSSProperties
+                              }
+                            >
+                              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px' }}>
+                                <span style={{ fontWeight: '600' }}>
+                                  {T(u?.r)}
+                                  {T(u?.tag)}
+                                </span>
+                                <span
+                                  style={{
+                                    font: "500 11px/1.4 'IBM Plex Mono',monospace",
+                                    color: 'var(--ac, oklch(0.82 0.12 85))',
+                                  }}
+                                >
+                                  {T(u?.where)}
+                                </span>
+                              </div>
+                              <span
+                                style={{
+                                  fontSize: '12px',
+                                  color: 'var(--mu, oklch(0.78 0.035 120))',
+                                  textWrap: 'pretty',
+                                }}
+                              >
+                                {T(u?.d)}
+                              </span>
+                            </div>
+                          </Fragment>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : null}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <span
                     style={{
