@@ -643,6 +643,17 @@ export function MealPairingScreen({ v }: { v: VM }) {
                   style={
                     {
                       order: str(v.mx?.chipO),
+                      font: "500 12px/1 'IBM Plex Mono',monospace",
+                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                    } as CSSProperties
+                  }
+                >
+                  {T(r?.cntTxt)}
+                </span>
+                <span
+                  style={
+                    {
+                      order: str(v.mx?.chipO),
                       gridColumn: str(v.mx?.chipCol),
                       display: 'flex',
                       minWidth: '0',

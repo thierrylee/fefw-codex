@@ -326,33 +326,6 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           +
                         </button>
                       </span>
-                      <span style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                        {L(v.rlKeys).map((k: any, $index: number) => (
-                          <Fragment key={$index}>
-                            <button
-                              disabled={v.rlLocked}
-                              onClick={k?.go}
-                              style={
-                                {
-                                  padding: '6px 12px',
-                                  borderRadius: '999px',
-                                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                                  background: str(k?.bg),
-                                  color: str(k?.fg),
-                                  font: "600 12px/1 'IBM Plex Mono',monospace",
-                                  cursor: 'pointer',
-                                } as CSSProperties
-                              }
-                            >
-                              {'Lv '}
-                              {T(k?.lv)}
-                            </button>
-                          </Fragment>
-                        ))}
-                      </span>
-                      <span style={{ fontSize: '11px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
-                        Earlier levels use character growths only.
-                      </span>
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                       <span
@@ -1437,6 +1410,77 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       </div>
                     </Fragment>
                   ))}
+                  {L(v.caGr).map((a: any, $index: number) => (
+                    <Fragment key={$index}>
+                      <div
+                        data-tip="1"
+                        onMouseEnter={a?.enter}
+                        onMouseLeave={a?.leave}
+                        onClick={a?.enter}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '8px 10px',
+                          borderRadius: '10px',
+                          border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                          background: 'transparent',
+                          cursor: 'help',
+                        }}
+                      >
+                        <span
+                          style={
+                            {
+                              flex: 'none',
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '6px',
+                              background: str(a?.bgi),
+                            } as CSSProperties
+                          }
+                        ></span>
+                        <span
+                          style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0', flex: '1' }}
+                        >
+                          <span style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
+                            <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(a?.n)}</span>
+                            <span
+                              style={{
+                                font: "400 10px/1 'IBM Plex Mono',monospace",
+                                letterSpacing: '.12em',
+                                textTransform: 'uppercase',
+                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                              }}
+                            >
+                              {'From '}
+                              {T(a?.from)}
+                            </span>
+                          </span>
+                          <span
+                            style={
+                              {
+                                display: str(a?.stDisp),
+                                font: "500 11px/1.3 'IBM Plex Mono',monospace",
+                                color: 'var(--ac, oklch(0.8 0.11 75))',
+                              } as CSSProperties
+                            }
+                          >
+                            {T(a?.st)}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: '12px',
+                              lineHeight: '1.4',
+                              textWrap: 'pretty',
+                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                            }}
+                          >
+                            {T(a?.e)}
+                          </span>
+                        </span>
+                      </div>
+                    </Fragment>
+                  ))}
                   {v.caFull ? (
                     <>
                       <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
@@ -1529,6 +1573,24 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         }
                         className="hv-5"
                       >
+                        <span
+                          data-tip="1"
+                          onMouseEnter={a?.skEnter}
+                          onMouseLeave={a?.skLeave}
+                          onClick={a?.skClick}
+                          style={
+                            {
+                              display: str(a?.skD),
+                              flex: 'none',
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '6px',
+                              background: str(a?.skBgi),
+                              opacity: str(a?.eqDim),
+                              cursor: 'help',
+                            } as CSSProperties
+                          }
+                        ></span>
                         <span
                           style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0', flex: '1' }}
                         >

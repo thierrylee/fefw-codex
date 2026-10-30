@@ -102,47 +102,124 @@ export function ClassesScreen({ v }: { v: VM }) {
                 { display: str(v.kListDisp), flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' } as CSSProperties
               }
             >
-              <select
-                value={v.kwp ?? ''}
-                onChange={v.onKwp}
-                aria-label="Skill"
-                style={{
-                  padding: '7px 12px',
-                  borderRadius: '999px',
-                  border: '1px solid var(--line)',
-                  background: 'var(--panel)',
-                  color: 'var(--tx, #eee)',
-                  fontSize: '12px',
-                  maxWidth: '100%',
-                }}
-              >
-                {L(v.kwpOpts).map((o: any, $index: number) => (
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '4px' }}>
+                <button
+                  onClick={v.kwpAll}
+                  aria-pressed={v.kwpAllOn}
+                  style={
+                    {
+                      height: '36px',
+                      padding: '0 12px',
+                      boxSizing: 'border-box',
+                      borderRadius: '8px',
+                      border: `1px solid ${str(v.kwpAllBd)}`,
+                      background: str(v.kwpAllBg),
+                      color: 'var(--tx, #eee)',
+                      cursor: 'pointer',
+                      fontSize: '12px',
+                    } as CSSProperties
+                  }
+                >
+                  All
+                </button>
+                {L(v.kwpIcons).map((o: any, $index: number) => (
                   <Fragment key={$index}>
-                    <option value={o ?? ''}>{T(o)}</option>
+                    <button
+                      data-tip="1"
+                      onClick={o?.click}
+                      onMouseEnter={o?.enter}
+                      onMouseLeave={o?.leave}
+                      aria-label={o?.n}
+                      aria-pressed={o?.on}
+                      style={
+                        {
+                          width: '36px',
+                          height: '36px',
+                          padding: '3px',
+                          boxSizing: 'border-box',
+                          borderRadius: '8px',
+                          border: `1px solid ${str(o?.bd)}`,
+                          background: str(o?.bg),
+                          opacity: str(o?.op),
+                          cursor: 'pointer',
+                        } as CSSProperties
+                      }
+                    >
+                      <span
+                        style={
+                          {
+                            display: 'block',
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '4px',
+                            background: str(o?.bgi),
+                          } as CSSProperties
+                        }
+                      ></span>
+                    </button>
                   </Fragment>
                 ))}
-              </select>
-              {L(v.kTabs).map((t: any, $index: number) => (
-                <Fragment key={$index}>
-                  <button
-                    onClick={t?.click}
-                    style={
-                      {
-                        padding: '7px 12px',
-                        borderRadius: '999px',
-                        border: `1px solid ${str(t?.bd)}`,
-                        background: str(t?.bg),
-                        color: str(t?.fg),
-                        cursor: 'pointer',
-                        whiteSpace: 'nowrap',
-                        fontSize: '12px',
-                      } as CSSProperties
-                    }
-                  >
-                    {T(t?.l)}
-                  </button>
-                </Fragment>
-              ))}
+              </div>
+              <div
+                style={{ flexBasis: '100%', display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '4px' }}
+              >
+                <button
+                  onClick={v.kfAll}
+                  aria-pressed={v.kfAllOn}
+                  style={
+                    {
+                      height: '36px',
+                      padding: '0 12px',
+                      boxSizing: 'border-box',
+                      borderRadius: '8px',
+                      border: `1px solid ${str(v.kfAllBd)}`,
+                      background: str(v.kfAllBg),
+                      color: 'var(--tx, #eee)',
+                      cursor: 'pointer',
+                      fontSize: '12px',
+                    } as CSSProperties
+                  }
+                >
+                  All
+                </button>
+                {L(v.kTabs).map((t: any, $index: number) => (
+                  <Fragment key={$index}>
+                    <button
+                      data-tip="1"
+                      onClick={t?.click}
+                      onMouseEnter={t?.enter}
+                      onMouseLeave={t?.leave}
+                      aria-label={t?.l}
+                      aria-pressed={t?.on}
+                      style={
+                        {
+                          width: '36px',
+                          height: '36px',
+                          padding: '3px',
+                          boxSizing: 'border-box',
+                          borderRadius: '8px',
+                          border: `1px solid ${str(t?.bd)}`,
+                          background: str(t?.bg),
+                          opacity: str(t?.op),
+                          cursor: 'pointer',
+                        } as CSSProperties
+                      }
+                    >
+                      <span
+                        style={
+                          {
+                            display: 'block',
+                            width: '100%',
+                            height: '100%',
+                            borderRadius: '4px',
+                            background: str(t?.bgi),
+                          } as CSSProperties
+                        }
+                      ></span>
+                    </button>
+                  </Fragment>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -166,8 +243,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                     }}
                   >
                     {T(g?.t)}
-                    {' · '}
-                    {T(g?.n)}
+                    {T(g?.lv)}
                   </span>
                   <div
                     style={{
@@ -294,20 +370,44 @@ export function ClassesScreen({ v }: { v: VM }) {
                             <span style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
                               {L(k?.absW).map((a: any, $index: number) => (
                                 <Fragment key={$index}>
-                                  <span
-                                    style={
-                                      {
-                                        fontSize: '11px',
-                                        lineHeight: '1.2',
-                                        padding: '3px 6px',
-                                        borderRadius: '4px',
-                                        background: 'var(--panel2, oklch(0.3 0.055 165))',
-                                        color: str(a?.col),
-                                      } as CSSProperties
-                                    }
-                                  >
-                                    {T(a?.n)}
-                                  </span>
+                                  {a?.ic ? (
+                                    <>
+                                      <span
+                                        data-tip="1"
+                                        onMouseEnter={a?.enter}
+                                        onMouseLeave={a?.leave}
+                                        onClick={a?.enter}
+                                        aria-label={a?.n}
+                                        style={
+                                          {
+                                            width: '24px',
+                                            height: '24px',
+                                            borderRadius: '5px',
+                                            background: str(a?.bgi),
+                                            cursor: 'help',
+                                          } as CSSProperties
+                                        }
+                                      ></span>
+                                    </>
+                                  ) : null}
+                                  {a?.noIc ? (
+                                    <>
+                                      <span
+                                        style={
+                                          {
+                                            fontSize: '11px',
+                                            lineHeight: '1.2',
+                                            padding: '3px 6px',
+                                            borderRadius: '4px',
+                                            background: 'var(--panel2, oklch(0.3 0.055 165))',
+                                            color: str(a?.col),
+                                          } as CSSProperties
+                                        }
+                                      >
+                                        {T(a?.n)}
+                                      </span>
+                                    </>
+                                  ) : null}
                                 </Fragment>
                               ))}
                             </span>
@@ -405,21 +505,45 @@ export function ClassesScreen({ v }: { v: VM }) {
                     <span style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                       {L(v.k?.skW).map((a: any, $index: number) => (
                         <Fragment key={$index}>
-                          <span
-                            style={
-                              {
-                                fontSize: '13px',
-                                fontWeight: '600',
-                                lineHeight: '1.2',
-                                padding: '6px 10px',
-                                borderRadius: '6px',
-                                background: 'var(--panel2, oklch(0.3 0.055 165))',
-                                color: str(a?.col),
-                              } as CSSProperties
-                            }
-                          >
-                            {T(a?.n)}
-                          </span>
+                          {a?.ic ? (
+                            <>
+                              <span
+                                data-tip="1"
+                                onMouseEnter={a?.enter}
+                                onMouseLeave={a?.leave}
+                                onClick={a?.enter}
+                                aria-label={a?.n}
+                                style={
+                                  {
+                                    width: '32px',
+                                    height: '32px',
+                                    borderRadius: '6px',
+                                    background: str(a?.bgi),
+                                    cursor: 'help',
+                                  } as CSSProperties
+                                }
+                              ></span>
+                            </>
+                          ) : null}
+                          {a?.noIc ? (
+                            <>
+                              <span
+                                style={
+                                  {
+                                    fontSize: '13px',
+                                    fontWeight: '600',
+                                    lineHeight: '1.2',
+                                    padding: '6px 10px',
+                                    borderRadius: '6px',
+                                    background: 'var(--panel2, oklch(0.3 0.055 165))',
+                                    color: str(a?.col),
+                                  } as CSSProperties
+                                }
+                              >
+                                {T(a?.n)}
+                              </span>
+                            </>
+                          ) : null}
                         </Fragment>
                       ))}
                     </span>
@@ -444,10 +568,40 @@ export function ClassesScreen({ v }: { v: VM }) {
                 >
                   {L(v.k?.facts).map((f: any, $index: number) => (
                     <Fragment key={$index}>
-                      <span>
-                        {T(f?.k)}
-                        {': '}
-                        {T(f?.v)}
+                      <span style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '4px 8px' }}>
+                        <span>{T(f?.k)}:</span>
+                        {L(f?.parts).map((p: any, $index: number) => (
+                          <Fragment key={$index}>
+                            {p?.ic ? (
+                              <>
+                                <span
+                                  data-tip="1"
+                                  onMouseEnter={p?.enter}
+                                  onMouseLeave={p?.leave}
+                                  onClick={p?.enter}
+                                  style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', cursor: 'help' }}
+                                >
+                                  <span
+                                    style={
+                                      {
+                                        width: '20px',
+                                        height: '20px',
+                                        borderRadius: '4px',
+                                        background: str(p?.bgi),
+                                      } as CSSProperties
+                                    }
+                                  ></span>
+                                  <span>{T(p?.rest)}</span>
+                                </span>
+                              </>
+                            ) : null}
+                            {p?.noIc ? (
+                              <>
+                                <span>{T(p?.txt)}</span>
+                              </>
+                            ) : null}
+                          </Fragment>
+                        ))}
                       </span>
                     </Fragment>
                   ))}

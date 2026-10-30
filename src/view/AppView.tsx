@@ -647,18 +647,20 @@ export function AppView({ v }: { v: VM }) {
                     <div
                       data-cdlg="1"
                       onClick={v.stopClick}
-                      style={{
-                        width: 'min(640px,100%)',
-                        maxHeight: 'min(720px,calc(100vh - 32px))',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '12px',
-                        padding: '20px',
-                        borderRadius: 'var(--r, 14px)',
-                        background: 'var(--panel, oklch(0.2 0.01 60))',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                        boxShadow: '0 24px 70px -12px rgba(0,0,0,.7)',
-                      }}
+                      style={
+                        {
+                          width: str(v.pkW),
+                          maxHeight: 'min(720px,calc(100vh - 32px))',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '12px',
+                          padding: '20px',
+                          borderRadius: 'var(--r, 14px)',
+                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          boxShadow: '0 24px 70px -12px rgba(0,0,0,.7)',
+                        } as CSSProperties
+                      }
                     >
                       <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
                         <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>{T(v.pkTitle)}</h2>
@@ -741,23 +743,90 @@ export function AppView({ v }: { v: VM }) {
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                               {L(row?.chips).map((c: any, $index: number) => (
                                 <Fragment key={$index}>
-                                  <button
-                                    onClick={c?.go}
-                                    style={
-                                      {
-                                        padding: '7px 12px',
-                                        borderRadius: '999px',
-                                        border: `1px solid ${str(c?.bd)}`,
-                                        background: str(c?.bg),
-                                        color: str(c?.fg),
-                                        cursor: 'pointer',
-                                        fontSize: '12px',
-                                        fontWeight: '600',
-                                      } as CSSProperties
-                                    }
-                                  >
-                                    {T(c?.l)}
-                                  </button>
+                                  {c?.noIc ? (
+                                    <>
+                                      <button
+                                        onClick={c?.go}
+                                        style={
+                                          {
+                                            padding: '7px 12px',
+                                            borderRadius: '999px',
+                                            border: `1px solid ${str(c?.bd)}`,
+                                            background: str(c?.bg),
+                                            color: str(c?.fg),
+                                            cursor: 'pointer',
+                                            fontSize: '12px',
+                                            fontWeight: '600',
+                                          } as CSSProperties
+                                        }
+                                      >
+                                        {T(c?.l)}
+                                      </button>
+                                    </>
+                                  ) : null}
+                                  {c?.ic ? (
+                                    <>
+                                      <button
+                                        onClick={c?.go}
+                                        title={c?.l}
+                                        aria-label={c?.l}
+                                        style={{
+                                          width: '36px',
+                                          height: '36px',
+                                          padding: '3px',
+                                          boxSizing: 'border-box',
+                                          borderRadius: '8px',
+                                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                          background: 'transparent',
+                                          cursor: 'pointer',
+                                        }}
+                                      >
+                                        <span
+                                          style={
+                                            {
+                                              display: 'block',
+                                              width: '100%',
+                                              height: '100%',
+                                              borderRadius: '4px',
+                                              background: str(c?.bgi),
+                                            } as CSSProperties
+                                          }
+                                        ></span>
+                                      </button>
+                                    </>
+                                  ) : null}
+                                  {c?.icOn ? (
+                                    <>
+                                      <button
+                                        onClick={c?.go}
+                                        title={c?.l}
+                                        aria-label={c?.l}
+                                        aria-pressed="true"
+                                        style={{
+                                          width: '36px',
+                                          height: '36px',
+                                          padding: '3px',
+                                          boxSizing: 'border-box',
+                                          borderRadius: '8px',
+                                          border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                          cursor: 'pointer',
+                                        }}
+                                      >
+                                        <span
+                                          style={
+                                            {
+                                              display: 'block',
+                                              width: '100%',
+                                              height: '100%',
+                                              borderRadius: '4px',
+                                              background: str(c?.bgi),
+                                            } as CSSProperties
+                                          }
+                                        ></span>
+                                      </button>
+                                    </>
+                                  ) : null}
                                 </Fragment>
                               ))}
                             </div>
@@ -765,113 +834,443 @@ export function AppView({ v }: { v: VM }) {
                         ))}
                       </div>
                       <div
-                        style={{
-                          overflowY: 'auto',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '6px',
-                          minHeight: '120px',
-                          paddingRight: '4px',
-                        }}
+                        style={
+                          {
+                            display: 'grid',
+                            gridTemplateColumns: str(v.cdCols),
+                            gridTemplateRows: 'minmax(0,1fr)',
+                            gap: '16px',
+                            height: str(v.cdBodyH),
+                            minHeight: '0',
+                            overflow: 'hidden',
+                          } as CSSProperties
+                        }
                       >
-                        {L(v.pkRows).map((r: any, $index: number) => (
-                          <Fragment key={$index}>
-                            <div
-                              data-pkn={r?.n}
-                              data-tip="1"
-                              onMouseEnter={r?.enter}
-                              onMouseLeave={r?.leave}
-                              onClick={r?.go}
-                              style={
-                                {
-                                  display: 'flex',
-                                  gap: '10px',
-                                  alignItems: 'flex-start',
-                                  padding: '9px 12px',
-                                  borderRadius: '10px',
-                                  border: `1px solid ${str(r?.bd)}`,
-                                  background: str(r?.rbg),
-                                  opacity: str(r?.op),
-                                  cursor: str(r?.cur),
-                                } as CSSProperties
-                              }
-                            >
-                              <span
-                                style={{
-                                  flex: 'none',
-                                  width: '14px',
-                                  font: "600 14px/1.3 'IBM Plex Mono',monospace",
-                                  color: 'var(--ac, oklch(0.8 0.11 75))',
-                                }}
-                              >
-                                {T(r?.mark)}
-                              </span>
-                              <span
+                        <div
+                          style={{
+                            overflowY: 'auto',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '6px',
+                            minHeight: '120px',
+                            minWidth: '0',
+                            paddingRight: '4px',
+                          }}
+                        >
+                          {L(v.pkRows).map((r: any, $index: number) => (
+                            <Fragment key={$index}>
+                              <div
+                                data-pkn={r?.n}
+                                onClick={r?.pv}
                                 style={
                                   {
-                                    display: str(r?.icD),
-                                    flex: 'none',
-                                    width: '36px',
-                                    height: '36px',
-                                    borderRadius: '8px',
-                                    background: str(r?.bgi),
+                                    display: 'flex',
+                                    gap: '10px',
+                                    alignItems: 'flex-start',
+                                    padding: '9px 12px',
+                                    borderRadius: '10px',
+                                    border: `1px solid ${str(r?.bd)}`,
+                                    background: str(r?.rbg),
+                                    opacity: str(r?.op),
+                                    cursor: str(r?.cur),
                                   } as CSSProperties
                                 }
-                              ></span>
-                              <span
-                                style={{
-                                  flex: '1',
-                                  display: 'flex',
-                                  flexDirection: 'column',
-                                  gap: '2px',
-                                  minWidth: '0',
-                                }}
                               >
-                                <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
                                 <span
-                                  style={
-                                    {
-                                      display: str(r?.stDisp),
-                                      font: "500 11px/1.3 'IBM Plex Mono',monospace",
-                                      color: 'var(--ac, oklch(0.8 0.11 75))',
-                                    } as CSSProperties
-                                  }
+                                  style={{
+                                    flex: 'none',
+                                    width: '14px',
+                                    font: "600 14px/1.3 'IBM Plex Mono',monospace",
+                                    color: 'var(--ac, oklch(0.8 0.11 75))',
+                                  }}
                                 >
-                                  {T(r?.st)}
+                                  {T(r?.mark)}
                                 </span>
                                 <span
                                   style={
                                     {
-                                      display: str(r?.eDisp),
-                                      fontSize: '12px',
-                                      color: 'var(--mu, oklch(0.7 0.01 70))',
-                                      textWrap: 'pretty',
+                                      display: str(r?.icD),
+                                      flex: 'none',
+                                      width: '36px',
+                                      height: '36px',
+                                      borderRadius: '8px',
+                                      background: str(r?.bgi),
                                     } as CSSProperties
                                   }
+                                ></span>
+                                <span
+                                  style={{
+                                    flex: '1',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '2px',
+                                    minWidth: '0',
+                                  }}
                                 >
-                                  {T(r?.e)}
+                                  <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
+                                  <span
+                                    style={
+                                      {
+                                        display: str(r?.stDisp),
+                                        font: "500 11px/1.3 'IBM Plex Mono',monospace",
+                                        color: 'var(--ac, oklch(0.8 0.11 75))',
+                                      } as CSSProperties
+                                    }
+                                  >
+                                    {T(r?.st)}
+                                  </span>
+                                  <span
+                                    style={
+                                      {
+                                        display: str(r?.eDisp),
+                                        fontSize: '12px',
+                                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                                        textWrap: 'pretty',
+                                      } as CSSProperties
+                                    }
+                                  >
+                                    {T(r?.e)}
+                                  </span>
                                 </span>
-                              </span>
+                                <span
+                                  style={{
+                                    font: "500 10px/1.3 'IBM Plex Mono',monospace",
+                                    letterSpacing: '.1em',
+                                    textTransform: 'uppercase',
+                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                  }}
+                                >
+                                  {T(r?.catL)}
+                                </span>
+                              </div>
+                            </Fragment>
+                          ))}
+                          {v.pkNone ? (
+                            <>
                               <span
-                                style={{
-                                  font: "500 10px/1.3 'IBM Plex Mono',monospace",
-                                  letterSpacing: '.1em',
-                                  textTransform: 'uppercase',
-                                  color: 'var(--mu, oklch(0.7 0.01 70))',
-                                }}
+                                style={{ padding: '16px', textAlign: 'center', color: 'var(--mu, oklch(0.7 0.01 70))' }}
                               >
-                                {T(r?.catL)}
+                                Nothing matches.
                               </span>
-                            </div>
-                          </Fragment>
-                        ))}
-                        {v.pkNone ? (
+                            </>
+                          ) : null}
+                        </div>
+                        {v.cdSplit ? (
                           <>
-                            <span
-                              style={{ padding: '16px', textAlign: 'center', color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                            <div
+                              style={{
+                                overflowY: 'auto',
+                                minWidth: '0',
+                                padding: '16px',
+                                borderRadius: '12px',
+                                background: 'var(--bg, oklch(0.16 0.01 60))',
+                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                              }}
                             >
-                              Nothing matches.
-                            </span>
+                              {v.pkPvOn ? (
+                                <>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                      <div
+                                        style={{
+                                          display: 'flex',
+                                          justifyContent: 'space-between',
+                                          gap: '10px',
+                                          alignItems: 'center',
+                                          flexWrap: 'wrap',
+                                        }}
+                                      >
+                                        <span
+                                          style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}
+                                        >
+                                          {v.pkPv?.hasIc ? (
+                                            <>
+                                              <span
+                                                style={
+                                                  {
+                                                    flex: 'none',
+                                                    width: '44px',
+                                                    height: '44px',
+                                                    borderRadius: '8px',
+                                                    background: str(v.pkPv?.bgi),
+                                                  } as CSSProperties
+                                                }
+                                              ></span>
+                                            </>
+                                          ) : null}
+                                          <h2
+                                            style={{
+                                              margin: '0',
+                                              font: "600 16px/1.25 'Cinzel',serif",
+                                              color: 'var(--ac, oklch(0.82 0.12 85))',
+                                            }}
+                                          >
+                                            {T(v.pkPv?.t)}
+                                          </h2>
+                                        </span>
+                                        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1 'IBM Plex Mono',monospace",
+                                              letterSpacing: '.1em',
+                                              textTransform: 'uppercase',
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                              textAlign: 'right',
+                                            }}
+                                          >
+                                            {T(v.pkPv?.sub)}
+                                          </span>
+                                        </span>
+                                      </div>
+                                      {v.pkPv?.hasSt ? (
+                                        <>
+                                          <span
+                                            style={{
+                                              font: "500 11px/1.4 'IBM Plex Mono',monospace",
+                                              color: 'var(--ac, oklch(0.82 0.12 85))',
+                                            }}
+                                          >
+                                            {T(v.pkPv?.st)}
+                                          </span>
+                                        </>
+                                      ) : null}
+                                      {v.pkPv?.hasE ? (
+                                        <>
+                                          <span style={{ fontSize: '13px', lineHeight: '1.45', textWrap: 'pretty' }}>
+                                            {T(v.pkPv?.e)}
+                                          </span>
+                                        </>
+                                      ) : null}
+                                    </div>
+                                    {v.pkPv?.hasStats ? (
+                                      <>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1 'IBM Plex Mono',monospace",
+                                              letterSpacing: '.14em',
+                                              textTransform: 'uppercase',
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            }}
+                                          >
+                                            Stats
+                                          </span>
+                                          <div
+                                            style={{
+                                              display: 'grid',
+                                              gridTemplateColumns: 'repeat(auto-fill,minmax(64px,1fr))',
+                                              gap: '4px',
+                                            }}
+                                          >
+                                            {L(v.pkPv?.stats).map((x: any, $index: number) => (
+                                              <Fragment key={$index}>
+                                                <div
+                                                  style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    alignItems: 'center',
+                                                    gap: '3px',
+                                                    padding: '7px 0',
+                                                    borderRadius: '6px',
+                                                    background: 'var(--panel2, oklch(0.3 0.055 165))',
+                                                  }}
+                                                >
+                                                  <span
+                                                    style={{
+                                                      font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                                      color: 'var(--mu, oklch(0.78 0.035 120))',
+                                                    }}
+                                                  >
+                                                    {T(x?.l)}
+                                                  </span>
+                                                  <span style={{ font: "600 12px/1 'IBM Plex Mono',monospace" }}>
+                                                    {T(x?.v)}
+                                                  </span>
+                                                </div>
+                                              </Fragment>
+                                            ))}
+                                          </div>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1.4 'IBM Plex Mono',monospace",
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            }}
+                                          >
+                                            {T(v.pkPv?.statNote)}
+                                          </span>
+                                        </div>
+                                      </>
+                                    ) : null}
+                                    {v.pkPv?.hasRf ? (
+                                      <>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1 'IBM Plex Mono',monospace",
+                                              letterSpacing: '.14em',
+                                              textTransform: 'uppercase',
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            }}
+                                          >
+                                            Refine level
+                                          </span>
+                                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                                            {L(v.pkPv?.rf).map((o: any, $index: number) => (
+                                              <Fragment key={$index}>
+                                                <button
+                                                  onClick={o?.go}
+                                                  style={
+                                                    {
+                                                      minWidth: '44px',
+                                                      height: '36px',
+                                                      padding: '0 10px',
+                                                      boxSizing: 'border-box',
+                                                      borderRadius: '8px',
+                                                      border: `1px solid ${str(o?.bd)}`,
+                                                      background: str(o?.bg),
+                                                      color: 'var(--tx, #eee)',
+                                                      cursor: 'pointer',
+                                                      font: "600 12px/1 'IBM Plex Mono',monospace",
+                                                    } as CSSProperties
+                                                  }
+                                                >
+                                                  {T(o?.l)}
+                                                </button>
+                                              </Fragment>
+                                            ))}
+                                          </div>
+                                          {v.pkPv?.hasRc ? (
+                                            <>
+                                              <span
+                                                style={{
+                                                  font: "500 11px/1.4 'IBM Plex Mono',monospace",
+                                                  color: 'var(--mu, oklch(0.78 0.035 120))',
+                                                }}
+                                              >
+                                                {T(v.pkPv?.rc)}
+                                              </span>
+                                            </>
+                                          ) : null}
+                                        </div>
+                                      </>
+                                    ) : null}
+                                    {v.pkPv?.hasGa ? (
+                                      <>
+                                        <div
+                                          style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '4px',
+                                            padding: '8px 10px',
+                                            borderRadius: '10px',
+                                            border: '1px dashed var(--ac, oklch(0.8 0.11 75))',
+                                          }}
+                                        >
+                                          <span
+                                            style={{
+                                              font: "500 10px/1 'IBM Plex Mono',monospace",
+                                              letterSpacing: '.14em',
+                                              textTransform: 'uppercase',
+                                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                                            }}
+                                          >
+                                            Grants combat art
+                                          </span>
+                                          <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(v.pkPv?.ga)}</span>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1.4 'IBM Plex Mono',monospace",
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            }}
+                                          >
+                                            {T(v.pkPv?.gaNote)}
+                                            {' · not counted toward the combat art limit'}
+                                          </span>
+                                        </div>
+                                      </>
+                                    ) : null}
+                                    {v.pkPv?.hasWho ? (
+                                      <>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1 'IBM Plex Mono',monospace",
+                                              letterSpacing: '.14em',
+                                              textTransform: 'uppercase',
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            }}
+                                          >
+                                            Learned by · rank
+                                          </span>
+                                          <div
+                                            style={{
+                                              display: 'grid',
+                                              gridTemplateColumns: 'auto minmax(0,1fr)',
+                                              gap: '4px 10px',
+                                              alignItems: 'baseline',
+                                            }}
+                                          >
+                                            {L(v.pkPv?.whoGroups).map((g: any, $index: number) => (
+                                              <Fragment key={$index}>
+                                                <span
+                                                  style={{
+                                                    font: "600 11px/1.4 'IBM Plex Mono',monospace",
+                                                    color: 'var(--ac, oklch(0.82 0.12 85))',
+                                                  }}
+                                                >
+                                                  {T(g?.rank)}
+                                                </span>
+                                                <span style={{ fontSize: '12px', textWrap: 'pretty' }}>
+                                                  {T(g?.names)}
+                                                </span>
+                                              </Fragment>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      </>
+                                    ) : null}
+                                    <div
+                                      style={{
+                                        position: 'sticky',
+                                        bottom: '-16px',
+                                        margin: '0 -16px -16px',
+                                        padding: '12px 16px 16px',
+                                        background: 'var(--bg, oklch(0.16 0.01 60))',
+                                        borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                      }}
+                                    >
+                                      <button
+                                        onClick={v.pkPickPv}
+                                        style={
+                                          {
+                                            minHeight: '44px',
+                                            padding: '10px 16px',
+                                            borderRadius: '999px',
+                                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                            background: str(v.pkPickBg),
+                                            color: str(v.pkPickFg),
+                                            opacity: str(v.pkPickOp),
+                                            fontWeight: '600',
+                                            cursor: str(v.pkPickCur),
+                                          } as CSSProperties
+                                        }
+                                      >
+                                        {T(v.pkPickLbl)}
+                                      </button>
+                                    </div>
+                                  </div>
+                                </>
+                              ) : null}
+                              {v.pkPvOff ? (
+                                <>
+                                  <span style={{ fontSize: '13px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
+                                    Select a row to preview.
+                                  </span>
+                                </>
+                              ) : null}
+                            </div>
                           </>
                         ) : null}
                       </div>
@@ -892,6 +1291,335 @@ export function AppView({ v }: { v: VM }) {
                           Done
                         </button>
                       </div>
+                      {v.pkSheet ? (
+                        <>
+                          <div
+                            onClick={v.stopClick}
+                            style={{
+                              position: 'fixed',
+                              left: '0',
+                              right: '0',
+                              bottom: '0',
+                              zIndex: '92',
+                              maxHeight: '80vh',
+                              overflowY: 'auto',
+                              boxSizing: 'border-box',
+                              padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
+                              borderRadius: '16px 16px 0 0',
+                              background: 'var(--bg, oklch(0.16 0.01 60))',
+                              border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                              borderBottom: '0',
+                              boxShadow: '0 -18px 50px -12px rgba(0,0,0,.6)',
+                            }}
+                          >
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                <div
+                                  style={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    gap: '10px',
+                                    alignItems: 'center',
+                                    flexWrap: 'wrap',
+                                  }}
+                                >
+                                  <span style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}>
+                                    {v.pkPv?.hasIc ? (
+                                      <>
+                                        <span
+                                          style={
+                                            {
+                                              flex: 'none',
+                                              width: '44px',
+                                              height: '44px',
+                                              borderRadius: '8px',
+                                              background: str(v.pkPv?.bgi),
+                                            } as CSSProperties
+                                          }
+                                        ></span>
+                                      </>
+                                    ) : null}
+                                    <h2
+                                      style={{
+                                        margin: '0',
+                                        font: "600 16px/1.25 'Cinzel',serif",
+                                        color: 'var(--ac, oklch(0.82 0.12 85))',
+                                      }}
+                                    >
+                                      {T(v.pkPv?.t)}
+                                    </h2>
+                                  </span>
+                                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    <span
+                                      style={{
+                                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                                        letterSpacing: '.1em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                        textAlign: 'right',
+                                      }}
+                                    >
+                                      {T(v.pkPv?.sub)}
+                                    </span>
+                                    <button
+                                      onClick={v.pkPvClose}
+                                      aria-label="Close preview"
+                                      style={{
+                                        flex: 'none',
+                                        width: '44px',
+                                        height: '44px',
+                                        border: '0',
+                                        borderRadius: '50%',
+                                        background: 'transparent',
+                                        cursor: 'pointer',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                        fontSize: '20px',
+                                      }}
+                                    >
+                                      ×
+                                    </button>
+                                  </span>
+                                </div>
+                                {v.pkPv?.hasSt ? (
+                                  <>
+                                    <span
+                                      style={{
+                                        font: "500 11px/1.4 'IBM Plex Mono',monospace",
+                                        color: 'var(--ac, oklch(0.82 0.12 85))',
+                                      }}
+                                    >
+                                      {T(v.pkPv?.st)}
+                                    </span>
+                                  </>
+                                ) : null}
+                                {v.pkPv?.hasE ? (
+                                  <>
+                                    <span style={{ fontSize: '13px', lineHeight: '1.45', textWrap: 'pretty' }}>
+                                      {T(v.pkPv?.e)}
+                                    </span>
+                                  </>
+                                ) : null}
+                              </div>
+                              {v.pkPv?.hasStats ? (
+                                <>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                    <span
+                                      style={{
+                                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                                        letterSpacing: '.14em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                      }}
+                                    >
+                                      Stats
+                                    </span>
+                                    <div
+                                      style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'repeat(auto-fill,minmax(64px,1fr))',
+                                        gap: '4px',
+                                      }}
+                                    >
+                                      {L(v.pkPv?.stats).map((x: any, $index: number) => (
+                                        <Fragment key={$index}>
+                                          <div
+                                            style={{
+                                              display: 'flex',
+                                              flexDirection: 'column',
+                                              alignItems: 'center',
+                                              gap: '3px',
+                                              padding: '7px 0',
+                                              borderRadius: '6px',
+                                              background: 'var(--panel2, oklch(0.3 0.055 165))',
+                                            }}
+                                          >
+                                            <span
+                                              style={{
+                                                font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                                color: 'var(--mu, oklch(0.78 0.035 120))',
+                                              }}
+                                            >
+                                              {T(x?.l)}
+                                            </span>
+                                            <span style={{ font: "600 12px/1 'IBM Plex Mono',monospace" }}>
+                                              {T(x?.v)}
+                                            </span>
+                                          </div>
+                                        </Fragment>
+                                      ))}
+                                    </div>
+                                    <span
+                                      style={{
+                                        font: "500 10px/1.4 'IBM Plex Mono',monospace",
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                      }}
+                                    >
+                                      {T(v.pkPv?.statNote)}
+                                    </span>
+                                  </div>
+                                </>
+                              ) : null}
+                              {v.pkPv?.hasRf ? (
+                                <>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                    <span
+                                      style={{
+                                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                                        letterSpacing: '.14em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                      }}
+                                    >
+                                      Refine level
+                                    </span>
+                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                                      {L(v.pkPv?.rf).map((o: any, $index: number) => (
+                                        <Fragment key={$index}>
+                                          <button
+                                            onClick={o?.go}
+                                            style={
+                                              {
+                                                minWidth: '44px',
+                                                height: '36px',
+                                                padding: '0 10px',
+                                                boxSizing: 'border-box',
+                                                borderRadius: '8px',
+                                                border: `1px solid ${str(o?.bd)}`,
+                                                background: str(o?.bg),
+                                                color: 'var(--tx, #eee)',
+                                                cursor: 'pointer',
+                                                font: "600 12px/1 'IBM Plex Mono',monospace",
+                                              } as CSSProperties
+                                            }
+                                          >
+                                            {T(o?.l)}
+                                          </button>
+                                        </Fragment>
+                                      ))}
+                                    </div>
+                                    {v.pkPv?.hasRc ? (
+                                      <>
+                                        <span
+                                          style={{
+                                            font: "500 11px/1.4 'IBM Plex Mono',monospace",
+                                            color: 'var(--mu, oklch(0.78 0.035 120))',
+                                          }}
+                                        >
+                                          {T(v.pkPv?.rc)}
+                                        </span>
+                                      </>
+                                    ) : null}
+                                  </div>
+                                </>
+                              ) : null}
+                              {v.pkPv?.hasGa ? (
+                                <>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      gap: '4px',
+                                      padding: '8px 10px',
+                                      borderRadius: '10px',
+                                      border: '1px dashed var(--ac, oklch(0.8 0.11 75))',
+                                    }}
+                                  >
+                                    <span
+                                      style={{
+                                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                                        letterSpacing: '.14em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--ac, oklch(0.8 0.11 75))',
+                                      }}
+                                    >
+                                      Grants combat art
+                                    </span>
+                                    <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(v.pkPv?.ga)}</span>
+                                    <span
+                                      style={{
+                                        font: "500 10px/1.4 'IBM Plex Mono',monospace",
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                      }}
+                                    >
+                                      {T(v.pkPv?.gaNote)}
+                                      {' · not counted toward the combat art limit'}
+                                    </span>
+                                  </div>
+                                </>
+                              ) : null}
+                              {v.pkPv?.hasWho ? (
+                                <>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                    <span
+                                      style={{
+                                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                                        letterSpacing: '.14em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                      }}
+                                    >
+                                      Learned by · rank
+                                    </span>
+                                    <div
+                                      style={{
+                                        display: 'grid',
+                                        gridTemplateColumns: 'auto minmax(0,1fr)',
+                                        gap: '4px 10px',
+                                        alignItems: 'baseline',
+                                      }}
+                                    >
+                                      {L(v.pkPv?.whoGroups).map((g: any, $index: number) => (
+                                        <Fragment key={$index}>
+                                          <span
+                                            style={{
+                                              font: "600 11px/1.4 'IBM Plex Mono',monospace",
+                                              color: 'var(--ac, oklch(0.82 0.12 85))',
+                                            }}
+                                          >
+                                            {T(g?.rank)}
+                                          </span>
+                                          <span style={{ fontSize: '12px', textWrap: 'pretty' }}>{T(g?.names)}</span>
+                                        </Fragment>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </>
+                              ) : null}
+                              <div
+                                style={{
+                                  position: 'sticky',
+                                  bottom: '-16px',
+                                  margin: '0 -16px -16px',
+                                  padding: '12px 16px 16px',
+                                  background: 'var(--bg, oklch(0.16 0.01 60))',
+                                  borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                }}
+                              >
+                                <button
+                                  onClick={v.pkPickPv}
+                                  style={
+                                    {
+                                      minHeight: '44px',
+                                      padding: '10px 16px',
+                                      borderRadius: '999px',
+                                      border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                      background: str(v.pkPickBg),
+                                      color: str(v.pkPickFg),
+                                      opacity: str(v.pkPickOp),
+                                      fontWeight: '600',
+                                      cursor: str(v.pkPickCur),
+                                    } as CSSProperties
+                                  }
+                                >
+                                  {T(v.pkPickLbl)}
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : null}
                     </div>
                   </div>
                 </>
@@ -913,18 +1641,20 @@ export function AppView({ v }: { v: VM }) {
                     <div
                       data-cdlg="1"
                       onClick={v.stopClick}
-                      style={{
-                        width: 'min(640px,100%)',
-                        maxHeight: 'min(720px,calc(100vh - 32px))',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '12px',
-                        padding: '20px',
-                        borderRadius: 'var(--r, 14px)',
-                        background: 'var(--panel, oklch(0.2 0.01 60))',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                        boxShadow: '0 24px 70px -12px rgba(0,0,0,.7)',
-                      }}
+                      style={
+                        {
+                          width: str(v.cdW),
+                          maxHeight: 'min(720px,calc(100vh - 32px))',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '12px',
+                          padding: '20px',
+                          borderRadius: 'var(--r, 14px)',
+                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          boxShadow: '0 24px 70px -12px rgba(0,0,0,.7)',
+                        } as CSSProperties
+                      }
                     >
                       <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px' }}>
                         <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>{T(v.cdTitle)}</h2>
@@ -996,139 +1726,534 @@ export function AppView({ v }: { v: VM }) {
                           </Fragment>
                         ))}
                       </div>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                        <select
-                          value={v.cdSk ?? ''}
-                          onChange={v.onCdSk}
-                          aria-label="Skill"
-                          style={{
-                            padding: '7px 12px',
-                            borderRadius: '999px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                            background: 'var(--panel)',
-                            color: 'var(--tx, #eee)',
-                            fontSize: '12px',
-                            maxWidth: '100%',
-                          }}
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                        <button
+                          onClick={v.cdSkAll}
+                          aria-pressed={v.cdSkAllOn}
+                          style={
+                            {
+                              height: '36px',
+                              padding: '0 12px',
+                              boxSizing: 'border-box',
+                              borderRadius: '8px',
+                              border: `1px solid ${str(v.cdSkAllBd)}`,
+                              background: str(v.cdSkAllBg),
+                              color: 'var(--tx, #eee)',
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                            } as CSSProperties
+                          }
                         >
-                          {L(v.cdSkOpts).map((o: any, $index: number) => (
-                            <Fragment key={$index}>
-                              <option value={o ?? ''}>{T(o)}</option>
-                            </Fragment>
-                          ))}
-                        </select>
-                      </div>
-                      <div
-                        style={{
-                          overflowY: 'auto',
-                          display: 'flex',
-                          flexDirection: 'column',
-                          gap: '6px',
-                          minHeight: '120px',
-                          paddingRight: '4px',
-                        }}
-                      >
-                        {L(v.cdRows).map((r: any, $index: number) => (
+                          All
+                        </button>
+                        {L(v.cdSkIcons).map((o: any, $index: number) => (
                           <Fragment key={$index}>
-                            <div
+                            <button
                               data-tip="1"
-                              onMouseEnter={r?.enter}
-                              onMouseLeave={r?.leave}
-                              onClick={r?.go}
+                              onClick={o?.click}
+                              onMouseEnter={o?.enter}
+                              onMouseLeave={o?.leave}
+                              aria-label={o?.n}
+                              aria-pressed={o?.on}
                               style={
                                 {
-                                  display: 'grid',
-                                  gridTemplateColumns: '24px 36px 1fr auto',
-                                  gap: '10px',
-                                  alignItems: 'start',
-                                  padding: '9px 12px',
-                                  borderRadius: '10px',
-                                  border: `1px solid ${str(r?.bd)}`,
-                                  background: 'var(--panel2, oklch(0.25 0.012 60))',
-                                  opacity: str(r?.op),
-                                  cursor: str(r?.cur),
+                                  width: '36px',
+                                  height: '36px',
+                                  padding: '3px',
+                                  boxSizing: 'border-box',
+                                  borderRadius: '8px',
+                                  border: `1px solid ${str(o?.bd)}`,
+                                  background: str(o?.bg),
+                                  opacity: str(o?.op),
+                                  cursor: 'pointer',
                                 } as CSSProperties
                               }
                             >
                               <span
-                                style={{
-                                  font: "600 14px/1.3 'IBM Plex Mono',monospace",
-                                  color: 'var(--ac, oklch(0.8 0.11 75))',
-                                }}
-                              >
-                                {T(r?.mark)}
-                              </span>
-                              <span
                                 style={
                                   {
-                                    width: '36px',
-                                    height: '36px',
-                                    borderRadius: '8px',
-                                    background: str(r?.bgi),
+                                    display: 'block',
+                                    width: '100%',
+                                    height: '100%',
+                                    borderRadius: '4px',
+                                    background: str(o?.bgi),
                                   } as CSSProperties
                                 }
                               ></span>
-                              <span style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0' }}>
-                                <span style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
-                                  <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
-                                  {L(r?.badges).map((b: any, $index: number) => (
-                                    <Fragment key={$index}>
-                                      <span
-                                        style={{
-                                          font: "500 9.5px/1 'IBM Plex Mono',monospace",
-                                          letterSpacing: '.08em',
-                                          padding: '3px 6px',
-                                          borderRadius: '4px',
-                                          border: '1px solid var(--ac, oklch(0.82 0.12 85))',
-                                          color: 'var(--ac, oklch(0.82 0.12 85))',
-                                        }}
-                                      >
-                                        {T(b?.l)}
-                                      </span>
-                                    </Fragment>
-                                  ))}
-                                </span>
-                                <span
-                                  style={{
-                                    fontSize: '12px',
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
-                                    textWrap: 'pretty',
-                                  }}
-                                >
-                                  {T(r?.sub)}
-                                </span>
-                                {r?.isLock ? (
-                                  <>
-                                    <span
-                                      style={{ fontSize: '12px', color: 'oklch(0.74 0.12 30)', textWrap: 'pretty' }}
-                                    >
-                                      {T(r?.lock)}
-                                    </span>
-                                  </>
-                                ) : null}
-                              </span>
-                              <span
+                            </button>
+                          </Fragment>
+                        ))}
+                      </div>
+                      <div
+                        style={
+                          {
+                            display: 'grid',
+                            gridTemplateColumns: str(v.cdCols),
+                            gridTemplateRows: 'minmax(0,1fr)',
+                            gap: '16px',
+                            height: str(v.cdBodyH),
+                            minHeight: '0',
+                            overflow: 'hidden',
+                          } as CSSProperties
+                        }
+                      >
+                        <div
+                          style={{
+                            overflowY: 'auto',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '6px',
+                            minHeight: '120px',
+                            minWidth: '0',
+                            paddingRight: '4px',
+                          }}
+                        >
+                          {L(v.cdRows).map((r: any, $index: number) => (
+                            <Fragment key={$index}>
+                              <div
+                                onClick={r?.go}
                                 style={
                                   {
-                                    font: "500 10px/1.3 'IBM Plex Mono',monospace",
-                                    letterSpacing: '.1em',
-                                    textTransform: 'uppercase',
-                                    color: str(r?.tc),
+                                    display: 'grid',
+                                    gridTemplateColumns: '24px 36px 1fr auto',
+                                    gap: '10px',
+                                    alignItems: 'start',
+                                    padding: '9px 12px',
+                                    borderRadius: '10px',
+                                    border: `1px solid ${str(r?.bd)}`,
+                                    background: str(r?.rbg),
+                                    opacity: str(r?.op),
+                                    cursor: str(r?.cur),
                                   } as CSSProperties
                                 }
                               >
-                                {T(r?.tier)}
+                                <span
+                                  style={{
+                                    font: "600 14px/1.3 'IBM Plex Mono',monospace",
+                                    color: 'var(--ac, oklch(0.8 0.11 75))',
+                                  }}
+                                >
+                                  {T(r?.mark)}
+                                </span>
+                                <span
+                                  style={
+                                    {
+                                      alignSelf: 'center',
+                                      width: '36px',
+                                      height: '36px',
+                                      borderRadius: '8px',
+                                      background: str(r?.bgi),
+                                    } as CSSProperties
+                                  }
+                                ></span>
+                                <span style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0' }}>
+                                  <span style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+                                    <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
+                                    {L(r?.badges).map((b: any, $index: number) => (
+                                      <Fragment key={$index}>
+                                        <span
+                                          style={{
+                                            font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                            letterSpacing: '.08em',
+                                            padding: '3px 6px',
+                                            borderRadius: '4px',
+                                            border: '1px solid var(--ac, oklch(0.82 0.12 85))',
+                                            color: 'var(--ac, oklch(0.82 0.12 85))',
+                                          }}
+                                        >
+                                          {T(b?.l)}
+                                        </span>
+                                      </Fragment>
+                                    ))}
+                                  </span>
+                                  <span style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                                    {L(r?.skl).map((a: any, $index: number) => (
+                                      <Fragment key={$index}>
+                                        {a?.ic ? (
+                                          <>
+                                            <span
+                                              data-tip="1"
+                                              onMouseEnter={a?.enter}
+                                              onMouseLeave={a?.leave}
+                                              onClick={a?.enter}
+                                              aria-label={a?.n}
+                                              style={
+                                                {
+                                                  width: '24px',
+                                                  height: '24px',
+                                                  borderRadius: '5px',
+                                                  background: str(a?.bgi),
+                                                  cursor: 'help',
+                                                } as CSSProperties
+                                              }
+                                            ></span>
+                                          </>
+                                        ) : null}
+                                        {a?.noIc ? (
+                                          <>
+                                            <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                                              {T(a?.n)}
+                                            </span>
+                                          </>
+                                        ) : null}
+                                      </Fragment>
+                                    ))}
+                                  </span>
+                                  {r?.subOn ? (
+                                    <>
+                                      <span
+                                        style={{
+                                          fontSize: '12px',
+                                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                                          textWrap: 'pretty',
+                                        }}
+                                      >
+                                        {T(r?.sub)}
+                                      </span>
+                                    </>
+                                  ) : null}
+                                  {r?.isLock ? (
+                                    <>
+                                      <span
+                                        style={{ fontSize: '12px', color: 'oklch(0.74 0.12 30)', textWrap: 'pretty' }}
+                                      >
+                                        {T(r?.lock)}
+                                      </span>
+                                    </>
+                                  ) : null}
+                                </span>
+                                <span
+                                  style={
+                                    {
+                                      font: "500 10px/1.3 'IBM Plex Mono',monospace",
+                                      letterSpacing: '.1em',
+                                      textTransform: 'uppercase',
+                                      color: str(r?.tc),
+                                    } as CSSProperties
+                                  }
+                                >
+                                  {T(r?.tier)}
+                                </span>
+                              </div>
+                            </Fragment>
+                          ))}
+                          {v.cdNone ? (
+                            <>
+                              <span
+                                style={{ padding: '16px', textAlign: 'center', color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                              >
+                                Nothing matches.
                               </span>
-                            </div>
-                          </Fragment>
-                        ))}
-                        {v.cdNone ? (
+                            </>
+                          ) : null}
+                        </div>
+                        {v.cdSplit ? (
                           <>
-                            <span
-                              style={{ padding: '16px', textAlign: 'center', color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                            <div
+                              style={{
+                                overflowY: 'auto',
+                                minWidth: '0',
+                                padding: '16px',
+                                borderRadius: '12px',
+                                background: 'var(--bg, oklch(0.16 0.01 60))',
+                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                              }}
                             >
-                              Nothing matches.
-                            </span>
+                              {v.cdPvOn ? (
+                                <>
+                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                      <div
+                                        style={{
+                                          display: 'flex',
+                                          justifyContent: 'space-between',
+                                          gap: '10px',
+                                          alignItems: 'center',
+                                          flexWrap: 'wrap',
+                                        }}
+                                      >
+                                        <span
+                                          style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}
+                                        >
+                                          <span
+                                            style={
+                                              {
+                                                flex: 'none',
+                                                width: '44px',
+                                                height: '44px',
+                                                borderRadius: '8px',
+                                                background: str(v.cdPv?.bgi),
+                                              } as CSSProperties
+                                            }
+                                          ></span>
+                                          <h2
+                                            style={{
+                                              margin: '0',
+                                              font: "600 16px/1.25 'Cinzel',serif",
+                                              color: 'var(--ac, oklch(0.82 0.12 85))',
+                                            }}
+                                          >
+                                            {T(v.cdPv?.t)}
+                                          </h2>
+                                        </span>
+                                        <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1 'IBM Plex Mono',monospace",
+                                              letterSpacing: '.1em',
+                                              textTransform: 'uppercase',
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                              textAlign: 'right',
+                                            }}
+                                          >
+                                            {T(v.cdPv?.sub)}
+                                          </span>
+                                        </span>
+                                      </div>
+                                      {v.cdPv?.hasSk ? (
+                                        <>
+                                          <span style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                                            {L(v.cdPv?.skIcons).map((x: any, $index: number) => (
+                                              <Fragment key={$index}>
+                                                <span
+                                                  data-tip="1"
+                                                  onMouseEnter={x?.enter}
+                                                  onMouseLeave={x?.leave}
+                                                  onClick={x?.enter}
+                                                  aria-label={x?.n}
+                                                  style={
+                                                    {
+                                                      width: '32px',
+                                                      height: '32px',
+                                                      borderRadius: '6px',
+                                                      background: str(x?.bgi),
+                                                      cursor: 'help',
+                                                    } as CSSProperties
+                                                  }
+                                                ></span>
+                                              </Fragment>
+                                            ))}
+                                          </span>
+                                        </>
+                                      ) : null}
+                                      {v.cdPv?.note ? (
+                                        <>
+                                          <span
+                                            style={{
+                                              font: "500 11px/1.4 'IBM Plex Mono',monospace",
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            }}
+                                          >
+                                            {T(v.cdPv?.note)}
+                                          </span>
+                                        </>
+                                      ) : null}
+                                      {v.cdPv?.body ? (
+                                        <>
+                                          <span
+                                            style={
+                                              {
+                                                fontSize: '13px',
+                                                lineHeight: '1.45',
+                                                textWrap: 'pretty',
+                                                color: str(v.cdPv?.bodyCol),
+                                              } as CSSProperties
+                                            }
+                                          >
+                                            {T(v.cdPv?.body)}
+                                          </span>
+                                        </>
+                                      ) : null}
+                                    </div>
+                                    {v.cdPv?.hasGrids ? (
+                                      <>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                          {L(v.cdPv?.grids).map((g: any, $index: number) => (
+                                            <Fragment key={$index}>
+                                              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                                <span
+                                                  style={{
+                                                    font: "500 10px/1 'IBM Plex Mono',monospace",
+                                                    letterSpacing: '.14em',
+                                                    textTransform: 'uppercase',
+                                                    color: 'var(--mu, oklch(0.78 0.035 120))',
+                                                  }}
+                                                >
+                                                  {T(g?.lbl)}
+                                                </span>
+                                                <div
+                                                  style={{
+                                                    display: 'grid',
+                                                    gridTemplateColumns: 'repeat(9,minmax(0,1fr))',
+                                                    gap: '4px',
+                                                  }}
+                                                >
+                                                  {L(g?.cells).map((x: any, $index: number) => (
+                                                    <Fragment key={$index}>
+                                                      <div
+                                                        style={{
+                                                          display: 'flex',
+                                                          flexDirection: 'column',
+                                                          alignItems: 'center',
+                                                          gap: '3px',
+                                                          padding: '7px 0',
+                                                          borderRadius: '6px',
+                                                          background: 'var(--panel2, oklch(0.3 0.055 165))',
+                                                        }}
+                                                      >
+                                                        <span
+                                                          style={{
+                                                            font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                                            color: 'var(--mu, oklch(0.78 0.035 120))',
+                                                          }}
+                                                        >
+                                                          {T(x?.s)}
+                                                        </span>
+                                                        <span
+                                                          style={
+                                                            {
+                                                              font: "600 12px/1 'IBM Plex Mono',monospace",
+                                                              color: str(x?.col),
+                                                            } as CSSProperties
+                                                          }
+                                                        >
+                                                          {T(x?.v)}
+                                                        </span>
+                                                      </div>
+                                                    </Fragment>
+                                                  ))}
+                                                </div>
+                                              </div>
+                                            </Fragment>
+                                          ))}
+                                        </div>
+                                      </>
+                                    ) : null}
+                                    {v.cdPv?.hasGroups ? (
+                                      <>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1 'IBM Plex Mono',monospace",
+                                              letterSpacing: '.14em',
+                                              textTransform: 'uppercase',
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            }}
+                                          >
+                                            Abilities
+                                          </span>
+                                          {L(v.cdPv?.abs).map((a: any, $index: number) => (
+                                            <Fragment key={$index}>
+                                              <div
+                                                style={
+                                                  {
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    gap: '4px',
+                                                    padding: '8px 10px',
+                                                    borderRadius: '10px',
+                                                    border: `1px ${str(a?.dashed)} var(--line, oklch(0.42 0.06 110 / .55))`,
+                                                  } as CSSProperties
+                                                }
+                                              >
+                                                <span
+                                                  style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'space-between',
+                                                    gap: '8px',
+                                                  }}
+                                                >
+                                                  <span
+                                                    style={{
+                                                      display: 'flex',
+                                                      alignItems: 'center',
+                                                      gap: '8px',
+                                                      minWidth: '0',
+                                                    }}
+                                                  >
+                                                    <span
+                                                      style={
+                                                        {
+                                                          flex: 'none',
+                                                          width: '28px',
+                                                          height: '28px',
+                                                          borderRadius: '6px',
+                                                          background: str(a?.bgi),
+                                                        } as CSSProperties
+                                                      }
+                                                    ></span>
+                                                    <span style={{ fontWeight: '600', fontSize: '13px' }}>
+                                                      {T(a?.n)}
+                                                    </span>
+                                                  </span>
+                                                  <span
+                                                    style={{
+                                                      font: "500 10px/1 'IBM Plex Mono',monospace",
+                                                      letterSpacing: '.12em',
+                                                      textTransform: 'uppercase',
+                                                      color: 'var(--mu, oklch(0.78 0.035 120))',
+                                                    }}
+                                                  >
+                                                    {T(a?.tag)}
+                                                  </span>
+                                                </span>
+                                                <span
+                                                  style={{
+                                                    fontSize: '12px',
+                                                    color: 'var(--mu, oklch(0.78 0.035 120))',
+                                                    textWrap: 'pretty',
+                                                  }}
+                                                >
+                                                  {T(a?.e)}
+                                                </span>
+                                              </div>
+                                            </Fragment>
+                                          ))}
+                                        </div>
+                                      </>
+                                    ) : null}
+                                    <div
+                                      style={{
+                                        position: 'sticky',
+                                        bottom: '-16px',
+                                        margin: '0 -16px -16px',
+                                        padding: '12px 16px 16px',
+                                        background: 'var(--bg, oklch(0.16 0.01 60))',
+                                        borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                      }}
+                                    >
+                                      <button
+                                        onClick={v.cdPickPv}
+                                        style={
+                                          {
+                                            minHeight: '44px',
+                                            padding: '10px 16px',
+                                            borderRadius: '999px',
+                                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                            background: str(v.cdPickBg),
+                                            color: str(v.cdPickFg),
+                                            fontWeight: '600',
+                                            cursor: 'pointer',
+                                          } as CSSProperties
+                                        }
+                                      >
+                                        {T(v.cdPickLbl)}
+                                      </button>
+                                    </div>
+                                  </div>
+                                </>
+                              ) : null}
+                              {v.cdPvOff ? (
+                                <>
+                                  <span style={{ fontSize: '13px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                                    Select a row to preview the class.
+                                  </span>
+                                </>
+                              ) : null}
+                            </div>
                           </>
                         ) : null}
                       </div>
@@ -1150,6 +2275,321 @@ export function AppView({ v }: { v: VM }) {
                         </button>
                       </div>
                     </div>
+                    {v.cdSheet ? (
+                      <>
+                        <div
+                          onClick={v.stopClick}
+                          style={{
+                            position: 'fixed',
+                            left: '0',
+                            right: '0',
+                            bottom: '0',
+                            zIndex: '92',
+                            maxHeight: '80vh',
+                            overflowY: 'auto',
+                            boxSizing: 'border-box',
+                            padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
+                            borderRadius: '16px 16px 0 0',
+                            background: 'var(--bg, oklch(0.16 0.01 60))',
+                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                            borderBottom: '0',
+                            boxShadow: '0 -18px 50px -12px rgba(0,0,0,.6)',
+                          }}
+                        >
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  justifyContent: 'space-between',
+                                  gap: '10px',
+                                  alignItems: 'center',
+                                  flexWrap: 'wrap',
+                                }}
+                              >
+                                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}>
+                                  <span
+                                    style={
+                                      {
+                                        flex: 'none',
+                                        width: '44px',
+                                        height: '44px',
+                                        borderRadius: '8px',
+                                        background: str(v.cdPv?.bgi),
+                                      } as CSSProperties
+                                    }
+                                  ></span>
+                                  <h2
+                                    style={{
+                                      margin: '0',
+                                      font: "600 16px/1.25 'Cinzel',serif",
+                                      color: 'var(--ac, oklch(0.82 0.12 85))',
+                                    }}
+                                  >
+                                    {T(v.cdPv?.t)}
+                                  </h2>
+                                </span>
+                                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                  <span
+                                    style={{
+                                      font: "500 10px/1 'IBM Plex Mono',monospace",
+                                      letterSpacing: '.1em',
+                                      textTransform: 'uppercase',
+                                      color: 'var(--mu, oklch(0.78 0.035 120))',
+                                      textAlign: 'right',
+                                    }}
+                                  >
+                                    {T(v.cdPv?.sub)}
+                                  </span>
+                                  <button
+                                    onClick={v.cdPvClose}
+                                    aria-label="Close preview"
+                                    style={{
+                                      flex: 'none',
+                                      width: '44px',
+                                      height: '44px',
+                                      border: '0',
+                                      borderRadius: '50%',
+                                      background: 'transparent',
+                                      cursor: 'pointer',
+                                      color: 'var(--mu, oklch(0.78 0.035 120))',
+                                      fontSize: '20px',
+                                    }}
+                                  >
+                                    ×
+                                  </button>
+                                </span>
+                              </div>
+                              {v.cdPv?.hasSk ? (
+                                <>
+                                  <span style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                                    {L(v.cdPv?.skIcons).map((x: any, $index: number) => (
+                                      <Fragment key={$index}>
+                                        <span
+                                          data-tip="1"
+                                          onMouseEnter={x?.enter}
+                                          onMouseLeave={x?.leave}
+                                          onClick={x?.enter}
+                                          aria-label={x?.n}
+                                          style={
+                                            {
+                                              width: '32px',
+                                              height: '32px',
+                                              borderRadius: '6px',
+                                              background: str(x?.bgi),
+                                              cursor: 'help',
+                                            } as CSSProperties
+                                          }
+                                        ></span>
+                                      </Fragment>
+                                    ))}
+                                  </span>
+                                </>
+                              ) : null}
+                              {v.cdPv?.note ? (
+                                <>
+                                  <span
+                                    style={{
+                                      font: "500 11px/1.4 'IBM Plex Mono',monospace",
+                                      color: 'var(--mu, oklch(0.78 0.035 120))',
+                                    }}
+                                  >
+                                    {T(v.cdPv?.note)}
+                                  </span>
+                                </>
+                              ) : null}
+                              {v.cdPv?.body ? (
+                                <>
+                                  <span
+                                    style={
+                                      {
+                                        fontSize: '13px',
+                                        lineHeight: '1.45',
+                                        textWrap: 'pretty',
+                                        color: str(v.cdPv?.bodyCol),
+                                      } as CSSProperties
+                                    }
+                                  >
+                                    {T(v.cdPv?.body)}
+                                  </span>
+                                </>
+                              ) : null}
+                            </div>
+                            {v.cdPv?.hasGrids ? (
+                              <>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                  {L(v.cdPv?.grids).map((g: any, $index: number) => (
+                                    <Fragment key={$index}>
+                                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                        <span
+                                          style={{
+                                            font: "500 10px/1 'IBM Plex Mono',monospace",
+                                            letterSpacing: '.14em',
+                                            textTransform: 'uppercase',
+                                            color: 'var(--mu, oklch(0.78 0.035 120))',
+                                          }}
+                                        >
+                                          {T(g?.lbl)}
+                                        </span>
+                                        <div
+                                          style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: 'repeat(9,minmax(0,1fr))',
+                                            gap: '4px',
+                                          }}
+                                        >
+                                          {L(g?.cells).map((x: any, $index: number) => (
+                                            <Fragment key={$index}>
+                                              <div
+                                                style={{
+                                                  display: 'flex',
+                                                  flexDirection: 'column',
+                                                  alignItems: 'center',
+                                                  gap: '3px',
+                                                  padding: '7px 0',
+                                                  borderRadius: '6px',
+                                                  background: 'var(--panel2, oklch(0.3 0.055 165))',
+                                                }}
+                                              >
+                                                <span
+                                                  style={{
+                                                    font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                                    color: 'var(--mu, oklch(0.78 0.035 120))',
+                                                  }}
+                                                >
+                                                  {T(x?.s)}
+                                                </span>
+                                                <span
+                                                  style={
+                                                    {
+                                                      font: "600 12px/1 'IBM Plex Mono',monospace",
+                                                      color: str(x?.col),
+                                                    } as CSSProperties
+                                                  }
+                                                >
+                                                  {T(x?.v)}
+                                                </span>
+                                              </div>
+                                            </Fragment>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    </Fragment>
+                                  ))}
+                                </div>
+                              </>
+                            ) : null}
+                            {v.cdPv?.hasGroups ? (
+                              <>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                  <span
+                                    style={{
+                                      font: "500 10px/1 'IBM Plex Mono',monospace",
+                                      letterSpacing: '.14em',
+                                      textTransform: 'uppercase',
+                                      color: 'var(--mu, oklch(0.78 0.035 120))',
+                                    }}
+                                  >
+                                    Abilities
+                                  </span>
+                                  {L(v.cdPv?.abs).map((a: any, $index: number) => (
+                                    <Fragment key={$index}>
+                                      <div
+                                        style={
+                                          {
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '4px',
+                                            padding: '8px 10px',
+                                            borderRadius: '10px',
+                                            border: `1px ${str(a?.dashed)} var(--line, oklch(0.42 0.06 110 / .55))`,
+                                          } as CSSProperties
+                                        }
+                                      >
+                                        <span
+                                          style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'space-between',
+                                            gap: '8px',
+                                          }}
+                                        >
+                                          <span
+                                            style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '0' }}
+                                          >
+                                            <span
+                                              style={
+                                                {
+                                                  flex: 'none',
+                                                  width: '28px',
+                                                  height: '28px',
+                                                  borderRadius: '6px',
+                                                  background: str(a?.bgi),
+                                                } as CSSProperties
+                                              }
+                                            ></span>
+                                            <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(a?.n)}</span>
+                                          </span>
+                                          <span
+                                            style={{
+                                              font: "500 10px/1 'IBM Plex Mono',monospace",
+                                              letterSpacing: '.12em',
+                                              textTransform: 'uppercase',
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            }}
+                                          >
+                                            {T(a?.tag)}
+                                          </span>
+                                        </span>
+                                        <span
+                                          style={{
+                                            fontSize: '12px',
+                                            color: 'var(--mu, oklch(0.78 0.035 120))',
+                                            textWrap: 'pretty',
+                                          }}
+                                        >
+                                          {T(a?.e)}
+                                        </span>
+                                      </div>
+                                    </Fragment>
+                                  ))}
+                                </div>
+                              </>
+                            ) : null}
+                            <div
+                              style={{
+                                position: 'sticky',
+                                bottom: '-16px',
+                                margin: '0 -16px -16px',
+                                padding: '12px 16px 16px',
+                                background: 'var(--bg, oklch(0.16 0.01 60))',
+                                borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                display: 'flex',
+                                flexDirection: 'column',
+                              }}
+                            >
+                              <button
+                                onClick={v.cdPickPv}
+                                style={
+                                  {
+                                    minHeight: '44px',
+                                    padding: '10px 16px',
+                                    borderRadius: '999px',
+                                    border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                    background: str(v.cdPickBg),
+                                    color: str(v.cdPickFg),
+                                    fontWeight: '600',
+                                    cursor: 'pointer',
+                                  } as CSSProperties
+                                }
+                              >
+                                {T(v.cdPickLbl)}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : null}
                   </div>
                 </>
               ) : null}
@@ -1205,10 +2645,27 @@ export function AppView({ v }: { v: VM }) {
                     }
                   >
                     <div
-                      style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'baseline' }}
+                      style={{ display: 'flex', justifyContent: 'space-between', gap: '10px', alignItems: 'center' }}
                     >
-                      <span style={{ font: "600 16px/1.25 'Cinzel',serif", color: 'var(--ac, oklch(0.82 0.12 85))' }}>
-                        {T(v.tip?.t)}
+                      <span style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}>
+                        {v.tip?.hasIc ? (
+                          <>
+                            <span
+                              style={
+                                {
+                                  flex: 'none',
+                                  width: '32px',
+                                  height: '32px',
+                                  borderRadius: '6px',
+                                  background: str(v.tip?.bgi),
+                                } as CSSProperties
+                              }
+                            ></span>
+                          </>
+                        ) : null}
+                        <span style={{ font: "600 16px/1.25 'Cinzel',serif", color: 'var(--ac, oklch(0.82 0.12 85))' }}>
+                          {T(v.tip?.t)}
+                        </span>
                       </span>
                       <span
                         style={{
@@ -1222,6 +2679,26 @@ export function AppView({ v }: { v: VM }) {
                         {T(v.tip?.sub)}
                       </span>
                     </div>
+                    {v.tip?.hasSk ? (
+                      <>
+                        <span style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                          {L(v.tip?.skIcons).map((x: any, $index: number) => (
+                            <Fragment key={$index}>
+                              <span
+                                style={
+                                  {
+                                    width: '24px',
+                                    height: '24px',
+                                    borderRadius: '5px',
+                                    background: str(x?.bgi),
+                                  } as CSSProperties
+                                }
+                              ></span>
+                            </Fragment>
+                          ))}
+                        </span>
+                      </>
+                    ) : null}
                     <span
                       style={
                         {
@@ -1399,7 +2876,28 @@ export function AppView({ v }: { v: VM }) {
                                     >
                                       {T(g?.rank)}
                                     </span>
-                                    <span style={{ fontSize: '12px', textWrap: 'pretty' }}>{T(g?.names)}</span>
+                                    <span
+                                      style={{
+                                        display: 'flex',
+                                        alignItems: 'flex-start',
+                                        gap: '8px',
+                                        fontSize: '12px',
+                                        textWrap: 'pretty',
+                                      }}
+                                    >
+                                      <span
+                                        style={
+                                          {
+                                            flex: 'none',
+                                            width: '20px',
+                                            height: '20px',
+                                            borderRadius: '4px',
+                                            background: str(g?.bgi),
+                                          } as CSSProperties
+                                        }
+                                      ></span>
+                                      <span>{T(g?.names)}</span>
+                                    </span>
                                   </Fragment>
                                 ))}
                               </div>

@@ -1020,16 +1020,28 @@ export function ProfileScreen({ v }: { v: VM }) {
                             background: 'var(--panel2, oklch(0.25 0.012 60))',
                           }}
                         >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', gap: '8px' }}>
-                            <span style={{ fontWeight: '600' }}>{T(r?.route)}</span>
-                            <span
-                              style={
-                                { font: "500 11px/1.4 'IBM Plex Mono',monospace", color: str(r?.col) } as CSSProperties
-                              }
-                            >
-                              {T(r?.where)}
-                            </span>
-                          </div>
+                          <span style={{ fontWeight: '600' }}>{T(r?.route)}</span>
+                          <span
+                            style={
+                              { font: "500 11px/1.4 'IBM Plex Mono',monospace", color: str(r?.col) } as CSSProperties
+                            }
+                          >
+                            {T(r?.where)}
+                          </span>
+                          {r?.hasTags ? (
+                            <>
+                              <span
+                                style={
+                                  {
+                                    font: "500 11px/1.4 'IBM Plex Mono',monospace",
+                                    color: str(r?.col),
+                                  } as CSSProperties
+                                }
+                              >
+                                {T(r?.tagLine)}
+                              </span>
+                            </>
+                          ) : null}
                           <span
                             style={
                               {
@@ -1042,29 +1054,6 @@ export function ProfileScreen({ v }: { v: VM }) {
                           >
                             {T(r?.method)}
                           </span>
-                          {r?.hasTags ? (
-                            <>
-                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                                {L(r?.tags).map((g: any, $index: number) => (
-                                  <Fragment key={$index}>
-                                    <span
-                                      style={
-                                        {
-                                          font: "500 11px/1.4 'IBM Plex Mono',monospace",
-                                          color: str(r?.col),
-                                          padding: '2px 8px',
-                                          borderRadius: '999px',
-                                          border: `1px solid ${str(r?.col)}`,
-                                        } as CSSProperties
-                                      }
-                                    >
-                                      {T(g)}
-                                    </span>
-                                  </Fragment>
-                                ))}
-                              </div>
-                            </>
-                          ) : null}
                           {r?.showReq ? (
                             <>
                               <span
@@ -1080,6 +1069,24 @@ export function ProfileScreen({ v }: { v: VM }) {
                               >
                                 {T(r?.req)}
                               </span>
+                              {r?.hasNote ? (
+                                <>
+                                  <span
+                                    style={
+                                      {
+                                        fontSize: '12px',
+                                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                                        textWrap: 'pretty',
+                                        filter: str(v.p?.recBlur),
+                                        userSelect: str(v.p?.recSel),
+                                        transition: 'filter .2s',
+                                      } as CSSProperties
+                                    }
+                                  >
+                                    {T(r?.note)}
+                                  </span>
+                                </>
+                              ) : null}
                             </>
                           ) : null}
                           {r?.sealed ? (

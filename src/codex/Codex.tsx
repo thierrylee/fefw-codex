@@ -6,6 +6,9 @@ import { DEFAULT_PROPS, type CodexProps } from './props'
 export class Codex extends Component<CodexProps, any> {
   static defaultProps = DEFAULT_PROPS
   // Instance fields the logic assigns ad hoc (drag tracking, history, caches).
+  declare AB: any
+  declare IMG: any
+  declare SK: any
   declare am: any
   declare cDrag: any
   declare cOver: any
@@ -460,7 +463,7 @@ export class Codex extends Component<CodexProps, any> {
     const noteT = [note && 'Note: ' + note, e && e.trig && 'Trigger ' + e.trig + '%'].filter(Boolean).join(' · ')
     const sx = e && e.s,
       pf = (v?: any) => (sx && sx.b && v > 0 ? '+' + v : String(v))
-    const stats = sx
+    let stats = sx
       ? [
           ['Might', sx.mt != null && pf(sx.mt)],
           ['Hit', sx.hit != null && pf(sx.hit)],
@@ -470,15 +473,15 @@ export class Codex extends Component<CodexProps, any> {
           ['Uses', sx.us],
           ['Durability', sx.dc != null && '-' + sx.dc],
         ]
-          .filter(([l, v]: any) => v !== false && v != null)
+          .filter(([l, v]: any) => v !== false && v != null && v !== '')
           .map(([l, v]: any) => ({ l, v }))
       : []
+    const z0 = (v?: any) => +String(v).replace(/^\+/, '') === 0
+    if (stats.every((x?: any) => x.l === 'Range' || z0(x.v))) stats = stats.filter((x?: any) => x.l === 'Range')
     return {
       stats,
       hasStats: stats.length > 0,
-      statNote: sx
-        ? (sx.b ? 'Bonus over weapon' : 'Base stats') + (sx.u ? ' · unverified' : '') + (sx.src ? ' · ' + sx.src : '')
-        : '',
+      statNote: '',
       t: e ? e.n : raw,
       sub,
       body: e && e.eff ? e.eff : 'Effect not recorded in the workbook yet.',
@@ -513,14 +516,16 @@ export class Codex extends Component<CodexProps, any> {
         Lance: 'skills/spear',
         Axe: 'skills/axe',
         Bow: 'skills/bow',
-        Brawl: 'skills/gauntlet',
+        Brawl: 'skills/gauntlets',
         Reason: 'skills/black_magic',
         Faith: 'skills/white_magic',
+        Authority: 'skills/authority',
+        Infantry: 'skills/infantry',
+        Cavalry: 'skills/riding',
+        Armor: 'skills/heavy_armor',
+        Flying: 'skills/flying',
       } as any)[l.c]
-      const ic: Record<string, any> = {
-        hasIc: !!IC,
-        bgi: IC ? 'url(' + (window.__resources || {})[IC.replace('/', '_')] + ') center/cover no-repeat' : 'none',
-      }
+      const ic: Record<string, any> = { hasIc: !!IC, bgi: IC ? 'url(img/' + IC + '.png) center/cover no-repeat' : 'none' }
       return u
         ? {
             ...l,
@@ -561,7 +566,7 @@ export class Codex extends Component<CodexProps, any> {
         }
       })
   }
-  hov(raw?: any) {
+  hov(raw?: any, fn?: any) {
     return {
       enter: (ev?: any) => {
         const r = ev.currentTarget.getBoundingClientRect()
@@ -574,7 +579,7 @@ export class Codex extends Component<CodexProps, any> {
           if (lx != null) {
             this.setState({
               tip: {
-                ...this.tipFor(raw),
+                ...(fn ? fn(raw) : this.tipFor(raw)),
                 x: lx + 'px',
                 y: Math.max(12, Math.min(r.top, H - 340)) + 'px',
                 tf: 'none',
@@ -588,7 +593,7 @@ export class Codex extends Component<CodexProps, any> {
         const below = r.bottom + 300 < H
         this.setState({
           tip: {
-            ...this.tipFor(raw),
+            ...(fn ? fn(raw) : this.tipFor(raw)),
             x: x + 'px',
             y: (below ? r.bottom + 8 : r.top - 8) + 'px',
             tf: below ? 'none' : 'translateY(-100%)',
@@ -599,6 +604,29 @@ export class Codex extends Component<CodexProps, any> {
       leave: () => {
         if (window.matchMedia && window.matchMedia('(hover:hover)').matches) this.setState({ tip: null })
       },
+    }
+  }
+  skillTip(n?: any) {
+    const d = this.state.d,
+      M: Record<string, any> = { Spear: 'Lance', Brawling: 'Brawl', 'Black Magic': 'Reason', 'White Magic': 'Faith' },
+      c = M[n] || n,
+      u = (d.univ || []).find((x?: any) => x.c === c)
+    const rk = ['D', 'C', 'B', 'A', 'S']
+    return {
+      t: n,
+      hasIc: true,
+      bgi: this.SK(n),
+      sub: 'Skill',
+      body: '',
+      bodyCol: 'var(--mu, #aaa)',
+      stats: [],
+      hasStats: false,
+      statNote: '',
+      note: '',
+      who: '',
+      whoLbl: '',
+      whoGroups: [],
+      hasGroups: false,
     }
   }
   hovI(n?: any) {
@@ -669,7 +697,6 @@ export class Codex extends Component<CodexProps, any> {
         ].filter(Boolean)
       : []
     const stats = [
-      ...modS,
       ['Might', x.mt],
       ['Hit', x.hit],
       ['Crit', x.crt],
@@ -683,7 +710,7 @@ export class Codex extends Component<CodexProps, any> {
     return {
       stats,
       hasStats: stats.length > 0,
-      statNote: (x.rk ? 'Rank ' + x.rk + (x.rk2 ? ' + ' + x.cat2 + ' ' + x.rk2 : '') : '') + (x.code ? (x.rk ? ' · ' : '') + x.code : ''),
+      statNote: x.rk ? 'Rank ' + x.rk + (x.rk2 ? ' + ' + x.cat2 + ' ' + x.rk2 : '') : '',
       t: x.n,
       sub:
         [
@@ -770,10 +797,51 @@ export class Codex extends Component<CodexProps, any> {
       ...(P0 >= 1 && P0 <= 2 && R0 !== 'All' ? [R0] : []),
     ])
     const lock = !!(k.un && k.un.length && P0 >= 1 && !k.un.some((u?: any) => ok0.has(u.r)))
-    const gc = (v?: any) =>
-      v > 0 ? 'var(--ac, oklch(0.82 0.12 85))' : v < 0 ? 'oklch(0.74 0.12 30)' : 'var(--mu, oklch(0.78 0.035 120))'
+    const gc = (v?: any) => (v > 0 ? 'var(--tx, #eee)' : v < 0 ? 'oklch(0.74 0.12 30)' : 'var(--mu, oklch(0.78 0.035 120))')
     const cell = (v?: any, i?: any) => ({ s: SN[i], v: (v > 0 ? '+' : '') + v, col: gc(v) })
     const gsum = (k.g || []).reduce((a?: any, b?: any) => a + b, 0)
+    const raise = (() => {
+      try {
+        const cd = st0.cd
+        if (!cd || !st0.calc || !st0.calc.c) return ''
+        const B = this.buildCalc(d, st0.calc)
+        if (!B || !B.ss) return ''
+        const ss0 = B.ss
+        const stg = B.stages,
+          si = cd.w === 'st' ? cd.i : cd.w === 'cur' ? stg.length - 1 : -1
+        if (si < 1 || !stg[si]) return ''
+        const out: any = []
+        SN.forEach((nm?: any, i?: any) => {
+          let cur = ss0.s[i],
+            cum = 0,
+            ap = 0
+          for (let sj = 0; sj < si; sj++) {
+            const x = stg[sj]
+            if (sj > 0) {
+              const u = Math.floor(cum / 100)
+              cur += u - ap + (x.k.mods[i] || 0) - (stg[sj - 1].k.mods[i] || 0)
+              ap = u
+              const mn = (x.k.mn && x.k.mn[i]) || 0,
+                rw = cur - (x.k.mods[i] || 0)
+              if (rw < mn) cur += mn - rw
+            }
+            const mg = x.mo ? x.mo.g[i] : 0
+            for (let j = x.pre; j < x.n; j++) {
+              const L = x.from + 1 + j
+              cum += Math.max(0, B.c.g[i] + (L >= 6 ? x.k.g[i] : 0) + mg)
+            }
+          }
+          const u = Math.floor(cum / 100)
+          cur += u - ap + (k.mods[i] || 0) - (stg[si - 1].k.mods[i] || 0)
+          const mn = (k.mn && k.mn[i]) || 0,
+            rw = cur - (k.mods[i] || 0)
+          out.push(rw < mn ? mn - rw : 0)
+        })
+        return out.some((v?: any) => v > 0) ? out : null
+      } catch (e: any) {
+        return null
+      }
+    })()
     return {
       stats: [],
       hasStats: false,
@@ -781,22 +849,58 @@ export class Codex extends Component<CodexProps, any> {
       grids: [
         { lbl: 'Growth modifier · Σ ' + gsum + '%', cells: (k.g || []).map(cell) },
         { lbl: 'Stat modifier', cells: (k.mods || []).map(cell) },
+        ...((k.mn || []).some((v?: any) => v > 0)
+          ? [
+              {
+                lbl: 'Minimum stats',
+                cells: k.mn.map((v?: any, i?: any) => ({
+                  s: SN[i],
+                  v: v || '–',
+                  col: v ? 'var(--tx, oklch(0.94 0.008 80))' : 'var(--mu, oklch(0.78 0.035 120))',
+                })),
+              },
+            ]
+          : []),
+        ...(raise
+          ? [
+              {
+                lbl: 'Raised by min stats',
+                cells: raise.map((v?: any, i?: any) => ({
+                  s: SN[i],
+                  v: v ? '+' + v : '–',
+                  col: v ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--mu, oklch(0.78 0.035 120))',
+                })),
+              },
+            ]
+          : []),
       ],
       statNote: '',
       t: k.n,
+      hasIc: !!this.IMG,
+      bgi: this.IMG ? 'url(' + this.IMG('classes', k.n) + ') center/cover no-repeat' : '',
+      skIcons: (k.comp || '')
+        .split(/,\s*/)
+        .filter((n?: any) => n && !(d.skillMove || []).includes(n))
+        .map((n?: any) => ({ n, bgi: this.SK(n), ...this.hov(n, (x?: any) => this.skillTip(x)) }))
+        .filter((x?: any) => x.bgi),
+      hasSk: !!(k.comp || '').split(/,\s*/).filter((n?: any) => n && !(d.skillMove || []).includes(n) && this.SK(n)).length,
       sub: [k.tier, k.type].filter(Boolean).join(' · ') + (k.lv ? ' · Lv ' + k.lv : ''),
-      body: lock
-        ? 'Locked · needs to complete ' + [...new Set<any>(k.un.map((u?: any) => u.r))].join(' / ') + ' path'
-        : k.comp
-          ? 'Skills: ' + k.comp
-          : '',
+      body: lock ? 'Locked · needs to complete ' + [...new Set<any>(k.un.map((u?: any) => u.r))].join(' / ') + ' path' : '',
       bodyCol: lock ? 'oklch(0.74 0.12 30)' : 'var(--mu, #aaa)',
       note: k.mov ? 'Mov ' + k.mov : '',
       who: (k.ab || []).length ? ' ' : '',
       whoLbl: 'Class abilities',
+      abs: (k.ab || []).map((a?: any) => ({
+        n: a.n,
+        e: a.e,
+        tag: a.t === 'Master ability' ? 'Master' : 'Class',
+        bgi: this.AB ? this.AB(a.n) : '',
+        dashed: a.t === 'Master ability' ? 'dashed' : 'solid',
+      })),
       whoGroups: (k.ab || []).map((a?: any) => ({
         rank: a.t === 'Master ability' ? 'Master' : 'Class',
         names: a.n + ': ' + a.e,
+        bgi: this.AB ? this.AB(a.n) : '',
       })),
       hasGroups: (k.ab || []).length > 0,
     }
@@ -1448,6 +1552,33 @@ export class Codex extends Component<CodexProps, any> {
   }
 
   renderVals() {
+    const SK = (n?: any) => {
+      const f = ({
+        Sword: 'sword',
+        Lance: 'spear',
+        Spear: 'spear',
+        Axe: 'axe',
+        Bow: 'bow',
+        Brawl: 'gauntlets',
+        Brawling: 'gauntlets',
+        Reason: 'black_magic',
+        'Black Magic': 'black_magic',
+        Faith: 'white_magic',
+        'White Magic': 'white_magic',
+        Authority: 'authority',
+        Infantry: 'infantry',
+        Cavalry: 'riding',
+        Riding: 'riding',
+        Armor: 'heavy_armor',
+        'Heavy Armor': 'heavy_armor',
+        Flying: 'flying',
+      } as any)[n]
+      return f ? 'url(' + IMG('skills', f) + ') center/cover no-repeat' : ''
+    }
+    const SKo = (n?: any, col?: any) => {
+      const b = SK(n)
+      return { n, col, bgi: b, ic: !!b, noIc: !b, ...this.hov(n, (x?: any) => this.skillTip(x)) }
+    }
     const AB = (n?: any) => 'url(' + IMG('abilities', n) + ') center/cover no-repeat'
     const IMG = (k?: any, n?: any) => {
       if (!n) return ''
@@ -1473,10 +1604,11 @@ export class Codex extends Component<CodexProps, any> {
           .replace(/\+/g, '_plus')
           .replace(/[^a-z0-9]+/g, '_')
           .replace(/^_+|_+$/g, '')
-      const R: any = window.__resources || {},
-        dd = k === 'arts' ? 'combatarts' : k
-      return R[dd + '_' + f] || R[dd + '_' + f.replace(/_s(_|$)/, 's$1')] || ''
+      return 'img/' + (k === 'arts' ? 'combatarts' : k) + '/' + f + '.png'
     }
+    this.IMG = IMG
+    this.AB = AB
+    this.SK = SK
     const st = this.state,
       d = st.d,
       pr = this.props
@@ -2355,14 +2487,14 @@ export class Codex extends Component<CodexProps, any> {
         }),
       )
       d.arts.forEach((a?: any) => {
-        if (a.k === 'Ability' && !m[a.n]) m[a.n] = a.e
+        if ((a.k === 'Ability' || (a.k === 'Authority Art' && a.kd === 'passive')) && !m[a.n]) m[a.n] = a.e
       })
       return m
     })()
     const caAll: any = {}
     d.arts.forEach((a?: any) => {
       if (a.k === 'Combat Art') caAll[a.n] = a
-      else if (a.k === 'Authority Art') caAll[a.n] = { ...a, c: 'Authority' }
+      else if (a.k === 'Authority Art' && a.kd !== 'passive') caAll[a.n] = { ...a, c: 'Authority' }
     })
     const kk = (v?: any) =>
       v
@@ -2477,7 +2609,7 @@ export class Codex extends Component<CodexProps, any> {
             (o?: any) => setCalc({ ab: o.map((x?: any) => x.slice(3)) }),
           ),
           open: () => {
-            this.setState({ pk: 'ab', pq: '', pf: 'All' })
+            this.setState({ pk: 'ab', pq: '', pf: 'All', ppv: n })
             setTimeout(() => {
               const el = [...document.querySelectorAll('[data-pkn]')].find((x?: any) => x.getAttribute('data-pkn') === n)
               if (el) {
@@ -2590,7 +2722,7 @@ export class Codex extends Component<CodexProps, any> {
         return {
           n,
           bgi: 'url(' + IMG('arts', a && a.c) + ') center/cover no-repeat',
-          stDisp: a && a.s ? 'block' : 'none',
+          stDisp: 'none',
           ...this.hov(n),
           ...this.hd(
             caCur.map((x?: any) => 'ca:' + x),
@@ -2598,7 +2730,7 @@ export class Codex extends Component<CodexProps, any> {
             (o?: any) => setCalc({ ca: o.map((x?: any) => x.slice(3)) }),
           ),
           open: () => {
-            this.setState({ pk: 'ca', pq: '', pf: 'All' })
+            this.setState({ pk: 'ca', pq: '', pf: 'All', ppv: n })
             setTimeout(() => {
               const el = [...document.querySelectorAll('[data-pkn]')].find((x?: any) => x.getAttribute('data-pkn') === n)
               if (el) {
@@ -2612,18 +2744,7 @@ export class Codex extends Component<CodexProps, any> {
           },
           c: a ? a.c : '',
           e: a ? a.e : '',
-          st:
-            a && a.s
-              ? [
-                  a.s.mt != null ? 'Mt ' + a.s.mt : '',
-                  a.s.hit ? 'Hit ' + a.s.hit : '',
-                  a.s.crt ? 'Crt ' + a.s.crt : '',
-                  a.s.rn ? 'Rng ' + a.s.rn : '',
-                  a.s.dc ? 'Dur ' + a.s.dc : '',
-                ]
-                  .filter(Boolean)
-                  .join(' · ')
-              : '',
+          st: '',
           rm: (e?: any) => {
             e && e.stopPropagation && e.stopPropagation()
             setCalc({ ca: caCur.filter((x?: any) => x !== n) })
@@ -2692,6 +2813,40 @@ export class Codex extends Component<CodexProps, any> {
             .join(' · ')
         : ''
     const itVals: Record<string, any> = {
+      caGr: (() => {
+        const seen = new Set<any>(caCur),
+          o: any = []
+        const sx = (a?: any) =>
+          a && a.s
+            ? [
+                a.s.mt != null ? 'Mt ' + a.s.mt : '',
+                a.s.hit ? 'Hit ' + a.s.hit : '',
+                a.s.crt ? 'Crt ' + a.s.crt : '',
+                a.s.rn ? 'Rng ' + a.s.rn : '',
+                a.s.dc ? 'Dur ' + a.s.dc : '',
+              ]
+                .filter(Boolean)
+                .join(' · ')
+            : ''
+        itCur.forEach((n?: any) => {
+          const x = itMap.get(n)
+          if (x && x.ga && !seen.has(x.ga)) {
+            seen.add(x.ga)
+            const a: any = caAll[x.ga] || (d.arts || []).find((y?: any) => y.n === x.ga) || {}
+            o.push({
+              n: x.ga,
+              bgi: 'url(' + IMG('arts', a.c || '') + ') center/cover no-repeat',
+              c: a.c || '',
+              e: a.e || '',
+              st: '',
+              stDisp: 'none',
+              from: x.n,
+              ...this.hov(x.ga),
+            })
+          }
+        })
+        return o
+      })(),
       itSel: (() => {
         const WM: Record<string, any> = { Brawl: 'Brawling', Lance: 'Spear' }
         const canUse = (x?: any, k?: any) =>
@@ -2713,13 +2868,28 @@ export class Codex extends Component<CodexProps, any> {
             ),
             c: x.cat || '',
             e: x.e || '',
+            ...(() => {
+              const b = x.cat && x.cat !== 'Accessory' ? this.SK(x.cat) : ''
+              const h = this.hov(x.cat, (q?: any) => this.skillTip(q))
+              return {
+                skBgi: b || 'none',
+                skD: b ? 'block' : 'none',
+                skEnter: h.enter,
+                skLeave: h.leave,
+                skClick: (e?: any) => {
+                  e.stopPropagation()
+                  h.enter(e)
+                },
+              }
+            })(),
             ...this.hovI(n),
-            st: itSt(x),
-            stDisp: itSt(x) ? 'block' : 'none',
+            st: '',
+            stDisp: 'none',
             open: () => {
-              this.setState({ pk: 'it', pq: '', pf: 'All' })
+              const bx = x.bi ? (d.items || []).find((y?: any) => y.id === x.bi) || x : x
+              this.setState({ pk: 'it', pq: '', pf: 'All', ppv: bx.n, prf: { ...(st.prf || {}), [bx.n]: x.rl || 0 } })
               setTimeout(() => {
-                const el = [...document.querySelectorAll('[data-pkn]')].find((y?: any) => y.getAttribute('data-pkn') === n)
+                const el = [...document.querySelectorAll('[data-pkn]')].find((y?: any) => y.getAttribute('data-pkn') === bx.n)
                 if (el) {
                   const p = el.parentElement!
                   p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - 8
@@ -2749,7 +2919,7 @@ export class Codex extends Component<CodexProps, any> {
     const abMeta: any = {}
     d.arts.forEach((a?: any) => {
       if (a.k === 'Ability') abMeta[a.n] = a.c
-      if (a.k === 'Authority Art') abMeta[a.n] = 'Authority'
+      if (a.k === 'Authority Art' && a.kd === 'passive') abMeta[a.n] = 'Authority'
     })
     const clsAbSet = new Set<any>()
     d.classes.forEach((k?: any) => (k.ab || []).forEach((a?: any) => clsAbSet.add(a.n)))
@@ -2785,18 +2955,7 @@ export class Codex extends Component<CodexProps, any> {
       }
       ;(chr.lab || []).forEach((a?: any) => (abMeta[a.n] = 'Personal'))
     }
-    const csStat = (a?: any) =>
-      a && a.s
-        ? [
-            a.s.mt != null ? 'Mt ' + a.s.mt : '',
-            a.s.hit ? 'Hit ' + a.s.hit : '',
-            a.s.crt ? 'Crt ' + a.s.crt : '',
-            a.s.rn ? 'Rng ' + a.s.rn : '',
-            a.s.dc ? 'Dur ' + a.s.dc : '',
-          ]
-            .filter(Boolean)
-            .join(' · ')
-        : ''
+    const csStat = (a?: any) => ''
     const bnMap: any = {}
     const bnOf = (c?: any) =>
       bnMap[c] || bnMap[({ 'Black Magic': 'Reason', 'Dark Magic': 'Reason', 'White Magic': 'Faith' } as any)[c]]
@@ -2839,8 +2998,15 @@ export class Codex extends Component<CodexProps, any> {
     const pAll = !pk
       ? []
       : isIt
-        ? (d.items || [])
-            .filter((x?: any) => !x.bi)
+        ? (() => {
+            const vmap: any = {}
+            ;(d.items || []).forEach((v?: any) => {
+              if (v.bi) (vmap[v.bi] = vmap[v.bi] || []).push(v)
+            })
+            return (d.items || [])
+              .filter((x?: any) => !x.bi)
+              .map((x?: any) => ({ ...x, vs: (vmap[x.id] || []).slice().sort((a?: any, b?: any) => a.rl - b.rl) }))
+          })()
             .map((x?: any) => {
               const wc = ({ 'Black Magic': 'Reason', 'Dark Magic': 'Reason', 'White Magic': 'Faith' } as any)[x.cat] || x.cat
               const off = (!!x.w && x.w !== meId) || (WC.includes(wc) && !lsCats.has(wc))
@@ -2850,11 +3016,30 @@ export class Codex extends Component<CodexProps, any> {
                 cat: x.cat,
                 catL: x.cat + (x.rk ? ' · ' + x.rk : '') + (x.rk2 ? ' + ' + x.cat2 + ' ' + x.rk2 : ''),
                 e: x.e || '',
-                st: (off ? '⚠ ' + why + (itSt(x) ? ' · ' : '') : '') + itSt(x),
+                st: off ? '⚠ ' + why : '',
                 off,
+                vs: x.vs,
+                rk: x.rk,
               }
             })
-            .sort((a?: any, b?: any) => (a.off ? 1 : 0) - (b.off ? 1 : 0) || a.n.localeCompare(b.n))
+            .sort((a?: any, b?: any) => {
+              const so = (d.skillOrder || []).map((v?: any) => v.replace('Spear', 'Lance').replace('Brawling', 'Brawl')),
+                si = (c?: any) => {
+                  const i = so.indexOf(c)
+                  return i < 0 ? 999 : i
+                },
+                RO: string = 'EDCBAS',
+                ri = (r?: any) => {
+                  const i = RO.indexOf(r)
+                  return i < 0 ? 99 : i
+                }
+              return (
+                (a.off ? 1 : 0) - (b.off ? 1 : 0) ||
+                si(a.cat) - si(b.cat) ||
+                ri(a.rk) - ri(b.rk) ||
+                a.n.localeCompare(b.n)
+              )
+            })
         : (isCa
             ? caPool.map((n?: any) => ({ n, cat: caAll[n].c, e: caAll[n].e || '', st: csStat(caAll[n]) }))
             : [...new Set<any>([...abPool, ...clsAbSet])]
@@ -2888,6 +3073,10 @@ export class Codex extends Component<CodexProps, any> {
       .map((r?: any) => ({
         chips: r.map((c?: any) => ({
           l: c,
+          bgi: SK(c),
+          ic: !!SK(c) && c !== pfv,
+          icOn: !!SK(c) && c === pfv,
+          noIc: !SK(c),
           bd: bnOf(c) ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
           bg: c === pfv ? 'var(--ac, oklch(0.8 0.11 75))' : bnOf(c) ? 'oklch(0.8 0.11 75 / .12)' : 'transparent',
           fg: c === pfv ? 'oklch(0.18 0.02 60)' : 'var(--tx, #eee)',
@@ -2900,21 +3089,37 @@ export class Codex extends Component<CodexProps, any> {
           (pfv === 'All' || x.cat === pfv) && (!pq || x.n.toLowerCase().includes(pq) || x.e.toLowerCase().includes(pq)),
       )
       .map((x?: any) => {
-        const on = pCur.includes(x.n),
+        const on =
+            isIt && x.vs && x.vs.length
+              ? [x.n, ...x.vs.map((v?: any) => v.n)].some((n?: any) => pCur.includes(n))
+              : pCur.includes(x.n),
           blk = !isCa && !isIt && !on ? exBlock(x.n) : '',
           full = !on && (pCur.length >= pMax || !!blk)
         if (blk) x = { ...x, st: 'Conflicts with ' + blk + ' — same ability line' }
         return {
           ...x,
-          bgi: isIt ? 'none' : isCa ? 'url(' + IMG('arts', x.c || x.cat) + ') center/cover no-repeat' : AB(x.n),
-          icD: isIt ? 'none' : 'block',
+          bgi: isIt
+            ? (x.cat && x.cat !== 'Accessory' && this.SK(x.cat)) || 'none'
+            : isCa
+              ? 'url(' + IMG('arts', x.c || x.cat) + ') center/cover no-repeat'
+              : AB(x.n),
+          icD: isIt ? (x.cat && x.cat !== 'Accessory' && this.SK(x.cat) ? 'block' : 'none') : 'block',
           ...(isIt ? this.hovI(x.n) : this.hov(x.n)),
           catL: x.catL || x.cat,
+          on,
+          full,
+          blk,
+          pv: () => this.setState({ ppv: x.n }),
           mark: on ? '✓' : '+',
-          bd: on ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
+          bd: on || x.n === (st.ppv || '') ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
           op: full ? 0.45 : x.off ? 0.7 : 1,
-          rbg: bnOf(x.cat) ? 'oklch(0.8 0.11 75 / .1)' : 'var(--panel2, oklch(0.25 0.012 60))',
-          cur: full ? 'not-allowed' : 'pointer',
+          rbg:
+            x.n === (st.ppv || '')
+              ? 'oklch(0.8 0.11 75 / .12)'
+              : bnOf(x.cat)
+                ? 'oklch(0.8 0.11 75 / .1)'
+                : 'var(--panel2, oklch(0.25 0.012 60))',
+          cur: 'pointer',
           stDisp: x.st ? 'block' : 'none',
           eDisp: x.e ? 'block' : 'none',
           go: () => {
@@ -2931,7 +3136,112 @@ export class Codex extends Component<CodexProps, any> {
           },
         }
       })
+    const ppv = st.ppv || ''
+    const pvr = pk ? pRows.find((r?: any) => r.n === ppv) : null
+    const pvIt = !!pvr && isIt
+    const pvt = pvr ? (isIt ? null : this.tipFor(ppv)) : null
+    const pvVs = pvIt && pvr.vs ? pvr.vs : []
+    const pvNames = pvIt ? [pvr.n, ...pvVs.map((v?: any) => v.n)] : []
+    const prLv = pvVs.length ? Math.min((st.prf || {})[ppv] || 0, Math.max(...pvVs.map((v?: any) => v.rl))) : 0
+    const pvTV = prLv ? pvVs.find((v?: any) => v.rl === prLv) : null
+    const pvTarget = pvTV ? pvTV.n : pvr ? pvr.n : ''
+    const pvHeld = pvIt ? pvNames.find((n?: any) => pCur.includes(n)) || '' : ''
+    const pvFull = pCur.length >= pMax
+    const pvSwitch = pvIt && !!pvHeld && pvHeld !== pvTarget
+    const pvRemove = pvIt ? !!pvHeld && pvHeld === pvTarget : !!pvr && pvr.on
+    const pvDis = pvIt ? !pvHeld && pvFull : !!pvr && !pvr.on && (pvr.full || !!pvr.blk)
+    const pvTT = pvIt ? this.itemTip(pvTarget) : null
+    const pvTI = pvIt ? itMap.get(pvTarget) : null
+    const pvA = pvr && !pvIt ? (d.arts || []).find((y?: any) => y.n === pvr.n) : null
+    const pvAs =
+      pvA && pvA.s
+        ? ((sx?: any) => {
+            let a = [
+              ['Might', sx.mt],
+              ['Hit', sx.hit],
+              ['Crit', sx.crt],
+              ['Range', sx.rn],
+              ['Durability', sx.dc != null ? (sx.dc ? '-' + sx.dc : 0) : null],
+            ]
+              .filter(([l, v]: any) => v != null && v !== '')
+              .map(([l, v]: any) => ({ l, v: sx.b && typeof v === 'number' && v > 0 ? '+' + v : v }))
+            if (a.every((x?: any) => x.l === 'Range' || +String(x.v).replace(/^\+/, '') === 0))
+              a = a.filter((x?: any) => x.l === 'Range')
+            return a
+          })(pvA.s)
+        : []
+    const pvPrim = !!pvr && !pvRemove && !pvDis
+    const lvL = prLv ? '+' + prLv : 'base'
     const pkVals: Record<string, any> = {
+      pkW: narrow ? 'min(640px,100%)' : 'min(1040px,100%)',
+      pkSheet: narrow && !!pvr,
+      pkPvOn: !!pvr,
+      pkPvOff: !pvr,
+      pkPvClose: () => this.setState({ ppv: '' }),
+      pkPv: pvr
+        ? {
+            t: pvTI ? pvTI.n : pvr.n,
+            sub: pvr.catL,
+            bgi: pvr.bgi,
+            hasIc: !isIt,
+            e: (pvTI && pvTI.e) || pvr.e,
+            hasE: !!((pvTI && pvTI.e) || pvr.e),
+            st: pvIt || pvAs.length ? '' : pvr.st,
+            hasSt: !!(!pvIt && !pvAs.length && pvr.st),
+            stats: pvTT ? pvTT.stats : pvAs,
+            hasStats: !!(pvTT ? pvTT.hasStats : pvAs.length),
+            statNote: pvTT ? pvTT.statNote : '',
+            whoGroups: pvt ? pvt.whoGroups : [],
+            hasWho: !!(pvt && pvt.hasGroups),
+            ga: pvTI && pvTI.ga ? pvTI.ga : '',
+            hasGa: !!(pvTI && pvTI.ga),
+            gaNote:
+              pvTI && pvTI.ga
+                ? (() => {
+                    const bi = pvr.id || ''
+                    const prev = pvNames.map((n?: any) => itMap.get(n)).filter(Boolean)
+                    const baseGa = (itMap.get(pvr.n) || {}).ga || ''
+                    return pvTI.ga === baseGa ? 'Granted at every refine level' : 'Added at this refine level'
+                  })()
+                : '',
+            hasRf: pvVs.length > 0,
+            rf: [{ l: 'Base', lv: 0 }, ...pvVs.map((v?: any) => ({ l: '+' + v.rl, lv: v.rl }))].map((o?: any) => ({
+              l: o.l,
+              bd: o.lv === prLv ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
+              bg: o.lv === prLv ? 'var(--panel2, oklch(0.25 0.012 60))' : 'transparent',
+              go: () => this.setState({ prf: { ...(st.prf || {}), [ppv]: o.lv } }),
+            })),
+            rc: pvTV && pvTV.rc ? 'Refine cost: ' + pvTV.rc : '',
+            hasRc: !!(pvTV && pvTV.rc),
+          }
+        : {},
+      pkPickPv: () => {
+        if (!pvr || pvDis) return
+        if (pvIt) {
+          if (pvRemove) setCalc({ it: pCur.filter((n?: any) => n !== pvHeld) })
+          else if (pvSwitch) setCalc({ it: pCur.map((n?: any) => (n === pvHeld ? pvTarget : n)) })
+          else setCalc({ it: [...pCur, pvTarget] })
+        } else pvr.go()
+      },
+      pkPickLbl: !pvr
+        ? ''
+        : pvRemove
+          ? 'Remove'
+          : pvSwitch
+            ? 'Switch to ' + lvL
+            : pvIt
+              ? pvFull
+                ? 'Slots full'
+                : 'Add' + (prLv ? ' +' + prLv : '')
+              : pvr.blk
+                ? 'Conflicts with ' + pvr.blk
+                : pvr.full
+                  ? 'Slots full'
+                  : 'Add',
+      pkPickBg: pvPrim ? 'var(--ac, oklch(0.8 0.11 75))' : 'transparent',
+      pkPickFg: pvPrim ? 'oklch(0.18 0.01 60)' : 'var(--ac, oklch(0.8 0.11 75))',
+      pkPickOp: pvDis ? 0.5 : 1,
+      pkPickCur: pvDis ? 'not-allowed' : 'pointer',
       abCanAdd: abCur.length < abMax,
       caCanAdd: caCur.length < caMax,
       pkOpen: !!pk,
@@ -2952,7 +3262,7 @@ export class Codex extends Component<CodexProps, any> {
         this.setState({ pq: '' }, () => inp && inp.focus())
       },
       onPkQ: (e?: any) => this.setState({ pq: e.target.value }),
-      pkClose: () => this.setState({ pk: null, pq: '', pf: 'All', tip: null }),
+      pkClose: () => this.setState({ pk: null, pq: '', pf: 'All', ppv: '', tip: null }),
       pkNone: pRows.length === 0,
       pkRows: pRows,
       pkChipRows: pChipRows,
@@ -3019,11 +3329,12 @@ export class Codex extends Component<CodexProps, any> {
                 bgi: 'url(' + IMG('classes', k.n) + ') center/cover no-repeat',
                 tier: k.tier,
                 tc: TC[k.tier] || t.mu,
-                sub:
-                  (k.comp || '')
-                    .split(/,\s*/)
-                    .filter((n?: any) => n && !(d.skillMove || []).includes(n))
-                    .join(', ') + (+k.lv > lvN ? (k.comp || '' ? ' · ' : '') + 'Requires Lv ' + k.lv : ''),
+                skl: (k.comp || '')
+                  .split(/,\s*/)
+                  .filter((n?: any) => n && !(d.skillMove || []).includes(n))
+                  .map((n?: any) => SKo(n, t.mu)),
+                sub: +k.lv > lvN ? 'Requires Lv ' + k.lv : '',
+                subOn: +k.lv > lvN,
                 badges: [k.arm ? 'ARMOR' : '', k.mounted && !k.fl ? 'MOUNT' : '', k.fl ? 'FLIER' : '']
                   .filter(Boolean)
                   .map((l?: any) => ({ l })),
@@ -3032,16 +3343,39 @@ export class Codex extends Component<CodexProps, any> {
                 op: +k.lv > lvN ? 0.45 : 1,
                 cur: 'pointer',
                 mark: k.n === sel ? '✓' : '',
-                bd: k.n === sel ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
-                ...this.hovC(k.n),
-                go: () => {
-                  const f = cd.w === 'st' ? vals.stageLocked[cd.i].onK : cd.w === 'cur' ? vals.onCurK : vals.onRk
-                  f({ target: { value: k.n } })
-                  this.setState({ cd: null, tip: null })
-                },
+                bd:
+                  k.n === sel || k.n === (cd.pv || (narrow ? '' : sel))
+                    ? 'var(--ac, oklch(0.8 0.11 75))'
+                    : 'var(--line, oklch(0.29 0.012 60))',
+                rbg:
+                  k.n === (cd.pv || (narrow ? '' : sel))
+                    ? 'oklch(0.8 0.11 75 / .12)'
+                    : 'var(--panel2, oklch(0.25 0.012 60))',
+                go: () => this.setState({ cd: { ...cd, pv: k.n } }),
               }))
           : []
+        const pvN = cd ? cd.pv || (narrow ? '' : sel) : ''
+        const tp = pvN && d.classes.some((x?: any) => x.n === pvN) ? this.classTip(pvN) : null
+        const pickCls = (n?: any) => {
+          const f = cd.w === 'st' ? vals.stageLocked[cd.i].onK : cd.w === 'cur' ? vals.onCurK : vals.onRk
+          f({ target: { value: n } })
+          this.setState({ cd: null, tip: null })
+        }
+        const isSel = pvN === sel
         return {
+          cdW: narrow ? 'min(640px,100%)' : 'min(1040px,100%)',
+          cdCols: narrow ? 'minmax(0,1fr)' : 'minmax(0,1fr) 400px',
+          cdBodyH: narrow ? 'min(520px,calc(100vh - 260px))' : 'min(540px,calc(100vh - 230px))',
+          cdSplit: !narrow,
+          cdSheet: narrow && !!tp,
+          cdPv: tp || {},
+          cdPvOn: !!tp,
+          cdPvOff: !tp,
+          cdPickPv: () => pickCls(pvN),
+          cdPickLbl: isSel ? 'Keep this class' : 'Select ' + pvN,
+          cdPickBg: isSel ? 'transparent' : 'var(--ac, oklch(0.8 0.11 75))',
+          cdPickFg: isSel ? 'var(--ac, oklch(0.8 0.11 75))' : 'oklch(0.18 0.01 60)',
+          cdPvClose: () => this.setState({ cd: { ...cd, pv: '' } }),
           cdOpen: !!cd,
           cdTitle:
             cd && cd.w === 'rec'
@@ -3053,6 +3387,26 @@ export class Codex extends Component<CodexProps, any> {
           cdQ: cd ? cd.q : '',
           cdSk: (cd && cd.s) || 'All skills',
           onCdSk: (e?: any) => this.setState({ cd: { ...cd, s: e.target.value } }),
+          cdSkAll: () => this.setState({ cd: { ...cd, s: 'All skills' } }),
+          cdSkAllOn: !cd || !cd.s || cd.s === 'All skills',
+          cdSkAllBd: !cd || !cd.s || cd.s === 'All skills' ? t.ac : t.line,
+          cdSkAllBg: !cd || !cd.s || cd.s === 'All skills' ? t.panel2 : 'transparent',
+          cdSkIcons: (d.skillOrder || [])
+            .filter((n?: any) => d.classes.some((k?: any) => (k.comp || '').split(/,\s*/).includes(n)))
+            .map((n?: any) => {
+              const cur = (cd && cd.s) || 'All skills',
+                on = cur === n
+              return {
+                n,
+                bgi: SK(n),
+                ...this.hov(n, (x?: any) => this.skillTip(x)),
+                on,
+                bd: on ? t.ac : t.line,
+                bg: on ? t.panel2 : 'transparent',
+                op: cur === 'All skills' || on ? 1 : 0.5,
+                click: () => this.setState({ cd: { ...cd, s: on ? 'All skills' : n } }),
+              }
+            }),
           cdSkOpts: [
             'All skills',
             ...(d.skillOrder || []).filter((n?: any) => d.classes.some((k?: any) => (k.comp || '').split(/,\s*/).includes(n))),
@@ -4910,7 +5264,7 @@ export class Codex extends Component<CodexProps, any> {
               if (i.bi) return // forged / refined variants stay out of the catalog
               seen.add(i.n)
               const ch: any = []
-              if (i.rk) ch.push('Rank ' + i.rk)
+              if (i.rk) ch.push('Rank ' + i.rk + (i.rk2 ? ' + ' + i.cat2 + ' ' + i.rk2 : ''))
               if (i.mt != null) ch.push('Mt ' + i.mt)
               if (i.hit != null) ch.push('Hit ' + i.hit)
               if (i.crt != null) ch.push('Crit ' + i.crt)
@@ -5062,24 +5416,66 @@ export class Codex extends Component<CodexProps, any> {
         this.setState({ kq: '' }, () => inp && inp.focus())
       }
       vals.kCount = list.length
-      vals.kwp = kwp
-      vals.onKwp = (e?: any) => this.setState({ kwp: e.target.value })
-      vals.kwpOpts = [
-        'All skills',
-        ...[...new Set<any>(d.classes.flatMap(sk))].sort((p?: any, q?: any) => {
+      vals.kwpAll = () => this.setState({ kwp: 'All skills' })
+      vals.kwpAllOn = kwp === 'All skills'
+      vals.kwpAllBd = kwp === 'All skills' ? t.ac : t.line
+      vals.kwpAllBg = kwp === 'All skills' ? t.panel2 : 'transparent'
+      vals.kfAll = () => this.setState({ kf: 'All' })
+      vals.kfAllOn = kf === 'All'
+      vals.kfAllBd = kf === 'All' ? t.ac : t.line
+      vals.kfAllBg = kf === 'All' ? t.panel2 : 'transparent'
+      vals.kwpIcons = [...new Set<any>(d.classes.flatMap(sk))]
+        .filter((n?: any) => !(d.skillMove || []).includes(n))
+        .sort((p?: any, q?: any) => {
           const o = d.skillOrder || [],
             i = o.indexOf(p),
             j = o.indexOf(q)
           return (i < 0 ? 99 : i) - (j < 0 ? 99 : j)
-        }),
+        })
+        .map((n?: any) => {
+          const on = kwp === n
+          return {
+            n,
+            bgi: SK(n),
+            on,
+            bd: on ? t.ac : t.line,
+            bg: on ? t.panel2 : 'transparent',
+            op: kwp === 'All skills' || on ? 1 : 0.5,
+            click: () => this.setState({ kwp: on ? 'All skills' : n }),
+            ...this.hov(n, (x?: any) => this.skillTip(x)),
+          }
+        })
+      vals.kwp = kwp
+      vals.onKwp = (e?: any) => this.setState({ kwp: e.target.value })
+      vals.kwpOpts = [
+        'All skills',
+        ...[...new Set<any>(d.classes.flatMap(sk))]
+          .filter((n?: any) => !(d.skillMove || []).includes(n))
+          .sort((p?: any, q?: any) => {
+            const o = d.skillOrder || [],
+              i = o.indexOf(p),
+              j = o.indexOf(q)
+            return (i < 0 ? 99 : i) - (j < 0 ? 99 : j)
+          }),
       ]
-      vals.kTabs = ['All', 'Mounted', 'Flier', 'Armor', 'Infantry'].map((l?: any) => ({
-        l,
-        bg: kf === l ? t.panel2 : 'transparent',
-        bd: kf === l ? t.ac : t.line,
-        fg: kf === l ? t.tx : t.mu,
-        click: () => this.setState({ kf: l }),
-      }))
+      vals.kTabs = [
+        ['Infantry', 'Infantry'],
+        ['Mounted', 'Riding'],
+        ['Armor', 'Heavy Armor'],
+        ['Flier', 'Flying'],
+      ].map(([l, sn]: any) => {
+        const on = kf === l
+        return {
+          l: sn,
+          on,
+          bgi: SK(sn),
+          bg: on ? t.panel2 : 'transparent',
+          bd: on ? t.ac : t.line,
+          op: kf === 'All' || on ? 1 : 0.5,
+          click: () => this.setState({ kf: on ? 'All' : l }),
+          ...this.hov(sn, (x?: any) => this.skillTip(x)),
+        }
+      })
       const kP = st.part,
         kR = st.route
       const okR = new Set<any>([
@@ -5092,6 +5488,10 @@ export class Codex extends Component<CodexProps, any> {
       vals.kGroups = TIERS.filter((g?: any) => st.part >= 3 || !['Master', 'Divine'].includes(g))
         .map((g?: any) => ({
           t: g,
+          lv: (() => {
+            const l = d.classes.filter((k?: any) => k.tier === g && k.lv !== '' && !isNaN(+k.lv)).map((k?: any) => +k.lv)
+            return l.length ? ' · Level ' + Math.min(...l) : ''
+          })(),
           items: list
             .filter((k?: any) => k.tier === g)
             .map((k?: any) => ({
@@ -5100,7 +5500,7 @@ export class Codex extends Component<CodexProps, any> {
               lockTxt: kLock(k) ? 'needs to complete ' + kNeed(k) + ' path' : '',
               absW: sk(k)
                 .filter((n?: any) => !MV.includes(n))
-                .map((n?: any) => ({ n, col: t.mu })),
+                .map((n?: any) => SKo(n, t.mu)),
               absM: sk(k)
                 .filter((n?: any) => MV.includes(n))
                 .map((n?: any) => ({ n, col: t.mu })),
@@ -5155,7 +5555,7 @@ export class Codex extends Component<CodexProps, any> {
           return {
             s,
             v: sg(v),
-            col: mg[i] ? 'oklch(0.74 0.1 300)' : v > 0 ? t.ac : v < 0 ? 'oklch(0.74 0.12 30)' : t.mu,
+            col: v > 0 ? 'var(--tx, #eee)' : v > 0 ? 'var(--tx, #eee)' : v < 0 ? 'oklch(0.74 0.12 30)' : t.mu,
           }
         })
         const cellsS = S.map((s?: any, i?: any) => {
@@ -5163,7 +5563,7 @@ export class Codex extends Component<CodexProps, any> {
           return {
             s,
             v: sg(v),
-            col: mst[i] ? 'oklch(0.74 0.1 300)' : v > 0 ? t.ac : v < 0 ? 'oklch(0.74 0.12 30)' : t.mu,
+            col: v > 0 ? 'var(--tx, #eee)' : v > 0 ? 'var(--tx, #eee)' : v < 0 ? 'oklch(0.74 0.12 30)' : t.mu,
           }
         })
         vals.k = {
@@ -5188,18 +5588,37 @@ export class Codex extends Component<CodexProps, any> {
             .join(' · '),
           skW: sk(k)
             .filter((n?: any) => !MV.includes(n))
-            .map((n?: any) => ({ n, col: t.tx })),
+            .map((n?: any) => SKo(n, t.tx)),
           skM: sk(k)
             .filter((n?: any) => MV.includes(n))
             .map((n?: any) => ({ n, col: t.tx })),
-          note: [k.mov ? 'Mov ' + k.mov : '', k.ren ? 'Renown ' + k.ren : ''].filter(Boolean).join(' · '),
+          note: [k.mov ? 'Mov ' + k.mov : ''].filter(Boolean).join(' · '),
           facts: [
             ['Primary req.', k.pri],
             ['Secondary req.', k.sec],
             ['Skill EXP bonus', k.bonus],
           ]
             .filter(([a, b]: any) => b && b !== 'None')
-            .map(([k, v]: any) => ({ k, v })),
+            .map(([k, v]: any) => ({
+              k,
+              v,
+              parts: String(v)
+                .split(/,\s*/)
+                .map((p?: any) => {
+                  const m = p.match(/^(.*?)(\s*[(+\-].*)?$/),
+                    n = m[1].trim(),
+                    b = SK(n)
+                  return {
+                    ic: !!b,
+                    noIc: !b,
+                    bgi: b,
+                    n,
+                    rest: (m[2] || '').replace(/[()]/g, '').trim(),
+                    txt: p,
+                    ...(b ? this.hov(n, (x?: any) => this.skillTip(x)) : {}),
+                  }
+                }),
+            })),
           hasUn: !!(k.un && k.un.length),
           unLocked: kLock(k),
           unWarn: kLock(k) ? 'Not unlocked on your cleared routes. Needs to complete ' + kNeed(k) + ' path.' : '',
@@ -5340,6 +5759,20 @@ export class Codex extends Component<CodexProps, any> {
           n: c.n,
           sups: ss.map(({ o, s }: any) => ({ ...s, l: o.n + ' · ' + s.l.replace('Rank ', ''), w: '0px' })),
           has: ss.some((x?: any) => x.s.has),
+          cnt: oth.length
+            ? (() => {
+                const av = new Set<any>(avail.map((y?: any) => y.n))
+                const pa = (x?: any) => new Set<any>((x.sup || []).map((z?: any) => z.n).filter((n?: any) => av.has(n)))
+                let I = pa(c)
+                oth.forEach((o?: any) => {
+                  const p = pa(o)
+                  I = new Set<any>([...I].filter((n?: any) => p.has(n)))
+                })
+                ;[c, ...oth].forEach((x?: any) => I.delete(x.n))
+                return I.size
+              })()
+            : 0,
+          tot: oth.length,
           meal: m,
           sp: ss.reduce((a?: any, x?: any) => a + x.s.p, 0),
           score: ss.reduce((a?: any, x?: any) => a + x.s.p, 0) + m.p + oth.reduce((a?: any, x?: any) => a + mop(x).p, 0),
@@ -5365,6 +5798,7 @@ export class Codex extends Component<CodexProps, any> {
               const z = (v?: any) => v || 99
               return z(a[sk]) - z(b[sk]) || b.score - a.score || a.n.localeCompare(b.n)
             }
+            if (sk === 'cnt') return b.cnt - a.cnt || b.score - a.score || a.n.localeCompare(b.n)
             if (sk === 'sup') return b.sp - a.sp || b.score - a.score || a.n.localeCompare(b.n)
             if (sk === 'meal') return b.meal.p - a.meal.p || b.score - a.score || a.n.localeCompare(b.n)
             return (c1n ? 0 : rt(b) - rt(a)) || b.score - a.score || a.n.localeCompare(b.n)
@@ -5410,6 +5844,7 @@ export class Codex extends Component<CodexProps, any> {
       vals.mx = {
         sortBtns: [
           sortBtn('sup', 'Support'),
+          sortBtn('cnt', 'Common supports'),
           sortBtn('meal', 'Meal'),
           ...(P < 3 ? [sortBtn('ren', 'Renown', 1), sortBtn('sl', 'Support lvl', 1)] : []),
         ],
@@ -5462,14 +5897,15 @@ export class Codex extends Component<CodexProps, any> {
         cols: narrow
           ? 'minmax(0,1fr)'
           : P < 3
-            ? 'minmax(0,1fr) minmax(0,1.3fr) minmax(0,.7fr) minmax(0,.5fr) minmax(0,.6fr)'
-            : 'minmax(0,1fr) minmax(0,1.3fr) minmax(0,.7fr)',
+            ? 'minmax(0,1fr) minmax(0,1.3fr) minmax(0,.7fr) minmax(0,.7fr) minmax(0,.5fr) minmax(0,.6fr)'
+            : 'minmax(0,1fr) minmax(0,1.3fr) minmax(0,.7fr) minmax(0,.7fr)',
         chipO: narrow ? 3 : 0,
         chipCol: narrow ? '1 / -1' : 'auto',
         headDisp: narrow ? 'none' : 'grid',
         empty: !list.length,
         rows: list.map((r?: any) => ({
           ...r,
+          cntTxt: r.tot ? String(r.cnt) : '—',
           renTxt: r.ren ? r.ren : '—',
           slTxt: r.sl ? r.sl : '—',
           sc: r.score >= 8 ? 'oklch(0.78 0.1 150)' : r.score < 0 ? 'oklch(0.74 0.12 30)' : 'var(--tx, #eee)',
@@ -5608,6 +6044,7 @@ export class Codex extends Component<CodexProps, any> {
           .filter((r?: any) => R === 'All' || P >= 3 || r.route === R || r.route === 'All' || r.part >= 3)
           .map((r?: any) => ({
             ...r,
+            hasNote: !!r.note,
             mBlur:
               (P < 3 && (r.m === 'Meet requirements & talk' || r.m === 'Automatic')) ||
               ['Cai', 'Dietrich', 'Theodora', 'Leda'].includes(c.n) ||
@@ -5621,7 +6058,7 @@ export class Codex extends Component<CodexProps, any> {
             const req = [r.req, r.gold && r.gold + ' gold', r.dates && 'Deadline ' + r.dates]
               .filter(Boolean)
               .join(' · ')
-            const tags = ok ? [r.sup && 'Support ' + r.sup, r.ren && 'Renown Lv ' + r.ren].filter(Boolean) : []
+            const tags = ok ? [r.ren && 'Renown ' + r.ren, r.sup && 'Support ' + r.sup].filter(Boolean) : []
             return {
               mBlur: r.mBlur,
               route: r.route,
@@ -5630,6 +6067,7 @@ export class Codex extends Component<CodexProps, any> {
               method: ok ? r.m : '',
               tags,
               hasTags: tags.length > 0,
+              tagLine: tags.join(' · '),
               req,
               showReq: !!req && !lk,
               sealed: !!req && lk,
