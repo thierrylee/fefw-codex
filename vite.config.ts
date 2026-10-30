@@ -27,6 +27,15 @@ export default defineConfig({
       workbox: {
         // Precache the whole app, game data included, so it runs fully offline.
         globPatterns: ['**/*.{html,js,css,woff2,json,png,svg}'],
+        // Images (~11 MB) are not precached: each is cached the first time it is shown.
+        globIgnores: ['img/**'],
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.includes('/img/'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'codex-img', expiration: { maxEntries: 700 } },
+          },
+        ],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
       },
     }),

@@ -126,32 +126,73 @@ export function CatalogScreen({ v }: { v: VM }) {
                   background: 'var(--panel, oklch(0.245 0.05 165))',
                 }}
               >
-                <span style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px' }}>
-                  <span
-                    style={{ display: 'flex', alignItems: 'baseline', flexWrap: 'wrap', gap: '2px 6px', minWidth: '0' }}
-                  >
-                    <span style={{ fontWeight: '600' }}>{T(r?.n)}</span>
-                    <span
-                      style={{
-                        font: "500 10px/1 'IBM Plex Mono',monospace",
-                        letterSpacing: '.06em',
-                        color: 'var(--mu, oklch(0.78 0.035 120))',
-                        opacity: '.7',
-                      }}
-                    >
-                      {T(r?.code)}
-                    </span>
-                  </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  {r?.hasImg ? (
+                    <>
+                      <span
+                        style={{
+                          flex: 'none',
+                          width: '32px',
+                          height: '32px',
+                          borderRadius: '8px',
+                          overflow: 'hidden',
+                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          display: 'grid',
+                        }}
+                      >
+                        <img
+                          src={r?.img}
+                          alt=""
+                          loading="lazy"
+                          data-h="1"
+                          onError={v.imgErr}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      </span>
+                    </>
+                  ) : null}
                   <span
                     style={{
-                      flex: 'none',
-                      font: "500 10px/1 'IBM Plex Mono',monospace",
-                      letterSpacing: '.12em',
-                      textTransform: 'uppercase',
-                      color: 'var(--mu, oklch(0.78 0.035 120))',
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      justifyContent: 'space-between',
+                      gap: '8px',
+                      flex: '1',
+                      minWidth: '0',
                     }}
                   >
-                    {T(r?.tag)}
+                    <span
+                      style={{
+                        display: 'flex',
+                        alignItems: 'baseline',
+                        flexWrap: 'wrap',
+                        gap: '2px 6px',
+                        minWidth: '0',
+                      }}
+                    >
+                      <span style={{ fontWeight: '600' }}>{T(r?.n)}</span>
+                      <span
+                        style={{
+                          font: "500 10px/1 'IBM Plex Mono',monospace",
+                          letterSpacing: '.06em',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
+                          opacity: '.7',
+                        }}
+                      >
+                        {T(r?.code)}
+                      </span>
+                    </span>
+                    <span
+                      style={{
+                        flex: 'none',
+                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                        letterSpacing: '.12em',
+                        textTransform: 'uppercase',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                      }}
+                    >
+                      {T(r?.tag)}
+                    </span>
                   </span>
                 </span>
                 {r?.hasE ? (

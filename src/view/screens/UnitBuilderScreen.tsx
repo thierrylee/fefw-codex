@@ -974,11 +974,23 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                         className="hv-10"
                                       >
                                         <span
+                                          style={
+                                            {
+                                              flex: 'none',
+                                              width: '28px',
+                                              height: '28px',
+                                              borderRadius: '6px',
+                                              background: str(a?.bgi),
+                                            } as CSSProperties
+                                          }
+                                        ></span>
+                                        <span
                                           style={{
                                             display: 'flex',
                                             flexDirection: 'column',
                                             gap: '4px',
                                             minWidth: '0',
+                                            flex: '1',
                                           }}
                                         >
                                           <span
@@ -1080,10 +1092,25 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               }
                               className="hv-11"
                             >
-                              <span
-                                style={{ fontWeight: str(g?.nw), fontSize: '13px', color: str(g?.nc) } as CSSProperties}
-                              >
-                                {T(a?.n)}
+                              <span style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '0' }}>
+                                <span
+                                  style={
+                                    {
+                                      flex: 'none',
+                                      width: '32px',
+                                      height: '32px',
+                                      borderRadius: '6px',
+                                      background: str(a?.bgi),
+                                    } as CSSProperties
+                                  }
+                                ></span>
+                                <span
+                                  style={
+                                    { fontWeight: str(g?.nw), fontSize: '13px', color: str(g?.nc) } as CSSProperties
+                                  }
+                                >
+                                  {T(a?.n)}
+                                </span>
                               </span>
                               <span
                                 style={{
@@ -1182,6 +1209,17 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         }
                         className="hv-5"
                       >
+                        <span
+                          style={
+                            {
+                              flex: 'none',
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '6px',
+                              background: str(a?.bgi),
+                            } as CSSProperties
+                          }
+                        ></span>
                         <span
                           style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0', flex: '1' }}
                         >
@@ -1331,6 +1369,17 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         }
                         className="hv-5"
                       >
+                        <span
+                          style={
+                            {
+                              flex: 'none',
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '6px',
+                              background: str(a?.bgi),
+                            } as CSSProperties
+                          }
+                        ></span>
                         <span
                           style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0', flex: '1' }}
                         >
@@ -2585,6 +2634,17 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       >
                         ⠿
                       </span>
+                      <span
+                        style={
+                          {
+                            flex: 'none',
+                            width: '28px',
+                            height: '28px',
+                            borderRadius: '6px',
+                            background: str(b?.bgi),
+                          } as CSSProperties
+                        }
+                      ></span>
                       <span style={{ fontWeight: '600', filter: str(b?.blur) } as CSSProperties}>{T(b?.c)}</span>
                     </span>
                     <span style={{ display: 'flex', gap: '0', margin: '-6px -8px -6px 0' }}>

@@ -38,6 +38,8 @@ npm run preview    # serve dist/ locally
 - `src/view/runtime.tsx` — small helpers the views use (`L`, `T`, `str`, `css`).
 - `src/styles/` — fonts, global styles and `:hover` / `:focus` classes.
 - `public/database/codex.json` — game data, fetched at startup.
+- `public/img/` — ability / character / class / combat-art / skill images; `src/codex/resources.ts`
+  maps the design's image ids to them. Not precached; cached on first view.
 
 User data (builds, progress, settings) lives in the browser's `localStorage`
 under `weave-codex`.

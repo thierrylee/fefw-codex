@@ -313,6 +313,9 @@ export function AppView({ v }: { v: VM }) {
                                 onClick={it?.go}
                                 style={
                                   {
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '8px',
                                     padding: '10px 14px',
                                     border: '0',
                                     borderBottom: `2px solid ${str(it?.bar)}`,
@@ -323,6 +326,19 @@ export function AppView({ v }: { v: VM }) {
                                   } as CSSProperties
                                 }
                               >
+                                <svg
+                                  viewBox="0 0 24 24"
+                                  width="18"
+                                  height="18"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeWidth="1.7"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  style={{ flex: 'none' }}
+                                >
+                                  <path d={it?.icon}></path>
+                                </svg>
                                 {T(it?.label)}
                               </button>
                             </Fragment>
@@ -768,10 +784,9 @@ export function AppView({ v }: { v: VM }) {
                               onClick={r?.go}
                               style={
                                 {
-                                  display: 'grid',
-                                  gridTemplateColumns: '24px 1fr auto',
+                                  display: 'flex',
                                   gap: '10px',
-                                  alignItems: 'start',
+                                  alignItems: 'flex-start',
                                   padding: '9px 12px',
                                   borderRadius: '10px',
                                   border: `1px solid ${str(r?.bd)}`,
@@ -783,13 +798,35 @@ export function AppView({ v }: { v: VM }) {
                             >
                               <span
                                 style={{
+                                  flex: 'none',
+                                  width: '14px',
                                   font: "600 14px/1.3 'IBM Plex Mono',monospace",
                                   color: 'var(--ac, oklch(0.8 0.11 75))',
                                 }}
                               >
                                 {T(r?.mark)}
                               </span>
-                              <span style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0' }}>
+                              <span
+                                style={
+                                  {
+                                    display: str(r?.icD),
+                                    flex: 'none',
+                                    width: '36px',
+                                    height: '36px',
+                                    borderRadius: '8px',
+                                    background: str(r?.bgi),
+                                  } as CSSProperties
+                                }
+                              ></span>
+                              <span
+                                style={{
+                                  flex: '1',
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '2px',
+                                  minWidth: '0',
+                                }}
+                              >
                                 <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
                                 <span
                                   style={
@@ -959,6 +996,28 @@ export function AppView({ v }: { v: VM }) {
                           </Fragment>
                         ))}
                       </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                        <select
+                          value={v.cdSk ?? ''}
+                          onChange={v.onCdSk}
+                          aria-label="Skill"
+                          style={{
+                            padding: '7px 12px',
+                            borderRadius: '999px',
+                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            background: 'var(--panel)',
+                            color: 'var(--tx, #eee)',
+                            fontSize: '12px',
+                            maxWidth: '100%',
+                          }}
+                        >
+                          {L(v.cdSkOpts).map((o: any, $index: number) => (
+                            <Fragment key={$index}>
+                              <option value={o ?? ''}>{T(o)}</option>
+                            </Fragment>
+                          ))}
+                        </select>
+                      </div>
                       <div
                         style={{
                           overflowY: 'auto',
@@ -979,7 +1038,7 @@ export function AppView({ v }: { v: VM }) {
                               style={
                                 {
                                   display: 'grid',
-                                  gridTemplateColumns: '24px 1fr auto',
+                                  gridTemplateColumns: '24px 36px 1fr auto',
                                   gap: '10px',
                                   alignItems: 'start',
                                   padding: '9px 12px',
@@ -999,8 +1058,36 @@ export function AppView({ v }: { v: VM }) {
                               >
                                 {T(r?.mark)}
                               </span>
+                              <span
+                                style={
+                                  {
+                                    width: '36px',
+                                    height: '36px',
+                                    borderRadius: '8px',
+                                    background: str(r?.bgi),
+                                  } as CSSProperties
+                                }
+                              ></span>
                               <span style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0' }}>
-                                <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
+                                <span style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
+                                  <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
+                                  {L(r?.badges).map((b: any, $index: number) => (
+                                    <Fragment key={$index}>
+                                      <span
+                                        style={{
+                                          font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                          letterSpacing: '.08em',
+                                          padding: '3px 6px',
+                                          borderRadius: '4px',
+                                          border: '1px solid var(--ac, oklch(0.82 0.12 85))',
+                                          color: 'var(--ac, oklch(0.82 0.12 85))',
+                                        }}
+                                      >
+                                        {T(b?.l)}
+                                      </span>
+                                    </Fragment>
+                                  ))}
+                                </span>
                                 <span
                                   style={{
                                     fontSize: '12px',
@@ -1192,6 +1279,70 @@ export function AppView({ v }: { v: VM }) {
                           >
                             {T(v.tip?.statNote)}
                           </span>
+                        </div>
+                      </>
+                    ) : null}
+                    {v.tip?.hasGrids ? (
+                      <>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          {L(v.tip?.grids).map((g: any, $index: number) => (
+                            <Fragment key={$index}>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                <span
+                                  style={{
+                                    font: "500 10px/1 'IBM Plex Mono',monospace",
+                                    letterSpacing: '.14em',
+                                    textTransform: 'uppercase',
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
+                                  }}
+                                >
+                                  {T(g?.lbl)}
+                                </span>
+                                <div
+                                  style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(9,minmax(0,1fr))',
+                                    gap: '4px',
+                                  }}
+                                >
+                                  {L(g?.cells).map((x: any, $index: number) => (
+                                    <Fragment key={$index}>
+                                      <div
+                                        style={{
+                                          display: 'flex',
+                                          flexDirection: 'column',
+                                          alignItems: 'center',
+                                          gap: '3px',
+                                          padding: '7px 0',
+                                          borderRadius: '6px',
+                                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                                        }}
+                                      >
+                                        <span
+                                          style={{
+                                            font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                            color: 'var(--mu, oklch(0.78 0.035 120))',
+                                          }}
+                                        >
+                                          {T(x?.s)}
+                                        </span>
+                                        <span
+                                          style={
+                                            {
+                                              font: "600 12px/1 'IBM Plex Mono',monospace",
+                                              color: str(x?.col),
+                                            } as CSSProperties
+                                          }
+                                        >
+                                          {T(x?.v)}
+                                        </span>
+                                      </div>
+                                    </Fragment>
+                                  ))}
+                                </div>
+                              </div>
+                            </Fragment>
+                          ))}
                         </div>
                       </>
                     ) : null}

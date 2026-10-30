@@ -6,19 +6,26 @@ import { DEFAULT_PROPS, type CodexProps } from './props'
 export class Codex extends Component<CodexProps, any> {
   static defaultProps = DEFAULT_PROPS
   // Instance fields the logic assigns ad hoc (drag tracking, history, caches).
+  declare am: any
   declare cDrag: any
   declare cOver: any
+  declare ck: any
   declare cpT: any
   declare dragId: any
   declare hDrag: any
   declare hOver: any
+  declare hc: any
   declare hcur: any
   declare idx: any
   declare idxD: any
   declare key: any
+  declare md: any
   declare overId: any
+  declare pk: any
+  declare ready: any
   declare ro: any
   declare rootNav: any
+  declare setState: any
   state: any = {
     d: null,
     screen: 'roster',
@@ -58,9 +65,56 @@ export class Codex extends Component<CodexProps, any> {
     if (on !== !!this.state.topShow) this.setState({ topShow: on })
   }
   esc = (e?: any) => {
-    if (e.key === 'Escape' && this.state.pk) this.setState({ pk: null, pq: '', pf: 'All', tip: null })
+    if (e.key !== 'Escape') return
+    const ov = [...document.querySelectorAll('div')].filter(
+      (x?: any) => x.style.position === 'fixed' && x.style.inset && x.style.display === 'grid' && x.style.zIndex,
+    )
+    if (ov.length) {
+      ov.sort((a?: any, b?: any) => b.style.zIndex - a.style.zIndex)
+      ov[0].click()
+      return
+    }
+    if (this.state.pk) this.setState({ pk: null, pq: '', pf: 'All', tip: null })
   }
   componentDidMount() {
+    this.hc = () => {
+      if (this.ready && this.state.d && location.hash !== this.enc(this.state)) this.dec(this.state.d)
+    }
+    this.am = (e?: any) => {
+      if (e.button !== 1) return
+      const el = this.pk0(e.target)
+      if (!el) return
+      e.preventDefault()
+      e.stopPropagation()
+      this.peek(el)
+    }
+    this.md = (e?: any) => {
+      if (e.button === 1 && this.pk0(e.target)) e.preventDefault()
+    }
+    this.ck = (e?: any) => {
+      if (e.button !== 0 || !(e.ctrlKey || e.metaKey)) return
+      const el = this.pk0(e.target)
+      if (!el) return
+      e.preventDefault()
+      e.stopPropagation()
+      this.peek(el)
+    }
+    window.addEventListener('hashchange', this.hc)
+    document.addEventListener('auxclick', this.am, true)
+    document.addEventListener('mousedown', this.md, true)
+    document.addEventListener('click', this.ck, true)
+    {
+      const os = this.setState.bind(this)
+      this.setState = (p?: any, cb?: any) => {
+        if (this.pk) {
+          const b: Record<string, any> = { ...this.state, ...this.pk }
+          const v = typeof p === 'function' ? p(b) : p
+          if (v) Object.assign(this.pk, v)
+          return
+        }
+        os(p, cb)
+      }
+    }
     window.addEventListener('keydown', this.esc)
     window.addEventListener('scroll', this.stt, true)
     try {
@@ -71,13 +125,15 @@ export class Codex extends Component<CodexProps, any> {
     } catch (e: any) {}
     fetch(import.meta.env.BASE_URL + 'database/codex.json')
       .then((r?: any) => r.json())
-      .then((d?: any) =>
+      .then((d?: any) => {
+        this.ready = true
+        this.dec(d)
         this.setState((st?: any) => ({
           d,
           builds: st.builds || [],
           cmp: st.cmp || [],
-        })),
-      )
+        }))
+      })
     window.addEventListener('popstate', this.pop)
     document.addEventListener('pointerdown', this.pd)
     document.addEventListener('scroll', this.sc, true)
@@ -90,6 +146,88 @@ export class Codex extends Component<CodexProps, any> {
       })
       this.ro.observe(this.rootRef.current)
     }
+  }
+  enc = (s?: any) => {
+    const e = encodeURIComponent
+    return (
+      '#/' +
+      (s.screen === 'profile'
+        ? 'profile/' + e(s.sel || '')
+        : s.screen === 'classes' && s.ksel
+          ? 'classes/' + e(s.ksel)
+          : s.screen === 'calc' && s.calc && s.calc.c
+            ? 'calc/' + e(s.calc.c)
+            : s.screen)
+    )
+  }
+  dec = (d?: any) => {
+    const p = location.hash.replace(/^#\/?/, '').split('/')
+    const sc = p[0],
+      v = p[1] ? decodeURIComponent(p[1]) : ''
+    if (
+      ![
+        'roster',
+        'profile',
+        'calc',
+        'compare',
+        'charts',
+        'match',
+        'classes',
+        'abilities',
+        'arts',
+        'items',
+        'settings',
+      ].includes(sc)
+    )
+      return
+    const o: Record<string, any> = { screen: sc, tip: null }
+    if (sc === 'profile') {
+      if (!v || !d.chars.some((c?: any) => c.n === v)) return
+      o.sel = v
+      o.ptab = 'info'
+    }
+    if (sc === 'classes' && v) {
+      o.ksel = v
+      o.kopen = true
+    }
+    if (sc === 'calc' && v) {
+      const ch = d.chars.find((c?: any) => c.n === v)
+      if (ch && (!this.state.calc || this.state.calc.c !== v)) o.calc = { c: v, k: ch.cls, m: 'None', lv: 20 }
+    }
+    this.rootNav = false
+    this.setState(o)
+  }
+  pk0 = (t?: any) => {
+    for (let e = t; e && e.nodeType === 1 && e !== document.body; e = e.parentElement) {
+      if (e.tagName === 'A' && e.href) return null
+      const c = getComputedStyle(e).cursor
+      if (c === 'pointer' && !e.disabled) return e
+    }
+    return null
+  }
+  peek = (el?: any) => {
+    this.pk = {}
+    try {
+      el.click()
+    } finally {
+      var P = this.pk
+      this.pk = null
+    }
+    const m: Record<string, any> = { ...this.state, ...P }
+    const U = this.enc(m)
+    if (U !== this.enc(this.state) && m.screen && m.screen !== 'overview')
+      window.open(location.href.split('#')[0] + U, '_blank')
+  }
+  tierFor = (d?: any, lv?: any) => {
+    const tl: any = {}
+    d.classes.forEach((k?: any) => {
+      if (k.lv !== '' && !isNaN(+k.lv)) tl[k.tier] = Math.min(tl[k.tier] ?? 999, +k.lv)
+    })
+    let r = 'Base'
+    ;['Beginner', 'Specialty', 'Advanced', 'Master'].forEach((t?: any) => {
+      if (tl[t] != null && tl[t] <= lv) r = t
+    })
+    return this.state.part < 3 && r === 'Master' ? 'Advanced' : r
   }
   hk = (s?: any) => s.screen + '|' + (s.screen === 'profile' ? JSON.stringify(s.sel ?? null) : '')
   lbl(s?: any) {
@@ -110,20 +248,24 @@ export class Codex extends Component<CodexProps, any> {
   }
   componentDidUpdate() {
     const s = this.state
-    if (!s.screen || s.screen === 'overview') return
+    if (!this.ready || !s.screen || s.screen === 'overview') return
     const k = this.hk(s)
-    if (this.hcur === k) return
+    const U = this.enc(s)
+    if (this.hcur === k) {
+      if (location.hash !== U) history.replaceState(history.state, '', U)
+      return
+    }
     const e: Record<string, any> = { screen: s.screen, sel: s.sel, l: this.lbl(s) }
     let tr: any
     if (this.hcur === undefined) {
       tr = [e]
-      history.replaceState({ ...e, trail: tr }, '')
+      history.replaceState({ ...e, trail: tr }, '', U)
     } else {
       const pt = s.trail || []
       const di = pt.findIndex((x?: any) => this.hk(x) === k)
       tr = this.rootNav ? [e] : di >= 0 ? [...pt.slice(0, di), e] : [...pt, e].slice(-6)
       this.rootNav = false
-      history.pushState({ ...e, trail: tr }, '')
+      history.pushState({ ...e, trail: tr }, '', U)
     }
     this.hcur = k
     this.setState({ trail: tr })
@@ -143,6 +285,10 @@ export class Codex extends Component<CodexProps, any> {
     window.removeEventListener('keydown', this.esc)
     window.removeEventListener('scroll', this.stt, true)
     window.removeEventListener('popstate', this.pop)
+    window.removeEventListener('hashchange', this.hc)
+    document.removeEventListener('auxclick', this.am, true)
+    document.removeEventListener('mousedown', this.md, true)
+    document.removeEventListener('click', this.ck, true)
     this.ro && this.ro.disconnect()
     document.removeEventListener('pointerdown', this.pd)
     document.removeEventListener('scroll', this.sc, true)
@@ -362,9 +508,23 @@ export class Codex extends Component<CodexProps, any> {
           })
         },
         afLeave = () => this.setState({ afTip: null })
+      const IC = ({
+        Sword: 'skills/sword',
+        Lance: 'skills/spear',
+        Axe: 'skills/axe',
+        Bow: 'skills/bow',
+        Brawl: 'skills/gauntlet',
+        Reason: 'skills/black_magic',
+        Faith: 'skills/white_magic',
+      } as any)[l.c]
+      const ic: Record<string, any> = {
+        hasIc: !!IC,
+        bgi: IC ? 'url(' + (window.__resources || {})[IC.replace('/', '_')] + ') center/cover no-repeat' : 'none',
+      }
       return u
         ? {
             ...l,
+            ...ic,
             af,
             aft,
             afc,
@@ -372,7 +532,7 @@ export class Codex extends Component<CodexProps, any> {
             afLeave,
             r: l.r.map((v?: any, i?: any) => (i < 5 && u.r[i] ? [v && v !== '?' ? v : '', u.r[i]].filter(Boolean).join(', ') : v)),
           }
-        : { ...l, af, aft, afc, afEnter, afLeave }
+        : { ...l, ...ic, af, aft, afc, afEnter, afLeave }
     })
   }
   lsLines(v?: any, t?: any) {
@@ -381,13 +541,13 @@ export class Codex extends Component<CodexProps, any> {
       return [{ v: '—', col: t.line, enter: () => {}, leave: () => {}, cur: 'default', ul: 'transparent', on: false }]
     return v
       .split(/,\s*(?![^()]*\))/)
-      .map((s?: any, i?: any) => ({ s, i, p: /\([A-S]\+\)\s*$/.test(s) ? 1 : 0 }))
+      .map((s?: any, i?: any) => ({ s, i, p: /\([A-S]?[+-]\)\s*$/.test(s) ? 1 : 0 }))
       .sort((x?: any, y?: any) => x.p - y.p || x.i - y.i)
       .map((o?: any) => o.s)
       .map((s?: any) => {
         const has = s !== '?'
         const h = has ? this.hov(s) : { enter: () => {}, leave: () => {} }
-        const pm = s.match(/\s*\(([A-S]\+)\)\s*$/)
+        const pm = s.match(/\s*\(([A-S]?[+-])\)\s*$/)
         return {
           v: pm ? s.replace(pm[0], '') : s,
           plus: pm ? pm[1] : '',
@@ -610,10 +770,19 @@ export class Codex extends Component<CodexProps, any> {
       ...(P0 >= 1 && P0 <= 2 && R0 !== 'All' ? [R0] : []),
     ])
     const lock = !!(k.un && k.un.length && P0 >= 1 && !k.un.some((u?: any) => ok0.has(u.r)))
+    const gc = (v?: any) =>
+      v > 0 ? 'var(--ac, oklch(0.82 0.12 85))' : v < 0 ? 'oklch(0.74 0.12 30)' : 'var(--mu, oklch(0.78 0.035 120))'
+    const cell = (v?: any, i?: any) => ({ s: SN[i], v: (v > 0 ? '+' : '') + v, col: gc(v) })
+    const gsum = (k.g || []).reduce((a?: any, b?: any) => a + b, 0)
     return {
-      stats,
-      hasStats: stats.length > 0,
-      statNote: 'Class growth',
+      stats: [],
+      hasStats: false,
+      hasGrids: true,
+      grids: [
+        { lbl: 'Growth modifier · Σ ' + gsum + '%', cells: (k.g || []).map(cell) },
+        { lbl: 'Stat modifier', cells: (k.mods || []).map(cell) },
+      ],
+      statNote: '',
       t: k.n,
       sub: [k.tier, k.type].filter(Boolean).join(' · ') + (k.lv ? ' · Lv ' + k.lv : ''),
       body: lock
@@ -720,6 +889,7 @@ export class Codex extends Component<CodexProps, any> {
         recruited,
         pOrd,
         pW,
+        pCols,
         cdOrd,
         sbCollapsed,
         starred,
@@ -762,6 +932,7 @@ export class Codex extends Component<CodexProps, any> {
             recruited,
             pOrd,
             pW,
+            pCols,
             cdOrd,
             sbCollapsed,
             starred,
@@ -1260,7 +1431,52 @@ export class Codex extends Component<CodexProps, any> {
       tt: sum(rows.map((r?: any) => r.t)),
     }
   }
+  imgErr = (e?: any) => {
+    const im = e.target,
+      s = im.getAttribute('src') || '',
+      m = s.match(/^(.*)\.(png|webp)$/)
+    let i = +(im.dataset.q || 0)
+    im.dataset.q = i + 1
+    if (m && i < 3) {
+      const b = m[1],
+        b2 = b.replace(/_s(_|$)/, 's$1')
+      im.src = ([b + '.' + (m[2] === 'png' ? 'webp' : 'png'), b2 + '.png', b2 + '.webp'] as any)[i]
+    } else {
+      im.style.display = 'none'
+      if (im.dataset.h && im.parentNode) im.parentNode.style.display = 'none'
+    }
+  }
+
   renderVals() {
+    const AB = (n?: any) => 'url(' + IMG('abilities', n) + ') center/cover no-repeat'
+    const IMG = (k?: any, n?: any) => {
+      if (!n) return ''
+      let f: any
+      if (k === 'arts') {
+        const c = String(n).toLowerCase()
+        f = /sword/.test(c)
+          ? 'sword'
+          : /lance|spear/.test(c)
+            ? 'spear'
+            : /axe/.test(c)
+              ? 'axe'
+              : /bow/.test(c)
+                ? 'bow'
+                : /brawl|fist|gaunt/.test(c)
+                  ? 'gauntlet'
+                  : 'utility'
+      } else
+        f = String(n)
+          .toLowerCase()
+          .replace(/\([^)]*\)/g, '')
+          .replace(/\s*\+(\d+)/, '_plus$1')
+          .replace(/\+/g, '_plus')
+          .replace(/[^a-z0-9]+/g, '_')
+          .replace(/^_+|_+$/g, '')
+      const R: any = window.__resources || {},
+        dd = k === 'arts' ? 'combatarts' : k
+      return R[dd + '_' + f] || R[dd + '_' + f.replace(/_s(_|$)/, 's$1')] || ''
+    }
     const st = this.state,
       d = st.d,
       pr = this.props
@@ -1630,6 +1846,7 @@ export class Codex extends Component<CodexProps, any> {
     }))
     const base: Record<string, any> = {
       t,
+      imgErr: this.imgErr,
       rootRef: this.rootRef,
       headOn: narrow || navTop,
       progLabel:
@@ -1795,9 +2012,19 @@ export class Codex extends Component<CodexProps, any> {
     const keysOf = (n?: any) => RK.filter((x?: any) => x.split('@')[0] === n)
     const rt = (c?: any) => c.part === 1 || c.part === 2
     const recKey = (c?: any) => (rt(c) && P <= 2 ? c.n + '@' + R : rt(c) ? null : c.n + '@*')
+    const autoRec = (c?: any) =>
+      c.type === 'Unit' &&
+      P >= 1 &&
+      (c.rec || []).some(
+        (r?: any) =>
+          r.m === 'Automatic' &&
+          String(r.ch) === '1' &&
+          r.part === 1 &&
+          (P <= 2 ? R !== 'All' && r.route === R : clSet.includes(r.route)),
+      )
     const isRec = (c?: any) => {
       if (rlock(c)) return false
-      if (c.type !== 'Unit') return true
+      if (c.type !== 'Unit' || autoRec(c)) return true
       const ks = keysOf(c.n)
       if (!rt(c)) return ks.length > 0
       if (P <= 2) return R === 'All' ? ks.length > 0 : ks.includes(c.n + '@' + R)
@@ -1818,7 +2045,7 @@ export class Codex extends Component<CodexProps, any> {
     const card = (c?: any) => ({
       ...(() => {
         const r = isRec(c),
-          fixed = c.type !== 'Unit' || rlock(c)
+          fixed = c.type !== 'Unit' || rlock(c) || autoRec(c)
         return {
           recToggle: fixed
             ? (e?: any) => {
@@ -1830,7 +2057,7 @@ export class Codex extends Component<CodexProps, any> {
             const h = rlock(c)
               ? ['Route locked', 'Clear this route first to recruit.']
               : fixed
-                ? ['Always recruited', 'Joins automatically.']
+                ? ['Always recruited', autoRec(c) ? 'Joins automatically in Chapter 1.' : 'Joins automatically.']
                 : r
                   ? ['Recruited', 'Click to mark as not recruited.']
                   : ['Not recruited', 'Click to recruit.']
@@ -1876,6 +2103,7 @@ export class Codex extends Component<CodexProps, any> {
         return [...(st.sort !== 'ch' ? [N, C] : [C, N]), r.sup ? 'Support ' + r.sup : ''].filter(Boolean)
       })(),
       n: c.n,
+      img: IMG('characters', c.n),
       init: init(c.n),
       cls: c.cls || '—',
       fac: c.fac || '—',
@@ -1896,7 +2124,7 @@ export class Codex extends Component<CodexProps, any> {
     const onlyCur = !!st.bOnly
     const cName = inPCalc ? st.sel : calcChars.find((c?: any) => c.n === st.calc.c) ? st.calc.c : (calcChars[0] || {}).n
     const cGd = (d.chars.find((x?: any) => x.n === cName) || {}).gd
-    const gOk = (k?: any) => !k.rg || !cGd || k.rg === cGd
+    const gOk = (k?: any) => (P >= 3 || !['Master', 'Divine'].includes(k.tier)) && (!k.rg || !cGd || k.rg === cGd)
     const pristine = (n?: any) => {
       const ch = d.chars.find((x?: any) => x.n === n)
       return { c: n, k: ch ? ch.cls : '', m: 'None', lv: 1, stages: null, rl: 1 }
@@ -1967,7 +2195,6 @@ export class Codex extends Component<CodexProps, any> {
           chips: [
             ['Growth', r.t + '%', 'var(--tx, #eee)'],
             ['Mount', r.mst ? '+' + r.mst : '—', 'oklch(0.74 0.1 300)'],
-            ['Class', r.cf ? (r.cf > 0 ? '+' : '') + r.cf : '—', 'oklch(0.74 0.1 185)'],
             ['Bonus', AB9[ri] ? (AB9[ri] > 0 ? '+' : '') + AB9[ri] : '—', 'oklch(0.78 0.12 150)'],
             ['Min', r.ex ? '+' + r.ex : '—', 'var(--ac, oklch(0.8 0.11 75))'],
           ]
@@ -2217,7 +2444,7 @@ export class Codex extends Component<CodexProps, any> {
       const i = p ? p.indexOf(': ') : -1
       if (i <= 0) return []
       const n = p.slice(0, i)
-      return [{ n, e: p.slice(i + 2), t: 'Personal', ...this.hov(n) }]
+      return [{ n, bgi: AB(n), e: p.slice(i + 2), t: 'Personal', ...this.hov(n) }]
     })()
     const exG = new Map<any, any>()
     ;(d.excl || []).forEach((g?: any) =>
@@ -2238,6 +2465,7 @@ export class Codex extends Component<CodexProps, any> {
           .map((k?: any) => k.n)
         const wOff = wk.length > 0 && !stAb.has(n)
         return {
+          bgi: AB(n),
           wn: wOff ? '⚠ Requires ' + wk.join(' / ') : '',
           wd: wOff ? 'block' : 'none',
           n,
@@ -2288,6 +2516,7 @@ export class Codex extends Component<CodexProps, any> {
       clsGroups: (() => {
         const cl = (curCls ? curCls.ab || [] : []).map((a?: any) => ({
           n: a.n,
+          bgi: AB(a.n),
           e: a.e,
           t: a.t === 'Master ability' ? 'Master' : 'Class',
           ...this.hov(a.n),
@@ -2325,6 +2554,7 @@ export class Codex extends Component<CodexProps, any> {
         ...(curCls
           ? (curCls.ab || []).map((a?: any) => ({
               n: a.n,
+              bgi: AB(a.n),
               e: a.e,
               t: a.t === 'Master ability' ? 'Master' : 'Class',
               ...this.hov(a.n),
@@ -2345,6 +2575,7 @@ export class Codex extends Component<CodexProps, any> {
           return {
             n,
             on,
+            bgi: AB(n),
             tag: 'Bond ' + g.bl[n],
             bd: on ? 'oklch(0.74 0.1 300)' : t.line,
             bg: on ? 'oklch(0.74 0.1 300 / .2)' : 'transparent',
@@ -2358,6 +2589,7 @@ export class Codex extends Component<CodexProps, any> {
         const a = caAll[n]
         return {
           n,
+          bgi: 'url(' + IMG('arts', a && a.c) + ') center/cover no-repeat',
           stDisp: a && a.s ? 'block' : 'none',
           ...this.hov(n),
           ...this.hd(
@@ -2445,7 +2677,7 @@ export class Codex extends Component<CodexProps, any> {
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '_')
     const itMap = new Map<any, any>((d.items || []).map((x?: any) => [x.n, x]))
-    const itPool = (d.items || []).filter((x?: any) => !x.w || x.w === meId)
+    const itPool = (d.items || []).filter((x?: any) => !x.bi && (!x.w || x.w === meId))
     const itSt = (x?: any) =>
       x
         ? [
@@ -2608,6 +2840,7 @@ export class Codex extends Component<CodexProps, any> {
       ? []
       : isIt
         ? (d.items || [])
+            .filter((x?: any) => !x.bi)
             .map((x?: any) => {
               const wc = ({ 'Black Magic': 'Reason', 'Dark Magic': 'Reason', 'White Magic': 'Faith' } as any)[x.cat] || x.cat
               const off = (!!x.w && x.w !== meId) || (WC.includes(wc) && !lsCats.has(wc))
@@ -2673,6 +2906,8 @@ export class Codex extends Component<CodexProps, any> {
         if (blk) x = { ...x, st: 'Conflicts with ' + blk + ' — same ability line' }
         return {
           ...x,
+          bgi: isIt ? 'none' : isCa ? 'url(' + IMG('arts', x.c || x.cat) + ') center/cover no-repeat' : AB(x.n),
+          icD: isIt ? 'none' : 'block',
           ...(isIt ? this.hovI(x.n) : this.hov(x.n)),
           catL: x.catL || x.cat,
           mark: on ? '✓' : '+',
@@ -2723,9 +2958,20 @@ export class Codex extends Component<CodexProps, any> {
       pkChipRows: pChipRows,
       openCurCd: () =>
         this.setState({
-          cd: { w: 'cur', q: '', t: (B && B.stages.length && B.stages[B.stages.length - 1].k.tier) || 'All' },
+          cd: {
+            w: 'cur',
+            q: '',
+            t: this.tierFor(
+              d,
+              B && B.stages.length
+                ? B.stages.length > 1
+                  ? B.stages[B.stages.length - 1].from
+                  : Math.max(B.stages[0].from, B.rl)
+                : 1,
+            ),
+          },
         }),
-      openRecCd: () => this.setState({ cd: { w: 'rec', q: '', t: (B && B.kr.tier) || 'All' } }),
+      openRecCd: () => this.setState({ cd: { w: 'rec', q: '', t: this.tierFor(d, B ? B.rl : 1) } }),
       ...(() => {
         const cd = st.cd
         const rk = B ? B.kr : null
@@ -2762,6 +3008,7 @@ export class Codex extends Component<CodexProps, any> {
                 (k?: any) =>
                   gOk(k) &&
                   (cd.t === 'All' || k.tier === cd.t) &&
+                  (!cd.s || cd.s === 'All skills' || (k.comp || '').split(/,\s*/).includes(cd.s)) &&
                   (!q ||
                     k.n.toLowerCase().includes(q) ||
                     (k.comp || '').toLowerCase().includes(q) ||
@@ -2769,9 +3016,17 @@ export class Codex extends Component<CodexProps, any> {
               )
               .map((k?: any) => ({
                 n: k.n,
+                bgi: 'url(' + IMG('classes', k.n) + ') center/cover no-repeat',
                 tier: k.tier,
                 tc: TC[k.tier] || t.mu,
-                sub: [k.type, k.comp].filter(Boolean).join(' · ') + (+k.lv > lvN ? ' · Requires Lv ' + k.lv : ''),
+                sub:
+                  (k.comp || '')
+                    .split(/,\s*/)
+                    .filter((n?: any) => n && !(d.skillMove || []).includes(n))
+                    .join(', ') + (+k.lv > lvN ? (k.comp || '' ? ' · ' : '') + 'Requires Lv ' + k.lv : ''),
+                badges: [k.arm ? 'ARMOR' : '', k.mounted && !k.fl ? 'MOUNT' : '', k.fl ? 'FLIER' : '']
+                  .filter(Boolean)
+                  .map((l?: any) => ({ l })),
                 lock: uLock(k) ? 'Locked · needs to complete ' + uNeed(k) + ' path' : '',
                 isLock: uLock(k),
                 op: +k.lv > lvN ? 0.45 : 1,
@@ -2782,7 +3037,7 @@ export class Codex extends Component<CodexProps, any> {
                 go: () => {
                   const f = cd.w === 'st' ? vals.stageLocked[cd.i].onK : cd.w === 'cur' ? vals.onCurK : vals.onRk
                   f({ target: { value: k.n } })
-                  this.setState({ cd: null })
+                  this.setState({ cd: null, tip: null })
                 },
               }))
           : []
@@ -2796,11 +3051,17 @@ export class Codex extends Component<CodexProps, any> {
                 : 'Current class',
           cdCount: rows.length + '',
           cdQ: cd ? cd.q : '',
+          cdSk: (cd && cd.s) || 'All skills',
+          onCdSk: (e?: any) => this.setState({ cd: { ...cd, s: e.target.value } }),
+          cdSkOpts: [
+            'All skills',
+            ...(d.skillOrder || []).filter((n?: any) => d.classes.some((k?: any) => (k.comp || '').split(/,\s*/).includes(n))),
+          ],
           onCdQ: (e?: any) => this.setState({ cd: { ...cd, q: e.target.value } }),
-          cdClose: () => this.setState({ cd: null }),
+          cdClose: () => this.setState({ cd: null, tip: null }),
           cdRows: rows,
           cdNone: !!cd && !rows.length,
-          cdChips: ['All', ...TIERS].map((g?: any) => {
+          cdChips: ['All', ...TIERS.filter((g?: any) => P >= 3 || !['Master', 'Divine'].includes(g))].map((g?: any) => {
             const on = cd && cd.t === g
             return {
               l: g,
@@ -2872,6 +3133,10 @@ export class Codex extends Component<CodexProps, any> {
       teaser: sealed.slice(0, 8).map(card),
       goCalc: () => this.save({ screen: 'calc' }),
       goInv: () => this.jumpTo('b-inv'),
+      chartJumps: [
+        ['Growth heatmap', 'c-gro'],
+        ['Expected stats', 'c-exp'],
+      ].map(([l, id]: any) => ({ l, go: () => this.jumpTo(id) })),
       goSaved: () => this.jumpTo('b-saved'),
       // roster
       q: st.q,
@@ -3043,12 +3308,13 @@ export class Codex extends Component<CodexProps, any> {
               upd((n?: any) => {
                 n[i].k = e.target.value
               }),
-            openCd: () => this.setState({ cd: { w: 'st', i, q: '', t: x.k.tier || 'All' } }),
+            openCd: () => this.setState({ cd: { w: 'st', i, q: '', t: this.tierFor(d, x.from) } }),
           })),
           curIdx: L + 1,
           curFirst: L === 0,
           curNotFirst: L > 0,
           curK: cur.k.n,
+          curBgi: 'url(' + IMG('classes', cur.k.n) + ') center/cover no-repeat',
           curWarn: uLock(cur.k),
           curWarnTxt: uW(cur.k).warnTxt,
           curEnter: uW(cur.k).enter,
@@ -3095,12 +3361,14 @@ export class Codex extends Component<CodexProps, any> {
                 }),
             }
           }),
-          addStage: () =>
+          addStage: () => {
             upd((n?: any) => {
               const l = n[n.length - 1]
               l.m = calc.m
               n.push({ k: l.k, lv: l.lv })
-            }),
+            })
+            this.setState({ cd: { w: 'cur', q: '', t: this.tierFor(d, cur.lv) } })
+          },
           canAdd: cur.lv < 99,
           canUndo: L > 0,
           undoStage: () =>
@@ -3534,6 +3802,9 @@ export class Codex extends Component<CodexProps, any> {
           onName: (e?: any) => this.save({ builds: builds.map((x?: any) => (x.id === b.id ? { ...x, name: e.target.value } : x)) }),
           c: b.lk ? 'Sealed unit' : b.c,
           blur: b.lk ? 'blur(4px)' : 'none',
+          bgi: b.lk
+            ? 'none'
+            : 'url(' + IMG('classes', b.x.stages[b.x.stages.length - 1].k.n) + ') center/cover no-repeat',
           k: b.x.stages.map((x?: any) => x.k.n).join(' → '),
           m: (b.m === 'None' ? 'No mount' : b.m) + (b.x.rl > 1 ? ' · Rec. Lv ' + b.x.rl : ''),
           lv: b.x.lv,
@@ -4304,6 +4575,57 @@ export class Codex extends Component<CodexProps, any> {
       rank: ri + 1,
       cells: r.cells.map((x?: any, i?: any) => ({ ...x, s: S[i], op: hs.length && !hs.includes(i) ? 0.3 : 1 })),
     }))
+    {
+      const bs = (c?: any) => c.base || c.lv1e,
+        bl = Array.isArray(st.bsel) ? st.bsel : [],
+        bsum = (c?: any) => (bl.length ? bl.reduce((a?: any, i?: any) => a + bs(c)[i], 0) : bs(c).reduce((a?: any, b?: any) => a + b, 0)),
+        pool = avail.filter((c?: any) => bs(c)),
+        mn = S.map((x?: any, i?: any) => Math.min(...pool.map((c?: any) => bs(c)[i]))),
+        mxs = S.map((x?: any, i?: any) => Math.max(...pool.map((c?: any) => bs(c)[i])))
+      vals.bmHead = [...S.map((x?: any, i?: any) => ({ l: x, i })), { l: bl.length ? 'Σ sel' : 'Σ', i: -1 }].map((h?: any) => {
+        const on = h.i < 0 ? !bl.length : bl.includes(h.i)
+        return {
+          l: h.l,
+          bg: on ? t.ac : t.panel2,
+          fg: on ? 'oklch(0.18 0.01 60)' : t.mu,
+          click: () =>
+            this.save({ bsel: h.i < 0 ? [] : bl.includes(h.i) ? bl.filter((y?: any) => y !== h.i) : [...bl, h.i] }),
+        }
+      })
+      const blv = Math.max(1, Math.min(99, +st.blv || 20)),
+        pj = (c?: any) => bs(c).map((b?: any, i?: any) => +(b + ((c.g ? c.g[i] : 0) / 100) * (blv - 1)).toFixed(1)),
+        pp = pool.map((c?: any) => ({ c, p: pj(c) })),
+        pmn = S.map((x?: any, i?: any) => Math.min(...pp.map((o?: any) => o.p[i]))),
+        pmx = S.map((x?: any, i?: any) => Math.max(...pp.map((o?: any) => o.p[i]))),
+        psum = (o?: any) => (bl.length ? bl.reduce((a?: any, i?: any) => a + o.p[i], 0) : o.p.reduce((a?: any, b?: any) => a + b, 0))
+      vals.bmLv = blv
+      vals.bmDec = () => this.save({ blv: Math.max(1, blv - 1) })
+      vals.bmInc = () => this.save({ blv: Math.min(99, blv + 1) })
+      vals.onBmLv = (e?: any) => this.save({ blv: +e.target.value })
+      vals.bmP = pp
+        .slice()
+        .sort((a?: any, b?: any) => psum(b) - psum(a))
+        .map((o?: any, ri?: any) => ({
+          n: o.c.n,
+          tot: Math.round(psum(o)),
+          open: open(o.c.n),
+          rank: ri + 1,
+          cells: o.p.map((v?: any, i?: any) => {
+            const k = pmx[i] === pmn[i] ? 0.5 : (v - pmn[i]) / (pmx[i] - pmn[i])
+            return {
+              v: v.toFixed(1),
+              sub: bs(o.c)[i] + (o.c.g ? ' +' + o.c.g[i] + '%' : ''),
+              s: S[i],
+              bg: hmc(k),
+              fg: k > 0.5 ? 'oklch(0.18 0.01 60)' : t.tx,
+              op: bl.length && !bl.includes(i) ? 0.3 : 1,
+            }
+          }),
+        }))
+      vals.bmHeadS = vals.bmHead.slice(0, 9)
+      vals.bmSig = { ...vals.bmHead[9], bd: 'transparent' }
+      vals.bmScale = `linear-gradient(90deg,${hmc(0)},${hmc(0.5)},${hmc(1)})`
+    }
     vals.hmHeadS = vals.hmHead.slice(0, 9)
     vals.hmSig = vals.hmHead[9]
     vals.hmSig = { ...vals.hmSig, bd: 'transparent' }
@@ -4390,10 +4712,26 @@ export class Codex extends Component<CodexProps, any> {
       const kf = st.kf || 'All',
         kq = (st.kq || '').toLowerCase()
       const isArm = (k?: any) => k.arm
+      const MV = d.skillMove || []
+      const kwp = st.kwp || 'All skills'
+      const topSk = (k?: any) => {
+        const b = (k.bonus || '')
+          .split(/,\s*/)
+          .map((x?: any) => {
+            const m = x.match(/^(.*?)\s*\+(\d+)$/)
+            return m ? [m[1], +m[2]] : null
+          })
+          .filter(Boolean)
+        const mx = Math.max(0, ...b.map((x?: any) => x[1]))
+        return mx ? b.filter((x?: any) => x[1] === mx).map((x?: any) => x[0]) : []
+      }
+      const sk = (k?: any) => (k.comp || '').split(/,\s*/).filter(Boolean)
       const match = (k?: any) =>
+        (st.part >= 3 || !['Master', 'Divine'].includes(k.tier)) &&
+        (kwp === 'All skills' || sk(k).includes(kwp)) &&
         (kf === 'All' ||
           (kf === 'Mounted' ? k.mounted : kf === 'Flier' ? k.fl : kf === 'Armor' ? isArm(k) : k.ut === 'infantry')) &&
-        (!kq || (k.n + ' ' + k.w).toLowerCase().includes(kq))
+        (!kq || (k.n + ' ' + k.w + ' ' + sk(k).join(' ')).toLowerCase().includes(kq))
       const list = d.classes.filter(match)
       const selN = list.find((k?: any) => k.n === st.ksel) ? st.ksel : (list[0] || {}).n
       {
@@ -4552,7 +4890,6 @@ export class Codex extends Component<CodexProps, any> {
               const ch: any = []
               return { n: a.n, code: ((d.ac || {}).ab || {})[a.n] || '', tag: a.cat, cat: a.cat, e: a.e, chips: ch }
             })
-            rows.sort((a?: any, b?: any) => a.n.localeCompare(b.n))
             sub = rows.length + ' abilities · class, weapon, personal and mount passives'
           } else if (sc === 'arts') {
             rows = (d.arts || [])
@@ -4565,12 +4902,12 @@ export class Codex extends Component<CodexProps, any> {
                 e: a.e,
                 chips: stc(a.s),
               }))
-            rows.sort((a?: any, b?: any) => a.cat.localeCompare(b.cat) || a.n.localeCompare(b.n))
             sub = rows.length + ' combat and authority arts · Dur − is durability cost per use'
           } else {
             const seen = new Set<any>()
             const CT: Record<string, any> = { weapon: 'Weapons', accessory: 'Accessories', tome: 'Magics' }
             d.items.forEach((i?: any) => {
+              if (i.bi) return // forged / refined variants stay out of the catalog
               seen.add(i.n)
               const ch: any = []
               if (i.rk) ch.push('Rank ' + i.rk)
@@ -4611,7 +4948,7 @@ export class Codex extends Component<CodexProps, any> {
                   o: 2,
                 }),
               )
-            rows.sort((a?: any, b?: any) => a.o - b.o || a.tag.localeCompare(b.tag) || a.n.localeCompare(b.n))
+            rows.sort((a?: any, b?: any) => a.o - b.o)
             sub = rows.length + ' weapons, accessories and magics'
           }
           rows.forEach((r?: any) => {
@@ -4661,7 +4998,13 @@ export class Codex extends Component<CodexProps, any> {
             click: () => this.setState({ [tabKey]: l }),
           })
           vals.xTabRows = GR.map((g?: any) => ({ tabs: g.map(mk) }))
-          vals.xRows = fr.map((r?: any) => ({ ...r, hasE: !!r.e, hasC: r.chips.length > 0 }))
+          vals.xRows = fr.map((r?: any) => ({
+            ...r,
+            hasImg: sc !== 'items',
+            img: sc === 'arts' ? IMG('arts', r.cat) : IMG('abilities', r.n),
+            hasE: !!r.e,
+            hasC: r.chips.length > 0,
+          }))
           vals.xEmpty = !fr.length
         }
       }
@@ -4719,6 +5062,17 @@ export class Codex extends Component<CodexProps, any> {
         this.setState({ kq: '' }, () => inp && inp.focus())
       }
       vals.kCount = list.length
+      vals.kwp = kwp
+      vals.onKwp = (e?: any) => this.setState({ kwp: e.target.value })
+      vals.kwpOpts = [
+        'All skills',
+        ...[...new Set<any>(d.classes.flatMap(sk))].sort((p?: any, q?: any) => {
+          const o = d.skillOrder || [],
+            i = o.indexOf(p),
+            j = o.indexOf(q)
+          return (i < 0 ? 99 : i) - (j < 0 ? 99 : j)
+        }),
+      ]
       vals.kTabs = ['All', 'Mounted', 'Flier', 'Armor', 'Infantry'].map((l?: any) => ({
         l,
         bg: kf === l ? t.panel2 : 'transparent',
@@ -4735,32 +5089,40 @@ export class Codex extends Component<CodexProps, any> {
       ])
       const kLock = (k?: any) => !!(k.un && k.un.length && kP >= 1 && !k.un.some((u?: any) => okR.has(u.r)))
       const kNeed = (k?: any) => [...new Set<any>(k.un.map((u?: any) => u.r))].join(' / ')
-      vals.kGroups = TIERS.map((g?: any) => ({
-        t: g,
-        items: list
-          .filter((k?: any) => k.tier === g)
-          .map((k?: any) => ({
-            n: k.n,
-            locked: kLock(k),
-            lockTxt: kLock(k) ? 'needs to complete ' + kNeed(k) + ' path' : '',
-            code: k.code || '',
-            type: k.type.replace('(no Fextralife page)', '—'),
-            mov: k.mov || '—',
-            armored: isArm(k),
-            mounted: !!k.mounted && !k.fl,
-            flier: !!k.fl,
-            bd: k.n === selN ? t.ac : t.line,
-            bg: k.n === selN ? t.panel2 : t.panel,
-            open: () => {
-              this.save({ ksel: k.n, kopen: narrow })
-              if (narrow) {
-                const r = this.rootRef.current
-                if (r) r.scrollTop = 0
-                window.scrollTo(0, 0)
-              }
-            },
-          })),
-      }))
+      vals.kGroups = TIERS.filter((g?: any) => st.part >= 3 || !['Master', 'Divine'].includes(g))
+        .map((g?: any) => ({
+          t: g,
+          items: list
+            .filter((k?: any) => k.tier === g)
+            .map((k?: any) => ({
+              n: k.n,
+              locked: kLock(k),
+              lockTxt: kLock(k) ? 'needs to complete ' + kNeed(k) + ' path' : '',
+              absW: sk(k)
+                .filter((n?: any) => !MV.includes(n))
+                .map((n?: any) => ({ n, col: t.mu })),
+              absM: sk(k)
+                .filter((n?: any) => MV.includes(n))
+                .map((n?: any) => ({ n, col: t.mu })),
+              code: k.code || '',
+              type: k.type.replace('(no Fextralife page)', '—'),
+              mov: k.mov || '—',
+              armored: isArm(k),
+              mounted: !!k.mounted && !k.fl,
+              flier: !!k.fl,
+              img: IMG('classes', k.n),
+              bd: k.n === selN ? t.ac : t.line,
+              bg: k.n === selN ? t.panel2 : t.panel,
+              open: () => {
+                this.save({ ksel: k.n, kopen: narrow })
+                if (narrow) {
+                  const r = this.rootRef.current
+                  if (r) r.scrollTop = 0
+                  window.scrollTo(0, 0)
+                }
+              },
+            })),
+        }))
         .filter((g?: any) => g.items.length)
         .map((g?: any) => ({ ...g, n: g.items.length }))
       vals.kCols = narrow ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(340px,420px)'
@@ -4806,15 +5168,32 @@ export class Codex extends Component<CodexProps, any> {
         })
         vals.k = {
           n: k.n,
+          img: IMG('classes', k.n),
+          hasMn: (k.mn || []).some((v?: any) => v > 0),
+          mnc: (k.mn || []).map((v?: any, i?: any) => ({
+            s: (['HP', 'Str', 'Mag', 'Spd', 'Dex', 'Def', 'Res', 'Lck', 'Cha'] as any)[i],
+            v: v || '–',
+            col: v ? t.tx : t.mu,
+          })),
           tier: k.tier,
           licTxt: k.lic && k.lic !== k.tier ? ' · ' + k.lic + ' license' : '',
           type: k.type.replace('(no Fextralife page)', 'Type not recorded'),
           mounted: sp.length > 0,
+          sub: [
+            k.tier + (k.lic && k.lic !== k.tier ? ' · ' + k.lic + ' license' : ''),
+            k.type.replace('(no Fextralife page)', ''),
+            k.lv ? 'Lv ' + k.lv : '',
+          ]
+            .filter(Boolean)
+            .join(' · '),
+          skW: sk(k)
+            .filter((n?: any) => !MV.includes(n))
+            .map((n?: any) => ({ n, col: t.tx })),
+          skM: sk(k)
+            .filter((n?: any) => MV.includes(n))
+            .map((n?: any) => ({ n, col: t.tx })),
+          note: [k.mov ? 'Mov ' + k.mov : '', k.ren ? 'Renown ' + k.ren : ''].filter(Boolean).join(' · '),
           facts: [
-            ['Mov', k.mov],
-            ['Min. level', k.lv],
-            ['Renown', k.ren],
-            ['Weapons', k.w],
             ['Primary req.', k.pri],
             ['Secondary req.', k.sec],
             ['Skill EXP bonus', k.bonus],
@@ -4843,6 +5222,7 @@ export class Codex extends Component<CodexProps, any> {
           abGroups: (() => {
             const mk = (a?: any) => ({
               n: a.n,
+              bgi: AB(a.n),
               e: a.e,
               mt: MT(a.m),
               hasMt: !!a.m,
@@ -4877,10 +5257,20 @@ export class Codex extends Component<CodexProps, any> {
               g: S.map((s?: any, i?: any) => (m.g[i] ? s + ' +' + m.g[i] * mult : '')).filter(Boolean),
               st: S.map((s?: any, i?: any) => (m.st[i] ? s + ' +' + m.st[i] * mult : '')).filter(Boolean),
               hasSt: m.st.some(Boolean),
+              gc: m.g.map((v?: any, i?: any) => ({
+                s: S[i],
+                v: sg(v * mult),
+                col: v > 0 ? t.ac : v < 0 ? 'oklch(0.74 0.12 30)' : t.mu,
+              })),
+              stc: m.st.map((v?: any, i?: any) => ({
+                s: S[i],
+                v: sg(v * mult),
+                col: v > 0 ? t.ac : v < 0 ? 'oklch(0.74 0.12 30)' : t.mu,
+              })),
               loc: m.loc || '',
               chipGroups: this.mGroups(m).map((g?: any) => ({
                 lbl: g.lbl,
-                items: g.items.map((v?: any) => ({ v, tag: 'Bond ' + g.bl[v], ...this.hov(v) })),
+                items: g.items.map((v?: any) => ({ v, bgi: AB(v), tag: 'Bond ' + g.bl[v], ...this.hov(v) })),
               })),
             }
           }),
@@ -4943,25 +5333,47 @@ export class Codex extends Component<CodexProps, any> {
         const oth = chosen.filter((x?: any) => x.n !== c.n),
           ss = oth.map((o?: any) => ({ o, s: sup(o, c) })),
           m = mop(c)
+        const rr: any = reqRec(c) || {}
         return {
+          ren: parseInt(rr.ren) || 0,
+          sl: parseInt(rr.sup) || 0,
           n: c.n,
           sups: ss.map(({ o, s }: any) => ({ ...s, l: o.n + ' · ' + s.l.replace('Rank ', ''), w: '0px' })),
           has: ss.some((x?: any) => x.s.has),
           meal: m,
+          sp: ss.reduce((a?: any, x?: any) => a + x.s.p, 0),
           score: ss.reduce((a?: any, x?: any) => a + x.s.p, 0) + m.p + oth.reduce((a?: any, x?: any) => a + mop(x).p, 0),
         }
       }
-      const all = !!MX.all,
+      const all = MX.all !== false,
         list = avail
           .map(rowOf)
+          .filter(
+            (r?: any) =>
+              (!MX.unrec || !isRec(byN(r.n))) &&
+              (!MX.rec || isRec(byN(r.n))) &&
+              (!MX.star || (st.starred || []).includes(r.n)),
+          )
           .filter((r?: any) => all || !chosen.length || r.has || [c1n, c2n, c3n].includes(r.n))
           .sort((a?: any, b?: any) => {
             const rt = (r?: any) => {
               const c = byN(r.n)
               return c && (c.type === 'Flame Lord' || c.type === 'Main') ? 1 : 0
             }
+            const sk = MX.sort
+            if (sk === 'ren' || sk === 'sl') {
+              const z = (v?: any) => v || 99
+              return z(a[sk]) - z(b[sk]) || b.score - a.score || a.n.localeCompare(b.n)
+            }
+            if (sk === 'sup') return b.sp - a.sp || b.score - a.score || a.n.localeCompare(b.n)
+            if (sk === 'meal') return b.meal.p - a.meal.p || b.score - a.score || a.n.localeCompare(b.n)
             return (c1n ? 0 : rt(b) - rt(a)) || b.score - a.score || a.n.localeCompare(b.n)
           })
+      const sortBtn = (k?: any, l?: any, up?: any) => ({
+        l: l + (MX.sort === k ? (up ? ' ↑' : ' ↓') : ''),
+        fg: MX.sort === k ? t.ac : t.mu,
+        click: () => this.save({ mx: { ...MX, sort: MX.sort === k ? '' : k } }),
+      })
       const pairs: any = []
       chosen.forEach((a?: any, i?: any) => chosen.slice(i + 1).forEach((b?: any) => pairs.push({ lbl: a.n + ' – ' + b.n, s: sup(a, b) })))
       const sug =
@@ -4996,6 +5408,12 @@ export class Codex extends Component<CodexProps, any> {
         }))
       const pm = slots.map((c?: any, i?: any) => ({ lbl: mxHead[i], m: c && meal ? mop(c) : { l: '—', col: mxMute, w: '76px' } }))
       vals.mx = {
+        sortBtns: [
+          sortBtn('sup', 'Support'),
+          sortBtn('meal', 'Meal'),
+          ...(P < 3 ? [sortBtn('ren', 'Renown', 1), sortBtn('sl', 'Support lvl', 1)] : []),
+        ],
+        showReq: !narrow && P < 3,
         meal: meal || '—',
         meals: ['—', ...meals],
         hasMeal: !!meal,
@@ -5026,16 +5444,34 @@ export class Codex extends Component<CodexProps, any> {
           (all ? 'characters' : 'with a support to ' + (chosen.map((x?: any) => x.n).join(', ') || 'anyone')) +
           (meal ? ' · ' + meal : ''),
         toggleAll: () => this.save({ mx: { ...MX, all: !all } }),
+        toggleUnrec: () => this.save({ mx: { ...MX, unrec: !MX.unrec, rec: false } }),
+        toggleStar: () => this.save({ mx: { ...MX, star: !MX.star } }),
+        stBd: MX.star ? t.ac : t.line,
+        stBg: MX.star ? t.panel2 : 'transparent',
+        stFg: MX.star ? t.tx : t.mu,
+        toggleRec: () => this.save({ mx: { ...MX, rec: !MX.rec, unrec: false } }),
+        rcBd: MX.rec ? t.ac : t.line,
+        rcBg: MX.rec ? t.panel2 : 'transparent',
+        rcFg: MX.rec ? t.tx : t.mu,
+        unBd: MX.unrec ? t.ac : t.line,
+        unBg: MX.unrec ? t.panel2 : 'transparent',
+        unFg: MX.unrec ? t.tx : t.mu,
         allBd: !all ? t.ac : t.line,
         allBg: !all ? t.panel2 : 'transparent',
         allFg: !all ? t.tx : t.mu,
-        cols: narrow ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,1.4fr)',
+        cols: narrow
+          ? 'minmax(0,1fr)'
+          : P < 3
+            ? 'minmax(0,1fr) minmax(0,1.3fr) minmax(0,.7fr) minmax(0,.5fr) minmax(0,.6fr)'
+            : 'minmax(0,1fr) minmax(0,1.3fr) minmax(0,.7fr)',
         chipO: narrow ? 3 : 0,
         chipCol: narrow ? '1 / -1' : 'auto',
         headDisp: narrow ? 'none' : 'grid',
         empty: !list.length,
         rows: list.map((r?: any) => ({
           ...r,
+          renTxt: r.ren ? r.ren : '—',
+          slTxt: r.sl ? r.sl : '—',
           sc: r.score >= 8 ? 'oklch(0.78 0.1 150)' : r.score < 0 ? 'oklch(0.74 0.12 30)' : 'var(--tx, #eee)',
           bg: [c1n, c2n, c3n].includes(r.n) ? t.panel2 : 'transparent',
           pick: () =>
@@ -5066,8 +5502,10 @@ export class Codex extends Component<CodexProps, any> {
     const c = d.chars.find((x?: any) => x.n === st.sel)
     if (c) {
       const locked = c.part > P
+      vals.imgErr = this.imgErr
       vals.p = {
         n: locked ? 'Sealed unit' : c.n,
+        bgi: locked ? 'none' : 'url(' + IMG('characters', c.n) + ') 50% 8%/cover no-repeat',
         title: locked ? '' : c.title,
         type: TL[c.type] || c.type,
         cls: c.cls || 'Class unknown',
@@ -5121,6 +5559,7 @@ export class Codex extends Component<CodexProps, any> {
             return b
               ? {
                   n: b.n,
+                  bgi: 'url(' + IMG('abilities', b.n) + ') center/cover no-repeat',
                   e: b.e,
                   t: b.t ? 'Trigger ' + b.t + '%' : '',
                   also: mask(
@@ -5130,7 +5569,13 @@ export class Codex extends Component<CodexProps, any> {
                       .join(', '),
                   ),
                 }
-              : { n, e: 'Effect not recorded in the workbook yet.', t: '', also: '' }
+              : {
+                  n,
+                  bgi: 'url(' + IMG('abilities', n) + ') center/cover no-repeat',
+                  e: 'Effect not recorded in the workbook yet.',
+                  t: '',
+                  also: '',
+                }
           }),
         abil: [['Exploration', c.ex]]
           .filter(([k, v]: any) => v && !/^(none|\(none)/i.test(v))
@@ -5163,7 +5608,12 @@ export class Codex extends Component<CodexProps, any> {
           .filter((r?: any) => R === 'All' || P >= 3 || r.route === R || r.route === 'All' || r.part >= 3)
           .map((r?: any) => ({
             ...r,
-            mBlur: r.m === 'Meet requirements & talk' || (st.recRev || []).includes(c.n) ? 'none' : 'blur(7px)',
+            mBlur:
+              (P < 3 && (r.m === 'Meet requirements & talk' || r.m === 'Automatic')) ||
+              ['Cai', 'Dietrich', 'Theodora', 'Leda'].includes(c.n) ||
+              (st.recRev || []).includes(c.n)
+                ? 'none'
+                : 'blur(7px)',
           }))
           .map((r?: any) => {
             const ok = r.ok === 'Yes',
@@ -5188,6 +5638,8 @@ export class Codex extends Component<CodexProps, any> {
         hasLs: c.ls.length > 0,
         ls: this.lsAll(c).map((l?: any) => ({
           c: l.c,
+          hasIc: l.hasIc,
+          bgi: l.bgi,
           af: l.af,
           aft: l.aft,
           afc: l.afc,
@@ -5206,9 +5658,12 @@ export class Codex extends Component<CodexProps, any> {
         })),
       }
       vals.p.recHidden =
-        !(st.recRev || []).includes(c.n) && vals.p.rec.some((r?: any) => (r.method && r.mBlur !== 'none') || r.showReq)
+        !(st.recRev || []).includes(c.n) &&
+        !['Cai', 'Dietrich', 'Theodora', 'Leda'].includes(c.n) &&
+        (P >= 3 || vals.p.rec.some((r?: any) => (r.method && r.mBlur !== 'none') || r.showReq))
       {
-        const sp = c.sup || [],
+        const avN = new Set<any>(avail.map((x?: any) => x.n))
+        const sp = (c.sup || []).map((x?: any) => (avN.has(x.n) ? x : { n: 'Hidden unit', r: '?', lk: 1 })),
           gf: any = c.gf || { loved: [], liked: [] },
           pr = c.pr || []
         const mm: any = c.ml || {}
@@ -5241,6 +5696,8 @@ export class Codex extends Component<CodexProps, any> {
             return {
               n: s.n,
               r: s.r || '?',
+              blur: s.lk ? 'blur(7px)' : 'none',
+              pe: s.lk ? 'none' : 'auto',
               cur: has ? 'help' : 'default',
               enter: has
                 ? (ev?: any) => {
@@ -5295,9 +5752,9 @@ export class Codex extends Component<CodexProps, any> {
         }
         vals.p.jumps = [
           ['Growth profile', 'radar', !!c.g],
-          ['Growth rates', 'growth', !!c.g],
+          ['Base stats & growth', 'growth', !!(c.g || c.base || c.lv1e)],
           ['Bloodmark', 'bm', vals.p.bms.length > 0],
-          ['Base stats', 'base', vals.p.hasBase],
+          ['Base stats profile', 'bradar', vals.p.hasBase],
           ['Abilities', 'lv', true],
           ['Recruitment', 'rec', (c.rec || []).length > 0],
           ['Supports', 'sup', sp.length > 0],
@@ -5309,6 +5766,93 @@ export class Codex extends Component<CodexProps, any> {
           .filter((x?: any) => x[2])
           .map(([l, k]: any) => ({ l, k, go: go(k) }))
         vals.p.hasJumps = vals.p.jumps.length > 0
+      }
+      {
+        const bb0 = c.base || c.lv1e,
+          gg = c.g
+        vals.p.hasG = !!gg
+        vals.p.bcap = 'Level 1 base stats' + (c.base ? '' : ' (estimated)')
+        vals.p.btot = bb0 ? bb0.reduce((a?: any, b?: any) => a + b, 0) : '—'
+        const arw = (pool?: any, i?: any, v?: any) => {
+          if (typeof v !== 'number' || !pool.length) return { ar: '', ac: 'transparent' }
+          const p = pool.filter((x?: any) => x < v).length / pool.length,
+            q = pool.filter((x?: any) => x <= v).length / pool.length,
+            m = (p + q) / 2
+          return v === Math.max(...pool)
+            ? { ar: '★', ac: 'var(--ac, oklch(0.82 0.12 85))' }
+            : m >= 0.9
+              ? { ar: '⇈', ac: 'oklch(0.85 0.14 150)' }
+              : m >= 0.7
+                ? { ar: '↑', ac: 'oklch(0.85 0.14 150)' }
+                : m <= 0.1
+                  ? { ar: '⇊', ac: 'oklch(0.74 0.12 30)' }
+                  : m <= 0.3
+                    ? { ar: '↓', ac: 'oklch(0.74 0.12 30)' }
+                    : { ar: '', ac: 'transparent' }
+        }
+        vals.p.bcells = S.map((s?: any, i?: any) => ({
+          s,
+          v: bb0 ? bb0[i] : '—',
+          ...arw(
+            d.chars.filter((x?: any) => x.base || x.lv1e).map((x?: any) => (x.base || x.lv1e)[i]),
+            i,
+            bb0 ? bb0[i] : null,
+          ),
+        }))
+        vals.p.gcells = S.map((s?: any, i?: any) => ({
+          s,
+          v: gg ? gg[i] : '—',
+          ...arw(
+            d.chars.filter((x?: any) => x.g).map((x?: any) => x.g[i]),
+            i,
+            gg ? gg[i] : null,
+          ),
+        }))
+        vals.p.hasRaw = !!(bb0 || gg)
+        vals.p.showRec = true
+        vals.p.raw = S.map((s?: any, i?: any) => ({ s, b: bb0 ? bb0[i] : '—', g: gg ? gg[i] + '%' : '—' }))
+        vals.p.rawBt = bb0 ? bb0.reduce((a?: any, b?: any) => a + b, 0) : '—'
+        vals.p.rawGt = gg ? gg.reduce((a?: any, b?: any) => a + b, 0) + '%' : '—'
+      }
+      {
+        const bp = d.chars.filter((x?: any) => x.base || x.lv1e),
+          bs = (x?: any) => x.base || x.lv1e,
+          cb = bs(c) || null
+        const cx = 150,
+          cy = 145,
+          RR = 110
+        const pt = (i?: any, f?: any) => {
+          const a = -Math.PI / 2 + (i * 2 * Math.PI) / 9,
+            r = f * RR
+          return [cx + r * Math.cos(a), cy + r * Math.sin(a)]
+        }
+        const fmt = (p?: any) => p.map((n?: any) => n.toFixed(1)).join(',')
+        const fr = S.map((s?: any, i?: any) => {
+          const vs = bp.map((x?: any) => bs(x)[i])
+          const mn = Math.min(...vs),
+            mx = Math.max(...vs)
+          const v = cb ? cb[i] : mn
+          return { f: mx === mn ? 1 : Math.max(0.07, (v - mn) / (mx - mn)), top: v === mx, low: v === mn }
+        })
+        vals.p.bradar = {
+          n: bp.length,
+          rings: [0.25, 0.5, 0.75, 1].map((f?: any) => S.map((s?: any, i?: any) => fmt(pt(i, f))).join(' ')),
+          axes: S.map((s?: any, i?: any) => {
+            const [x, y] = pt(i, 1),
+              [lx, ly] = pt(i, 1.16)
+            return { s, x, y, lxp: (lx / 300) * 100 + '%', lyp: (ly / 290) * 100 + '%' }
+          }),
+          pts: fr.map((r?: any, i?: any) => fmt(pt(i, r.f))).join(' '),
+          dots: fr.map((r?: any, i?: any) => {
+            const [x, y] = pt(i, r.f)
+            return {
+              x,
+              y,
+              ...tipH(String(cb ? cb[i] : '—'), S[i] + ' base' + (r.top ? ' · highest' : r.low ? ' · lowest' : '')),
+              col: r.top ? 'oklch(0.85 0.14 150)' : r.low ? 'oklch(0.74 0.12 30)' : 'var(--ac, oklch(0.82 0.12 85))',
+            }
+          }),
+        }
       }
       vals.p.abil = vals.p.abil.map((a?: any) => {
         if (a.k !== 'Bloodmark') return { ...a, enter: () => {}, leave: () => {}, cur: 'default', deco: 'none' }
@@ -5351,6 +5895,7 @@ export class Codex extends Component<CodexProps, any> {
             return {
               x,
               y,
+              ...tipH(c.g ? c.g[i] + '%' : '—', S[i] + ' growth' + (r.top ? ' · highest' : r.low ? ' · lowest' : '')),
               col: r.top ? 'oklch(0.85 0.14 150)' : r.low ? 'oklch(0.74 0.12 30)' : 'var(--ac, oklch(0.82 0.12 85))',
             }
           }),
@@ -5375,11 +5920,13 @@ export class Codex extends Component<CodexProps, any> {
             ]
           : []),
         ...(c.lab || []).map((a?: any) => ({ lv: a.lv ? 'Lv ' + a.lv : 'Upgrade', n: a.n, e: a.e, mt: MT(a.m) })),
-      ].map((x?: any) => ({ ...x, ...LVH(x.n) }))
+      ].map((x?: any) => ({ ...x, bgi: 'url(' + IMG('abilities', x.n) + ') center/cover no-repeat', ...LVH(x.n) }))
       vals.p.lvlShow = vals.p.lvl.length > 0 && st.ptab !== 'calc'
       vals.p.lsList = this.lsAll(c)
         .map((l?: any) => ({
           c: l.c,
+          hasIc: l.hasIc,
+          bgi: l.bgi,
           af: l.af,
           aft: l.aft,
           afc: l.afc,
@@ -5416,7 +5963,7 @@ export class Codex extends Component<CodexProps, any> {
         }))
       vals.pGrid = ptab === 'calc' ? 'none' : 'grid'
       {
-        const DEF = ['lv', 'bm', 'sup', 'rec', 'base', 'growth', 'radar', 'meals', 'pr', 'gifts', 'ls']
+        const DEF = ['lv', 'bm', 'sup', 'growth', 'rec', 'bradar', 'radar', 'ls', 'pr', 'meals', 'gifts']
         const saved = (st.pOrd || []).filter((k?: any) => DEF.includes(k))
         const ord = [...saved, ...DEF.filter((k?: any) => !saved.includes(k))]
         const pd: Record<string, any> = {
@@ -5427,23 +5974,34 @@ export class Codex extends Component<CodexProps, any> {
           end: () => this.setState({ pDrag: null, pOver: null }),
         }
         const col: any = st.pW || {}
-        const BIG = ['rec', 'pr', 'ls']
+        const DW: Record<string, any> = { pr: 4, rec: 1, radar: 2, gifts: 2, lv: 1, sup: 2, bm: 1, growth: 3, bradar: 2, meals: 2, ls: 4 }
+        const N = narrow ? 3 : Math.min(4, Math.max(2, st.pCols || 4))
+        pd.n = N
+        vals.pColCtl = phone || narrow || ptab === 'calc' ? 'none' : 'flex'
+        vals.pColOpts = [2, 3, 4].map((n?: any) => ({
+          n,
+          bg: n === N ? t.ac : 'transparent',
+          fg: n === N ? 'oklch(0.18 0.01 60)' : t.mu,
+          click: () => this.save({ pCols: n }),
+        }))
+        vals.pGridCols =
+          narrow || N === 3 ? 'repeat(auto-fit,minmax(min(100%,320px),1fr))' : 'repeat(' + N + ',minmax(0,1fr))'
         ord.forEach((k?: any, i?: any) => {
           const w0 = col[k]
           const w =
-            w0 === undefined ? (k === 'ls' ? 3 : BIG.includes(k) ? 2 : 1) : w0 === true ? 2 : w0 === false ? 1 : w0
+            k === 'ls' ? N : Math.min(N, w0 === undefined ? DW[k] || 1 : w0 === true ? 2 : w0 === false ? 1 : w0)
           const set = (v?: any) => (e?: any) => {
             e.stopPropagation()
             this.save({ pW: { ...col, [k]: v } })
           }
           pd[k] = {
             o: i,
-            gc: narrow ? 'span 1' : w >= 3 ? '1 / -1' : 'span ' + w,
+            gc: narrow ? 'span 1' : w >= N ? '1 / -1' : 'span ' + w,
             mh: 'none',
             ov: k === 'ls' || k === 'lv' ? 'auto' : 'visible',
             wl: w,
-            bars: '▮'.repeat(w) + '▯'.repeat(3 - w),
-            cyc: set(w >= 3 ? 1 : w + 1),
+            bars: '▮'.repeat(w) + '▯'.repeat(N - w),
+            cyc: set(w >= N ? 1 : w + 1),
             ...[1, 2, 3].reduce(
               (o?: any, x?: any) => (
                 (o['b' + x] = w === x ? t.ac : 'transparent'),

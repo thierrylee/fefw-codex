@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import './codex/resources'
 import { Codex } from './codex/Codex'
 import { UpdatePrompt } from './UpdatePrompt'
 import './styles/fonts.css'

@@ -194,6 +194,8 @@ export function CharactersScreen({ v }: { v: VM }) {
                     >
                       <div
                         style={{
+                          position: 'relative',
+                          overflow: 'hidden',
                           flex: 'none',
                           width: '52px',
                           height: '52px',
@@ -207,6 +209,21 @@ export function CharactersScreen({ v }: { v: VM }) {
                         }}
                       >
                         {T(c?.init)}
+                        <img
+                          src={c?.img}
+                          alt=""
+                          loading="lazy"
+                          onError={v.imgErr}
+                          style={{
+                            position: 'absolute',
+                            inset: '0',
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: '50% 12%',
+                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          }}
+                        />
                       </div>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: '0', flex: '1' }}>
                         <div

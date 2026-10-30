@@ -436,23 +436,76 @@ export function MealPairingScreen({ v }: { v: VM }) {
           }}
         >
           <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(v.mx?.count)}</span>
-          <button
-            onClick={v.mx?.toggleAll}
-            style={
-              {
-                minHeight: '36px',
-                padding: '0 14px',
-                borderRadius: '999px',
-                border: `1px solid ${str(v.mx?.allBd)}`,
-                background: str(v.mx?.allBg),
-                color: str(v.mx?.allFg),
-                cursor: 'pointer',
-                fontSize: '12px',
-              } as CSSProperties
-            }
-          >
-            Support only
-          </button>
+          <span style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <button
+              onClick={v.mx?.toggleAll}
+              style={
+                {
+                  minHeight: '36px',
+                  padding: '0 14px',
+                  borderRadius: '999px',
+                  border: `1px solid ${str(v.mx?.allBd)}`,
+                  background: str(v.mx?.allBg),
+                  color: str(v.mx?.allFg),
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                } as CSSProperties
+              }
+            >
+              Support only
+            </button>
+            <button
+              onClick={v.mx?.toggleUnrec}
+              style={
+                {
+                  minHeight: '36px',
+                  padding: '0 14px',
+                  borderRadius: '999px',
+                  border: `1px solid ${str(v.mx?.unBd)}`,
+                  background: str(v.mx?.unBg),
+                  color: str(v.mx?.unFg),
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                } as CSSProperties
+              }
+            >
+              Unrecruited only
+            </button>
+            <button
+              onClick={v.mx?.toggleRec}
+              style={
+                {
+                  minHeight: '36px',
+                  padding: '0 14px',
+                  borderRadius: '999px',
+                  border: `1px solid ${str(v.mx?.rcBd)}`,
+                  background: str(v.mx?.rcBg),
+                  color: str(v.mx?.rcFg),
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                } as CSSProperties
+              }
+            >
+              Recruited only
+            </button>
+            <button
+              onClick={v.mx?.toggleStar}
+              style={
+                {
+                  minHeight: '36px',
+                  padding: '0 14px',
+                  borderRadius: '999px',
+                  border: `1px solid ${str(v.mx?.stBd)}`,
+                  background: str(v.mx?.stBg),
+                  color: str(v.mx?.stFg),
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                } as CSSProperties
+              }
+            >
+              Starred only
+            </button>
+          </span>
         </div>
         <div
           style={{
@@ -483,16 +536,29 @@ export function MealPairingScreen({ v }: { v: VM }) {
             >
               Character
             </span>
-            <span
-              style={{
-                font: "500 10px/1 'IBM Plex Mono',monospace",
-                letterSpacing: '.14em',
-                textTransform: 'uppercase',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
-              }}
-            >
-              Support · meal
-            </span>
+            {L(v.mx?.sortBtns).map((b: any, $index: number) => (
+              <Fragment key={$index}>
+                <button
+                  onClick={b?.click}
+                  title="Sort by highest"
+                  style={
+                    {
+                      padding: '0',
+                      border: '0',
+                      background: 'none',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      font: "500 10px/1 'IBM Plex Mono',monospace",
+                      letterSpacing: '.14em',
+                      textTransform: 'uppercase',
+                      color: str(b?.fg),
+                    } as CSSProperties
+                  }
+                >
+                  {T(b?.l)}
+                </button>
+              </Fragment>
+            ))}
           </div>
           {L(v.mx?.rows).map((r: any, $index: number) => (
             <Fragment key={$index}>
@@ -572,6 +638,17 @@ export function MealPairingScreen({ v }: { v: VM }) {
                       </span>
                     </Fragment>
                   ))}
+                </span>
+                <span
+                  style={
+                    {
+                      order: str(v.mx?.chipO),
+                      gridColumn: str(v.mx?.chipCol),
+                      display: 'flex',
+                      minWidth: '0',
+                    } as CSSProperties
+                  }
+                >
                   {v.mx?.hasMeal ? (
                     <>
                       <span
@@ -596,6 +673,20 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     </>
                   ) : null}
                 </span>
+                {v.mx?.showReq ? (
+                  <>
+                    <span
+                      style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                    >
+                      {T(r?.renTxt)}
+                    </span>
+                    <span
+                      style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                    >
+                      {T(r?.slTxt)}
+                    </span>
+                  </>
+                ) : null}
               </div>
             </Fragment>
           ))}
