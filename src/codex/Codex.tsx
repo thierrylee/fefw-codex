@@ -683,7 +683,7 @@ export class Codex extends Component<CodexProps, any> {
     return {
       stats,
       hasStats: stats.length > 0,
-      statNote: (x.rk ? 'Rank ' + x.rk : '') + (x.code ? (x.rk ? ' · ' : '') + x.code : ''),
+      statNote: (x.rk ? 'Rank ' + x.rk + (x.rk2 ? ' + ' + x.cat2 + ' ' + x.rk2 : '') : '') + (x.code ? (x.rk ? ' · ' : '') + x.code : ''),
       t: x.n,
       sub:
         [
@@ -2848,7 +2848,7 @@ export class Codex extends Component<CodexProps, any> {
               return {
                 n: x.n,
                 cat: x.cat,
-                catL: x.cat + (x.rk ? ' · ' + x.rk : ''),
+                catL: x.cat + (x.rk ? ' · ' + x.rk : '') + (x.rk2 ? ' + ' + x.cat2 + ' ' + x.rk2 : ''),
                 e: x.e || '',
                 st: (off ? '⚠ ' + why + (itSt(x) ? ' · ' : '') : '') + itSt(x),
                 off,
