@@ -615,9 +615,14 @@ export function AppView({ v }: { v: VM }) {
                               maxWidth: 'calc(100% - 28px)',
                               display: 'flex',
                               alignItems: 'center',
-                              gap: '8px',
+                              justifyContent: 'center',
+                              boxSizing: 'border-box',
+                              gap: str(v.jmGap),
                               minHeight: '40px',
-                              padding: '0 14px',
+                              minWidth: str(v.jmMinW),
+                              padding: str(v.jmPad),
+                              opacity: str(v.jmOp),
+                              transition: 'padding .3s ease,gap .3s ease,opacity .3s ease,min-width .3s ease',
                               borderRadius: '999px',
                               border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                               background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -629,12 +634,18 @@ export function AppView({ v }: { v: VM }) {
                           }
                         >
                           <span
-                            style={{
-                              minWidth: '0',
-                              overflow: 'hidden',
-                              textOverflow: 'ellipsis',
-                              whiteSpace: 'nowrap',
-                            }}
+                            key={v.jmLabel}
+                            style={
+                              {
+                                animation: `${str(v.jmAnim)} .3s ease`,
+                                minWidth: '0',
+                                maxWidth: str(v.jmLW),
+                                transition: 'max-width .3s ease',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                              } as CSSProperties
+                            }
                           >
                             {T(v.jmLabel)}
                           </span>
@@ -1551,19 +1562,67 @@ export function AppView({ v }: { v: VM }) {
                               }}
                             >
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                <div
-                                  style={
-                                    {
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                                  <div
+                                    style={
+                                      {
+                                        display: 'flex',
+                                        flexDirection: str(v.handDir),
+                                        alignItems: 'center',
+                                      } as CSSProperties
+                                    }
+                                  >
+                                    <span style={{ flex: '1' }}></span>
+                                    <span
+                                      style={
+                                        {
+                                          display: 'flex',
+                                          flexDirection: str(v.handDir),
+                                          alignItems: 'center',
+                                          gap: '6px',
+                                        } as CSSProperties
+                                      }
+                                    >
+                                      <span
+                                        style={{
+                                          font: "500 10px/1 'IBM Plex Mono',monospace",
+                                          letterSpacing: '.1em',
+                                          textTransform: 'uppercase',
+                                          color: 'var(--mu, oklch(0.78 0.035 120))',
+                                          textAlign: 'right',
+                                        }}
+                                      >
+                                        {T(v.pkPv?.sub)}
+                                      </span>
+                                      <button
+                                        onClick={v.sheetClose}
+                                        aria-label="Close preview"
+                                        style={{
+                                          flex: 'none',
+                                          width: '44px',
+                                          height: '44px',
+                                          border: '0',
+                                          borderRadius: '50%',
+                                          background: 'transparent',
+                                          cursor: 'pointer',
+                                          color: 'var(--mu, oklch(0.78 0.035 120))',
+                                          fontSize: '20px',
+                                        }}
+                                      >
+                                        ×
+                                      </button>
+                                    </span>
+                                  </div>
+                                  <span
+                                    style={{
                                       display: 'flex',
-                                      flexDirection: str(v.handDir),
-                                      justifyContent: 'space-between',
-                                      gap: '10px',
                                       alignItems: 'center',
-                                      flexWrap: 'wrap',
-                                    } as CSSProperties
-                                  }
-                                >
-                                  <span style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}>
+                                      gap: '10px',
+                                      minWidth: '0',
+                                      alignSelf: 'flex-start',
+                                      justifyContent: 'flex-start',
+                                    }}
+                                  >
                                     {v.pkPv?.hasIc ? (
                                       <>
                                         <span
@@ -1588,45 +1647,6 @@ export function AppView({ v }: { v: VM }) {
                                     >
                                       {T(v.pkPv?.t)}
                                     </h2>
-                                  </span>
-                                  <span
-                                    style={
-                                      {
-                                        display: 'flex',
-                                        flexDirection: str(v.handDir),
-                                        alignItems: 'center',
-                                        gap: '6px',
-                                      } as CSSProperties
-                                    }
-                                  >
-                                    <span
-                                      style={{
-                                        font: "500 10px/1 'IBM Plex Mono',monospace",
-                                        letterSpacing: '.1em',
-                                        textTransform: 'uppercase',
-                                        color: 'var(--mu, oklch(0.78 0.035 120))',
-                                        textAlign: 'right',
-                                      }}
-                                    >
-                                      {T(v.pkPv?.sub)}
-                                    </span>
-                                    <button
-                                      onClick={v.sheetClose}
-                                      aria-label="Close preview"
-                                      style={{
-                                        flex: 'none',
-                                        width: '44px',
-                                        height: '44px',
-                                        border: '0',
-                                        borderRadius: '50%',
-                                        background: 'transparent',
-                                        cursor: 'pointer',
-                                        color: 'var(--mu, oklch(0.78 0.035 120))',
-                                        fontSize: '20px',
-                                      }}
-                                    >
-                                      ×
-                                    </button>
                                   </span>
                                 </div>
                                 {v.pkPv?.hasSt ? (
@@ -2624,19 +2644,67 @@ export function AppView({ v }: { v: VM }) {
                             }}
                           >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                              <div
-                                style={
-                                  {
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
+                                <div
+                                  style={
+                                    {
+                                      display: 'flex',
+                                      flexDirection: str(v.handDir),
+                                      alignItems: 'center',
+                                    } as CSSProperties
+                                  }
+                                >
+                                  <span style={{ flex: '1' }}></span>
+                                  <span
+                                    style={
+                                      {
+                                        display: 'flex',
+                                        flexDirection: str(v.handDir),
+                                        alignItems: 'center',
+                                        gap: '6px',
+                                      } as CSSProperties
+                                    }
+                                  >
+                                    <span
+                                      style={{
+                                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                                        letterSpacing: '.1em',
+                                        textTransform: 'uppercase',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                        textAlign: 'right',
+                                      }}
+                                    >
+                                      {T(v.cdPv?.sub)}
+                                    </span>
+                                    <button
+                                      onClick={v.sheetClose}
+                                      aria-label="Close preview"
+                                      style={{
+                                        flex: 'none',
+                                        width: '44px',
+                                        height: '44px',
+                                        border: '0',
+                                        borderRadius: '50%',
+                                        background: 'transparent',
+                                        cursor: 'pointer',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                                        fontSize: '20px',
+                                      }}
+                                    >
+                                      ×
+                                    </button>
+                                  </span>
+                                </div>
+                                <span
+                                  style={{
                                     display: 'flex',
-                                    flexDirection: str(v.handDir),
-                                    justifyContent: 'space-between',
-                                    gap: '10px',
                                     alignItems: 'center',
-                                    flexWrap: 'wrap',
-                                  } as CSSProperties
-                                }
-                              >
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}>
+                                    gap: '10px',
+                                    minWidth: '0',
+                                    alignSelf: 'flex-start',
+                                    justifyContent: 'flex-start',
+                                  }}
+                                >
                                   <span
                                     style={
                                       {
@@ -2657,45 +2725,6 @@ export function AppView({ v }: { v: VM }) {
                                   >
                                     {T(v.cdPv?.t)}
                                   </h2>
-                                </span>
-                                <span
-                                  style={
-                                    {
-                                      display: 'flex',
-                                      flexDirection: str(v.handDir),
-                                      alignItems: 'center',
-                                      gap: '6px',
-                                    } as CSSProperties
-                                  }
-                                >
-                                  <span
-                                    style={{
-                                      font: "500 10px/1 'IBM Plex Mono',monospace",
-                                      letterSpacing: '.1em',
-                                      textTransform: 'uppercase',
-                                      color: 'var(--mu, oklch(0.78 0.035 120))',
-                                      textAlign: 'right',
-                                    }}
-                                  >
-                                    {T(v.cdPv?.sub)}
-                                  </span>
-                                  <button
-                                    onClick={v.sheetClose}
-                                    aria-label="Close preview"
-                                    style={{
-                                      flex: 'none',
-                                      width: '44px',
-                                      height: '44px',
-                                      border: '0',
-                                      borderRadius: '50%',
-                                      background: 'transparent',
-                                      cursor: 'pointer',
-                                      color: 'var(--mu, oklch(0.78 0.035 120))',
-                                      fontSize: '20px',
-                                    }}
-                                  >
-                                    ×
-                                  </button>
                                 </span>
                               </div>
                               {v.cdPv?.hasSk ? (

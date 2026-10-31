@@ -22,6 +22,13 @@ export class Codex extends Component<CodexProps, any> {
   declare hcur: any
   declare idx: any
   declare idxD: any
+  declare jmAct: any
+  declare jmAnimV: any
+  declare jmI: any
+  declare jmL: any
+  declare jmT: any
+  declare kLk: any
+  declare keepY: any
   declare key: any
   declare ly: any
   declare md: any
@@ -116,6 +123,30 @@ export class Codex extends Component<CodexProps, any> {
     if (this.state.pk) this.setState({ pk: null, pq: '', pf: 'All', tip: null })
   }
   componentDidMount() {
+    try {
+      history.scrollRestoration = 'manual'
+    } catch (e: any) {}
+    this.keepY = (fn?: any) => {
+      const y = window.scrollY,
+        r = this.rootRef.current,
+        ry = r ? r.scrollTop : 0
+      fn()
+      const f = () => {
+        if (window.scrollY !== y) window.scrollTo(0, y)
+        if (r && r.scrollTop !== ry) r.scrollTop = ry
+      }
+      ;[0, 50, 150, 300].forEach((t?: any) => setTimeout(f, t))
+      requestAnimationFrame(f)
+    }
+    this.jmAct = () => {
+      if (this.state.jmIdle) this.setState({ jmIdle: false })
+      clearTimeout(this.jmT)
+      this.jmT = setTimeout(() => this.setState({ jmIdle: true }), 3000)
+    }
+    ;['scroll', 'pointerdown', 'keydown', 'touchstart', 'wheel'].forEach((e?: any) =>
+      window.addEventListener(e, this.jmAct, { capture: true, passive: true }),
+    )
+    this.jmAct()
     this.hc = () => {
       if (this.ready && this.state.d && location.hash !== this.enc(this.state)) this.dec(this.state.d)
     }
@@ -180,8 +211,10 @@ export class Codex extends Component<CodexProps, any> {
       this.sk = null
       const fin = () => {
         if (k === 'k') {
-          if (history.state && history.state.kopen) history.back()
-          else this.save({ kopen: false })
+          this.keepY(() => {
+            if (history.state && history.state.kopen) history.back()
+            else this.save({ kopen: false })
+          })
         } else if (k[0] === 'p') this.setState({ ppv: '' })
         else this.setState((s?: any) => ({ cd: s.cd ? { ...s.cd, pv: '' } : s.cd }))
       }
@@ -350,6 +383,16 @@ export class Codex extends Component<CodexProps, any> {
       })
     }
     {
+      const lk = !!(s.narrow && s.screen === 'classes' && s.kopen && s.ksel)
+      if (lk !== !!this.kLk) {
+        this.kLk = lk
+        const r = this.rootRef.current
+        ;[document.documentElement, document.body, r].forEach((el?: any) => {
+          if (el) el.style.overflow = lk ? 'hidden' : ''
+        })
+      }
+    }
+    {
       const n = !!s.narrow,
         dp = (s.pk ? 1 : 0) + (s.pk && n && s.ppv ? 1 : 0) + (s.cd ? 1 : 0) + (s.cd && n && s.cd.pv ? 1 : 0),
         od = this.od || 0
@@ -432,6 +475,10 @@ export class Codex extends Component<CodexProps, any> {
     })
   }
   componentWillUnmount() {
+    clearTimeout(this.jmT)
+    ;['scroll', 'pointerdown', 'keydown', 'touchstart', 'wheel'].forEach((e?: any) =>
+      window.removeEventListener(e, this.jmAct, { capture: true }),
+    )
     document.removeEventListener('scroll', this.sh, true)
     window.removeEventListener('keydown', this.esc)
     window.removeEventListener('scroll', this.stt, true)
@@ -5604,7 +5651,6 @@ export class Codex extends Component<CodexProps, any> {
               link: true,
               go: () => {
                 this.save({ kopen: false })
-                top()
               },
             })
             cr.push({ l: st.ksel || 'Class', link: false })
@@ -5994,9 +6040,29 @@ export class Codex extends Component<CodexProps, any> {
           if (narrow) {
             const cl = () => this.setState({ jmOpen: false })
             vals.jmOn = true
+            {
+              const col = !!st.jmIdle && !st.jmOpen
+              vals.jmLW = col ? '0px' : '70vw'
+              vals.jmPad = col ? '0' : '0 14px'
+              vals.jmGap = col ? '0px' : '8px'
+              vals.jmMinW = col ? '40px' : '0px'
+              vals.jmOp = col ? 0.7 : 1
+            }
             vals.topShow = false
             vals.jmOpen = !!st.jmOpen
             vals.jmLabel = (SC.find((x?: any) => x[1] === spy) || SC[0])[0]
+            {
+              const ix = Math.max(
+                0,
+                SC.findIndex((x?: any) => x[1] === spy),
+              )
+              if (this.jmL !== vals.jmLabel) {
+                vals.jmAnim = ix >= (this.jmI ?? ix) ? 'wcLblL' : 'wcLblR'
+                this.jmAnimV = vals.jmAnim
+                this.jmL = vals.jmLabel
+                this.jmI = ix
+              } else vals.jmAnim = this.jmAnimV || 'wcLblL'
+            }
             vals.jmTog = () => this.setState({ jmOpen: !st.jmOpen })
             vals.jmClose = cl
             vals.jmItems = SC.map(([l, k]: any) => ({
@@ -6124,11 +6190,6 @@ export class Codex extends Component<CodexProps, any> {
               bg: k.n === selN ? t.panel2 : t.panel,
               open: () => {
                 this.save({ ksel: k.n, kopen: narrow })
-                if (narrow) {
-                  const r = this.rootRef.current
-                  if (r) r.scrollTop = 0
-                  window.scrollTo(0, 0)
-                }
               },
             })),
         }))
@@ -6150,12 +6211,11 @@ export class Codex extends Component<CodexProps, any> {
       vals.kBackOn = kOpen
       vals.kListDisp = 'flex'
       vals.kShowDetail = !!k && (!narrow || kOpen)
-      vals.kBack = () => {
-        if (history.state && history.state.kopen) history.back()
-        else this.save({ kopen: false })
-        const r = this.rootRef.current
-        if (r) r.scrollTop = 0
-      }
+      vals.kBack = () =>
+        this.keepY(() => {
+          if (history.state && history.state.kopen) history.back()
+          else this.save({ kopen: false })
+        })
       if (k) {
         const sp = compat(k) || []
         const ms = d.mounts.filter((m?: any) => sp.includes(m.sp))
@@ -6947,9 +7007,29 @@ export class Codex extends Component<CodexProps, any> {
           const cur = vals.p.jumps.find((j?: any) => j.k === spy) || vals.p.jumps[0]
           const cl = () => this.setState({ jmOpen: false })
           vals.jmOn = true
+          {
+            const col = !!st.jmIdle && !st.jmOpen
+            vals.jmLW = col ? '0px' : '70vw'
+            vals.jmPad = col ? '0' : '0 14px'
+            vals.jmGap = col ? '0px' : '8px'
+            vals.jmMinW = col ? '40px' : '0px'
+            vals.jmOp = col ? 0.7 : 1
+          }
           vals.topShow = false
           vals.jmOpen = !!st.jmOpen
           vals.jmLabel = cur.l
+          {
+            const ix = Math.max(
+              0,
+              vals.p.jumps.findIndex((j?: any) => j.k === cur.k),
+            )
+            if (this.jmL !== vals.jmLabel) {
+              vals.jmAnim = ix >= (this.jmI ?? ix) ? 'wcLblL' : 'wcLblR'
+              this.jmAnimV = vals.jmAnim
+              this.jmL = vals.jmLabel
+              this.jmI = ix
+            } else vals.jmAnim = this.jmAnimV || 'wcLblL'
+          }
           vals.jmTog = () => this.setState({ jmOpen: !st.jmOpen })
           vals.jmClose = cl
           vals.jmItems = vals.p.jumps.map((j?: any) => ({

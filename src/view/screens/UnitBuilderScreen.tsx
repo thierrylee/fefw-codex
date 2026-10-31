@@ -1410,8 +1410,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             opacity: str(a?.dim),
                             boxShadow: str(a?.sh),
                             display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
+                            flexDirection: 'column',
+                            alignItems: 'stretch',
+                            gap: '6px',
                             padding: '8px 10px',
                             borderRadius: '10px',
                             border: '1px solid var(--line, oklch(0.29 0.012 60))',
@@ -1421,21 +1422,29 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         }
                         className="hv-5"
                       >
-                        <span
-                          style={
-                            {
-                              flex: 'none',
-                              width: '32px',
-                              height: '32px',
-                              borderRadius: '6px',
-                              background: str(a?.bgi),
-                            } as CSSProperties
-                          }
-                        ></span>
-                        <span
-                          style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0', flex: '1' }}
-                        >
-                          <span style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span
+                            style={
+                              {
+                                flex: 'none',
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '6px',
+                                background: str(a?.bgi),
+                              } as CSSProperties
+                            }
+                          ></span>
+                          <span
+                            style={{
+                              display: 'flex',
+                              alignItems: 'baseline',
+                              gap: '4px 8px',
+                              flexWrap: 'wrap',
+                              minWidth: '0',
+                              flex: '1',
+                              textAlign: 'left',
+                            }}
+                          >
                             <span
                               style={{
                                 fontWeight: '600',
@@ -1456,36 +1465,36 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               {T(a?.c)}
                             </span>
                           </span>
-                          <span
-                            style={{
-                              fontSize: '12px',
-                              lineHeight: '1.4',
-                              textWrap: 'pretty',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
-                            }}
+                          <button
+                            onClick={a?.rm}
+                            title="Remove"
+                            aria-label={`Remove ${str(a?.n)}`}
+                            style={
+                              {
+                                width: str(v.tk24),
+                                height: str(v.tk24),
+                                border: '0',
+                                borderRadius: '50%',
+                                background: 'transparent',
+                                cursor: 'pointer',
+                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                              } as CSSProperties
+                            }
+                            className="hv-8"
                           >
-                            {T(a?.e)}
-                          </span>
-                        </span>
-                        <button
-                          onClick={a?.rm}
-                          title="Remove"
-                          aria-label={`Remove ${str(a?.n)}`}
-                          style={
-                            {
-                              width: str(v.tk24),
-                              height: str(v.tk24),
-                              border: '0',
-                              borderRadius: '50%',
-                              background: 'transparent',
-                              cursor: 'pointer',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
-                            } as CSSProperties
-                          }
-                          className="hv-8"
+                            ×
+                          </button>
+                        </div>
+                        <span
+                          style={{
+                            fontSize: '12px',
+                            lineHeight: '1.4',
+                            textWrap: 'pretty',
+                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                          }}
                         >
-                          ×
-                        </button>
+                          {T(a?.e)}
+                        </span>
                       </div>
                     </Fragment>
                   ))}
@@ -1498,8 +1507,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         onClick={a?.enter}
                         style={{
                           display: 'flex',
-                          alignItems: 'center',
-                          gap: '8px',
+                          flexDirection: 'column',
+                          alignItems: 'stretch',
+                          gap: '6px',
                           padding: '8px 10px',
                           borderRadius: '10px',
                           border: '1px dashed var(--line, oklch(0.29 0.012 60))',
@@ -1507,21 +1517,29 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           cursor: 'help',
                         }}
                       >
-                        <span
-                          style={
-                            {
-                              flex: 'none',
-                              width: '32px',
-                              height: '32px',
-                              borderRadius: '6px',
-                              background: str(a?.bgi),
-                            } as CSSProperties
-                          }
-                        ></span>
-                        <span
-                          style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0', flex: '1' }}
-                        >
-                          <span style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span
+                            style={
+                              {
+                                flex: 'none',
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '6px',
+                                background: str(a?.bgi),
+                              } as CSSProperties
+                            }
+                          ></span>
+                          <span
+                            style={{
+                              display: 'flex',
+                              alignItems: 'baseline',
+                              gap: '4px 8px',
+                              flexWrap: 'wrap',
+                              minWidth: '0',
+                              flex: '1',
+                              textAlign: 'left',
+                            }}
+                          >
                             <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(a?.n)}</span>
                             <span
                               style={{
@@ -1535,27 +1553,27 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               {T(a?.from)}
                             </span>
                           </span>
-                          <span
-                            style={
-                              {
-                                display: str(a?.stDisp),
-                                font: "500 11px/1.3 'IBM Plex Mono',monospace",
-                                color: 'var(--ac, oklch(0.8 0.11 75))',
-                              } as CSSProperties
-                            }
-                          >
-                            {T(a?.st)}
-                          </span>
-                          <span
-                            style={{
-                              fontSize: '12px',
-                              lineHeight: '1.4',
-                              textWrap: 'pretty',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
-                            }}
-                          >
-                            {T(a?.e)}
-                          </span>
+                        </div>
+                        <span
+                          style={
+                            {
+                              display: str(a?.stDisp),
+                              font: "500 11px/1.3 'IBM Plex Mono',monospace",
+                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                            } as CSSProperties
+                          }
+                        >
+                          {T(a?.st)}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '12px',
+                            lineHeight: '1.4',
+                            textWrap: 'pretty',
+                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                          }}
+                        >
+                          {T(a?.e)}
                         </span>
                       </div>
                     </Fragment>
