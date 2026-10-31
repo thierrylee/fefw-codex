@@ -101,28 +101,67 @@ export function ProfileScreen({ v }: { v: VM }) {
             </div>
             {v.p?.hasJumps ? (
               <>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                <div
+                  style={
+                    {
+                      position: 'fixed',
+                      right: str(v.p?.railR),
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      zIndex: '5',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'flex-end',
+                    } as CSSProperties
+                  }
+                >
                   {L(v.p?.jumps).map((j: any, $index: number) => (
                     <Fragment key={$index}>
                       <button
                         onClick={j?.go}
-                        style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '6px',
-                          padding: '7px 12px',
-                          borderRadius: '999px',
-                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                          background: 'transparent',
-                          color: 'var(--tx, #eee)',
-                          cursor: 'pointer',
-                          font: "600 12px/1 'IBM Plex Sans',sans-serif",
-                          whiteSpace: 'nowrap',
-                        }}
-                        className="hv-6"
+                        onMouseEnter={j?.enter}
+                        onMouseLeave={j?.leave}
+                        aria-label={j?.l}
+                        style={
+                          {
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            minHeight: str(v.p?.railH),
+                            padding: '0 6px',
+                            border: '0',
+                            background: 'transparent',
+                            cursor: 'pointer',
+                            color: 'var(--tx, #eee)',
+                          } as CSSProperties
+                        }
                       >
-                        <span style={{ color: 'var(--ac, oklch(0.8 0.11 75))' }}>↓</span>
-                        {T(j?.l)}
+                        <span
+                          style={
+                            {
+                              display: str(j?.lblD),
+                              fontSize: '12px',
+                              padding: '3px 8px',
+                              borderRadius: '6px',
+                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                              whiteSpace: 'nowrap',
+                            } as CSSProperties
+                          }
+                        >
+                          {T(j?.l)}
+                        </span>
+                        <span
+                          style={
+                            {
+                              width: '8px',
+                              height: '8px',
+                              borderRadius: '50%',
+                              background: str(j?.dot),
+                              opacity: str(j?.dop),
+                            } as CSSProperties
+                          }
+                        ></span>
                       </button>
                     </Fragment>
                   ))}

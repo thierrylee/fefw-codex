@@ -6,26 +6,6 @@ export function ClassesScreen({ v }: { v: VM }) {
   return (
     <>
       <section data-screen-label="Classes" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
-        {v.kBackOn ? (
-          <>
-            <button
-              onClick={v.kBack}
-              style={{
-                display: 'none',
-                alignSelf: 'flex-start',
-                minHeight: '44px',
-                padding: '0',
-                border: '0',
-                background: 'none',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
-                cursor: 'pointer',
-                fontSize: '13px',
-              }}
-            >
-              ← Classes
-            </button>
-          </>
-        ) : null}
         <div
           style={
             {
@@ -60,7 +40,7 @@ export function ClassesScreen({ v }: { v: VM }) {
               <input
                 value={v.kq ?? ''}
                 onChange={v.onKq}
-                placeholder="Search class, weapon or skill"
+                placeholder="Search class"
                 style={{
                   width: '100%',
                   boxSizing: 'border-box',
@@ -102,7 +82,17 @@ export function ClassesScreen({ v }: { v: VM }) {
                 { display: str(v.kListDisp), flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' } as CSSProperties
               }
             >
-              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '4px' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '2px',
+                  padding: '3px',
+                  borderRadius: '8px',
+                  background: 'var(--bg, oklch(0.16 0.01 60))',
+                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                }}
+              >
                 <button
                   onClick={v.kwpAll}
                   aria-pressed={v.kwpAllOn}
@@ -111,8 +101,8 @@ export function ClassesScreen({ v }: { v: VM }) {
                       height: '36px',
                       padding: '0 12px',
                       boxSizing: 'border-box',
-                      borderRadius: '8px',
-                      border: `1px solid ${str(v.kwpAllBd)}`,
+                      borderRadius: '6px',
+                      border: '0',
                       background: str(v.kwpAllBg),
                       color: 'var(--tx, #eee)',
                       cursor: 'pointer',
@@ -137,8 +127,8 @@ export function ClassesScreen({ v }: { v: VM }) {
                           height: '36px',
                           padding: '3px',
                           boxSizing: 'border-box',
-                          borderRadius: '8px',
-                          border: `1px solid ${str(o?.bd)}`,
+                          borderRadius: '6px',
+                          border: '0',
                           background: str(o?.bg),
                           opacity: str(o?.op),
                           cursor: 'pointer',
@@ -160,65 +150,75 @@ export function ClassesScreen({ v }: { v: VM }) {
                   </Fragment>
                 ))}
               </div>
-              <div
-                style={{ flexBasis: '100%', display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '4px' }}
-              >
-                <button
-                  onClick={v.kfAll}
-                  aria-pressed={v.kfAllOn}
-                  style={
-                    {
-                      height: '36px',
-                      padding: '0 12px',
-                      boxSizing: 'border-box',
-                      borderRadius: '8px',
-                      border: `1px solid ${str(v.kfAllBd)}`,
-                      background: str(v.kfAllBg),
-                      color: 'var(--tx, #eee)',
-                      cursor: 'pointer',
-                      fontSize: '12px',
-                    } as CSSProperties
-                  }
+              <div style={{ flexBasis: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '2px',
+                    padding: '3px',
+                    borderRadius: '8px',
+                    background: 'var(--bg, oklch(0.16 0.01 60))',
+                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  }}
                 >
-                  All
-                </button>
-                {L(v.kTabs).map((t: any, $index: number) => (
-                  <Fragment key={$index}>
-                    <button
-                      data-tip="1"
-                      onClick={t?.click}
-                      onMouseEnter={t?.enter}
-                      onMouseLeave={t?.leave}
-                      aria-label={t?.l}
-                      aria-pressed={t?.on}
-                      style={
-                        {
-                          width: '36px',
-                          height: '36px',
-                          padding: '3px',
-                          boxSizing: 'border-box',
-                          borderRadius: '8px',
-                          border: `1px solid ${str(t?.bd)}`,
-                          background: str(t?.bg),
-                          opacity: str(t?.op),
-                          cursor: 'pointer',
-                        } as CSSProperties
-                      }
-                    >
-                      <span
+                  <button
+                    onClick={v.kfAll}
+                    aria-pressed={v.kfAllOn}
+                    style={
+                      {
+                        height: '36px',
+                        padding: '0 12px',
+                        boxSizing: 'border-box',
+                        borderRadius: '6px',
+                        border: '0',
+                        background: str(v.kfAllBg),
+                        color: 'var(--tx, #eee)',
+                        cursor: 'pointer',
+                        fontSize: '12px',
+                      } as CSSProperties
+                    }
+                  >
+                    All
+                  </button>
+                  {L(v.kTabs).map((t: any, $index: number) => (
+                    <Fragment key={$index}>
+                      <button
+                        data-tip="1"
+                        onClick={t?.click}
+                        onMouseEnter={t?.enter}
+                        onMouseLeave={t?.leave}
+                        aria-label={t?.l}
+                        aria-pressed={t?.on}
                         style={
                           {
-                            display: 'block',
-                            width: '100%',
-                            height: '100%',
-                            borderRadius: '4px',
-                            background: str(t?.bgi),
+                            width: '36px',
+                            height: '36px',
+                            padding: '3px',
+                            boxSizing: 'border-box',
+                            borderRadius: '6px',
+                            border: '0',
+                            background: str(t?.bg),
+                            opacity: str(t?.op),
+                            cursor: 'pointer',
                           } as CSSProperties
                         }
-                      ></span>
-                    </button>
-                  </Fragment>
-                ))}
+                      >
+                        <span
+                          style={
+                            {
+                              display: 'block',
+                              width: '100%',
+                              height: '100%',
+                              borderRadius: '4px',
+                              background: str(t?.bgi),
+                            } as CSSProperties
+                          }
+                        ></span>
+                      </button>
+                    </Fragment>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -430,24 +430,61 @@ export function ClassesScreen({ v }: { v: VM }) {
           </div>
           {v.kShowDetail ? (
             <>
+              {v.kBackOn ? (
+                <>
+                  <div
+                    onClick={v.kBack}
+                    style={{ position: 'fixed', inset: '0', zIndex: '91', background: 'oklch(0.1 0.01 60 / .7)' }}
+                  ></div>
+                </>
+              ) : null}
               <div
                 data-kdetail="1"
                 style={
                   {
                     position: str(v.kPos),
                     top: str(v.kTop),
+                    left: str(v.kSide),
+                    right: str(v.kSide),
+                    bottom: str(v.kSide),
+                    zIndex: str(v.kZ),
+                    boxSizing: 'border-box',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '16px',
-                    padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
+                    padding: str(v.kPad),
+                    borderRadius: str(v.kRad),
                     background: 'var(--panel, oklch(0.245 0.05 165))',
                     border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                    boxShadow: str(v.kSh),
                     maxHeight: str(v.kMaxH),
                     overflow: 'auto',
                   } as CSSProperties
                 }
               >
+                {v.kBackOn ? (
+                  <>
+                    <button
+                      onClick={v.kBack}
+                      aria-label="Close"
+                      style={{
+                        alignSelf: 'flex-end',
+                        flex: 'none',
+                        width: '44px',
+                        height: '44px',
+                        margin: '-12px -12px -28px 0',
+                        border: '0',
+                        borderRadius: '50%',
+                        background: 'transparent',
+                        cursor: 'pointer',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                        fontSize: '20px',
+                      }}
+                    >
+                      ×
+                    </button>
+                  </>
+                ) : null}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <div
                     style={{

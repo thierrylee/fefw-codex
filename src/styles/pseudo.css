@@ -17,4 +17,5 @@
 .focus-15:focus { border-color:var(--ac, oklch(0.8 0.11 75)) !important;background:var(--panel2, oklch(0.25 0.012 60)) !important }
 .hv-16:hover { color:var(--tx, #eee) !important;border-color:var(--ac, oklch(0.8 0.11 75)) !important }
 .hv-17:hover { color:var(--tx, #eee) !important;background:var(--panel2, rgba(255,255,255,.06)) !important }
-.hv-18:hover { background:var(--panel2, rgba(255,255,255,.06)) !important }
+.hv-18:hover { background:var(--panel2, rgba(255,255,255,.06)) !important;border-color:var(--ac, oklch(0.8 0.11 75)) !important }
+.hv-19:hover { background:var(--panel2, rgba(255,255,255,.06)) !important }

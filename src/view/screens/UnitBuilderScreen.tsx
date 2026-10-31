@@ -9,6 +9,71 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
         data-screen-label="Unit builder"
         style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginTop: str(v.calcTop) } as CSSProperties}
       >
+        {v.rlOn ? (
+          <>
+            <div
+              style={{
+                position: 'fixed',
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: '5',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+              }}
+            >
+              {L(v.rl).map((j: any, $index: number) => (
+                <Fragment key={$index}>
+                  <button
+                    onClick={j?.go}
+                    onMouseEnter={j?.enter}
+                    onMouseLeave={j?.leave}
+                    aria-label={j?.l}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      minHeight: '26px',
+                      padding: '0 6px',
+                      border: '0',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'var(--tx, #eee)',
+                    }}
+                  >
+                    <span
+                      style={
+                        {
+                          display: str(j?.lblD),
+                          fontSize: '12px',
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          whiteSpace: 'nowrap',
+                        } as CSSProperties
+                      }
+                    >
+                      {T(j?.l)}
+                    </span>
+                    <span
+                      style={
+                        {
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          background: str(j?.dot),
+                          opacity: str(j?.dop),
+                        } as CSSProperties
+                      }
+                    ></span>
+                  </button>
+                </Fragment>
+              ))}
+            </div>
+          </>
+        ) : null}
         <div style={{ display: str(v.calcHeadDisp), flexDirection: 'column', gap: '4px' } as CSSProperties}>
           <div
             style={{
@@ -81,6 +146,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
         >
           <div style={{ display: 'contents' }}>
             <div
+              data-jump="b-setup"
               style={
                 {
                   gridColumn: str(v.cdd?.cc),
@@ -380,6 +446,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               ) : null}
             </div>
             <div
+              data-jump="b-class"
               style={
                 {
                   gridColumn: str(v.cdd?.pc),
@@ -1029,6 +1096,46 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               >
                 Inventory
               </span>
+              {v.invTabsOn ? (
+                <>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexWrap: 'wrap',
+                      gap: '2px',
+                      padding: '3px',
+                      borderRadius: '8px',
+                      background: 'var(--bg, oklch(0.16 0.01 60))',
+                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      alignSelf: 'flex-start',
+                      maxWidth: '100%',
+                    }}
+                  >
+                    {L(v.invTabs).map((t: any, $index: number) => (
+                      <Fragment key={$index}>
+                        <button
+                          onClick={t?.click}
+                          aria-pressed={t?.on}
+                          style={
+                            {
+                              minHeight: '36px',
+                              padding: '0 12px',
+                              border: '0',
+                              borderRadius: '6px',
+                              background: str(t?.bg),
+                              color: str(t?.fg),
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                            } as CSSProperties
+                          }
+                        >
+                          {T(t?.l)}
+                        </button>
+                      </Fragment>
+                    ))}
+                  </div>
+                </>
+              ) : null}
               <div
                 style={{
                   display: 'grid',
@@ -1037,7 +1144,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   alignItems: 'start',
                 }}
               >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                <div style={{ display: str(v.invD?.cls), flexDirection: 'column', gap: '6px' } as CSSProperties}>
                   {L(v.clsGroups).map((g: any, $index: number) => (
                     <Fragment key={$index}>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -1120,7 +1227,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     </>
                   ) : null}
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ display: str(v.invD?.ab), flexDirection: 'column', gap: '8px' } as CSSProperties}>
                   <span
                     style={{
                       display: 'flex',
@@ -1280,7 +1387,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     </>
                   ) : null}
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ display: str(v.invD?.ca), flexDirection: 'column', gap: '8px' } as CSSProperties}>
                   <span
                     style={{
                       display: 'flex',
@@ -1511,7 +1618,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     </>
                   ) : null}
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div style={{ display: str(v.invD?.it), flexDirection: 'column', gap: '8px' } as CSSProperties}>
                   <span
                     style={{
                       display: 'flex',
@@ -1797,6 +1904,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
             </div>
           </div>
           <div
+            data-jump="b-stats"
             style={
               {
                 gridColumn: str(v.cdd?.sc),
@@ -1832,21 +1940,64 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               >
                 Per-stat breakdown
               </span>
-              <span style={{ font: "600 12px/1 'IBM Plex Mono',monospace", color: 'var(--tx, oklch(0.94 0.008 80))' }}>
-                {'Lv '}
-                {T(v.calcLv)}
+              <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span
+                  style={{ font: "600 12px/1 'IBM Plex Mono',monospace", color: 'var(--tx, oklch(0.94 0.008 80))' }}
+                >
+                  {'Lv '}
+                  {T(v.calcLv)}
+                </span>
+                <button
+                  data-tip="1"
+                  onClick={v.infoTog}
+                  aria-label="Legend and notes"
+                  aria-pressed={v.infoOn}
+                  style={
+                    {
+                      display: str(v.infoBtnD),
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '36px',
+                      height: '36px',
+                      margin: '-8px -6px -8px 0',
+                      border: '0',
+                      borderRadius: '50%',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: str(v.infoFg),
+                      padding: '0',
+                    } as CSSProperties
+                  }
+                >
+                  <span
+                    style={{
+                      display: 'grid',
+                      placeItems: 'center',
+                      width: '20px',
+                      height: '20px',
+                      boxSizing: 'border-box',
+                      borderRadius: '50%',
+                      border: '1.5px solid currentColor',
+                      font: "600 12px/1 'IBM Plex Mono',monospace",
+                    }}
+                  >
+                    i
+                  </span>
+                </button>
               </span>
             </div>
             <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '6px 14px',
-                font: "500 10px/1 'IBM Plex Mono',monospace",
-                letterSpacing: '.04em',
-                textTransform: 'uppercase',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
-              }}
+              style={
+                {
+                  display: str(v.infoD),
+                  flexWrap: 'wrap',
+                  gap: '6px 14px',
+                  font: "500 10px/1 'IBM Plex Mono',monospace",
+                  letterSpacing: '.04em',
+                  textTransform: 'uppercase',
+                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                } as CSSProperties
+              }
             >
               <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span
@@ -1900,7 +2051,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       {
                         display: str(v.narDisp),
                         justifyContent: 'flex-end',
-                        gap: '12px',
+                        gap: '6px',
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         color: 'var(--mu, oklch(0.7 0.01 70))',
                         textTransform: 'uppercase',
@@ -1908,9 +2059,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       } as CSSProperties
                     }
                   >
-                    <span style={{ width: '44px', textAlign: 'right' }}>Low</span>
-                    <span style={{ width: '64px', textAlign: 'center', color: 'var(--tx, #eee)' }}>Average</span>
-                    <span style={{ width: '44px', textAlign: 'left' }}>High</span>
+                    <span style={{ width: '30px', textAlign: 'right' }}>Low</span>
+                    <span style={{ width: '40px', textAlign: 'center', color: 'var(--tx, #eee)' }}>Avg</span>
+                    <span style={{ width: '30px', textAlign: 'left' }}>High</span>
                   </div>
                   <div
                     style={
@@ -1983,21 +2134,20 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={
                             {
-                              order: '1',
-                              flex: '1 1 0',
-                              minWidth: '0',
+                              order: '2',
+                              flex: 'none',
                               display: str(v.narDisp),
                               justifyContent: 'flex-end',
                               alignItems: 'baseline',
-                              gap: '12px',
+                              gap: '6px',
                             } as CSSProperties
                           }
                         >
                           <span
                             style={{
-                              width: '44px',
+                              width: '30px',
                               textAlign: 'right',
-                              font: "500 13px/1 'IBM Plex Mono',monospace",
+                              font: "500 12px/1 'IBM Plex Mono',monospace",
                               color: 'oklch(0.72 0.1 28)',
                               opacity: '.8',
                             }}
@@ -2006,9 +2156,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           </span>
                           <span
                             style={{
-                              width: '64px',
+                              width: '40px',
                               textAlign: 'center',
-                              font: "600 22px/1 'IBM Plex Mono',monospace",
+                              font: "600 18px/1 'IBM Plex Mono',monospace",
                               color: 'var(--ac, oklch(0.8 0.11 75))',
                             }}
                           >
@@ -2016,9 +2166,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           </span>
                           <span
                             style={{
-                              width: '44px',
+                              width: '30px',
                               textAlign: 'left',
-                              font: "500 13px/1 'IBM Plex Mono',monospace",
+                              font: "500 12px/1 'IBM Plex Mono',monospace",
                               color: 'oklch(0.76 0.1 150)',
                               opacity: '.8',
                             }}
@@ -2293,7 +2443,16 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   </div>
                   {v.abNoteOn ? (
                     <>
-                      <div style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))', textWrap: 'pretty' }}>
+                      <div
+                        style={
+                          {
+                            display: str(v.infoB),
+                            fontSize: '12px',
+                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            textWrap: 'pretty',
+                          } as CSSProperties
+                        }
+                      >
                         <span style={{ color: 'oklch(0.78 0.12 150)', fontWeight: '600' }}>
                           Ability bonuses (included above):
                         </span>{' '}
@@ -2515,16 +2674,18 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               </>
             ) : null}
             <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,200px),1fr))',
-                gap: '14px',
-                paddingTop: '14px',
-                borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
-                fontSize: '12px',
-                lineHeight: '1.45',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
-              }}
+              style={
+                {
+                  display: str(v.infoG),
+                  gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,200px),1fr))',
+                  gap: '14px',
+                  paddingTop: '14px',
+                  borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  fontSize: '12px',
+                  lineHeight: '1.45',
+                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                } as CSSProperties
+              }
             >
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                 <span
@@ -2570,6 +2731,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               title="Create a build from a build code"
               style={{
                 marginLeft: 'auto',
+                marginRight: '6px',
                 padding: '7px 12px',
                 borderRadius: '999px',
                 border: '1px solid var(--line, oklch(0.29 0.012 60))',
@@ -2581,23 +2743,70 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
             >
               Add build from code
             </button>
-            <button
-              onClick={v.bOnlyTog}
-              title="Show only the current character's builds"
-              style={
-                {
-                  padding: '7px 12px',
-                  borderRadius: '999px',
-                  border: `1px solid ${str(v.bOnlyBd)}`,
-                  background: str(v.bOnlyBg),
-                  color: 'var(--tx, oklch(0.94 0.008 80))',
-                  cursor: 'pointer',
-                  fontSize: '12px',
-                } as CSSProperties
-              }
+            <span
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '2px',
+                padding: '3px',
+                borderRadius: '8px',
+                background: 'var(--bg, oklch(0.16 0.01 60))',
+                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              }}
             >
-              {T(v.bOnlyLbl)}
-            </button>
+              <button
+                onClick={v.bRecTog}
+                style={
+                  {
+                    minHeight: '36px',
+                    padding: '0 12px',
+                    border: '0',
+                    borderRadius: '6px',
+                    background: str(v.bRecBg),
+                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    cursor: 'pointer',
+                    fontSize: '12px',
+                  } as CSSProperties
+                }
+              >
+                {T(v.bRecLbl)}
+              </button>
+              <button
+                onClick={v.bStarTog}
+                style={
+                  {
+                    minHeight: '36px',
+                    padding: '0 12px',
+                    border: '0',
+                    borderRadius: '6px',
+                    background: str(v.bStarBg),
+                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    cursor: 'pointer',
+                    fontSize: '12px',
+                  } as CSSProperties
+                }
+              >
+                {T(v.bStarLbl)}
+              </button>
+              <button
+                onClick={v.bOnlyTog}
+                title="Show only the current character's builds"
+                style={
+                  {
+                    minHeight: '36px',
+                    padding: '0 12px',
+                    border: '0',
+                    borderRadius: '6px',
+                    background: str(v.bOnlyBg),
+                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    cursor: 'pointer',
+                    fontSize: '12px',
+                  } as CSSProperties
+                }
+              >
+                {T(v.bOnlyLbl)}
+              </button>
+            </span>
           </div>
           {v.codeOpen ? (
             <>

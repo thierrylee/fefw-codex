@@ -19,27 +19,35 @@ export function ChartsScreen({ v }: { v: VM }) {
             <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
               Charts
             </h1>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '2px',
+                padding: '3px',
+                borderRadius: '8px',
+                background: 'var(--bg, oklch(0.16 0.01 60))',
+                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              }}
+            >
               {L(v.chartJumps).map((j: any, $index: number) => (
                 <Fragment key={$index}>
                   <button
                     onClick={j?.go}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '6px',
-                      padding: '7px 12px',
-                      borderRadius: '999px',
-                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                      background: 'transparent',
-                      color: 'var(--tx, #eee)',
-                      cursor: 'pointer',
-                      font: "600 12px/1 'IBM Plex Sans',sans-serif",
-                      whiteSpace: 'nowrap',
-                    }}
-                    className="hv-6"
+                    aria-pressed={j?.on}
+                    style={
+                      {
+                        minHeight: '36px',
+                        padding: '0 12px',
+                        border: '0',
+                        borderRadius: '6px',
+                        background: str(j?.bg),
+                        color: str(j?.fg),
+                        cursor: 'pointer',
+                        fontSize: '12px',
+                      } as CSSProperties
+                    }
                   >
-                    <span style={{ color: 'var(--ac, oklch(0.8 0.11 75))' }}>↓</span>
                     {T(j?.l)}
                   </button>
                 </Fragment>
@@ -52,16 +60,18 @@ export function ChartsScreen({ v }: { v: VM }) {
         </div>
         <div
           data-jump="c-gro"
-          style={{
-            padding: '20px',
-            borderRadius: 'var(--r, 14px)',
-            background: 'var(--panel, oklch(0.2 0.01 60))',
-            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '14px',
-            minWidth: '0',
-          }}
+          style={
+            {
+              padding: '20px',
+              borderRadius: 'var(--r, 14px)',
+              background: 'var(--panel, oklch(0.2 0.01 60))',
+              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              display: str(v.chD?.gro),
+              flexDirection: 'column',
+              gap: '14px',
+              minWidth: '0',
+            } as CSSProperties
+          }
         >
           <div
             style={{
@@ -376,16 +386,18 @@ export function ChartsScreen({ v }: { v: VM }) {
         </div>
         <div
           data-jump="c-exp"
-          style={{
-            padding: '20px',
-            borderRadius: 'var(--r, 14px)',
-            background: 'var(--panel, oklch(0.2 0.01 60))',
-            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '14px',
-            minWidth: '0',
-          }}
+          style={
+            {
+              padding: '20px',
+              borderRadius: 'var(--r, 14px)',
+              background: 'var(--panel, oklch(0.2 0.01 60))',
+              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              display: str(v.chD?.exp),
+              flexDirection: 'column',
+              gap: '14px',
+              minWidth: '0',
+            } as CSSProperties
+          }
         >
           <div
             style={{

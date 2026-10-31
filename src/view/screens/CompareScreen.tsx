@@ -309,6 +309,7 @@ export function CompareScreen({ v }: { v: VM }) {
           }}
         >
           <div
+            data-jump="b-gro"
             draggable="true"
             onDragStart={v.ct?.radar?.start}
             onDragOver={v.ct?.over}
@@ -735,6 +736,7 @@ export function CompareScreen({ v }: { v: VM }) {
             ) : null}
           </div>
           <div
+            data-jump="b-proj"
             draggable="true"
             onDragStart={v.ct?.table?.start}
             onDragOver={v.ct?.over}

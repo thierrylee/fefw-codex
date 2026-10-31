@@ -16,7 +16,7 @@ export function AppView({ v }: { v: VM }) {
   return (
     <>
       <div
-        style={{ minHeight: '100vh', background: 'oklch(0.15 0.035 165)', padding: str(v.outerPad) } as CSSProperties}
+        style={{ minHeight: '100dvh', background: 'oklch(0.15 0.035 165)', padding: str(v.outerPad) } as CSSProperties}
       >
         <div
           ref={v.rootRef}
@@ -47,7 +47,11 @@ export function AppView({ v }: { v: VM }) {
             } as CSSProperties
           }
         >
-          <div style={{ display: 'grid', gridTemplateColumns: str(v.gridCols), minHeight: '100%' } as CSSProperties}>
+          <div
+            style={
+              { display: 'grid', gridTemplateColumns: str(v.gridCols), minHeight: str(v.appGridMin) } as CSSProperties
+            }
+          >
             {v.sidebar ? (
               <>
                 {v.hasNavTip ? (
@@ -527,6 +531,111 @@ export function AppView({ v }: { v: VM }) {
               {v.narrow ? (
                 <>
                   <div style={{ position: 'sticky', bottom: '0', zIndex: '6' }}>
+                    {v.jmOpen ? (
+                      <>
+                        <div onClick={v.jmClose} style={{ position: 'fixed', inset: '0', zIndex: '-1' }}></div>
+                        <div
+                          style={{
+                            position: 'absolute',
+                            right: '14px',
+                            bottom: 'calc(100% + 58px)',
+                            minWidth: '200px',
+                            maxWidth: 'calc(100% - 28px)',
+                            maxHeight: '50vh',
+                            overflowY: 'auto',
+                            padding: '6px',
+                            borderRadius: '12px',
+                            background: 'var(--panel, oklch(0.245 0.05 165))',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            boxShadow: '0 12px 30px -10px rgba(0,0,0,.6)',
+                            display: 'flex',
+                            flexDirection: 'column',
+                          }}
+                        >
+                          <button
+                            onClick={v.jmTop}
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              textAlign: 'left',
+                              minHeight: '40px',
+                              padding: '0 12px',
+                              border: '0',
+                              borderRadius: '8px',
+                              background: 'transparent',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                              font: 'inherit',
+                              fontSize: '13px',
+                              cursor: 'pointer',
+                            }}
+                          >
+                            <span style={{ color: 'var(--ac, oklch(0.82 0.12 85))' }}>↑</span>Back to top
+                          </button>
+                          {L(v.jmItems).map((j: any, $index: number) => (
+                            <Fragment key={$index}>
+                              <button
+                                onClick={j?.click}
+                                style={
+                                  {
+                                    textAlign: 'left',
+                                    minHeight: '40px',
+                                    padding: '0 12px',
+                                    border: '0',
+                                    borderRadius: '8px',
+                                    background: str(j?.bg),
+                                    color: str(j?.fg),
+                                    font: 'inherit',
+                                    fontSize: '13px',
+                                    cursor: 'pointer',
+                                  } as CSSProperties
+                                }
+                              >
+                                {T(j?.l)}
+                              </button>
+                            </Fragment>
+                          ))}
+                        </div>
+                      </>
+                    ) : null}
+                    {v.jmOn ? (
+                      <>
+                        <button
+                          onClick={v.jmTog}
+                          aria-label="Sections"
+                          style={{
+                            position: 'absolute',
+                            right: '14px',
+                            top: '-54px',
+                            maxWidth: 'calc(100% - 28px)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            minHeight: '40px',
+                            padding: '0 14px',
+                            borderRadius: '999px',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
+                            color: 'var(--tx, #eee)',
+                            font: "600 12px/1 'IBM Plex Sans',sans-serif",
+                            cursor: 'pointer',
+                            boxShadow: '0 4px 14px rgba(0,0,0,.4)',
+                          }}
+                        >
+                          <span
+                            style={{
+                              minWidth: '0',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            {T(v.jmLabel)}
+                          </span>
+                          <span style={{ color: 'var(--ac, oklch(0.82 0.12 85))' }}>▴</span>
+                        </button>
+                      </>
+                    ) : null}
                     {v.topShow ? (
                       <>
                         <button
@@ -627,6 +736,85 @@ export function AppView({ v }: { v: VM }) {
                         </Fragment>
                       ))}
                     </nav>
+                  </div>
+                </>
+              ) : null}
+              {v.mx?.repOn ? (
+                <>
+                  <div
+                    onClick={v.mx?.repClose}
+                    style={{
+                      position: 'fixed',
+                      inset: '0',
+                      zIndex: '90',
+                      display: 'grid',
+                      placeItems: 'center',
+                      padding: '16px',
+                      background: 'oklch(0.1 0.01 60 / .7)',
+                    }}
+                  >
+                    <div
+                      onClick={v.stopClick}
+                      style={{
+                        width: 'min(360px,100%)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '12px',
+                        padding: '20px',
+                        borderRadius: 'var(--r, 14px)',
+                        background: 'var(--panel, oklch(0.2 0.01 60))',
+                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        boxShadow: '0 24px 70px -12px rgba(0,0,0,.6)',
+                      }}
+                    >
+                      <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>Replace which character?</h2>
+                      <span style={{ fontSize: '13px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                        {'Three characters are already selected. '}
+                        {T(v.mx?.repName)}
+                        {' will take the place of:'}
+                      </span>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        {L(v.mx?.repOpts).map((o: any, $index: number) => (
+                          <Fragment key={$index}>
+                            <button
+                              onClick={o?.go}
+                              style={{
+                                minHeight: '44px',
+                                padding: '0 14px',
+                                borderRadius: '999px',
+                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                background: 'transparent',
+                                color: 'var(--tx, #eee)',
+                                font: 'inherit',
+                                fontWeight: '600',
+                                fontSize: '13px',
+                                cursor: 'pointer',
+                                textAlign: 'left',
+                              }}
+                              className="hv-5"
+                            >
+                              {T(o?.n)}
+                            </button>
+                          </Fragment>
+                        ))}
+                      </div>
+                      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <button
+                          onClick={v.mx?.repClose}
+                          style={{
+                            padding: '7px 12px',
+                            borderRadius: '999px',
+                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                            background: 'transparent',
+                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            cursor: 'pointer',
+                            fontSize: '12px',
+                          }}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </>
               ) : null}
@@ -740,7 +928,18 @@ export function AppView({ v }: { v: VM }) {
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                         {L(v.pkChipRows).map((row: any, $index: number) => (
                           <Fragment key={$index}>
-                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '2px',
+                                padding: '3px',
+                                borderRadius: '8px',
+                                background: 'var(--bg, oklch(0.16 0.01 60))',
+                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                alignSelf: 'flex-start',
+                              }}
+                            >
                               {L(row?.chips).map((c: any, $index: number) => (
                                 <Fragment key={$index}>
                                   {c?.noIc ? (
@@ -749,9 +948,10 @@ export function AppView({ v }: { v: VM }) {
                                         onClick={c?.go}
                                         style={
                                           {
-                                            padding: '7px 12px',
-                                            borderRadius: '999px',
-                                            border: `1px solid ${str(c?.bd)}`,
+                                            minHeight: '36px',
+                                            padding: '0 12px',
+                                            border: '0',
+                                            borderRadius: '6px',
                                             background: str(c?.bg),
                                             color: str(c?.fg),
                                             cursor: 'pointer',
@@ -767,51 +967,25 @@ export function AppView({ v }: { v: VM }) {
                                   {c?.ic ? (
                                     <>
                                       <button
+                                        data-tip="1"
                                         onClick={c?.go}
-                                        title={c?.l}
+                                        onMouseEnter={c?.enter}
+                                        onMouseLeave={c?.leave}
                                         aria-label={c?.l}
-                                        style={{
-                                          width: '36px',
-                                          height: '36px',
-                                          padding: '3px',
-                                          boxSizing: 'border-box',
-                                          borderRadius: '8px',
-                                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                                          background: 'transparent',
-                                          cursor: 'pointer',
-                                        }}
-                                      >
-                                        <span
-                                          style={
-                                            {
-                                              display: 'block',
-                                              width: '100%',
-                                              height: '100%',
-                                              borderRadius: '4px',
-                                              background: str(c?.bgi),
-                                            } as CSSProperties
-                                          }
-                                        ></span>
-                                      </button>
-                                    </>
-                                  ) : null}
-                                  {c?.icOn ? (
-                                    <>
-                                      <button
-                                        onClick={c?.go}
-                                        title={c?.l}
-                                        aria-label={c?.l}
-                                        aria-pressed="true"
-                                        style={{
-                                          width: '36px',
-                                          height: '36px',
-                                          padding: '3px',
-                                          boxSizing: 'border-box',
-                                          borderRadius: '8px',
-                                          border: '1px solid var(--ac, oklch(0.8 0.11 75))',
-                                          background: 'var(--panel2, oklch(0.25 0.012 60))',
-                                          cursor: 'pointer',
-                                        }}
+                                        aria-pressed={c?.on}
+                                        style={
+                                          {
+                                            width: '36px',
+                                            height: '36px',
+                                            padding: '3px',
+                                            boxSizing: 'border-box',
+                                            borderRadius: '6px',
+                                            border: '0',
+                                            background: str(c?.bg),
+                                            opacity: str(c?.op),
+                                            cursor: 'pointer',
+                                          } as CSSProperties
+                                        }
                                       >
                                         <span
                                           style={
@@ -1703,16 +1877,28 @@ export function AppView({ v }: { v: VM }) {
                           outline: 'none',
                         }}
                       />
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: '2px',
+                          padding: '3px',
+                          borderRadius: '8px',
+                          background: 'var(--bg, oklch(0.16 0.01 60))',
+                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          alignSelf: 'flex-start',
+                        }}
+                      >
                         {L(v.cdChips).map((c: any, $index: number) => (
                           <Fragment key={$index}>
                             <button
                               onClick={c?.go}
                               style={
                                 {
-                                  padding: '7px 12px',
-                                  borderRadius: '999px',
-                                  border: `1px solid ${str(c?.bd)}`,
+                                  minHeight: '36px',
+                                  padding: '0 12px',
+                                  border: '0',
+                                  borderRadius: '6px',
                                   background: str(c?.bg),
                                   color: str(c?.fg),
                                   cursor: 'pointer',
@@ -1726,7 +1912,18 @@ export function AppView({ v }: { v: VM }) {
                           </Fragment>
                         ))}
                       </div>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: '2px',
+                          padding: '3px',
+                          borderRadius: '8px',
+                          background: 'var(--bg, oklch(0.16 0.01 60))',
+                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          alignSelf: 'flex-start',
+                        }}
+                      >
                         <button
                           onClick={v.cdSkAll}
                           aria-pressed={v.cdSkAllOn}
@@ -1735,8 +1932,8 @@ export function AppView({ v }: { v: VM }) {
                               height: '36px',
                               padding: '0 12px',
                               boxSizing: 'border-box',
-                              borderRadius: '8px',
-                              border: `1px solid ${str(v.cdSkAllBd)}`,
+                              borderRadius: '6px',
+                              border: '0',
                               background: str(v.cdSkAllBg),
                               color: 'var(--tx, #eee)',
                               cursor: 'pointer',
@@ -1761,8 +1958,8 @@ export function AppView({ v }: { v: VM }) {
                                   height: '36px',
                                   padding: '3px',
                                   boxSizing: 'border-box',
-                                  borderRadius: '8px',
-                                  border: `1px solid ${str(o?.bd)}`,
+                                  borderRadius: '6px',
+                                  border: '0',
                                   background: str(o?.bg),
                                   opacity: str(o?.op),
                                   cursor: 'pointer',

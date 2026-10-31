@@ -23,12 +23,15 @@ export class Codex extends Component<CodexProps, any> {
   declare idxD: any
   declare key: any
   declare md: any
+  declare mxDone: any
   declare overId: any
   declare pk: any
   declare ready: any
   declare ro: any
   declare rootNav: any
   declare setState: any
+  declare spyKeys: any
+  declare spyT: any
   state: any = {
     d: null,
     screen: 'roster',
@@ -48,18 +51,40 @@ export class Codex extends Component<CodexProps, any> {
   }
   rootRef = createRef<HTMLDivElement>()
   jumpTo(k?: any) {
-    const el = [...document.querySelectorAll('[data-jump="' + k + '"]')].find((e?: any) => e.offsetParent)
-    if (!el) return
-    let p = el.parentElement
+    const find = () => [...document.querySelectorAll('[data-jump="' + k + '"]')].find((e?: any) => e.offsetParent)
+    const el0 = find()
+    if (!el0) return
+    let p = el0.parentElement
     while (
       p &&
       p !== document.body &&
       !(p.scrollHeight > p.clientHeight + 2 && /(auto|scroll)/.test(getComputedStyle(p).overflowY))
     )
       p = p.parentElement
-    const dy = el.getBoundingClientRect().top - 16
-    if (p && p !== document.body) p.scrollBy({ top: dy, behavior: 'smooth' })
-    else window.scrollBy({ top: dy, behavior: 'smooth' })
+    const sc = p && p !== document.body ? p : null
+    const calc = () => {
+      const el = find()
+      if (!el) return null
+      const sr = sc ? sc.getBoundingClientRect().top + sc.clientTop : 0
+      let off = 16
+      document.querySelectorAll('header,div,nav').forEach((h?: any) => {
+        if (h.contains(el)) return
+        const cs = getComputedStyle(h)
+        if (cs.position !== 'sticky' && cs.position !== 'fixed') return
+        const b = h.getBoundingClientRect()
+        if (b.top <= sr + 2 && b.bottom > sr && b.bottom - sr < 220 && b.width > 200)
+          off = Math.max(off, b.bottom - sr + 10)
+      })
+      return el.getBoundingClientRect().top - sr - off
+    }
+    const go = (b?: any) => {
+      const dy = calc()
+      if (dy == null) return
+      if (b === 'smooth' || Math.abs(dy) > 4) (sc || window).scrollBy({ top: dy, behavior: b })
+    }
+    go('smooth')
+    setTimeout(() => go('auto'), 550)
+    setTimeout(() => go('auto'), 1100)
   }
   stt = () => {
     const r = this.rootRef.current
@@ -232,7 +257,11 @@ export class Codex extends Component<CodexProps, any> {
     })
     return this.state.part < 3 && r === 'Master' ? 'Advanced' : r
   }
-  hk = (s?: any) => s.screen + '|' + (s.screen === 'profile' ? JSON.stringify(s.sel ?? null) : '')
+  hk = (s?: any) =>
+    s.screen +
+    '|' +
+    (s.screen === 'profile' ? JSON.stringify(s.sel ?? null) : '') +
+    (s.screen === 'classes' && s.kopen && s.narrow ? '|open' : '')
   lbl(s?: any) {
     return s.screen === 'profile'
       ? s.sel || 'Character'
@@ -251,6 +280,20 @@ export class Codex extends Component<CodexProps, any> {
   }
   componentDidUpdate() {
     const s = this.state
+    if (this.ready && s.screen === 'match') {
+      const M: any = s.mx || {},
+        dn = !!(s.narrow && M.meal && M.c1 && M.c2 && M.c3)
+      if (this.mxDone === undefined) this.mxDone = dn
+      else if (dn && !this.mxDone) {
+        this.mxDone = true
+        setTimeout(() => this.jumpTo('mx-grid'), 200)
+      } else if (!dn) this.mxDone = false
+    }
+    if (this.spyKeys && !this.spyT)
+      this.spyT = requestAnimationFrame(() => {
+        this.spyT = 0
+        this.spyUpd()
+      })
     if (!this.ready || !s.screen || s.screen === 'overview') return
     const k = this.hk(s)
     const U = this.enc(s)
@@ -259,6 +302,10 @@ export class Codex extends Component<CodexProps, any> {
       return
     }
     const e: Record<string, any> = { screen: s.screen, sel: s.sel, l: this.lbl(s) }
+    if (s.screen === 'classes' && s.kopen && s.narrow) {
+      e.kopen = true
+      e.ksel = s.ksel
+    }
     let tr: any
     if (this.hcur === undefined) {
       tr = [e]
@@ -280,6 +327,7 @@ export class Codex extends Component<CodexProps, any> {
     this.setState({
       screen: h.screen,
       sel: h.sel,
+      ...(h.screen === 'classes' ? { kopen: !!h.kopen, ...(h.kopen && h.ksel ? { ksel: h.ksel } : {}) } : {}),
       trail: h.trail || [{ screen: h.screen, sel: h.sel, l: this.lbl(h) }],
       tip: null,
     })
@@ -300,6 +348,25 @@ export class Codex extends Component<CodexProps, any> {
   }
   sc = (e?: any) => {
     if (this.state.tip || this.state.nt) this.setState({ tip: null, nt: null })
+    this.spyUpd()
+  }
+  spyUpd = () => {
+    const s = this.state
+    if (!this.spyKeys || !this.spyKeys.length) return
+    const E = this.spyKeys
+      .map((k?: any) => {
+        const el = [...document.querySelectorAll('[data-jump="' + k + '"]')].find((e?: any) => e.offsetParent)
+        if (!el) return null
+        const b = el.getBoundingClientRect()
+        return { k, t: b.top, l: b.left }
+      })
+      .filter(Boolean)
+    if (!E.length) return
+    const ord = [...E].sort((p?: any, q?: any) => (Math.abs(p.t - q.t) < 4 ? p.l - q.l : p.t - q.t)).map((x?: any) => x.k)
+    const ab = E.filter((x?: any) => x.t <= 140)
+    const a = (ab.length ? ab.reduce((m?: any, x?: any) => (x.t > m.t ? x : m)) : ord[0] && E.find((x?: any) => x.k === ord[0])).k
+    const oj = ord.join('|')
+    if (a !== s.spy || oj !== s.jord) this.setState({ spy: a, jord: oj })
   }
   pd = (e?: any) => {
     if (this.state.tip && !(e.target.closest && e.target.closest('[data-tip]'))) this.setState({ tip: null })
@@ -1616,7 +1683,7 @@ export class Codex extends Component<CodexProps, any> {
     const t = THEMES[thn]
     const phone = (pr.device ?? 'Responsive') === 'Phone'
     const narrow = phone || st.narrow
-    const navTop = (pr.navStyle ?? 'Sidebar') === 'Top tabs'
+    const navTop = st.navTop != null ? !!st.navTop : (pr.navStyle ?? 'Sidebar') === 'Top tabs'
     const hideLocked = (pr.lockStyle ?? 'Blur teaser') === 'Hide'
     const view = pr.calcView ?? 'Stacked bars'
     const MS: string = 'Badge'
@@ -2038,7 +2105,8 @@ export class Codex extends Component<CodexProps, any> {
       outerPad: phone ? '32px 16px' : '0',
       appMaxW: phone ? '390px' : 'none',
       appH: phone ? '844px' : 'auto',
-      appMinH: phone ? '0' : '100vh',
+      appMinH: phone ? '0' : '100dvh',
+      appGridMin: phone ? '100%' : '100dvh',
       appOverflow: phone ? 'auto' : 'visible',
       appRadius: phone ? '40px' : '0',
       appBorder: phone ? '8px solid #26241f' : '0',
@@ -2466,6 +2534,10 @@ export class Codex extends Component<CodexProps, any> {
       st.bname == null || st.bnameC !== calc.c ? (lk0 && lk0.name != null ? lk0.name : defName) : st.bname
     const finalName = bnameVal.trim() || defName
     const nameSame = exb && (exb.name == null ? dnm(this.buildCalc(d, exb) || B) : exb.name) === finalName
+    const bF = (b?: any) =>
+      (!onlyCur || b.c === cName) &&
+      (!st.bRec || ((c?: any) => !!c && isRec(c) && c.part <= P && !gone(c))(d.chars.find((x?: any) => x.n === b.c))) &&
+      (!st.bStar || !!b.star)
     const buildV = builds
       .map((b?: any) => {
         const x = this.buildCalc(d, b)
@@ -3067,22 +3139,48 @@ export class Codex extends Component<CodexProps, any> {
             ['Sword', 'Lance', 'Axe', 'Bow', 'Brawl', 'Reason', 'Faith'],
             ['Infantry', 'Armor', 'Cavalry', 'Flying', 'Authority'],
           ]
-    const pChipRows = pRowsDef
-      .map(mkRow)
-      .filter((r?: any) => r.length)
-      .map((r?: any) => ({
-        chips: r.map((c?: any) => ({
-          l: c,
-          bgi: SK(c),
-          ic: !!SK(c) && c !== pfv,
-          icOn: !!SK(c) && c === pfv,
-          noIc: !SK(c),
-          bd: bnOf(c) ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
-          bg: c === pfv ? 'var(--ac, oklch(0.8 0.11 75))' : bnOf(c) ? 'oklch(0.8 0.11 75 / .12)' : 'transparent',
-          fg: c === pfv ? 'oklch(0.18 0.02 60)' : 'var(--tx, #eee)',
-          go: () => this.setState({ pf: c }),
-        })),
-      }))
+    const pChipRows = [
+      {
+        chips: pRowsDef
+          .map(mkRow)
+          .flat()
+          .map((c?: any, i?: any) => ({ c, i, ic: !!SK(c) }))
+          .sort((p?: any, q?: any) => {
+            if (!isIt && (p.ic || q.ic)) {
+              if (p.ic !== q.ic) return p.ic ? 1 : -1
+              const NM: Record<string, any> = {
+                  Lance: 'Spear',
+                  Brawl: 'Brawling',
+                  Reason: 'Black Magic',
+                  Faith: 'White Magic',
+                  Armor: 'Heavy Armor',
+                  Cavalry: 'Riding',
+                },
+                o = d.skillOrder || [],
+                ix = (n?: any) => {
+                  const k = o.indexOf(NM[n] || n)
+                  return k < 0 ? 99 : k
+                }
+              return ix(p.c) - ix(q.c) || p.i - q.i
+            }
+            return p.i - q.i
+          })
+          .map((x?: any) => x.c)
+          .map((c?: any) => ({
+            l: c,
+            bgi: SK(c),
+            ic: !!SK(c),
+            noIc: !SK(c),
+            op: pfv === 'All' || c === pfv ? 1 : 0.5,
+            bg:
+              c === pfv ? 'var(--panel2, oklch(0.25 0.012 60))' : bnOf(c) ? 'oklch(0.8 0.11 75 / .12)' : 'transparent',
+            fg: c === pfv ? 'var(--tx, #eee)' : 'var(--mu, oklch(0.78 0.035 120))',
+            on: c === pfv,
+            go: () => this.setState({ pf: c }),
+            ...(SK(c) ? this.hov(c, (x?: any) => this.skillTip(x)) : {}),
+          })),
+      },
+    ].filter((r?: any) => r.chips.length)
     const pRows = pAll
       .filter(
         (x?: any) =>
@@ -3434,6 +3532,38 @@ export class Codex extends Component<CodexProps, any> {
     }
     const vals: Record<string, any> = {
       ...base,
+      infoBtnD: narrow ? 'flex' : 'none',
+      infoD: !narrow ? 'flex' : 'none',
+      infoB: !narrow ? 'block' : 'none',
+      infoG: !narrow ? 'grid' : 'none',
+      ...(() => {
+        const it = st.invTab || 'cls'
+        const T: any = [
+          ['cls', 'Class'],
+          ['ab', 'Abilities'],
+          ['ca', 'Arts'],
+          ['it', 'Items'],
+        ]
+        return {
+          invTabsOn: narrow,
+          invTabs: T.map(([k, l]: any) => ({
+            l,
+            on: it === k,
+            bg: it === k ? t.panel2 : 'transparent',
+            fg: it === k ? t.tx : t.mu,
+            click: () => this.setState({ invTab: k }),
+          })),
+          invD: Object.fromEntries(T.map(([k]: any) => [k, !narrow || it === k ? 'flex' : 'none'])),
+        }
+      })(),
+      navOptOn: !narrow,
+      navOpts: [
+        ['Sidebar', false],
+        ['Top tabs', true],
+      ].map(([l, v]: any) => {
+        const on = navTop === v
+        return { l, on, bg: on ? t.panel2 : 'transparent', fg: on ? t.tx : t.mu, click: () => this.save({ navTop: v }) }
+      }),
       ...abVals,
       ...itVals,
       ...pkVals,
@@ -3487,10 +3617,14 @@ export class Codex extends Component<CodexProps, any> {
       teaser: sealed.slice(0, 8).map(card),
       goCalc: () => this.save({ screen: 'calc' }),
       goInv: () => this.jumpTo('b-inv'),
+      chD: { gro: (st.chTab || 'gro') === 'gro' ? 'flex' : 'none', exp: st.chTab === 'exp' ? 'flex' : 'none' },
       chartJumps: [
-        ['Growth heatmap', 'c-gro'],
-        ['Expected stats', 'c-exp'],
-      ].map(([l, id]: any) => ({ l, go: () => this.jumpTo(id) })),
+        ['Growth heatmap', 'gro'],
+        ['Expected stats', 'exp'],
+      ].map(([l, k]: any) => {
+        const on = (st.chTab || 'gro') === k
+        return { l, on, bg: on ? t.panel2 : 'transparent', fg: on ? t.tx : t.mu, go: () => this.setState({ chTab: k }) }
+      }),
       goSaved: () => this.jumpTo('b-saved'),
       // roster
       q: st.q,
@@ -3503,7 +3637,7 @@ export class Codex extends Component<CodexProps, any> {
       },
       recChips: [
         ['all', 'All'],
-        ['star', '★ Starred'],
+        ['star', 'Starred'],
         ['yes', 'Recruited'],
         ['no', 'Unrecruited'],
       ].map(([id, l]: any) => {
@@ -3547,7 +3681,7 @@ export class Codex extends Component<CodexProps, any> {
             const r = isRec(c) && c.part <= P && !gone(c)
             return rf === 'yes' ? r : !r && c.part <= P && !gone(c)
           })
-          .filter((c?: any) => !st.q || (c.part <= P && (c.n + c.cls + c.fac).toLowerCase().includes(st.q.toLowerCase())))
+          .filter((c?: any) => !st.q || (c.part <= P && (c.n + ' ' + c.fac).toLowerCase().includes(st.q.toLowerCase())))
           .filter((c?: any) => !(hideLocked && c.part > P))
           .sort(
             (a?: any, b?: any) =>
@@ -3829,8 +3963,8 @@ export class Codex extends Component<CodexProps, any> {
             (LM.mov + AMOV && !isNaN(+B.k.mov) ? ' (' + B.k.mov + ' +' + (LM.mov + AMOV) + ' ability)' : '')
           : 'not recorded for ' + B.k.n
         : '',
-      pBarFlex: narrow ? '1 1 100%' : '1 1 110px',
-      pBarOrder: narrow ? 2 : 0,
+      pBarFlex: narrow ? '1 1 0' : '1 1 110px',
+      pBarOrder: narrow ? 1 : 0,
       tk28: narrow ? '36px' : '28px',
       tk24: narrow ? '32px' : '24px',
       tk30: narrow ? '36px' : '30px',
@@ -3963,7 +4097,7 @@ export class Codex extends Component<CodexProps, any> {
         }
         mkNew()
       },
-      buildsN: (onlyCur ? buildV.filter((b?: any) => b.c === cName) : buildV).length,
+      buildsN: buildV.filter(bF).length,
       clrItems: CLR.map((x?: any) => ({
         label: x.label,
         fg: x.k === 'all' ? 'oklch(0.75 0.14 25)' : 'var(--tx, #eee)',
@@ -4069,13 +4203,22 @@ export class Codex extends Component<CodexProps, any> {
       bOnlyBg: onlyCur ? t.panel2 : 'transparent',
       bOnlyBd: onlyCur ? t.ac : t.line,
       bOnlyLbl: (onlyCur ? '✓ ' : '') + 'Only ' + cName,
-      bOnlyTog: () => this.save({ bOnly: !st.bOnly }),
+      bOnlyTog: () => this.save({ bOnly: !st.bOnly, bRec: false, bStar: false }),
+      bRecBg: st.bRec ? t.panel2 : 'transparent',
+      bRecBd: st.bRec ? t.ac : t.line,
+      bRecLbl: (st.bRec ? '✓ ' : '') + 'Recruited',
+      bRecTog: () => this.save({ bRec: !st.bRec, bOnly: false, bStar: false }),
+      bStarBg: st.bStar ? t.panel2 : 'transparent',
+      bStarBd: st.bStar ? t.ac : t.line,
+      bStarLbl: (st.bStar ? '✓ ' : '') + 'Starred',
+      bStarTog: () => this.save({ bStar: !st.bStar, bOnly: false, bRec: false }),
       showCalc: st.screen === 'calc' || inPCalc,
       calcHeadDisp: inPCalc ? 'none' : 'flex',
       calcCharDisp: inPCalc ? 'none' : 'flex',
       calcTop: inPCalc ? '-8px' : '0',
       builds: (() => {
-        const disp = (onlyCur ? buildV.filter((b?: any) => b.c === cName) : buildV)
+        const disp = buildV
+          .filter(bF)
           .slice()
           .sort((a?: any, b?: any) => (b.star ? 1 : 0) - (a.star ? 1 : 0))
         const mv = (id?: any, to?: any) => {
@@ -5085,7 +5228,7 @@ export class Codex extends Component<CodexProps, any> {
         (kwp === 'All skills' || sk(k).includes(kwp)) &&
         (kf === 'All' ||
           (kf === 'Mounted' ? k.mounted : kf === 'Flier' ? k.fl : kf === 'Armor' ? isArm(k) : k.ut === 'infantry')) &&
-        (!kq || (k.n + ' ' + k.w + ' ' + sk(k).join(' ')).toLowerCase().includes(kq))
+        (!kq || k.n.toLowerCase().includes(kq))
       const list = d.classes.filter(match)
       const selN = list.find((k?: any) => k.n === st.ksel) ? st.ksel : (list[0] || {}).n
       {
@@ -5095,22 +5238,20 @@ export class Codex extends Component<CodexProps, any> {
         vals.headTitle =
           scn === 'profile'
             ? st.sel || 'Character'
-            : kopenNow
-              ? st.ksel || 'Class'
-              : ({
-                  roster: 'Characters',
-                  calc: 'Unit builder',
-                  compare: 'Compare builds',
-                  charts: 'Charts',
-                  match: 'Meal pairing',
-                  classes: 'Classes',
-                  abilities: 'Abilities',
-                  arts: 'Combat Arts',
-                  items: 'Items',
-                  settings: 'Settings',
-                } as any)[scn] || 'Weave Codex'
+            : ({
+                roster: 'Characters',
+                calc: 'Unit builder',
+                compare: 'Compare builds',
+                charts: 'Charts',
+                match: 'Meal pairing',
+                classes: 'Classes',
+                abilities: 'Abilities',
+                arts: 'Combat Arts',
+                items: 'Items',
+                settings: 'Settings',
+              } as any)[scn] || 'Weave Codex'
         vals.headBackOn = scn !== 'roster'
-        vals.headSub = scn === 'profile' ? 'Characters' : kopenNow ? 'Classes' : ''
+        vals.headSub = scn === 'profile' ? 'Characters' : ''
         vals.headSubOn = !!vals.headSub
         vals.backRosterDisp = narrow ? 'none' : 'block'
         {
@@ -5165,8 +5306,10 @@ export class Codex extends Component<CodexProps, any> {
           vals.hasCrumbs = !narrow && cr.length > 1
         }
         vals.headBack = () => {
-          if (kopenNow) this.save({ kopen: false })
-          else this.save({ screen: 'roster' })
+          if (kopenNow) {
+            if (history.state && history.state.kopen) history.back()
+            else this.save({ kopen: false })
+          } else this.save({ screen: 'roster' })
           window.scrollTo(0, 0)
           const r = this.rootRef.current
           if (r) r.scrollTop = 0
@@ -5400,11 +5543,135 @@ export class Codex extends Component<CodexProps, any> {
           : []
       }
       vals.h1Disp = narrow ? 'none' : 'block'
+      {
+        const on = !!(st.tip && st.tip.raw === 'statinfo')
+        vals.infoOn = on
+        vals.infoFg = on ? t.ac : t.mu
+        vals.infoTog = (ev?: any) => {
+          if (this.state.tip && this.state.tip.raw === 'statinfo') {
+            this.setState({ tip: null })
+            return
+          }
+          const r = ev.currentTarget.getBoundingClientRect(),
+            W = window.innerWidth,
+            H = window.innerHeight,
+            x = Math.max(12, Math.min(r.right - 300, W - 312)),
+            below = r.bottom + 320 < H
+          const lg: any = [
+            ['Character', 'var(--ac, oklch(0.8 0.11 75))'],
+            ['Class', 'oklch(0.74 0.1 185)'],
+            ...(vals.hasMst ? [['Mount', 'oklch(0.74 0.1 300)']] : []),
+            ...(vals.hasAb ? [['Bonus', 'oklch(0.78 0.12 150)']] : []),
+            ['Negative', 'oklch(0.74 0.12 30)'],
+          ]
+          this.setState({
+            tip: {
+              t: 'Average',
+              hasIc: false,
+              bgi: '',
+              sub: 'Per-stat breakdown',
+              body: vals.projAvg,
+              bodyCol: 'var(--tx, #eee)',
+              stats: [],
+              hasStats: false,
+              statNote: '',
+              note:
+                'Below / above avg: each level’s growth is a chance roll, real results may vary. Low and High show the below/above average outcomes likely to occur.' +
+                (vals.abNoteOn ? ' Ability bonuses (included above): ' + vals.abNote : ''),
+              who: 'Bar colors in the stat breakdown.',
+              whoLbl: 'Legend',
+              hasGroups: true,
+              whoGroups: lg.map(([rank, bgi]: any) => ({ rank: '', bgi, names: rank })),
+              hasSk: false,
+              skIcons: [],
+              hasGrids: false,
+              grids: [],
+              x: x + 'px',
+              y: (below ? r.bottom + 8 : r.top - 8) + 'px',
+              tf: below ? 'none' : 'translateY(-100%)',
+              raw: 'statinfo',
+            },
+          })
+        }
+      }
+      vals.jmOn = false
+      vals.jmOpen = false
+      vals.jmItems = []
+      vals.jmLabel = ''
+      vals.jmTog = () => {}
+      vals.jmClose = () => {}
       vals.topShow = !!st.topShow && narrow
       vals.toTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
         const r = this.rootRef.current
         if (r) r.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+      {
+        const SCa = ({
+          match: [
+            ['Setup', 'mx-setup'],
+            ['Suggested meals', 'mx-sug'],
+            ['Supports', 'mx-grid'],
+            ['Characters', 'mx-list'],
+          ],
+          calc: [
+            ['Unit setup', 'b-setup'],
+            ['Class path', 'b-class'],
+            ['Inventory', 'b-inv'],
+            ['Stats', 'b-stats'],
+            ['Growth rates', 'b-gro'],
+            ['Projected stats', 'b-proj'],
+            ['Saved builds', 'b-saved'],
+          ],
+        } as any)[st.screen]
+        this.spyKeys = null
+        vals.rlOn = false
+        vals.rl = []
+        if (SCa) {
+          const jo = (st.jord || '').split('|')
+          let SC = SCa.slice()
+          if (SC.some((x?: any) => jo.includes(x[1]))) {
+            SC = SC.filter((x?: any) => jo.includes(x[1])).sort((p?: any, q?: any) => jo.indexOf(p[1]) - jo.indexOf(q[1]))
+          }
+          const ks = SC.map((x?: any) => x[1])
+          this.spyKeys = ks
+          const spy = ks.includes(st.spy) ? st.spy : ks[0]
+          vals.rlOn = !narrow && st.screen === 'calc'
+          vals.rl = SC.map(([l, k]: any) => {
+            const on = k === spy
+            return {
+              l,
+              go: () => this.jumpTo(k),
+              dot: on ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--mu, oklch(0.78 0.035 120))',
+              dop: on ? 1 : 0.55,
+              lblD: on || st.jhv === k ? 'inline-block' : 'none',
+              enter: () => this.setState({ jhv: k }),
+              leave: () => this.setState({ jhv: null }),
+            }
+          })
+          if (narrow) {
+            const cl = () => this.setState({ jmOpen: false })
+            vals.jmOn = true
+            vals.topShow = false
+            vals.jmOpen = !!st.jmOpen
+            vals.jmLabel = (SC.find((x?: any) => x[1] === spy) || SC[0])[0]
+            vals.jmTog = () => this.setState({ jmOpen: !st.jmOpen })
+            vals.jmClose = cl
+            vals.jmItems = SC.map(([l, k]: any) => ({
+              l,
+              fg: k === spy ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--tx, #eee)',
+              bg: k === spy ? 'var(--panel2, oklch(0.25 0.012 60))' : 'transparent',
+              click: () => {
+                cl()
+                this.jumpTo(k)
+              },
+            }))
+            vals.jmTop = () => {
+              cl()
+              vals.toTop()
+            }
+          }
+        }
       }
       vals.isClasses = st.screen === 'classes'
       vals.kq = st.kq || ''
@@ -5526,17 +5793,23 @@ export class Codex extends Component<CodexProps, any> {
         .filter((g?: any) => g.items.length)
         .map((g?: any) => ({ ...g, n: g.items.length }))
       vals.kCols = narrow ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(340px,420px)'
-      vals.kPos = narrow ? 'relative' : 'sticky'
-      vals.kTop = narrow ? '0' : '120px'
-      vals.kMaxH = narrow ? 'none' : 'calc(100vh - 140px)'
+      vals.kPos = narrow ? 'fixed' : 'sticky'
+      vals.kTop = narrow ? 'auto' : '120px'
+      vals.kMaxH = narrow ? '80vh' : 'calc(100vh - 140px)'
+      vals.kSide = narrow ? '0' : 'auto'
+      vals.kZ = narrow ? '92' : 'auto'
+      vals.kPad = narrow ? '16px 20px calc(20px + env(safe-area-inset-bottom))' : '20px'
+      vals.kRad = narrow ? '16px 16px 0 0' : 'var(--r, 14px)'
+      vals.kSh = narrow ? '0 -18px 50px -12px rgba(0,0,0,.6)' : 'none'
       const k = d.classes.find((x?: any) => x.n === selN)
       vals.kHasSel = !!k
       const kOpen = narrow && !!st.kopen && !!k
       vals.kBackOn = kOpen
-      vals.kListDisp = kOpen ? 'none' : 'flex'
+      vals.kListDisp = 'flex'
       vals.kShowDetail = !!k && (!narrow || kOpen)
       vals.kBack = () => {
-        this.save({ kopen: false })
+        if (history.state && history.state.kopen) history.back()
+        else this.save({ kopen: false })
         const r = this.rootRef.current
         if (r) r.scrollTop = 0
       }
@@ -5756,8 +6029,20 @@ export class Codex extends Component<CodexProps, any> {
         return {
           ren: parseInt(rr.ren) || 0,
           sl: parseInt(rr.sup) || 0,
+          reqL: (() => {
+            const q = reqRec(c)
+            if (!q) return []
+            const n = parseInt(q.ren)
+            return [n ? 'Renown ' + n : '', q.sup ? 'Support ' + q.sup : ''].filter(Boolean)
+          })(),
           n: c.n,
-          sups: ss.map(({ o, s }: any) => ({ ...s, l: o.n + ' · ' + s.l.replace('Rank ', ''), w: '0px' })),
+          sups: ss.map(({ o, s }: any) => ({
+            ...s,
+            l: o.n + ' · ' + s.l.replace('Rank ', ''),
+            nm: o.n,
+            rk: s.l.replace('Rank ', ''),
+            w: '0px',
+          })),
           has: ss.some((x?: any) => x.s.has),
           cnt: oth.length
             ? (() => {
@@ -5842,6 +6127,18 @@ export class Codex extends Component<CodexProps, any> {
         }))
       const pm = slots.map((c?: any, i?: any) => ({ lbl: mxHead[i], m: c && meal ? mop(c) : { l: '—', col: mxMute, w: '76px' } }))
       vals.mx = {
+        tileCols: narrow ? 'minmax(0,1fr) auto' : 'repeat(auto-fit,minmax(min(100%,200px),1fr))',
+        mxHeadB: [c1n, c2n, c3n].map((n?: any, i?: any) => ({
+          l: n || (narrow ? 'Pick ' + (i + 1) : 'Character ' + (i + 1)),
+          fg: n ? 'var(--tx, #eee)' : 'var(--ac, oklch(0.8 0.11 75))',
+          bs: n ? 'solid' : 'dashed',
+          bd: n ? 'var(--line, oklch(0.29 0.012 60))' : 'var(--ac, oklch(0.8 0.11 75))',
+          ar: n ? '' : ' ↓',
+          go: () => {
+            const has = n && [...document.querySelectorAll('[data-jump="mx:' + n + '"]')].some((e?: any) => e.offsetParent)
+            this.jumpTo(has ? 'mx:' + n : 'mx-filters')
+          },
+        })),
         sortBtns: [
           sortBtn('sup', 'Support'),
           sortBtn('cnt', 'Common supports'),
@@ -5849,12 +6146,27 @@ export class Codex extends Component<CodexProps, any> {
           ...(P < 3 ? [sortBtn('ren', 'Renown', 1), sortBtn('sl', 'Support lvl', 1)] : []),
         ],
         showReq: !narrow && P < 3,
+        reqLD: narrow && P < 3 ? 'flex' : 'none',
+        lblReqD: 'none',
         meal: meal || '—',
         meals: ['—', ...meals],
         hasMeal: !!meal,
         mxHead,
         mxRows,
         mxCols: 'minmax(70px,.8fr) repeat(3,minmax(0,1fr))',
+        mxSel: [
+          [c1n, 'c1', [c2n, c3n]],
+          [c2n, 'c2', [c1n, c3n]],
+          [c3n, 'c3', [c1n, c2n]],
+        ].map(([cur, k, ex]: any, i?: any) => ({
+          v: cur || '—',
+          ph: 'Character ' + (i + 1),
+          opts: [
+            { v: '—', l: 'Character ' + (i + 1) },
+            ...names.filter((n?: any) => !ex.includes(n)).map((n?: any) => ({ v: n, l: n })),
+          ],
+          on: (e?: any) => this.save({ mx: { ...MX, [k]: e.target.value === '—' ? '' : e.target.value } }),
+        })),
         hasSug: sug.length > 0,
         sug,
         sugCols: narrow ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,2.4fr)',
@@ -5895,12 +6207,52 @@ export class Codex extends Component<CodexProps, any> {
         allBg: !all ? t.panel2 : 'transparent',
         allFg: !all ? t.tx : t.mu,
         cols: narrow
-          ? 'minmax(0,1fr)'
+          ? 'minmax(0,2fr) minmax(0,1fr)'
           : P < 3
             ? 'minmax(0,1fr) minmax(0,1.3fr) minmax(0,.7fr) minmax(0,.7fr) minmax(0,.5fr) minmax(0,.6fr)'
             : 'minmax(0,1fr) minmax(0,1.3fr) minmax(0,.7fr) minmax(0,.7fr)',
-        chipO: narrow ? 3 : 0,
-        chipCol: narrow ? '1 / -1' : 'auto',
+        nameCol: narrow ? '1 / -1' : 'auto',
+        repOn: !!st.mxRep && !!(c1n && c2n && c3n),
+        repName: st.mxRep || '',
+        repClose: () => this.setState({ mxRep: null }),
+        repOpts: [
+          ['c1', c1n],
+          ['c2', c2n],
+          ['c3', c3n],
+        ].map(([k, n]: any) => ({
+          n,
+          go: () => {
+            this.save({ mx: { ...MX, [k]: st.mxRep } })
+            this.setState({ mxRep: null })
+          },
+        })),
+        cmnD: narrow ? 'none' : 'flex',
+        sugWrap: narrow ? 'nowrap' : 'wrap',
+        sugOv: narrow ? 'auto' : 'visible',
+        sugFs: narrow ? '11px/1.3' : '12px/1.3',
+        sortD: narrow ? 'flex' : 'none',
+        sortTabs: [
+          ['sup', 'Support'],
+          ['cnt', 'Common'],
+          ['meal', 'Meal'],
+          ...(P < 3
+            ? [
+                ['ren', 'Renown'],
+                ['sl', 'Sup lvl'],
+              ]
+            : []),
+        ].map(([k, l]: any) => {
+          const on = MX.sort === k
+          return {
+            l,
+            on,
+            bg: on ? t.panel2 : 'transparent',
+            fg: on ? t.tx : t.mu,
+            click: () => this.save({ mx: { ...MX, sort: on ? '' : k } }),
+          }
+        }),
+        lblD: narrow && !!(c1n || c2n || c3n) ? 'block' : 'none',
+        lblMealD: narrow && !!meal ? 'block' : 'none',
         headDisp: narrow ? 'none' : 'grid',
         empty: !list.length,
         rows: list.map((r?: any) => ({
@@ -5910,7 +6262,11 @@ export class Codex extends Component<CodexProps, any> {
           slTxt: r.sl ? r.sl : '—',
           sc: r.score >= 8 ? 'oklch(0.78 0.1 150)' : r.score < 0 ? 'oklch(0.74 0.12 30)' : 'var(--tx, #eee)',
           bg: [c1n, c2n, c3n].includes(r.n) ? t.panel2 : 'transparent',
-          pick: () =>
+          pick: () => {
+            if (c1n && c2n && c3n && ![c1n, c2n, c3n].includes(r.n)) {
+              this.setState({ mxRep: r.n })
+              return
+            }
             this.save({
               mx: {
                 ...MX,
@@ -5926,7 +6282,8 @@ export class Codex extends Component<CodexProps, any> {
                           ? { c2: r.n }
                           : { c3: r.n }),
               },
-            }),
+            })
+          },
           open: (e?: any) => {
             e.stopPropagation()
             open(r.n)()
@@ -6184,7 +6541,15 @@ export class Codex extends Component<CodexProps, any> {
             !(p.scrollHeight > p.clientHeight + 2 && /(auto|scroll)/.test(getComputedStyle(p).overflowY))
           )
             p = p.parentElement
-          const dy = el.getBoundingClientRect().top - 16
+          let off = 16
+          document.querySelectorAll('header,div,nav').forEach((h?: any) => {
+            if (h.contains(el)) return
+            const cs = getComputedStyle(h)
+            if (cs.position !== 'sticky' && cs.position !== 'fixed') return
+            const b = h.getBoundingClientRect()
+            if (b.top <= 1 && b.bottom > 0 && b.bottom < 220 && b.width > 200) off = Math.max(off, b.bottom + 10)
+          })
+          const dy = el.getBoundingClientRect().top - off
           if (p && p !== document.body) p.scrollBy({ top: dy, behavior: 'smooth' })
           else window.scrollBy({ top: dy, behavior: 'smooth' })
         }
@@ -6203,7 +6568,54 @@ export class Codex extends Component<CodexProps, any> {
         ]
           .filter((x?: any) => x[2])
           .map(([l, k]: any) => ({ l, k, go: go(k) }))
-        vals.p.hasJumps = vals.p.jumps.length > 0
+        const isP = st.screen === 'profile'
+        const pkeys = vals.p.jumps.map((j?: any) => j.k)
+        if (isP) this.spyKeys = pkeys
+        const jo = (st.jord || '').split('|')
+        vals.p.jumps = vals.p.jumps.slice().sort((p?: any, q?: any) => {
+          const x = jo.indexOf(p.k),
+            y = jo.indexOf(q.k)
+          return (x < 0 ? 99 : x) - (y < 0 ? 99 : y)
+        })
+        const spy = pkeys.includes(st.spy) ? st.spy : (vals.p.jumps[0] || {}).k
+        vals.p.jumps = vals.p.jumps.map((j?: any) => {
+          const on = j.k === spy,
+            sh = !narrow && (on || st.jhv === j.k)
+          return {
+            ...j,
+            dot: on ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--mu, oklch(0.78 0.035 120))',
+            dop: on ? 1 : 0.55,
+            lblD: sh ? 'inline-block' : 'none',
+            enter: () => this.setState({ jhv: j.k }),
+            leave: () => this.setState({ jhv: null }),
+          }
+        })
+        vals.p.railR = '10px'
+        vals.p.railH = '26px'
+        vals.p.hasJumps = !narrow && vals.p.jumps.length > 0
+        if (isP && narrow && vals.p.jumps.length) {
+          const cur = vals.p.jumps.find((j?: any) => j.k === spy) || vals.p.jumps[0]
+          const cl = () => this.setState({ jmOpen: false })
+          vals.jmOn = true
+          vals.topShow = false
+          vals.jmOpen = !!st.jmOpen
+          vals.jmLabel = cur.l
+          vals.jmTog = () => this.setState({ jmOpen: !st.jmOpen })
+          vals.jmClose = cl
+          vals.jmItems = vals.p.jumps.map((j?: any) => ({
+            l: j.l,
+            fg: j.k === spy ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--tx, #eee)',
+            bg: j.k === spy ? 'var(--panel2, oklch(0.25 0.012 60))' : 'transparent',
+            click: () => {
+              cl()
+              j.go()
+            },
+          }))
+          vals.jmTop = () => {
+            cl()
+            vals.toTop()
+          }
+        }
       }
       {
         const bb0 = c.base || c.lv1e,

@@ -551,6 +551,78 @@ export function SettingsScreen({ v }: { v: VM }) {
             ))}
           </div>
         </div>
+        {v.navOptOn ? (
+          <>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0',
+                padding: '20px',
+                borderRadius: 'var(--r, 14px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+              }}
+            >
+              <span
+                style={{
+                  font: "500 10px/1 'IBM Plex Mono',monospace",
+                  letterSpacing: '.14em',
+                  textTransform: 'uppercase',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
+                  marginBottom: '6px',
+                }}
+              >
+                Navigation
+              </span>
+              <span
+                style={{
+                  fontSize: '12px',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
+                  marginBottom: '16px',
+                  textWrap: 'pretty',
+                }}
+              >
+                Wide screens only. Phones always use the bottom bar.
+              </span>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '2px',
+                  padding: '3px',
+                  borderRadius: '8px',
+                  background: 'var(--bg, oklch(0.16 0.01 60))',
+                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  alignSelf: 'flex-start',
+                }}
+              >
+                {L(v.navOpts).map((o: any, $index: number) => (
+                  <Fragment key={$index}>
+                    <button
+                      onClick={o?.click}
+                      aria-pressed={o?.on}
+                      style={
+                        {
+                          minHeight: '36px',
+                          padding: '0 12px',
+                          border: '0',
+                          borderRadius: '6px',
+                          background: str(o?.bg),
+                          color: str(o?.fg),
+                          cursor: 'pointer',
+                          fontSize: '12px',
+                        } as CSSProperties
+                      }
+                    >
+                      {T(o?.l)}
+                    </button>
+                  </Fragment>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : null}
         <div
           style={{
             display: 'flex',

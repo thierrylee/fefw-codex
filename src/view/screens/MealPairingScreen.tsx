@@ -16,15 +16,18 @@ export function MealPairingScreen({ v }: { v: VM }) {
           </span>
         </div>
         <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,200px),1fr))',
-            gap: '12px 16px',
-            padding: '16px',
-            borderRadius: 'var(--r, 14px)',
-            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-            background: 'var(--panel, oklch(0.2 0.01 60))',
-          }}
+          data-jump="mx-setup"
+          style={
+            {
+              display: 'grid',
+              gridTemplateColumns: str(v.mx?.tileCols),
+              gap: '12px 16px',
+              padding: '16px',
+              borderRadius: 'var(--r, 14px)',
+              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              background: 'var(--panel, oklch(0.2 0.01 60))',
+            } as CSSProperties
+          }
         >
           <label style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <span
@@ -63,117 +66,6 @@ export function MealPairingScreen({ v }: { v: VM }) {
               ))}
             </select>
           </label>
-          <label style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <span
-              style={{
-                font: "500 10px/1 'IBM Plex Mono',monospace",
-                letterSpacing: '.14em',
-                textTransform: 'uppercase',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
-              }}
-            >
-              Character 1
-            </span>
-            <select
-              key={v.mx?.c1}
-              value={v.mx?.c1 ?? ''}
-              onChange={v.mx?.onC1}
-              style={{
-                width: '100%',
-                maxWidth: '100%',
-                minWidth: '0',
-                boxSizing: 'border-box',
-                padding: '8px 12px',
-                borderRadius: '999px',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                background: 'var(--panel)',
-                color: 'var(--tx)',
-                colorScheme: 'dark',
-                font: 'inherit',
-                fontSize: '13px',
-              }}
-            >
-              {L(v.mx?.c1Opts).map((o: any, $index: number) => (
-                <Fragment key={$index}>
-                  <option value={o ?? ''}>{T(o)}</option>
-                </Fragment>
-              ))}
-            </select>
-          </label>
-          <label style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <span
-              style={{
-                font: "500 10px/1 'IBM Plex Mono',monospace",
-                letterSpacing: '.14em',
-                textTransform: 'uppercase',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
-              }}
-            >
-              Character 2
-            </span>
-            <select
-              key={v.mx?.c2}
-              value={v.mx?.c2 ?? ''}
-              onChange={v.mx?.onC2}
-              style={{
-                width: '100%',
-                maxWidth: '100%',
-                minWidth: '0',
-                boxSizing: 'border-box',
-                padding: '8px 12px',
-                borderRadius: '999px',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                background: 'var(--panel)',
-                color: 'var(--tx)',
-                colorScheme: 'dark',
-                font: 'inherit',
-                fontSize: '13px',
-              }}
-            >
-              {L(v.mx?.c2Opts).map((o: any, $index: number) => (
-                <Fragment key={$index}>
-                  <option value={o ?? ''}>{T(o)}</option>
-                </Fragment>
-              ))}
-            </select>
-          </label>
-          <label style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <span
-              style={{
-                font: "500 10px/1 'IBM Plex Mono',monospace",
-                letterSpacing: '.14em',
-                textTransform: 'uppercase',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
-              }}
-            >
-              Character 3
-            </span>
-            <select
-              key={v.mx?.c3}
-              value={v.mx?.c3 ?? ''}
-              onChange={v.mx?.onC3}
-              style={{
-                width: '100%',
-                maxWidth: '100%',
-                minWidth: '0',
-                boxSizing: 'border-box',
-                padding: '8px 12px',
-                borderRadius: '999px',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                background: 'var(--panel)',
-                color: 'var(--tx)',
-                colorScheme: 'dark',
-                font: 'inherit',
-                fontSize: '13px',
-              }}
-            >
-              {L(v.mx?.c3Opts).map((o: any, $index: number) => (
-                <Fragment key={$index}>
-                  <option value={o ?? ''}>{T(o)}</option>
-                </Fragment>
-              ))}
-            </select>
-          </label>
           <div style={{ display: 'flex', alignItems: 'flex-end' }}>
             <button
               onClick={v.mx?.reset}
@@ -193,82 +85,10 @@ export function MealPairingScreen({ v }: { v: VM }) {
             </button>
           </div>
         </div>
-        {v.mx?.hasSug ? (
-          <>
-            <div
-              style={{
-                borderRadius: 'var(--r, 14px)',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                overflow: 'hidden',
-              }}
-            >
-              <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))' }}>
-                <span
-                  style={{
-                    font: "500 10px/1 'IBM Plex Mono',monospace",
-                    letterSpacing: '.14em',
-                    textTransform: 'uppercase',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
-                  }}
-                >
-                  Suggested meals
-                </span>
-              </div>
-              {L(v.mx?.sug).map((g: any, $index: number) => (
-                <Fragment key={$index}>
-                  <div
-                    onClick={g?.pick}
-                    style={
-                      {
-                        display: 'grid',
-                        gridTemplateColumns: str(v.mx?.sugCols),
-                        gap: '8px 12px',
-                        alignItems: 'center',
-                        padding: '10px 12px',
-                        minHeight: '44px',
-                        boxSizing: 'border-box',
-                        borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
-                        cursor: 'pointer',
-                      } as CSSProperties
-                    }
-                    className="hv-18"
-                  >
-                    <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(g?.m)}</span>
-                    <span style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                      {L(g?.ops).map((q: any, $index: number) => (
-                        <Fragment key={$index}>
-                          <span
-                            style={
-                              {
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                boxSizing: 'border-box',
-                                minWidth: str(q?.w),
-                                padding: '3px 9px',
-                                borderRadius: '999px',
-                                border: `1px solid ${str(q?.col)}`,
-                                color: str(q?.col),
-                                fontSize: '12px',
-                                whiteSpace: 'nowrap',
-                              } as CSSProperties
-                            }
-                          >
-                            {T(q?.l)}
-                          </span>
-                        </Fragment>
-                      ))}
-                    </span>
-                  </div>
-                </Fragment>
-              ))}
-            </div>
-          </>
-        ) : null}
         {v.mx?.hasPair ? (
           <>
             <div
+              data-jump="mx-grid"
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,160px),1fr))',
@@ -312,23 +132,40 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     Supports
                   </span>
                 </div>
-                {L(v.mx?.mxHead).map((h: any, $index: number) => (
+                {L(v.mx?.mxHeadB).map((h: any, $index: number) => (
                   <Fragment key={$index}>
                     <div
                       style={{
-                        padding: '8px',
+                        padding: '6px 4px',
                         borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
                         minWidth: '0',
-                        fontWeight: '600',
-                        fontSize: '12px',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
                       }}
                     >
-                      {T(h)}
+                      <button
+                        onClick={h?.go}
+                        style={
+                          {
+                            flex: '1',
+                            minWidth: '0',
+                            minHeight: '32px',
+                            padding: '0 8px',
+                            borderRadius: '999px',
+                            border: `1px ${str(h?.bs)} ${str(h?.bd)}`,
+                            background: 'transparent',
+                            color: str(h?.fg),
+                            font: "600 12px 'IBM Plex Sans',sans-serif",
+                            cursor: 'pointer',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                          } as CSSProperties
+                        }
+                        className="hv-18"
+                      >
+                        {T(h?.l)}
+                        {T(h?.ar)}
+                      </button>
                     </div>
                   </Fragment>
                 ))}
@@ -365,16 +202,8 @@ export function MealPairingScreen({ v }: { v: VM }) {
                           <span
                             style={
                               {
-                                display: 'inline-flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                boxSizing: 'border-box',
-                                minWidth: str(q?.w),
-                                padding: '3px 9px',
-                                borderRadius: '999px',
-                                border: `1px solid ${str(q?.col)}`,
+                                font: "600 13px/1 'IBM Plex Mono',monospace",
                                 color: str(q?.col),
-                                fontSize: '12px',
                                 whiteSpace: 'nowrap',
                               } as CSSProperties
                             }
@@ -386,39 +215,120 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     ))}
                   </Fragment>
                 ))}
-              </div>
-              {L(v.mx?.pm).map((q: any, $index: number) => (
-                <Fragment key={$index}>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
-                    <span
+                <div
+                  style={{
+                    padding: '8px',
+                    borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    minWidth: '0',
+                    fontWeight: '600',
+                    fontSize: '12px',
+                  }}
+                >
+                  Meal
+                </div>
+                {L(v.mx?.pm).map((q: any, $index: number) => (
+                  <Fragment key={$index}>
+                    <div
                       style={{
-                        font: "500 10px/1 'IBM Plex Mono',monospace",
-                        letterSpacing: '.14em',
-                        textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        padding: '8px',
+                        borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minWidth: '0',
                       }}
                     >
-                      {T(q?.lbl)}
-                      {' · meal'}
-                    </span>
+                      <span
+                        style={
+                          {
+                            font: "600 13px/1 'IBM Plex Mono',monospace",
+                            color: str(q?.m?.col),
+                            whiteSpace: 'nowrap',
+                          } as CSSProperties
+                        }
+                      >
+                        {T(q?.m?.l)}
+                      </span>
+                    </div>
+                  </Fragment>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : null}
+        {v.mx?.hasSug ? (
+          <>
+            <div
+              data-jump="mx-sug"
+              style={{
+                borderRadius: 'var(--r, 14px)',
+                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                background: 'var(--panel, oklch(0.2 0.01 60))',
+                overflow: 'hidden',
+              }}
+            >
+              <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))' }}>
+                <span
+                  style={{
+                    font: "500 10px/1 'IBM Plex Mono',monospace",
+                    letterSpacing: '.14em',
+                    textTransform: 'uppercase',
+                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                  }}
+                >
+                  Suggested meals
+                </span>
+              </div>
+              {L(v.mx?.sug).map((g: any, $index: number) => (
+                <Fragment key={$index}>
+                  <div
+                    onClick={g?.pick}
+                    style={
+                      {
+                        display: 'grid',
+                        gridTemplateColumns: str(v.mx?.sugCols),
+                        gap: '2px 12px',
+                        alignItems: 'center',
+                        padding: '8px 12px',
+                        minHeight: '40px',
+                        boxSizing: 'border-box',
+                        borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        cursor: 'pointer',
+                      } as CSSProperties
+                    }
+                    className="hv-19"
+                  >
+                    <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(g?.m)}</span>
                     <span
                       style={
                         {
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          boxSizing: 'border-box',
-                          minWidth: str(q?.m?.w),
-                          padding: '3px 9px',
-                          borderRadius: '999px',
-                          border: `1px solid ${str(q?.m?.col)}`,
-                          color: str(q?.m?.col),
-                          fontSize: '12px',
-                          whiteSpace: 'nowrap',
+                          display: 'flex',
+                          flexWrap: str(v.mx?.sugWrap),
+                          overflowX: str(v.mx?.sugOv),
+                          scrollbarWidth: 'none',
+                          gap: '2px 12px',
+                          minWidth: '0',
                         } as CSSProperties
                       }
                     >
-                      {T(q?.m?.l)}
+                      {L(g?.ops).map((q: any, $index: number) => (
+                        <Fragment key={$index}>
+                          <span
+                            style={
+                              {
+                                font: `500 ${str(v.mx?.sugFs)} 'IBM Plex Mono',monospace`,
+                                color: str(q?.col),
+                                whiteSpace: 'nowrap',
+                              } as CSSProperties
+                            }
+                          >
+                            {T(q?.l)}
+                          </span>
+                        </Fragment>
+                      ))}
                     </span>
                   </div>
                 </Fragment>
@@ -427,6 +337,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
           </>
         ) : null}
         <div
+          data-jump="mx-filters"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -436,15 +347,25 @@ export function MealPairingScreen({ v }: { v: VM }) {
           }}
         >
           <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(v.mx?.count)}</span>
-          <span style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <span
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '2px',
+              padding: '3px',
+              borderRadius: '8px',
+              background: 'var(--bg, oklch(0.16 0.01 60))',
+              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+            }}
+          >
             <button
               onClick={v.mx?.toggleAll}
               style={
                 {
                   minHeight: '36px',
-                  padding: '0 14px',
-                  borderRadius: '999px',
-                  border: `1px solid ${str(v.mx?.allBd)}`,
+                  padding: '0 12px',
+                  border: '0',
+                  borderRadius: '6px',
                   background: str(v.mx?.allBg),
                   color: str(v.mx?.allFg),
                   cursor: 'pointer',
@@ -452,16 +373,16 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 } as CSSProperties
               }
             >
-              Support only
+              Support
             </button>
             <button
               onClick={v.mx?.toggleUnrec}
               style={
                 {
                   minHeight: '36px',
-                  padding: '0 14px',
-                  borderRadius: '999px',
-                  border: `1px solid ${str(v.mx?.unBd)}`,
+                  padding: '0 12px',
+                  border: '0',
+                  borderRadius: '6px',
                   background: str(v.mx?.unBg),
                   color: str(v.mx?.unFg),
                   cursor: 'pointer',
@@ -469,16 +390,16 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 } as CSSProperties
               }
             >
-              Unrecruited only
+              Unrecruited
             </button>
             <button
               onClick={v.mx?.toggleRec}
               style={
                 {
                   minHeight: '36px',
-                  padding: '0 14px',
-                  borderRadius: '999px',
-                  border: `1px solid ${str(v.mx?.rcBd)}`,
+                  padding: '0 12px',
+                  border: '0',
+                  borderRadius: '6px',
                   background: str(v.mx?.rcBg),
                   color: str(v.mx?.rcFg),
                   cursor: 'pointer',
@@ -486,16 +407,16 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 } as CSSProperties
               }
             >
-              Recruited only
+              Recruited
             </button>
             <button
               onClick={v.mx?.toggleStar}
               style={
                 {
                   minHeight: '36px',
-                  padding: '0 14px',
-                  borderRadius: '999px',
-                  border: `1px solid ${str(v.mx?.stBd)}`,
+                  padding: '0 12px',
+                  border: '0',
+                  borderRadius: '6px',
                   background: str(v.mx?.stBg),
                   color: str(v.mx?.stFg),
                   cursor: 'pointer',
@@ -503,11 +424,68 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 } as CSSProperties
               }
             >
-              Starred only
+              Starred
             </button>
           </span>
         </div>
         <div
+          style={
+            {
+              display: str(v.mx?.sortD),
+              alignItems: 'center',
+              gap: '10px',
+              flexWrap: 'wrap',
+              marginBottom: '-6px',
+            } as CSSProperties
+          }
+        >
+          <span
+            style={{
+              font: "500 10px/1 'IBM Plex Mono',monospace",
+              letterSpacing: '.14em',
+              textTransform: 'uppercase',
+              color: 'var(--mu, oklch(0.7 0.01 70))',
+            }}
+          >
+            Sort by
+          </span>
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: '2px',
+              padding: '3px',
+              borderRadius: '8px',
+              background: 'var(--bg, oklch(0.16 0.01 60))',
+              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+            }}
+          >
+            {L(v.mx?.sortTabs).map((b: any, $index: number) => (
+              <Fragment key={$index}>
+                <button
+                  onClick={b?.click}
+                  aria-pressed={b?.on}
+                  style={
+                    {
+                      minHeight: '36px',
+                      padding: '0 12px',
+                      border: '0',
+                      borderRadius: '6px',
+                      background: str(b?.bg),
+                      color: str(b?.fg),
+                      cursor: 'pointer',
+                      fontSize: '12px',
+                    } as CSSProperties
+                  }
+                >
+                  {T(b?.l)}
+                </button>
+              </Fragment>
+            ))}
+          </div>
+        </div>
+        <div
+          data-jump="mx-list"
           style={{
             borderRadius: 'var(--r, 14px)',
             border: '1px solid var(--line, oklch(0.29 0.012 60))',
@@ -563,6 +541,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
           {L(v.mx?.rows).map((r: any, $index: number) => (
             <Fragment key={$index}>
               <div
+                data-jump={`mx:${str(r?.n)}`}
                 onClick={r?.pick}
                 style={
                   {
@@ -578,123 +557,163 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     background: str(r?.bg),
                   } as CSSProperties
                 }
-                className="hv-18"
+                className="hv-19"
               >
-                <span style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}>
-                  <span style={{ fontWeight: '600', fontSize: '13px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {T(r?.n)}
-                  </span>
-                  <button
-                    onClick={r?.open}
-                    title="View profile"
-                    style={{
-                      flex: 'none',
-                      height: '28px',
-                      padding: '0 10px',
-                      borderRadius: '999px',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                      background: 'transparent',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
-                      cursor: 'pointer',
-                      fontSize: '12px',
-                      lineHeight: '1',
-                    }}
-                    className="hv-16"
-                  >
-                    Profile
-                  </button>
-                </span>
                 <span
                   style={
                     {
-                      order: str(v.mx?.chipO),
-                      gridColumn: str(v.mx?.chipCol),
+                      gridColumn: str(v.mx?.nameCol),
                       display: 'flex',
-                      flexWrap: 'wrap',
-                      gap: '8px',
-                    } as CSSProperties
-                  }
-                >
-                  {L(r?.sups).map((q: any, $index: number) => (
-                    <Fragment key={$index}>
-                      <span
-                        style={
-                          {
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxSizing: 'border-box',
-                            minWidth: str(q?.w),
-                            padding: '3px 9px',
-                            borderRadius: '999px',
-                            border: `1px solid ${str(q?.col)}`,
-                            color: str(q?.col),
-                            fontSize: '12px',
-                            whiteSpace: 'nowrap',
-                          } as CSSProperties
-                        }
-                      >
-                        {T(q?.l)}
-                      </span>
-                    </Fragment>
-                  ))}
-                </span>
-                <span
-                  style={
-                    {
-                      order: str(v.mx?.chipO),
-                      font: "500 12px/1 'IBM Plex Mono',monospace",
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
-                    } as CSSProperties
-                  }
-                >
-                  {T(r?.cntTxt)}
-                </span>
-                <span
-                  style={
-                    {
-                      order: str(v.mx?.chipO),
-                      gridColumn: str(v.mx?.chipCol),
-                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
                       minWidth: '0',
                     } as CSSProperties
                   }
                 >
-                  {v.mx?.hasMeal ? (
-                    <>
-                      <span
-                        style={
-                          {
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxSizing: 'border-box',
-                            minWidth: str(r?.meal?.w),
-                            padding: '3px 9px',
-                            borderRadius: '999px',
-                            border: `1px solid ${str(r?.meal?.col)}`,
-                            color: str(r?.meal?.col),
-                            fontSize: '12px',
+                  <span style={{ fontWeight: '600', fontSize: '13px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {T(r?.n)}
+                  </span>
+                  <span
+                    style={
+                      {
+                        display: str(v.mx?.reqLD),
+                        marginLeft: 'auto',
+                        flexDirection: 'column',
+                        alignItems: 'flex-end',
+                        gap: '3px',
+                      } as CSSProperties
+                    }
+                  >
+                    {L(r?.reqL).map((x: any, $index: number) => (
+                      <Fragment key={$index}>
+                        <span
+                          style={{
+                            font: "500 10px/1 'IBM Plex Mono',monospace",
+                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            textAlign: 'right',
                             whiteSpace: 'nowrap',
-                          } as CSSProperties
-                        }
-                      >
-                        {T(r?.meal?.l)}
-                      </span>
-                    </>
-                  ) : null}
+                          }}
+                        >
+                          {T(x)}
+                        </span>
+                      </Fragment>
+                    ))}
+                  </span>
+                </span>
+                <span style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '0' }}>
+                  <span
+                    style={
+                      {
+                        display: str(v.mx?.lblD),
+                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                        letterSpacing: '.14em',
+                        textTransform: 'uppercase',
+                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                      } as CSSProperties
+                    }
+                  >
+                    {'Support '}
+                    <span style={{ letterSpacing: '.04em', textTransform: 'none' }}>
+                      ({T(r?.cntTxt)}
+                      {' common)'}
+                    </span>
+                  </span>
+                  <span style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 18px' }}>
+                    {L(r?.sups).map((q: any, $index: number) => (
+                      <Fragment key={$index}>
+                        <span style={{ font: "500 12px/1.3 'IBM Plex Mono',monospace", whiteSpace: 'nowrap' }}>
+                          <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(q?.nm)}</span>{' '}
+                          <span style={{ fontWeight: '600', color: str(q?.col) } as CSSProperties}>{T(q?.rk)}</span>
+                        </span>
+                      </Fragment>
+                    ))}
+                  </span>
+                </span>
+                <span
+                  style={
+                    { display: str(v.mx?.cmnD), flexDirection: 'column', gap: '6px', minWidth: '0' } as CSSProperties
+                  }
+                >
+                  <span style={{ display: 'none' }}></span>
+                  <span
+                    style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                  >
+                    {T(r?.cntTxt)}
+                  </span>
+                </span>
+                <span style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '0' }}>
+                  <span
+                    style={
+                      {
+                        display: str(v.mx?.lblMealD),
+                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                        letterSpacing: '.14em',
+                        textTransform: 'uppercase',
+                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                      } as CSSProperties
+                    }
+                  >
+                    Meal
+                  </span>
+                  <span style={{ display: 'flex', minWidth: '0' }}>
+                    {v.mx?.hasMeal ? (
+                      <>
+                        <span
+                          style={
+                            {
+                              font: "600 12px/1.3 'IBM Plex Mono',monospace",
+                              color: str(r?.meal?.col),
+                              whiteSpace: 'nowrap',
+                            } as CSSProperties
+                          }
+                        >
+                          {T(r?.meal?.l)}
+                        </span>
+                      </>
+                    ) : null}
+                  </span>
                 </span>
                 {v.mx?.showReq ? (
                   <>
-                    <span
-                      style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
-                    >
-                      {T(r?.renTxt)}
+                    <span style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '0' }}>
+                      <span
+                        style={
+                          {
+                            display: str(v.mx?.lblReqD),
+                            font: "500 10px/1 'IBM Plex Mono',monospace",
+                            letterSpacing: '.14em',
+                            textTransform: 'uppercase',
+                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                          } as CSSProperties
+                        }
+                      >
+                        Renown
+                      </span>
+                      <span
+                        style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                      >
+                        {T(r?.renTxt)}
+                      </span>
                     </span>
-                    <span
-                      style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
-                    >
-                      {T(r?.slTxt)}
+                    <span style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '0' }}>
+                      <span
+                        style={
+                          {
+                            display: str(v.mx?.lblReqD),
+                            font: "500 10px/1 'IBM Plex Mono',monospace",
+                            letterSpacing: '.14em',
+                            textTransform: 'uppercase',
+                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                          } as CSSProperties
+                        }
+                      >
+                        Sup lvl
+                      </span>
+                      <span
+                        style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                      >
+                        {T(r?.slTxt)}
+                      </span>
                     </span>
                   </>
                 ) : null}
@@ -704,7 +723,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
           {v.mx?.empty ? (
             <>
               <div style={{ padding: '24px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
-                No characters with a support to the selected yet. Turn off Support only to list everyone.
+                No characters with a support to the selected yet. Turn off Support to list everyone.
               </div>
             </>
           ) : null}

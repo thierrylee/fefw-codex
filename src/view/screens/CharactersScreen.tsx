@@ -74,7 +74,7 @@ export function CharactersScreen({ v }: { v: VM }) {
               <input
                 value={v.q ?? ''}
                 onChange={v.onQ}
-                placeholder="Search name, class, faction"
+                placeholder="Search name or faction"
                 style={{
                   width: '100%',
                   boxSizing: 'border-box',
@@ -111,16 +111,27 @@ export function CharactersScreen({ v }: { v: VM }) {
                 ×
               </button>
             </span>
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '2px',
+                padding: '3px',
+                borderRadius: '8px',
+                background: 'var(--bg, oklch(0.16 0.01 60))',
+                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              }}
+            >
               {L(v.recChips).map((t: any, $index: number) => (
                 <Fragment key={$index}>
                   <button
                     onClick={t?.click}
                     style={
                       {
-                        padding: '7px 12px',
-                        borderRadius: '999px',
-                        border: `1px solid ${str(t?.bd)}`,
+                        minHeight: '36px',
+                        padding: '0 12px',
+                        border: '0',
+                        borderRadius: '6px',
                         background: str(t?.bg),
                         color: str(t?.fg),
                         cursor: 'pointer',
@@ -143,26 +154,39 @@ export function CharactersScreen({ v }: { v: VM }) {
               }}
             >
               <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>Sort</span>
-              {L(v.sortChips).map((t: any, $index: number) => (
-                <Fragment key={$index}>
-                  <button
-                    onClick={t?.click}
-                    style={
-                      {
-                        padding: '7px 12px',
-                        borderRadius: '999px',
-                        border: `1px solid ${str(t?.bd)}`,
-                        background: str(t?.bg),
-                        color: str(t?.fg),
-                        cursor: 'pointer',
-                        fontSize: '12px',
-                      } as CSSProperties
-                    }
-                  >
-                    {T(t?.l)}
-                  </button>
-                </Fragment>
-              ))}
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '2px',
+                  padding: '3px',
+                  borderRadius: '8px',
+                  background: 'var(--bg, oklch(0.16 0.01 60))',
+                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                }}
+              >
+                {L(v.sortChips).map((t: any, $index: number) => (
+                  <Fragment key={$index}>
+                    <button
+                      onClick={t?.click}
+                      style={
+                        {
+                          minHeight: '36px',
+                          padding: '0 12px',
+                          border: '0',
+                          borderRadius: '6px',
+                          background: str(t?.bg),
+                          color: str(t?.fg),
+                          cursor: 'pointer',
+                          fontSize: '12px',
+                        } as CSSProperties
+                      }
+                    >
+                      {T(t?.l)}
+                    </button>
+                  </Fragment>
+                ))}
+              </div>
             </div>
           </div>
         </div>
