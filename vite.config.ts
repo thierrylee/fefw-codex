@@ -32,7 +32,7 @@ export default defineConfig({
         runtimeCaching: [
           {
             urlPattern: ({ url }) => url.pathname.includes('/img/'),
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: { cacheName: 'codex-img', expiration: { maxEntries: 700 } },
           },
         ],
