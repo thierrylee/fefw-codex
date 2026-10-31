@@ -28,6 +28,8 @@ export class Codex extends Component<CodexProps, any> {
   declare jmL: any
   declare jmT: any
   declare kLk: any
+  declare kOv: any
+  declare kY: any
   declare keepY: any
   declare key: any
   declare ly: any
@@ -135,7 +137,7 @@ export class Codex extends Component<CodexProps, any> {
         if (window.scrollY !== y) window.scrollTo(0, y)
         if (r && r.scrollTop !== ry) r.scrollTop = ry
       }
-      ;[0, 50, 150, 300].forEach((t?: any) => setTimeout(f, t))
+      ;[0, 50, 150, 300, 600].forEach((t?: any) => setTimeout(f, t))
       requestAnimationFrame(f)
     }
     this.jmAct = () => {
@@ -387,9 +389,28 @@ export class Codex extends Component<CodexProps, any> {
       if (lk !== !!this.kLk) {
         this.kLk = lk
         const r = this.rootRef.current
+        if (lk) this.kY = [window.scrollY, r ? r.scrollTop : 0]
+        this.kOv = this.kOv || new Map<any, any>()
         ;[document.documentElement, document.body, r].forEach((el?: any) => {
-          if (el) el.style.overflow = lk ? 'hidden' : ''
+          if (!el) return
+          if (lk) {
+            this.kOv.set(el, el.style.overflow)
+            el.style.overflow = 'hidden'
+          } else {
+            el.style.overflow = this.kOv.has(el) ? this.kOv.get(el) : ''
+            this.kOv.delete(el)
+          }
         })
+        if (!lk && this.kY) {
+          const [y, ry] = this.kY,
+            f = () => {
+              window.scrollTo(0, y)
+              if (r) r.scrollTop = ry
+            }
+          f()
+          requestAnimationFrame(f)
+          ;[50, 150, 300, 600].forEach((t?: any) => setTimeout(f, t))
+        }
       }
     }
     {
@@ -6188,9 +6209,10 @@ export class Codex extends Component<CodexProps, any> {
               img: IMG('classes', k.n),
               bd: k.n === selN ? t.ac : t.line,
               bg: k.n === selN ? t.panel2 : t.panel,
-              open: () => {
-                this.save({ ksel: k.n, kopen: narrow })
-              },
+              open: () =>
+                this.keepY(() => {
+                  this.save({ ksel: k.n, kopen: narrow })
+                }),
             })),
         }))
         .filter((g?: any) => g.items.length)

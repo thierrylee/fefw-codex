@@ -8,3 +8,9 @@ select option,select optgroup{background:#1c1a17;color:#eee}
 input[type=range]{accent-color:oklch(0.8 0.11 75)}
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:8px}
+/* From the design's global <style> (not carried over by tools/design-import). */
+@media (hover:hover){[data-rh]:hover{background:var(--panel2, rgba(255,255,255,.06))!important}}
+@keyframes wcLblR{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
+@keyframes wcLblL{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes wcSheetIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-text-fill-color:currentColor;caret-color:currentColor;transition:background-color 9999s ease-out 0s;box-shadow:0 0 0 1000px var(--panel,#1c1b18) inset}
