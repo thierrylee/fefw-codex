@@ -5043,7 +5043,7 @@ export class Codex extends Component<CodexProps, any> {
     vals.cq = st.cq || ''
     {
       const DK = ['table', 'gr', 'pj', 'pr', 'radar', 'bars']
-      const sv2 = (st.cTord || []).filter((k?: any) => DK.includes(k))
+      const sv2 = (st.cTord || ['table', 'pj', 'pr', 'gr', 'bars', 'radar']).filter((k?: any) => DK.includes(k))
       const ord = [...sv2, ...DK.filter((k?: any) => !sv2.includes(k))]
       if (!sv2.includes('gr') && sv2.includes('table')) {
         ord.splice(ord.indexOf('gr'), 1)
@@ -5097,10 +5097,10 @@ export class Codex extends Component<CodexProps, any> {
         }
       })
       vals.ct = ct
-      const cW: any = st.cW || {}
+      const cW = st.cW || (narrow ? {} : { table: 4, radar: 1, bars: 3, gr: 4, pj: 3, pr: 1 })
       const cwN = narrow
       vals.cwBtn = narrow ? 'none' : 'flex'
-      const NC = narrow ? 1 : Math.min(4, Math.max(2, st.cCols || 3))
+      const NC = narrow ? 1 : Math.min(4, Math.max(2, st.cCols || 4))
       vals.cNC = NC
       vals.cGridCols = narrow ? 'minmax(0,1fr)' : 'repeat(' + NC + ',minmax(0,1fr))'
       vals.cColCtl = narrow ? 'none' : 'flex'
