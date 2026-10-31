@@ -32,13 +32,14 @@ export class Codex extends Component<CodexProps, any> {
   declare ready: any
   declare ro: any
   declare rootNav: any
+  declare rz: any
+  declare seen: any
   declare setState: any
   declare sh: any
   declare sk: any
   declare skip: any
   declare spyKeys: any
   declare spyT: any
-  declare ty: any
   state: any = {
     d: null,
     screen: 'roster',
@@ -174,8 +175,22 @@ export class Codex extends Component<CodexProps, any> {
       const k = this.sk
       if (!k) return
       this.sk = null
-      if (k[0] === 'p') this.setState({ ppv: '' })
-      else this.setState((s?: any) => ({ cd: s.cd ? { ...s.cd, pv: '' } : s.cd }))
+      const fin = () => {
+        if (k === 'k') {
+          if (history.state && history.state.kopen) history.back()
+          else this.save({ kopen: false })
+        } else if (k[0] === 'p') this.setState({ ppv: '' })
+        else this.setState((s?: any) => ({ cd: s.cd ? { ...s.cd, pv: '' } : s.cd }))
+      }
+      const el = document.querySelector('[data-sheet]')
+      if (el && el.animate && getComputedStyle(el).position === 'fixed') {
+        const a = el.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(100%)' }], {
+          duration: 220,
+          easing: 'cubic-bezier(.4,0,1,1)',
+          fill: 'forwards',
+        })
+        a.onfinish = fin
+      } else fin()
     }
     this.ly = new Map<any, any>()
     this.sh = (e?: any) => {
@@ -315,6 +330,18 @@ export class Codex extends Component<CodexProps, any> {
   }
   componentDidUpdate() {
     const s = this.state
+    {
+      const sn = this.seen || (this.seen = new WeakSet())
+      document.querySelectorAll('[data-sheet]').forEach((el?: any) => {
+        if (sn.has(el)) return
+        sn.add(el)
+        if (s.narrow && el.animate && getComputedStyle(el).position === 'fixed')
+          el.animate([{ transform: 'translateY(100%)' }, { transform: 'translateY(0)' }], {
+            duration: 280,
+            easing: 'cubic-bezier(.2,.8,.2,1)',
+          })
+      })
+    }
     {
       const n = !!s.narrow,
         dp = (s.pk ? 1 : 0) + (s.pk && n && s.ppv ? 1 : 0) + (s.cd ? 1 : 0) + (s.cd && n && s.cd.pv ? 1 : 0),
@@ -3347,14 +3374,34 @@ export class Codex extends Component<CodexProps, any> {
         e.stopPropagation()
         this.closeSheet()
       },
-      sheetTs: (e?: any) => {
-        this.ty = e.touches[0].clientY
+      sheetHD: narrow ? 'flex' : 'none',
+      sheetClose: (e?: any) => {
+        e && e.stopPropagation && e.stopPropagation()
+        this.closeSheet()
       },
-      sheetTm: (e?: any) => {
-        if (this.ty == null) return
-        const dy = e.touches[0].clientY - this.ty
-        if (dy > 50 && e.currentTarget.scrollTop <= 0) {
-          this.ty = null
+      sheetDown: (e?: any) => {
+        const el = e.currentTarget.closest('[data-sheet]')
+        if (!el) return
+        e.currentTarget.setPointerCapture(e.pointerId)
+        this.rz = { y: e.clientY, h: el.offsetHeight, el, cur: el.offsetHeight }
+      },
+      sheetMove: (e?: any) => {
+        const r = this.rz
+        if (!r) return
+        const h = Math.max(0, Math.min(window.innerHeight * 0.92, r.h + r.y - e.clientY))
+        r.cur = h
+        r.el.style.transition = 'none'
+        r.el.style.maxHeight = h + 'px'
+        r.el.style.height = h + 'px'
+      },
+      sheetUp: (e?: any) => {
+        const r = this.rz
+        if (!r) return
+        this.rz = null
+        r.el.style.transition = ''
+        if (r.cur < 110) {
+          r.el.style.height = r.h + 'px'
+          r.el.style.maxHeight = ''
           this.closeSheet()
         }
       },
@@ -5891,6 +5938,7 @@ export class Codex extends Component<CodexProps, any> {
       const k = d.classes.find((x?: any) => x.n === selN)
       vals.kHasSel = !!k
       const kOpen = narrow && !!st.kopen && !!k
+      if (kOpen) this.sk = 'k'
       vals.kBackOn = kOpen
       vals.kListDisp = 'flex'
       vals.kShowDetail = !!k && (!narrow || kOpen)

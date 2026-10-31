@@ -433,13 +433,14 @@ export function ClassesScreen({ v }: { v: VM }) {
               {v.kBackOn ? (
                 <>
                   <div
-                    onClick={v.kBack}
+                    onClick={v.sheetClose}
                     style={{ position: 'fixed', inset: '0', zIndex: '91', background: 'oklch(0.1 0.01 60 / .7)' }}
                   ></div>
                 </>
               ) : null}
               <div
                 data-kdetail="1"
+                data-sheet="1"
                 style={
                   {
                     position: str(v.kPos),
@@ -462,10 +463,45 @@ export function ClassesScreen({ v }: { v: VM }) {
                   } as CSSProperties
                 }
               >
+                <div
+                  onPointerDown={v.sheetDown}
+                  onPointerMove={v.sheetMove}
+                  onPointerUp={v.sheetUp}
+                  onPointerCancel={v.sheetUp}
+                  onClick={v.stopClick}
+                  role="separator"
+                  aria-label="Resize"
+                  style={
+                    {
+                      position: 'sticky',
+                      top: '-16px',
+                      zIndex: '2',
+                      display: str(v.sheetHD),
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      flex: 'none',
+                      height: '28px',
+                      margin: '-16px -20px -8px',
+                      background: 'inherit',
+                      borderRadius: '16px 16px 0 0',
+                      touchAction: 'none',
+                      cursor: 'ns-resize',
+                    } as CSSProperties
+                  }
+                >
+                  <span
+                    style={{
+                      width: '40px',
+                      height: '4px',
+                      borderRadius: '2px',
+                      background: 'var(--mu, oklch(0.7 0.01 70))',
+                    }}
+                  ></span>
+                </div>
                 {v.kBackOn ? (
                   <>
                     <button
-                      onClick={v.kBack}
+                      onClick={v.sheetClose}
                       aria-label="Close"
                       style={{
                         alignSelf: 'flex-end',

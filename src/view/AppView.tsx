@@ -1474,8 +1474,6 @@ export function AppView({ v }: { v: VM }) {
                           <div
                             data-sheet="1"
                             onClick={v.sheetClick}
-                            onTouchStart={v.sheetTs}
-                            onTouchMove={v.sheetTm}
                             style={
                               {
                                 position: 'fixed',
@@ -1484,9 +1482,10 @@ export function AppView({ v }: { v: VM }) {
                                 bottom: '0',
                                 zIndex: '92',
                                 maxHeight: '80vh',
-                                animation: 'wcSheetIn .28s cubic-bezier(.2,.8,.2,1)',
                                 transform: str(v.pkTf),
                                 transition: 'transform .25s cubic-bezier(.2,.8,.2,1)',
+                                display: 'flex',
+                                flexDirection: 'column',
                                 overflowY: 'auto',
                                 boxSizing: 'border-box',
                                 padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
@@ -1498,7 +1497,50 @@ export function AppView({ v }: { v: VM }) {
                               } as CSSProperties
                             }
                           >
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
+                            <div
+                              onPointerDown={v.sheetDown}
+                              onPointerMove={v.sheetMove}
+                              onPointerUp={v.sheetUp}
+                              onPointerCancel={v.sheetUp}
+                              onClick={v.stopClick}
+                              role="separator"
+                              aria-label="Resize"
+                              style={
+                                {
+                                  position: 'sticky',
+                                  top: '-16px',
+                                  zIndex: '2',
+                                  display: str(v.sheetHD),
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  flex: 'none',
+                                  height: '28px',
+                                  margin: '-16px -16px 0',
+                                  background: 'inherit',
+                                  borderRadius: '16px 16px 0 0',
+                                  touchAction: 'none',
+                                  cursor: 'ns-resize',
+                                } as CSSProperties
+                              }
+                            >
+                              <span
+                                style={{
+                                  width: '40px',
+                                  height: '4px',
+                                  borderRadius: '2px',
+                                  background: 'var(--mu, oklch(0.7 0.01 70))',
+                                }}
+                              ></span>
+                            </div>
+                            <div
+                              style={{
+                                flex: '1 0 auto',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '16px',
+                                minWidth: '0',
+                              }}
+                            >
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <div
                                   style={{
@@ -1548,7 +1590,7 @@ export function AppView({ v }: { v: VM }) {
                                       {T(v.pkPv?.sub)}
                                     </span>
                                     <button
-                                      onClick={v.pkPvClose}
+                                      onClick={v.sheetClose}
                                       aria-label="Close preview"
                                       style={{
                                         flex: 'none',
@@ -1775,7 +1817,7 @@ export function AppView({ v }: { v: VM }) {
                                 style={{
                                   position: 'sticky',
                                   bottom: '-16px',
-                                  margin: '0 -16px -16px',
+                                  margin: 'auto -16px -16px',
                                   padding: '12px 16px 16px',
                                   background: 'var(--bg, oklch(0.16 0.01 60))',
                                   borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
@@ -2493,8 +2535,6 @@ export function AppView({ v }: { v: VM }) {
                         <div
                           data-sheet="1"
                           onClick={v.sheetClick}
-                          onTouchStart={v.sheetTs}
-                          onTouchMove={v.sheetTm}
                           style={
                             {
                               position: 'fixed',
@@ -2503,9 +2543,10 @@ export function AppView({ v }: { v: VM }) {
                               bottom: '0',
                               zIndex: '92',
                               maxHeight: '80vh',
-                              animation: 'wcSheetIn .28s cubic-bezier(.2,.8,.2,1)',
                               transform: str(v.cdTf),
                               transition: 'transform .25s cubic-bezier(.2,.8,.2,1)',
+                              display: 'flex',
+                              flexDirection: 'column',
                               overflowY: 'auto',
                               boxSizing: 'border-box',
                               padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
@@ -2517,7 +2558,50 @@ export function AppView({ v }: { v: VM }) {
                             } as CSSProperties
                           }
                         >
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
+                          <div
+                            onPointerDown={v.sheetDown}
+                            onPointerMove={v.sheetMove}
+                            onPointerUp={v.sheetUp}
+                            onPointerCancel={v.sheetUp}
+                            onClick={v.stopClick}
+                            role="separator"
+                            aria-label="Resize"
+                            style={
+                              {
+                                position: 'sticky',
+                                top: '-16px',
+                                zIndex: '2',
+                                display: str(v.sheetHD),
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flex: 'none',
+                                height: '28px',
+                                margin: '-16px -16px 0',
+                                background: 'inherit',
+                                borderRadius: '16px 16px 0 0',
+                                touchAction: 'none',
+                                cursor: 'ns-resize',
+                              } as CSSProperties
+                            }
+                          >
+                            <span
+                              style={{
+                                width: '40px',
+                                height: '4px',
+                                borderRadius: '2px',
+                                background: 'var(--mu, oklch(0.7 0.01 70))',
+                              }}
+                            ></span>
+                          </div>
+                          <div
+                            style={{
+                              flex: '1 0 auto',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '16px',
+                              minWidth: '0',
+                            }}
+                          >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                               <div
                                 style={{
@@ -2563,7 +2647,7 @@ export function AppView({ v }: { v: VM }) {
                                     {T(v.cdPv?.sub)}
                                   </span>
                                   <button
-                                    onClick={v.cdPvClose}
+                                    onClick={v.sheetClose}
                                     aria-label="Close preview"
                                     style={{
                                       flex: 'none',
@@ -2781,7 +2865,7 @@ export function AppView({ v }: { v: VM }) {
                               style={{
                                 position: 'sticky',
                                 bottom: '-16px',
-                                margin: '0 -16px -16px',
+                                margin: 'auto -16px -16px',
                                 padding: '12px 16px 16px',
                                 background: 'var(--bg, oklch(0.16 0.01 60))',
                                 borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',

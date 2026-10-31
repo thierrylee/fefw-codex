@@ -557,7 +557,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     background: str(r?.bg),
                   } as CSSProperties
                 }
-                className="hv-19"
+                data-rh="1"
               >
                 <span
                   style={
