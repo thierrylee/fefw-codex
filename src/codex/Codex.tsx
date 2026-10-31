@@ -148,6 +148,7 @@ export class Codex extends Component<CodexProps, any> {
     try {
       const raw = localStorage.getItem('weave-codex')
       const s = JSON.parse(raw || '{}')
+      s.kopen = false
       this.setState(s)
       this.setState({ picked: !!raw && localStorage.getItem('weave-codex-picked') === '1' })
     } catch (e: any) {}
@@ -1829,7 +1830,7 @@ export class Codex extends Component<CodexProps, any> {
           const e: Record<string, any> = { screen: id, sel: this.state.sel, l: this.lbl({ screen: id }) }
           history.pushState({ ...e, trail: [e] }, '')
           this.rootNav = false
-          this.setState({ trail: [e] })
+          this.setState({ trail: [e], kopen: false })
         } else this.save({ screen: id })
         const r = this.rootRef.current
         if (r && phone) r.scrollTop = 0
@@ -5507,8 +5508,8 @@ export class Codex extends Component<CodexProps, any> {
       }
       {
         const GR: any = [
-          ['Chars', ['roster', 'calc', 'compare'], 'roster'],
-          ['Insights', ['charts', 'match'], 'charts'],
+          ['Chars', ['roster', 'calc', 'compare', 'charts'], 'roster'],
+          ['Meal', ['match'], 'match'],
           ['Codex', ['classes', 'abilities', 'arts', 'items'], 'classes'],
           ['Settings', ['settings'], 'settings'],
         ]
