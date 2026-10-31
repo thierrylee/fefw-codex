@@ -71450,5 +71450,19 @@
    "rl": 3
   }
  ],
- "islot": 6
+ "islot": 6,
+ "skillOrder": [
+  "Sword",
+  "Spear",
+  "Axe",
+  "Bow",
+  "Brawling",
+  "Black Magic",
+  "White Magic",
+  "Authority",
+  "Infantry",
+  "Riding",
+  "Heavy Armor",
+  "Flying"
+ ]
 }

@@ -1468,8 +1468,14 @@ export function AppView({ v }: { v: VM }) {
                       {v.pkSheet ? (
                         <>
                           <div
+                            onClick={v.sheetScrim}
+                            style={{ position: 'fixed', inset: '0', zIndex: '91', touchAction: 'none' }}
+                          ></div>
+                          <div
                             data-sheet="1"
                             onClick={v.sheetClick}
+                            onTouchStart={v.sheetTs}
+                            onTouchMove={v.sheetTm}
                             style={
                               {
                                 position: 'fixed',
@@ -2481,8 +2487,14 @@ export function AppView({ v }: { v: VM }) {
                     {v.cdSheet ? (
                       <>
                         <div
+                          onClick={v.sheetScrim}
+                          style={{ position: 'fixed', inset: '0', zIndex: '91', touchAction: 'none' }}
+                        ></div>
+                        <div
                           data-sheet="1"
                           onClick={v.sheetClick}
+                          onTouchStart={v.sheetTs}
+                          onTouchMove={v.sheetTm}
                           style={
                             {
                               position: 'fixed',

@@ -13,6 +13,7 @@ export class Codex extends Component<CodexProps, any> {
   declare cDrag: any
   declare cOver: any
   declare ck: any
+  declare closeSheet: any
   declare cpT: any
   declare dragId: any
   declare hDrag: any
@@ -37,6 +38,7 @@ export class Codex extends Component<CodexProps, any> {
   declare skip: any
   declare spyKeys: any
   declare spyT: any
+  declare ty: any
   state: any = {
     d: null,
     screen: 'roster',
@@ -168,6 +170,13 @@ export class Codex extends Component<CodexProps, any> {
           cmp: st.cmp || [],
         }))
       })
+    this.closeSheet = () => {
+      const k = this.sk
+      if (!k) return
+      this.sk = null
+      if (k[0] === 'p') this.setState({ ppv: '' })
+      else this.setState((s?: any) => ({ cd: s.cd ? { ...s.cd, pv: '' } : s.cd }))
+    }
     this.ly = new Map<any, any>()
     this.sh = (e?: any) => {
       if (!this.sk) return
@@ -3333,9 +3342,21 @@ export class Codex extends Component<CodexProps, any> {
       pkW: narrow ? 'min(640px,100%)' : 'min(1040px,100%)',
       pkSheet: narrow && !!pvr,
       pkTf: narrow && pvr && this.state.smin === 'p' + ppv ? 'translateY(calc(100% - 56px))' : 'translateY(0)',
-      sheetClick: (e?: any) => {
+      sheetClick: (e?: any) => e.stopPropagation(),
+      sheetScrim: (e?: any) => {
         e.stopPropagation()
-        if (this.state.smin) this.setState({ smin: null })
+        this.closeSheet()
+      },
+      sheetTs: (e?: any) => {
+        this.ty = e.touches[0].clientY
+      },
+      sheetTm: (e?: any) => {
+        if (this.ty == null) return
+        const dy = e.touches[0].clientY - this.ty
+        if (dy > 50 && e.currentTarget.scrollTop <= 0) {
+          this.ty = null
+          this.closeSheet()
+        }
       },
       pkPvOn: !!pvr,
       pkPvOff: !pvr,
