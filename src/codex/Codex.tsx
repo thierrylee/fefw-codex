@@ -29,6 +29,9 @@ export class Codex extends Component<CodexProps, any> {
   declare od: any
   declare overId: any
   declare pk: any
+  declare rHov: any
+  declare rScr: any
+  declare rT: any
   declare ready: any
   declare ro: any
   declare rootNav: any
@@ -330,6 +333,10 @@ export class Codex extends Component<CodexProps, any> {
   }
   componentDidUpdate() {
     const s = this.state
+    if (this.rScr !== s.screen) {
+      this.rScr = s.screen
+      setTimeout(() => this.railPing(), 0)
+    }
     {
       const sn = this.seen || (this.seen = new WeakSet())
       document.querySelectorAll('[data-sheet]').forEach((el?: any) => {
@@ -360,7 +367,7 @@ export class Codex extends Component<CodexProps, any> {
     }
     if (this.ready && s.screen === 'match') {
       const M: any = s.mx || {},
-        dn = !!(s.narrow && M.meal && M.c1 && M.c2 && M.c3)
+        dn = !!(M.meal && M.c1 && M.c2 && M.c3)
       if (this.mxDone === undefined) this.mxDone = dn
       else if (dn && !this.mxDone) {
         this.mxDone = true
@@ -439,7 +446,32 @@ export class Codex extends Component<CodexProps, any> {
     document.removeEventListener('touchmove', this.sc, true)
     document.removeEventListener('wheel', this.sc, true)
   }
+  rg = (items?: any, kf?: any) => {
+    const s = this.state,
+      rows = (s.jscr === s.screen ? s.jgrp || '' : '')
+        .split('|')
+        .filter(Boolean)
+        .map((g?: any) => g.split(',')),
+      out: any = [],
+      used = new Set<any>()
+    items.forEach((it?: any) => {
+      if (used.has(kf(it))) return
+      const row = rows.find((r?: any) => r.includes(kf(it)))
+      const mem = row ? items.filter((x?: any) => row.includes(kf(x))) : [it]
+      mem.forEach((x?: any) => used.add(kf(x)))
+      out.push(mem)
+    })
+    return out
+  }
+  railPing = () => {
+    if (this.state.railOff) this.setState({ railOff: false })
+    clearTimeout(this.rT)
+    this.rT = setTimeout(() => {
+      if (!this.rHov) this.setState({ railOff: true })
+    }, 3500)
+  }
   sc = (e?: any) => {
+    this.railPing()
     if (this.state.tip || this.state.nt) this.setState({ tip: null, nt: null })
     this.spyUpd()
   }
@@ -457,9 +489,28 @@ export class Codex extends Component<CodexProps, any> {
     if (!E.length) return
     const ord = [...E].sort((p?: any, q?: any) => (Math.abs(p.t - q.t) < 4 ? p.l - q.l : p.t - q.t)).map((x?: any) => x.k)
     const ab = E.filter((x?: any) => x.t <= 140)
-    const a = (ab.length ? ab.reduce((m?: any, x?: any) => (x.t > m.t ? x : m)) : ord[0] && E.find((x?: any) => x.k === ord[0])).k
+    const a = (
+      ab.length
+        ? ab.reduce((m?: any, x?: any) => (Math.abs(x.t - m.t) <= 4 ? (x.l < m.l ? x : m) : x.t > m.t ? x : m))
+        : ord[0] && E.find((x?: any) => x.k === ord[0])
+    ).k
+    let a2 = a
+    if (s.screen === 'calc' && !s.narrow && a === 'b-setup') {
+      const cs = E.find((x?: any) => x.k === 'b-class'),
+        su = E.find((x?: any) => x.k === 'b-setup')
+      if (cs && su && Math.abs(cs.t - su.t) < 40) a2 = 'b-class'
+    }
     const oj = ord.join('|')
-    if (a !== s.spy || oj !== s.jord) this.setState({ spy: a, jord: oj })
+    const gr: any = []
+    ord.forEach((k?: any) => {
+      const e = E.find((x?: any) => x.k === k),
+        g = gr[gr.length - 1]
+      if (g && Math.abs(g.t - e.t) <= 4) g.ks.push(k)
+      else gr.push({ t: e.t, ks: [k] })
+    })
+    const gs = gr.map((g?: any) => g.ks.join(',')).join('|')
+    if (a2 !== s.spy || oj !== s.jord || gs !== s.jgrp || s.jscr !== s.screen)
+      this.setState({ spy: a2, jord: oj, jgrp: gs, jscr: s.screen })
   }
   pd = (e?: any) => {
     if (this.state.tip && !(e.target.closest && e.target.closest('[data-tip]'))) this.setState({ tip: null })
@@ -1172,6 +1223,9 @@ export class Codex extends Component<CodexProps, any> {
         bOnly,
         lastB,
         theme,
+        hand,
+        bdec,
+        rview,
       } = this.state
       try {
         localStorage.setItem(
@@ -1215,6 +1269,9 @@ export class Codex extends Component<CodexProps, any> {
             bOnly,
             lastB,
             theme,
+            hand,
+            bdec,
+            rview,
           }),
         )
       } catch (e: any) {}
@@ -1777,6 +1834,7 @@ export class Codex extends Component<CodexProps, any> {
     const t = THEMES[thn]
     const phone = (pr.device ?? 'Responsive') === 'Phone'
     const narrow = phone || st.narrow
+    const lh = narrow && st.hand === 'left'
     const navTop = st.navTop != null ? !!st.navTop : (pr.navStyle ?? 'Sidebar') === 'Top tabs'
     const hideLocked = (pr.lockStyle ?? 'Blur teaser') === 'Hide'
     const view = pr.calcView ?? 'Stacked bars'
@@ -2195,7 +2253,7 @@ export class Codex extends Component<CodexProps, any> {
       sbToggle: () => this.save({ sbCollapsed: !sbC }),
       headPad: narrow ? '14px 16px' : '16px 32px',
       bodyPad: narrow ? '14px 16px 20px' : '28px 32px',
-      bottomSpacer: narrow ? '8px' : '24px',
+      bottomSpacer: narrow ? '34vh' : '48vh',
       outerPad: phone ? '32px 16px' : '0',
       appMaxW: phone ? '390px' : 'none',
       appH: phone ? '844px' : 'auto',
@@ -2395,6 +2453,12 @@ export class Codex extends Component<CodexProps, any> {
         const C = r.ch && r.ch !== 'End of part' ? 'Chapter ' + r.ch : '',
           N = n ? 'Renown ' + n : ''
         return [...(st.sort !== 'ch' ? [N, C] : [C, N]), r.sup ? 'Support ' + r.sup : ''].filter(Boolean)
+      })(),
+      rsTxt: (() => {
+        const r = reqRec(c)
+        if (!r) return ''
+        const n = parseInt(r.ren)
+        return [n ? 'Renown ' + n : '', r.sup ? 'Support ' + r.sup : ''].filter(Boolean)
       })(),
       n: c.n,
       img: IMG('characters', c.n),
@@ -3399,7 +3463,7 @@ export class Codex extends Component<CodexProps, any> {
         if (!r) return
         this.rz = null
         r.el.style.transition = ''
-        if (r.cur < 110) {
+        if (r.cur < 200) {
           r.el.style.height = r.h + 'px'
           r.el.style.maxHeight = ''
           this.closeSheet()
@@ -3691,6 +3755,46 @@ export class Codex extends Component<CodexProps, any> {
         }
       })(),
       navOptOn: !narrow,
+      railTf: 'none',
+      railEnter: () => {
+        this.rHov = true
+        this.railPing()
+      },
+      railLeave: () => {
+        this.rHov = false
+        this.railPing()
+      },
+      bdMvD: narrow ? 'none' : 'block',
+      bdCols: narrow ? 'repeat(2,minmax(0,1fr))' : 'repeat(auto-fill,minmax(min(100%,230px),1fr))',
+      rvOn: narrow,
+      rvOpts: [
+        ['List', 'list'],
+        ['Grid', 'grid'],
+      ].map(([l, v]: any) => {
+        const on = (st.rview || 'list') === v
+        return { l, on, bg: on ? t.panel2 : 'transparent', fg: on ? t.tx : t.mu, click: () => this.save({ rview: v }) }
+      }),
+      rGridOn: narrow && st.rview === 'grid',
+      rListOn: !(narrow && st.rview === 'grid'),
+      rCols:
+        narrow && st.rview === 'grid' ? 'repeat(3,minmax(0,1fr))' : 'repeat(auto-fill,minmax(min(100%,230px),1fr))',
+      rGap: narrow && st.rview === 'grid' ? '10px' : '12px',
+      handOptOn: narrow,
+      handOpts: [
+        ['Left', 'left'],
+        ['Right', 'right'],
+      ].map(([l, v]: any) => {
+        const on = (st.hand || 'right') === v
+        return { l, on, bg: on ? t.panel2 : 'transparent', fg: on ? t.tx : t.mu, click: () => this.save({ hand: v }) }
+      }),
+      handSelf: lh ? 'flex-start' : 'flex-end',
+      handMargin: lh ? '-30px 0 -10px -12px' : '-30px -12px -10px 0',
+      handDir: lh ? 'row-reverse' : 'row',
+      fabL: 'auto',
+      fabR: '14px',
+      handML: lh ? '0' : 'auto',
+      handMR: lh ? 'auto' : '0',
+      handEnd: lh ? 'flex-start' : 'flex-end',
       navOpts: [
         ['Sidebar', false],
         ['Top tabs', true],
@@ -4412,6 +4516,74 @@ export class Codex extends Component<CodexProps, any> {
           star: b.star ? '★' : '☆',
           starCol: b.star ? t.ac : t.mu,
           starTip: b.star ? 'Unstar' : 'Star build',
+          pathTip: (ev?: any) => {
+            const k = 'bp' + b.id
+            if (this.state.tip && this.state.tip.raw === k) {
+              this.setState({ tip: null })
+              return
+            }
+            const r = ev.currentTarget.getBoundingClientRect(),
+              x = Math.max(12, Math.min(r.left, window.innerWidth - 312)),
+              below = r.bottom + 160 < window.innerHeight
+            this.setState({
+              tip: {
+                t: 'Class path',
+                sub: b.c,
+                body:
+                  b.x.stages.map((x?: any) => x.k.n).join(' → ') +
+                  '\nLv ' +
+                  b.x.lv +
+                  '\n' +
+                  (b.m === 'None' ? 'No mount' : 'Mount: ' + b.m) +
+                  (b.x.rl > 1 ? '\nRecruited at Lv ' + b.x.rl : ''),
+                bodyCol: 'var(--tx, #eee)',
+                note: '',
+                who: '',
+                whoLbl: '',
+                whoGroups: [],
+                hasGroups: false,
+                x: x + 'px',
+                y: (below ? r.bottom + 8 : r.top - 8) + 'px',
+                tf: below ? 'none' : 'translateY(-100%)',
+                raw: k,
+              },
+            })
+          },
+          abTip: (ev?: any) => {
+            const k = 'bi' + b.id
+            if (this.state.tip && this.state.tip.raw === k) {
+              this.setState({ tip: null })
+              return
+            }
+            const r = ev.currentTarget.getBoundingClientRect(),
+              x = Math.max(12, Math.min(r.left, window.innerWidth - 312)),
+              below = r.bottom + 160 < window.innerHeight
+            this.setState({
+              tip: {
+                t: 'Inventory',
+                sub: b.c,
+                body: [
+                  ['Abilities', b.ab],
+                  ['Combat arts', b.ca],
+                  ['Items', b.it],
+                ]
+                  .filter(([l, v]: any) => v && v.length)
+                  .map(([l, v]: any) => l + ': ' + v.join(', '))
+                  .concat(b.ms ? ['Mount: ' + b.ms] : [])
+                  .join('\n'),
+                bodyCol: 'var(--tx, #eee)',
+                note: '',
+                who: '',
+                whoLbl: '',
+                whoGroups: [],
+                hasGroups: false,
+                x: x + 'px',
+                y: (below ? r.bottom + 8 : r.top - 8) + 'px',
+                tf: below ? 'none' : 'translateY(-100%)',
+                raw: k,
+              },
+            })
+          },
           askDel: () => this.setState({ delId: b.id }),
           cancelDel: () => this.setState({ delId: null }),
           confirming: st.delId === b.id,
@@ -4436,6 +4608,7 @@ export class Codex extends Component<CodexProps, any> {
           bgi: b.lk
             ? 'none'
             : 'url(' + IMG('classes', b.x.stages[b.x.stages.length - 1].k.n) + ') center/cover no-repeat',
+          kLast: b.x.stages[b.x.stages.length - 1].k.n,
           k: b.x.stages.map((x?: any) => x.k.n).join(' → '),
           m: (b.m === 'None' ? 'No mount' : b.m) + (b.x.rl > 1 ? ' · Rec. Lv ' + b.x.rl : ''),
           lv: b.x.lv,
@@ -5230,6 +5403,14 @@ export class Codex extends Component<CodexProps, any> {
         pmx = S.map((x?: any, i?: any) => Math.max(...pp.map((o?: any) => o.p[i]))),
         psum = (o?: any) => (bl.length ? bl.reduce((a?: any, i?: any) => a + o.p[i], 0) : o.p.reduce((a?: any, b?: any) => a + b, 0))
       vals.bmLv = blv
+      const bdc = st.bdec !== false
+      vals.bmDecOpts = [
+        ['Decimals', true],
+        ['Whole', false],
+      ].map(([l, v]: any) => {
+        const on = bdc === v
+        return { l, on, bg: on ? t.panel2 : 'transparent', fg: on ? t.tx : t.mu, click: () => this.save({ bdec: v }) }
+      })
       vals.bmDec = () => this.save({ blv: Math.max(1, blv - 1) })
       vals.bmInc = () => this.save({ blv: Math.min(99, blv + 1) })
       vals.onBmLv = (e?: any) => this.save({ blv: +e.target.value })
@@ -5244,7 +5425,7 @@ export class Codex extends Component<CodexProps, any> {
           cells: o.p.map((v?: any, i?: any) => {
             const k = pmx[i] === pmn[i] ? 0.5 : (v - pmn[i]) / (pmx[i] - pmn[i])
             return {
-              v: v.toFixed(1),
+              v: bdc ? v.toFixed(1) : String(Math.round(v)),
               sub: bs(o.c)[i] + (o.c.g ? ' +' + o.c.g[i] + '%' : ''),
               s: S[i],
               bg: hmc(k),
@@ -5748,6 +5929,23 @@ export class Codex extends Component<CodexProps, any> {
             ['Supports', 'mx-grid'],
             ['Characters', 'mx-list'],
           ],
+          classes:
+            narrow && st.kopen
+              ? null
+              : TIERS.filter((g?: any) => st.part >= 3 || !['Master', 'Divine'].includes(g)).map((g?: any) => [g, 'k-' + g]),
+          compare: [
+            ['Units & builds', 'b-units'],
+            ['Growth profile', 'b-gro'],
+            ['Projected stats', 'b-proj'],
+          ],
+          settings: [
+            ['Story progress', 's-prog'],
+            ['Color scheme', 's-color'],
+            ['Handedness', 's-hand'],
+            ['Backup', 's-backup'],
+            ['Clear data', 's-clear'],
+            ['Sources', 's-src'],
+          ],
           calc: [
             ['Unit setup', 'b-setup'],
             ['Class path', 'b-class'],
@@ -5762,23 +5960,33 @@ export class Codex extends Component<CodexProps, any> {
         vals.rlOn = false
         vals.rl = []
         if (SCa) {
-          const jo = (st.jord || '').split('|')
+          const jo = (st.jscr === st.screen ? st.jord || '' : '').split('|')
           let SC = SCa.slice()
           if (SC.some((x?: any) => jo.includes(x[1]))) {
             SC = SC.filter((x?: any) => jo.includes(x[1])).sort((p?: any, q?: any) => jo.indexOf(p[1]) - jo.indexOf(q[1]))
           }
           const ks = SC.map((x?: any) => x[1])
-          this.spyKeys = ks
+          this.spyKeys = SCa.map((x?: any) => x[1])
           const spy = ks.includes(st.spy) ? st.spy : ks[0]
-          vals.rlOn = !narrow && st.screen === 'calc'
-          vals.rl = SC.map(([l, k]: any) => {
-            const on = k === spy
+          vals.rlOn =
+            !narrow &&
+            (st.screen === 'calc' ||
+              st.screen === 'compare' ||
+              st.screen === 'match' ||
+              st.screen === 'classes' ||
+              st.screen === 'settings')
+          vals.rl = this.rg(SC, (x?: any) => x[1]).map((gp?: any) => {
+            const k = gp[0][1],
+              l = gp.map((x?: any) => x[0]).join(' · '),
+              on = gp.some((x?: any) => x[1] === spy)
             return {
               l,
               go: () => this.jumpTo(k),
               dot: on ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--mu, oklch(0.78 0.035 120))',
               dop: on ? 1 : 0.55,
-              lblD: on || st.jhv === k ? 'inline-block' : 'none',
+              ...((on && !st.railOff) || st.jhv === k
+                ? { lblW: '240px', lblP: '3px 8px', lblBw: '1px' }
+                : { lblW: '0px', lblP: '3px 0', lblBw: '0px' }),
               enter: () => this.setState({ jhv: k }),
               leave: () => this.setState({ jhv: null }),
             }
@@ -6706,21 +6914,28 @@ export class Codex extends Component<CodexProps, any> {
         const isP = st.screen === 'profile'
         const pkeys = vals.p.jumps.map((j?: any) => j.k)
         if (isP) this.spyKeys = pkeys
-        const jo = (st.jord || '').split('|')
+        const jo = (st.jscr === st.screen ? st.jord || '' : '').split('|')
         vals.p.jumps = vals.p.jumps.slice().sort((p?: any, q?: any) => {
           const x = jo.indexOf(p.k),
             y = jo.indexOf(q.k)
           return (x < 0 ? 99 : x) - (y < 0 ? 99 : y)
         })
         const spy = pkeys.includes(st.spy) ? st.spy : (vals.p.jumps[0] || {}).k
+        const pj0 = vals.p.jumps
+        if (!narrow)
+          vals.p.jumps = this.rg(pj0, (j?: any) => j.k).map((gp?: any) => ({
+            ...gp[0],
+            l: gp.map((x?: any) => x.l).join(' · '),
+            grpKs: gp.map((x?: any) => x.k),
+          }))
         vals.p.jumps = vals.p.jumps.map((j?: any) => {
-          const on = j.k === spy,
-            sh = !narrow && (on || st.jhv === j.k)
+          const on = (j.grpKs || [j.k]).includes(spy),
+            sh = !narrow && ((on && !st.railOff) || st.jhv === j.k)
           return {
             ...j,
             dot: on ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--mu, oklch(0.78 0.035 120))',
             dop: on ? 1 : 0.55,
-            lblD: sh ? 'inline-block' : 'none',
+            ...(sh ? { lblW: '240px', lblP: '3px 8px', lblBw: '1px' } : { lblW: '0px', lblP: '3px 0', lblBw: '0px' }),
             enter: () => this.setState({ jhv: j.k }),
             leave: () => this.setState({ jhv: null }),
           }

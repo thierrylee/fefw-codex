@@ -60,16 +60,21 @@ export function ProfileScreen({ v }: { v: VM }) {
             </div>
           </div>
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '12px',
-              alignItems: 'flex-end',
-              marginLeft: 'auto',
-              maxWidth: 'min(100%,560px)',
-            }}
+            style={
+              {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                alignItems: str(v.handEnd),
+                marginLeft: str(v.handML),
+                marginRight: str(v.handMR),
+                maxWidth: 'min(100%,560px)',
+              } as CSSProperties
+            }
           >
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+            <div
+              style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: str(v.handEnd) } as CSSProperties}
+            >
               <button
                 onClick={v.p?.toCalc}
                 style={{
@@ -106,14 +111,18 @@ export function ProfileScreen({ v }: { v: VM }) {
                     {
                       position: 'fixed',
                       right: str(v.p?.railR),
-                      top: '50%',
-                      transform: 'translateY(-50%)',
+                      bottom: '16px',
                       zIndex: '5',
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'flex-end',
+                      pointerEvents: 'none',
+                      transform: str(v.railTf),
+                      transition: 'transform .35s cubic-bezier(.2,.8,.2,1)',
                     } as CSSProperties
                   }
+                  onMouseEnter={v.railEnter}
+                  onMouseLeave={v.railLeave}
                 >
                   {L(v.p?.jumps).map((j: any, $index: number) => (
                     <Fragment key={$index}>
@@ -124,6 +133,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                         aria-label={j?.l}
                         style={
                           {
+                            pointerEvents: 'auto',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '8px',
@@ -139,13 +149,18 @@ export function ProfileScreen({ v }: { v: VM }) {
                         <span
                           style={
                             {
-                              display: str(j?.lblD),
+                              display: 'inline-block',
+                              overflow: 'hidden',
+                              maxWidth: str(j?.lblW),
                               fontSize: '12px',
-                              padding: '3px 8px',
+                              padding: str(j?.lblP),
                               borderRadius: '6px',
                               background: 'var(--panel2, oklch(0.25 0.012 60))',
-                              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                              borderStyle: 'solid',
+                              borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                              borderWidth: str(j?.lblBw),
                               whiteSpace: 'nowrap',
+                              transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
                             } as CSSProperties
                           }
                         >
@@ -174,7 +189,7 @@ export function ProfileScreen({ v }: { v: VM }) {
           style={
             {
               display: str(v.pColCtl),
-              justifyContent: 'flex-end',
+              justifyContent: str(v.handEnd),
               alignItems: 'center',
               gap: '8px',
               font: "500 10px/1 'IBM Plex Mono',monospace",

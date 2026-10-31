@@ -6,6 +6,83 @@ export function SettingsScreen({ v }: { v: VM }) {
   return (
     <>
       <section data-screen-label="Settings" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+        {v.rlOn ? (
+          <>
+            <div
+              style={
+                {
+                  position: 'fixed',
+                  right: '10px',
+                  bottom: '16px',
+                  zIndex: '5',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  pointerEvents: 'none',
+                  transform: str(v.railTf),
+                  transition: 'transform .35s cubic-bezier(.2,.8,.2,1)',
+                } as CSSProperties
+              }
+              onMouseEnter={v.railEnter}
+              onMouseLeave={v.railLeave}
+            >
+              {L(v.rl).map((j: any, $index: number) => (
+                <Fragment key={$index}>
+                  <button
+                    onClick={j?.go}
+                    onMouseEnter={j?.enter}
+                    onMouseLeave={j?.leave}
+                    aria-label={j?.l}
+                    style={{
+                      pointerEvents: 'auto',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      minHeight: '26px',
+                      padding: '0 6px',
+                      border: '0',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'var(--tx, #eee)',
+                    }}
+                  >
+                    <span
+                      style={
+                        {
+                          display: 'inline-block',
+                          overflow: 'hidden',
+                          maxWidth: str(j?.lblW),
+                          fontSize: '12px',
+                          padding: str(j?.lblP),
+                          borderRadius: '6px',
+                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          borderStyle: 'solid',
+                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderWidth: str(j?.lblBw),
+                          whiteSpace: 'nowrap',
+                          transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
+                        } as CSSProperties
+                      }
+                    >
+                      {T(j?.l)}
+                    </span>
+                    <span
+                      style={
+                        {
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          background: str(j?.dot),
+                          opacity: str(j?.dop),
+                        } as CSSProperties
+                      }
+                    ></span>
+                  </button>
+                </Fragment>
+              ))}
+            </div>
+          </>
+        ) : null}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
             Settings
@@ -15,6 +92,7 @@ export function SettingsScreen({ v }: { v: VM }) {
           </span>
         </div>
         <div
+          data-jump="s-prog"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -471,6 +549,7 @@ export function SettingsScreen({ v }: { v: VM }) {
           </div>
         </div>
         <div
+          data-jump="s-color"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -623,7 +702,81 @@ export function SettingsScreen({ v }: { v: VM }) {
             </div>
           </>
         ) : null}
+        {v.handOptOn ? (
+          <>
+            <div
+              data-jump="s-hand"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0',
+                padding: '20px',
+                borderRadius: 'var(--r, 14px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+              }}
+            >
+              <span
+                style={{
+                  font: "500 10px/1 'IBM Plex Mono',monospace",
+                  letterSpacing: '.14em',
+                  textTransform: 'uppercase',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
+                  marginBottom: '6px',
+                }}
+              >
+                Handedness
+              </span>
+              <span
+                style={{
+                  fontSize: '12px',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
+                  marginBottom: '16px',
+                  textWrap: 'pretty',
+                }}
+              >
+                Moves the close button on bottom sheets to your thumb's side.
+              </span>
+              <div
+                style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '2px',
+                  padding: '3px',
+                  borderRadius: '8px',
+                  background: 'var(--bg, oklch(0.16 0.01 60))',
+                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  alignSelf: 'flex-start',
+                }}
+              >
+                {L(v.handOpts).map((o: any, $index: number) => (
+                  <Fragment key={$index}>
+                    <button
+                      onClick={o?.click}
+                      aria-pressed={o?.on}
+                      style={
+                        {
+                          minHeight: '36px',
+                          padding: '0 12px',
+                          border: '0',
+                          borderRadius: '6px',
+                          background: str(o?.bg),
+                          color: str(o?.fg),
+                          cursor: 'pointer',
+                          fontSize: '12px',
+                        } as CSSProperties
+                      }
+                    >
+                      {T(o?.l)}
+                    </button>
+                  </Fragment>
+                ))}
+              </div>
+            </div>
+          </>
+        ) : null}
         <div
+          data-jump="s-backup"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -772,6 +925,7 @@ export function SettingsScreen({ v }: { v: VM }) {
           ) : null}
         </div>
         <div
+          data-jump="s-clear"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -819,6 +973,7 @@ export function SettingsScreen({ v }: { v: VM }) {
           </div>
         </div>
         <div
+          data-jump="s-src"
           style={{
             display: 'flex',
             flexDirection: 'column',
@@ -944,7 +1099,11 @@ export function SettingsScreen({ v }: { v: VM }) {
               >
                 <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>{T(v.clrTitle)}</h2>
                 <span style={{ fontSize: '14px', lineHeight: '1.5', textWrap: 'pretty' }}>{T(v.clrBody)}</span>
-                <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+                <div
+                  style={
+                    { display: 'flex', gap: '8px', justifyContent: str(v.handEnd), flexWrap: 'wrap' } as CSSProperties
+                  }
+                >
                   <button
                     onClick={v.clrCancel}
                     style={{

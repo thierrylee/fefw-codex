@@ -535,22 +535,25 @@ export function AppView({ v }: { v: VM }) {
                       <>
                         <div onClick={v.jmClose} style={{ position: 'fixed', inset: '0', zIndex: '-1' }}></div>
                         <div
-                          style={{
-                            position: 'absolute',
-                            right: '14px',
-                            bottom: 'calc(100% + 58px)',
-                            minWidth: '200px',
-                            maxWidth: 'calc(100% - 28px)',
-                            maxHeight: '50vh',
-                            overflowY: 'auto',
-                            padding: '6px',
-                            borderRadius: '12px',
-                            background: 'var(--panel, oklch(0.245 0.05 165))',
-                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                            boxShadow: '0 12px 30px -10px rgba(0,0,0,.6)',
-                            display: 'flex',
-                            flexDirection: 'column',
-                          }}
+                          style={
+                            {
+                              position: 'absolute',
+                              left: str(v.fabL),
+                              right: str(v.fabR),
+                              bottom: 'calc(100% + 58px)',
+                              minWidth: '200px',
+                              maxWidth: 'calc(100% - 28px)',
+                              maxHeight: '50vh',
+                              overflowY: 'auto',
+                              padding: '6px',
+                              borderRadius: '12px',
+                              background: 'var(--panel, oklch(0.245 0.05 165))',
+                              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                              boxShadow: '0 12px 30px -10px rgba(0,0,0,.6)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                            } as CSSProperties
+                          }
                         >
                           <button
                             onClick={v.jmTop}
@@ -603,24 +606,27 @@ export function AppView({ v }: { v: VM }) {
                         <button
                           onClick={v.jmTog}
                           aria-label="Sections"
-                          style={{
-                            position: 'absolute',
-                            right: '14px',
-                            top: '-54px',
-                            maxWidth: 'calc(100% - 28px)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '8px',
-                            minHeight: '40px',
-                            padding: '0 14px',
-                            borderRadius: '999px',
-                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                            background: 'var(--panel2, oklch(0.3 0.055 165))',
-                            color: 'var(--tx, #eee)',
-                            font: "600 12px/1 'IBM Plex Sans',sans-serif",
-                            cursor: 'pointer',
-                            boxShadow: '0 4px 14px rgba(0,0,0,.4)',
-                          }}
+                          style={
+                            {
+                              position: 'absolute',
+                              left: str(v.fabL),
+                              right: str(v.fabR),
+                              top: '-54px',
+                              maxWidth: 'calc(100% - 28px)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              minHeight: '40px',
+                              padding: '0 14px',
+                              borderRadius: '999px',
+                              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                              background: 'var(--panel2, oklch(0.3 0.055 165))',
+                              color: 'var(--tx, #eee)',
+                              font: "600 12px/1 'IBM Plex Sans',sans-serif",
+                              cursor: 'pointer',
+                              boxShadow: '0 4px 14px rgba(0,0,0,.4)',
+                            } as CSSProperties
+                          }
                         >
                           <span
                             style={{
@@ -642,22 +648,25 @@ export function AppView({ v }: { v: VM }) {
                           onClick={v.toTop}
                           aria-label="Back to top"
                           title="Back to top"
-                          style={{
-                            position: 'absolute',
-                            right: '14px',
-                            top: '-58px',
-                            width: '44px',
-                            height: '44px',
-                            borderRadius: '50%',
-                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                            background: 'var(--panel2, oklch(0.3 0.055 165))',
-                            color: 'var(--ac, oklch(0.82 0.12 85))',
-                            display: 'grid',
-                            placeItems: 'center',
-                            cursor: 'pointer',
-                            boxShadow: '0 4px 14px rgba(0,0,0,.4)',
-                            padding: '0',
-                          }}
+                          style={
+                            {
+                              position: 'absolute',
+                              left: str(v.fabL),
+                              right: str(v.fabR),
+                              top: '-58px',
+                              width: '44px',
+                              height: '44px',
+                              borderRadius: '50%',
+                              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                              background: 'var(--panel2, oklch(0.3 0.055 165))',
+                              color: 'var(--ac, oklch(0.82 0.12 85))',
+                              display: 'grid',
+                              placeItems: 'center',
+                              cursor: 'pointer',
+                              boxShadow: '0 4px 14px rgba(0,0,0,.4)',
+                              padding: '0',
+                            } as CSSProperties
+                          }
                         >
                           <svg
                             viewBox="0 0 24 24"
@@ -798,7 +807,7 @@ export function AppView({ v }: { v: VM }) {
                           </Fragment>
                         ))}
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <div style={{ display: 'flex', justifyContent: str(v.handEnd) } as CSSProperties}>
                         <button
                           onClick={v.mx?.repClose}
                           style={{
@@ -1448,7 +1457,7 @@ export function AppView({ v }: { v: VM }) {
                           </>
                         ) : null}
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <div style={{ display: 'flex', justifyContent: str(v.handEnd) } as CSSProperties}>
                         <button
                           onClick={v.pkClose}
                           style={{
@@ -1543,13 +1552,16 @@ export function AppView({ v }: { v: VM }) {
                             >
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 <div
-                                  style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    gap: '10px',
-                                    alignItems: 'center',
-                                    flexWrap: 'wrap',
-                                  }}
+                                  style={
+                                    {
+                                      display: 'flex',
+                                      flexDirection: str(v.handDir),
+                                      justifyContent: 'space-between',
+                                      gap: '10px',
+                                      alignItems: 'center',
+                                      flexWrap: 'wrap',
+                                    } as CSSProperties
+                                  }
                                 >
                                   <span style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}>
                                     {v.pkPv?.hasIc ? (
@@ -1577,7 +1589,16 @@ export function AppView({ v }: { v: VM }) {
                                       {T(v.pkPv?.t)}
                                     </h2>
                                   </span>
-                                  <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                  <span
+                                    style={
+                                      {
+                                        display: 'flex',
+                                        flexDirection: str(v.handDir),
+                                        alignItems: 'center',
+                                        gap: '6px',
+                                      } as CSSProperties
+                                    }
+                                  >
                                     <span
                                       style={{
                                         font: "500 10px/1 'IBM Plex Mono',monospace",
@@ -2508,7 +2529,7 @@ export function AppView({ v }: { v: VM }) {
                           </>
                         ) : null}
                       </div>
-                      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      <div style={{ display: 'flex', justifyContent: str(v.handEnd) } as CSSProperties}>
                         <button
                           onClick={v.cdClose}
                           style={{
@@ -2604,13 +2625,16 @@ export function AppView({ v }: { v: VM }) {
                           >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                               <div
-                                style={{
-                                  display: 'flex',
-                                  justifyContent: 'space-between',
-                                  gap: '10px',
-                                  alignItems: 'center',
-                                  flexWrap: 'wrap',
-                                }}
+                                style={
+                                  {
+                                    display: 'flex',
+                                    flexDirection: str(v.handDir),
+                                    justifyContent: 'space-between',
+                                    gap: '10px',
+                                    alignItems: 'center',
+                                    flexWrap: 'wrap',
+                                  } as CSSProperties
+                                }
                               >
                                 <span style={{ display: 'flex', alignItems: 'center', gap: '10px', minWidth: '0' }}>
                                   <span
@@ -2634,7 +2658,16 @@ export function AppView({ v }: { v: VM }) {
                                     {T(v.cdPv?.t)}
                                   </h2>
                                 </span>
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                <span
+                                  style={
+                                    {
+                                      display: 'flex',
+                                      flexDirection: str(v.handDir),
+                                      alignItems: 'center',
+                                      gap: '6px',
+                                    } as CSSProperties
+                                  }
+                                >
                                   <span
                                     style={{
                                       font: "500 10px/1 'IBM Plex Mono',monospace",
@@ -3009,6 +3042,7 @@ export function AppView({ v }: { v: VM }) {
                         {
                           fontSize: '13px',
                           lineHeight: '1.45',
+                          whiteSpace: 'pre-line',
                           textWrap: 'pretty',
                           color: str(v.tip?.bodyCol),
                         } as CSSProperties

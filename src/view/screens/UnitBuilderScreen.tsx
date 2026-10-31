@@ -12,16 +12,22 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
         {v.rlOn ? (
           <>
             <div
-              style={{
-                position: 'fixed',
-                right: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: '5',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-end',
-              }}
+              style={
+                {
+                  position: 'fixed',
+                  right: '10px',
+                  bottom: '16px',
+                  zIndex: '5',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  pointerEvents: 'none',
+                  transform: str(v.railTf),
+                  transition: 'transform .35s cubic-bezier(.2,.8,.2,1)',
+                } as CSSProperties
+              }
+              onMouseEnter={v.railEnter}
+              onMouseLeave={v.railLeave}
             >
               {L(v.rl).map((j: any, $index: number) => (
                 <Fragment key={$index}>
@@ -31,6 +37,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     onMouseLeave={j?.leave}
                     aria-label={j?.l}
                     style={{
+                      pointerEvents: 'auto',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '8px',
@@ -45,13 +52,18 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     <span
                       style={
                         {
-                          display: str(j?.lblD),
+                          display: 'inline-block',
+                          overflow: 'hidden',
+                          maxWidth: str(j?.lblW),
                           fontSize: '12px',
-                          padding: '3px 8px',
+                          padding: str(j?.lblP),
                           borderRadius: '6px',
                           background: 'var(--panel2, oklch(0.25 0.012 60))',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          borderStyle: 'solid',
+                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderWidth: str(j?.lblBw),
                           whiteSpace: 'nowrap',
+                          transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
                         } as CSSProperties
                       }
                     >
@@ -87,46 +99,6 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
             <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
               Unit builder
             </h1>
-            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-              <button
-                onClick={v.goInv}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  padding: '7px 12px',
-                  borderRadius: '999px',
-                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                  background: 'transparent',
-                  color: 'var(--tx, #eee)',
-                  cursor: 'pointer',
-                  font: "600 12px/1 'IBM Plex Sans',sans-serif",
-                  whiteSpace: 'nowrap',
-                }}
-                className="hv-6"
-              >
-                <span style={{ color: 'var(--ac, oklch(0.8 0.11 75))' }}>↓</span>Inventory
-              </button>
-              <button
-                onClick={v.goSaved}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  padding: '7px 12px',
-                  borderRadius: '999px',
-                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                  background: 'transparent',
-                  color: 'var(--tx, #eee)',
-                  cursor: 'pointer',
-                  font: "600 12px/1 'IBM Plex Sans',sans-serif",
-                  whiteSpace: 'nowrap',
-                }}
-                className="hv-6"
-              >
-                <span style={{ color: 'var(--ac, oklch(0.8 0.11 75))' }}>↓</span>Saved builds
-              </button>
-            </div>
           </div>
           <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))', maxWidth: '62ch', textWrap: 'pretty' }}>
             Units start at Lv 1 in their initial class. Each level adds character + class + mount growth to a running
@@ -2859,13 +2831,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               </div>
             </>
           ) : null}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill,minmax(min(100%,230px),1fr))',
-              gap: '10px',
-            }}
-          >
+          <div style={{ display: 'grid', gridTemplateColumns: str(v.bdCols), gap: '10px' } as CSSProperties}>
             {L(v.builds).map((b: any, $index: number) => (
               <Fragment key={$index}>
                 <div
@@ -2925,6 +2891,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         aria-label="Move earlier"
                         style={
                           {
+                            display: str(v.bdMvD),
                             width: str(v.tk28),
                             height: str(v.tk28),
                             border: '0',
@@ -2943,6 +2910,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         aria-label="Move later"
                         style={
                           {
+                            display: str(v.bdMvD),
                             width: str(v.tk28),
                             height: str(v.tk28),
                             border: '0',
@@ -3027,36 +2995,56 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     }}
                     className="hv-14 focus-15"
                   />
-                  <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
-                    {T(b?.k)}
-                    {' · '}
-                    {T(b?.m)}
+                  <button
+                    onClick={b?.pathTip}
+                    aria-label="Show class path details"
+                    style={{
+                      alignSelf: 'flex-start',
+                      maxWidth: '100%',
+                      minHeight: '32px',
+                      padding: '0',
+                      border: '0',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      fontSize: '12px',
+                      textAlign: 'left',
+                      whiteSpace: 'nowrap',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                    }}
+                    className="hv-8"
+                  >
+                    {T(b?.kLast)}
                     {' · Lv '}
                     {T(b?.lv)}
-                  </span>
-                  <span
+                    {' ▾'}
+                  </button>
+                  <button
+                    onClick={b?.abTip}
+                    aria-label="Show inventory details"
                     style={
                       {
                         display: str(b?.abShow),
+                        alignSelf: 'flex-start',
+                        minHeight: '32px',
+                        padding: '0 12px',
+                        borderRadius: '999px',
+                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        background: 'transparent',
+                        color: 'var(--tx, oklch(0.94 0.008 80))',
+                        cursor: 'pointer',
                         fontSize: '12px',
-                        lineHeight: '1.35',
-                        textWrap: 'pretty',
                       } as CSSProperties
                     }
                   >
-                    {T(b?.abTxt)}
-                  </span>
+                    Inventory ▾
+                  </button>
                   <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
                     {b?.confirming ? (
                       <>
                         <div
-                          style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '6px',
-                            flexWrap: 'nowrap',
-                            width: '100%',
-                          }}
+                          style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap', width: '100%' }}
                         >
                           <span style={{ fontSize: '12px', marginRight: 'auto' }}>Delete this build?</span>
                           <button

@@ -6,6 +6,83 @@ export function MealPairingScreen({ v }: { v: VM }) {
   return (
     <>
       <section data-screen-label="Meal pairing" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+        {v.rlOn ? (
+          <>
+            <div
+              style={
+                {
+                  position: 'fixed',
+                  right: '10px',
+                  bottom: '16px',
+                  zIndex: '5',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  pointerEvents: 'none',
+                  transform: str(v.railTf),
+                  transition: 'transform .35s cubic-bezier(.2,.8,.2,1)',
+                } as CSSProperties
+              }
+              onMouseEnter={v.railEnter}
+              onMouseLeave={v.railLeave}
+            >
+              {L(v.rl).map((j: any, $index: number) => (
+                <Fragment key={$index}>
+                  <button
+                    onClick={j?.go}
+                    onMouseEnter={j?.enter}
+                    onMouseLeave={j?.leave}
+                    aria-label={j?.l}
+                    style={{
+                      pointerEvents: 'auto',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      minHeight: '26px',
+                      padding: '0 6px',
+                      border: '0',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'var(--tx, #eee)',
+                    }}
+                  >
+                    <span
+                      style={
+                        {
+                          display: 'inline-block',
+                          overflow: 'hidden',
+                          maxWidth: str(j?.lblW),
+                          fontSize: '12px',
+                          padding: str(j?.lblP),
+                          borderRadius: '6px',
+                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          borderStyle: 'solid',
+                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderWidth: str(j?.lblBw),
+                          whiteSpace: 'nowrap',
+                          transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
+                        } as CSSProperties
+                      }
+                    >
+                      {T(j?.l)}
+                    </span>
+                    <span
+                      style={
+                        {
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          background: str(j?.dot),
+                          opacity: str(j?.dop),
+                        } as CSSProperties
+                      }
+                    ></span>
+                  </button>
+                </Fragment>
+              ))}
+            </div>
+          </>
+        ) : null}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
             Meal pairing

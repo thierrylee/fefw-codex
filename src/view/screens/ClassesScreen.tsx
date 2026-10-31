@@ -6,6 +6,83 @@ export function ClassesScreen({ v }: { v: VM }) {
   return (
     <>
       <section data-screen-label="Classes" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+        {v.rlOn ? (
+          <>
+            <div
+              style={
+                {
+                  position: 'fixed',
+                  right: '10px',
+                  bottom: '16px',
+                  zIndex: '5',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-end',
+                  pointerEvents: 'none',
+                  transform: str(v.railTf),
+                  transition: 'transform .35s cubic-bezier(.2,.8,.2,1)',
+                } as CSSProperties
+              }
+              onMouseEnter={v.railEnter}
+              onMouseLeave={v.railLeave}
+            >
+              {L(v.rl).map((j: any, $index: number) => (
+                <Fragment key={$index}>
+                  <button
+                    onClick={j?.go}
+                    onMouseEnter={j?.enter}
+                    onMouseLeave={j?.leave}
+                    aria-label={j?.l}
+                    style={{
+                      pointerEvents: 'auto',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      minHeight: '26px',
+                      padding: '0 6px',
+                      border: '0',
+                      background: 'transparent',
+                      cursor: 'pointer',
+                      color: 'var(--tx, #eee)',
+                    }}
+                  >
+                    <span
+                      style={
+                        {
+                          display: 'inline-block',
+                          overflow: 'hidden',
+                          maxWidth: str(j?.lblW),
+                          fontSize: '12px',
+                          padding: str(j?.lblP),
+                          borderRadius: '6px',
+                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          borderStyle: 'solid',
+                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderWidth: str(j?.lblBw),
+                          whiteSpace: 'nowrap',
+                          transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
+                        } as CSSProperties
+                      }
+                    >
+                      {T(j?.l)}
+                    </span>
+                    <span
+                      style={
+                        {
+                          width: '8px',
+                          height: '8px',
+                          borderRadius: '50%',
+                          background: str(j?.dot),
+                          opacity: str(j?.dop),
+                        } as CSSProperties
+                      }
+                    ></span>
+                  </button>
+                </Fragment>
+              ))}
+            </div>
+          </>
+        ) : null}
         <div
           style={
             {
@@ -27,14 +104,17 @@ export function ClassesScreen({ v }: { v: VM }) {
             </span>
           </div>
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '10px',
-              alignItems: 'flex-end',
-              marginLeft: 'auto',
-              maxWidth: '100%',
-            }}
+            style={
+              {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                alignItems: str(v.handEnd),
+                marginLeft: str(v.handML),
+                marginRight: str(v.handMR),
+                maxWidth: '100%',
+              } as CSSProperties
+            }
           >
             <span style={{ position: 'relative', display: 'flex', width: '230px', maxWidth: '100%' }}>
               <input
@@ -79,7 +159,12 @@ export function ClassesScreen({ v }: { v: VM }) {
             </span>
             <div
               style={
-                { display: str(v.kListDisp), flexWrap: 'wrap', justifyContent: 'flex-end', gap: '6px' } as CSSProperties
+                {
+                  display: str(v.kListDisp),
+                  flexWrap: 'wrap',
+                  justifyContent: str(v.handEnd),
+                  gap: '6px',
+                } as CSSProperties
               }
             >
               <div
@@ -150,7 +235,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                   </Fragment>
                 ))}
               </div>
-              <div style={{ flexBasis: '100%', display: 'flex', justifyContent: 'flex-end' }}>
+              <div style={{ flexBasis: '100%', display: 'flex', justifyContent: str(v.handEnd) } as CSSProperties}>
                 <div
                   style={{
                     display: 'flex',
@@ -233,7 +318,7 @@ export function ClassesScreen({ v }: { v: VM }) {
           >
             {L(v.kGroups).map((g: any, $index: number) => (
               <Fragment key={$index}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <div data-jump={`k-${str(g?.t)}`} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                   <span
                     style={{
                       font: "500 10px/1 'IBM Plex Mono',monospace",
@@ -503,19 +588,23 @@ export function ClassesScreen({ v }: { v: VM }) {
                     <button
                       onClick={v.sheetClose}
                       aria-label="Close"
-                      style={{
-                        alignSelf: 'flex-end',
-                        flex: 'none',
-                        width: '44px',
-                        height: '44px',
-                        margin: '-12px -12px -28px 0',
-                        border: '0',
-                        borderRadius: '50%',
-                        background: 'transparent',
-                        cursor: 'pointer',
-                        color: 'var(--mu, oklch(0.78 0.035 120))',
-                        fontSize: '20px',
-                      }}
+                      style={
+                        {
+                          position: 'relative',
+                          zIndex: '3',
+                          alignSelf: str(v.handSelf),
+                          flex: 'none',
+                          width: '44px',
+                          height: '44px',
+                          margin: str(v.handMargin),
+                          border: '0',
+                          borderRadius: '50%',
+                          background: 'transparent',
+                          cursor: 'pointer',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
+                          fontSize: '20px',
+                        } as CSSProperties
+                      }
                     >
                       ×
                     </button>

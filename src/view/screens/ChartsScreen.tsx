@@ -471,6 +471,39 @@ export function ChartsScreen({ v }: { v: VM }) {
                 +
               </button>
             </div>
+            <div
+              style={{
+                display: 'flex',
+                gap: '2px',
+                padding: '3px',
+                borderRadius: '8px',
+                background: 'var(--bg, oklch(0.16 0.01 60))',
+                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              }}
+            >
+              {L(v.bmDecOpts).map((o: any, $index: number) => (
+                <Fragment key={$index}>
+                  <button
+                    onClick={o?.click}
+                    aria-pressed={o?.on}
+                    style={
+                      {
+                        minHeight: '36px',
+                        padding: '0 12px',
+                        border: '0',
+                        borderRadius: '6px',
+                        background: str(o?.bg),
+                        color: str(o?.fg),
+                        cursor: 'pointer',
+                        fontSize: '12px',
+                      } as CSSProperties
+                    }
+                  >
+                    {T(o?.l)}
+                  </button>
+                </Fragment>
+              ))}
+            </div>
           </div>
           {v.hmPhone ? (
             <>

@@ -22,14 +22,17 @@ export function CatalogScreen({ v }: { v: VM }) {
             <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(v.xSub)}</span>
           </div>
           <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '10px',
-              alignItems: 'flex-end',
-              marginLeft: 'auto',
-              maxWidth: '100%',
-            }}
+            style={
+              {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                alignItems: str(v.handEnd),
+                marginLeft: str(v.handML),
+                marginRight: str(v.handMR),
+                maxWidth: '100%',
+              } as CSSProperties
+            }
           >
             <span style={{ position: 'relative', display: 'flex', width: '230px', maxWidth: '100%' }}>
               <input
