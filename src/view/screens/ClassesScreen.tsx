@@ -87,7 +87,7 @@ export function ClassesScreen({ v }: { v: VM }) {
           style={
             {
               display: str(v.kListDisp),
-              alignItems: 'flex-end',
+              alignItems: 'flex-start',
               justifyContent: 'space-between',
               gap: '14px',
               flexWrap: 'wrap',
@@ -100,7 +100,7 @@ export function ClassesScreen({ v }: { v: VM }) {
             </h1>
             <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>
               {T(v.kCount)}
-              {' classes · mounted classes list compatible mounts'}
+              {' classes'}
             </span>
           </div>
           <div

@@ -5,43 +5,59 @@ import { L, T, str, type VM } from '../runtime'
 export function ProfileScreen({ v }: { v: VM }) {
   return (
     <>
-      <section data-screen-label="Profile" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <div style={{ display: 'flex', gap: '22px', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+      <section
+        data-screen-label="Profile"
+        style={{ display: 'flex', flexDirection: 'column', gap: '20px', paddingTop: str(v.secPT) } as CSSProperties}
+      >
+        <div
+          style={
+            {
+              position: str(v.stickyPos),
+              top: 'var(--hh,0px)',
+              zIndex: '3',
+              background: 'var(--bg, oklch(0.2 0.045 165))',
+              boxShadow: '-32px 0 0 var(--bg, oklch(0.2 0.045 165)),32px 0 0 var(--bg, oklch(0.2 0.045 165))',
+              minHeight: str(v.stickyMH),
+              paddingTop: str(v.stickyPT),
+              display: 'flex',
+              gap: '16px',
+              flexWrap: 'nowrap',
+              alignItems: 'flex-start',
+              marginBottom: str(v.pHeadMB),
+              maxWidth: str(v.headMW),
+            } as CSSProperties
+          }
+        >
           <div
-            style={{
-              position: 'relative',
-              overflow: 'hidden',
-              flex: 'none',
-              width: '120px',
-              height: '150px',
-              borderRadius: 'var(--r, 14px)',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
-              background:
-                'repeating-linear-gradient(135deg,var(--panel2, oklch(0.25 0.012 60)) 0 7px,var(--panel, oklch(0.2 0.01 60)) 7px 14px)',
-              display: 'grid',
-              placeItems: 'center',
-              font: "500 10px/1 'IBM Plex Mono',monospace",
-              color: 'var(--mu, oklch(0.7 0.01 70))',
-            }}
+            style={
+              {
+                order: '0',
+                position: 'relative',
+                overflow: 'hidden',
+                flex: 'none',
+                width: '44px',
+                height: '44px',
+                marginTop: '-5px',
+                borderRadius: '10px',
+                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                display: str(v.pPortD),
+              } as CSSProperties
+            }
           >
-            portrait<div style={{ position: 'absolute', inset: '0', background: str(v.p?.bgi) } as CSSProperties}></div>
+            <div style={{ position: 'absolute', inset: '0', background: str(v.p?.bgi) } as CSSProperties}></div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flex: '1', minWidth: '240px' }}>
-            <div
-              style={
-                {
-                  font: "500 10px/1 'IBM Plex Mono',monospace",
-                  letterSpacing: '.14em',
-                  textTransform: 'uppercase',
-                  color: str(v.p?.pcol),
-                } as CSSProperties
-              }
-            >
-              {T(v.p?.partLbl)}
-              {' · '}
-              {T(v.p?.type)}
-            </div>
-            <h1 style={{ margin: '0', font: "600 38px/1 'Cinzel',serif" }}>{T(v.p?.n)}</h1>
+          <div
+            style={
+              {
+                display: str(v.pHeadD),
+                alignItems: 'center',
+                gap: '6px 14px',
+                flexWrap: 'wrap',
+                minWidth: '0',
+              } as CSSProperties
+            }
+          >
+            <h1 style={{ margin: '0', font: "600 30px/1.1 'Cinzel',serif" }}>{T(v.p?.n)}</h1>
             <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
               {v.p?.hasFac ? (
                 <>
@@ -62,6 +78,7 @@ export function ProfileScreen({ v }: { v: VM }) {
           <div
             style={
               {
+                order: '3',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '12px',
@@ -73,7 +90,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             }
           >
             <div
-              style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: str(v.handEnd) } as CSSProperties}
+              style={{ display: 'none', gap: '8px', flexWrap: 'wrap', justifyContent: str(v.handEnd) } as CSSProperties}
             >
               <button
                 onClick={v.p?.toCalc}
@@ -322,7 +339,18 @@ export function ProfileScreen({ v }: { v: VM }) {
                   ))}
                   {L(v.p?.radar?.axes).map((a: any, $index: number) => (
                     <Fragment key={$index}>
-                      <line x1="150" y1="145" x2={a?.x} y2={a?.y} stroke="rgba(255,255,255,.1)"></line>
+                      <line x1="150" y1="145" x2={a?.x} y2={a?.y} stroke={a?.lc} strokeWidth={a?.lw}></line>
+                      <line
+                        x1="150"
+                        y1="145"
+                        x2={a?.x}
+                        y2={a?.y}
+                        stroke="transparent"
+                        strokeWidth="18"
+                        onMouseEnter={a?.hon}
+                        onMouseLeave={a?.hoff}
+                        style={{ cursor: 'help' }}
+                      ></line>
                     </Fragment>
                   ))}
                   <polygon
@@ -338,7 +366,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                       <circle
                         cx={d?.x}
                         cy={d?.y}
-                        r="5"
+                        r={d?.r}
                         fill={d?.col}
                         onMouseEnter={d?.enter}
                         onMouseLeave={d?.leave}
@@ -357,11 +385,13 @@ export function ProfileScreen({ v }: { v: VM }) {
                           left: str(a?.lxp),
                           top: str(a?.lyp),
                           transform: 'translate(-50%,-50%)',
-                          font: "500 11px/1 'IBM Plex Mono',monospace",
-                          opacity: '.75',
-                          pointerEvents: 'none',
+                          font: `${str(a?.hfw)} 11px/1 'IBM Plex Mono',monospace`,
+                          opacity: str(a?.hop),
+                          cursor: 'help',
                         } as CSSProperties
                       }
+                      onMouseEnter={a?.hon}
+                      onMouseLeave={a?.hoff}
                     >
                       {T(a?.s)}
                     </span>
@@ -508,15 +538,21 @@ export function ProfileScreen({ v }: { v: VM }) {
                     {L(v.p?.bcells).map((b: any, $index: number) => (
                       <Fragment key={$index}>
                         <div
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: '3px',
-                            padding: '7px 0',
-                            borderRadius: '6px',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
-                          }}
+                          onMouseEnter={b?.hon}
+                          onMouseLeave={b?.hoff}
+                          style={
+                            {
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              gap: '3px',
+                              padding: '7px 0',
+                              borderRadius: '6px',
+                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              opacity: str(b?.op),
+                              boxShadow: str(b?.ol),
+                            } as CSSProperties
+                          }
                         >
                           <span
                             style={{
@@ -563,15 +599,21 @@ export function ProfileScreen({ v }: { v: VM }) {
                     {L(v.p?.gcells).map((g: any, $index: number) => (
                       <Fragment key={$index}>
                         <div
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            gap: '3px',
-                            padding: '7px 0',
-                            borderRadius: '6px',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
-                          }}
+                          onMouseEnter={g?.hon}
+                          onMouseLeave={g?.hoff}
+                          style={
+                            {
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              gap: '3px',
+                              padding: '7px 0',
+                              borderRadius: '6px',
+                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              opacity: str(g?.op),
+                              boxShadow: str(g?.ol),
+                            } as CSSProperties
+                          }
                         >
                           <span
                             style={{
@@ -883,7 +925,18 @@ export function ProfileScreen({ v }: { v: VM }) {
                       ))}
                       {L(v.p?.bradar?.axes).map((a: any, $index: number) => (
                         <Fragment key={$index}>
-                          <line x1="150" y1="145" x2={a?.x} y2={a?.y} stroke="rgba(255,255,255,.1)"></line>
+                          <line x1="150" y1="145" x2={a?.x} y2={a?.y} stroke={a?.lc} strokeWidth={a?.lw}></line>
+                          <line
+                            x1="150"
+                            y1="145"
+                            x2={a?.x}
+                            y2={a?.y}
+                            stroke="transparent"
+                            strokeWidth="18"
+                            onMouseEnter={a?.hon}
+                            onMouseLeave={a?.hoff}
+                            style={{ cursor: 'help' }}
+                          ></line>
                         </Fragment>
                       ))}
                       <polygon
@@ -899,7 +952,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           <circle
                             cx={d?.x}
                             cy={d?.y}
-                            r="5"
+                            r={d?.r}
                             fill={d?.col}
                             onMouseEnter={d?.enter}
                             onMouseLeave={d?.leave}
@@ -918,11 +971,13 @@ export function ProfileScreen({ v }: { v: VM }) {
                               left: str(a?.lxp),
                               top: str(a?.lyp),
                               transform: 'translate(-50%,-50%)',
-                              font: "500 11px/1 'IBM Plex Mono',monospace",
-                              opacity: '.75',
-                              pointerEvents: 'none',
+                              font: `${str(a?.hfw)} 11px/1 'IBM Plex Mono',monospace`,
+                              opacity: str(a?.hop),
+                              cursor: 'help',
                             } as CSSProperties
                           }
+                          onMouseEnter={a?.hon}
+                          onMouseLeave={a?.hoff}
                         >
                           {T(a?.s)}
                         </span>

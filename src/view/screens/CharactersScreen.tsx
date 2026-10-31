@@ -9,7 +9,7 @@ export function CharactersScreen({ v }: { v: VM }) {
         <div
           style={{
             display: 'flex',
-            alignItems: 'flex-end',
+            alignItems: 'flex-start',
             justifyContent: 'space-between',
             gap: '14px',
             flexWrap: 'wrap',
@@ -154,95 +154,107 @@ export function CharactersScreen({ v }: { v: VM }) {
                   flexWrap: 'wrap',
                   justifyContent: str(v.handEnd),
                   alignItems: 'center',
-                  gap: '6px',
+                  gap: '10px 14px',
                 } as CSSProperties
               }
             >
-              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>Sort</span>
               <div
-                style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '2px',
-                  padding: '3px',
-                  borderRadius: '8px',
-                  background: 'var(--bg, oklch(0.16 0.01 60))',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                }}
+                style={
+                  {
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: str(v.handEnd),
+                    alignItems: 'center',
+                    gap: '6px',
+                  } as CSSProperties
+                }
               >
-                {L(v.sortChips).map((t: any, $index: number) => (
-                  <Fragment key={$index}>
-                    <button
-                      onClick={t?.click}
-                      style={
-                        {
-                          minHeight: '36px',
-                          padding: '0 12px',
-                          border: '0',
-                          borderRadius: '6px',
-                          background: str(t?.bg),
-                          color: str(t?.fg),
-                          cursor: 'pointer',
-                          fontSize: '12px',
-                        } as CSSProperties
-                      }
-                    >
-                      {T(t?.l)}
-                    </button>
-                  </Fragment>
-                ))}
-              </div>
-            </div>
-            {v.rvOn ? (
-              <>
+                <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>Sort</span>
                 <div
-                  style={
-                    {
-                      display: 'flex',
-                      flexWrap: 'wrap',
-                      justifyContent: str(v.handEnd),
-                      alignItems: 'center',
-                      gap: '6px',
-                    } as CSSProperties
-                  }
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: '2px',
+                    padding: '3px',
+                    borderRadius: '8px',
+                    background: 'var(--bg, oklch(0.16 0.01 60))',
+                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  }}
                 >
-                  <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>View</span>
-                  <div
-                    style={{
-                      display: 'flex',
-                      gap: '2px',
-                      padding: '3px',
-                      borderRadius: '8px',
-                      background: 'var(--bg, oklch(0.16 0.01 60))',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                    }}
-                  >
-                    {L(v.rvOpts).map((o: any, $index: number) => (
-                      <Fragment key={$index}>
-                        <button
-                          onClick={o?.click}
-                          aria-pressed={o?.on}
-                          style={
-                            {
-                              minHeight: '36px',
-                              padding: '0 12px',
-                              border: '0',
-                              borderRadius: '6px',
-                              background: str(o?.bg),
-                              color: str(o?.fg),
-                              cursor: 'pointer',
-                              fontSize: '12px',
-                            } as CSSProperties
-                          }
-                        >
-                          {T(o?.l)}
-                        </button>
-                      </Fragment>
-                    ))}
-                  </div>
+                  {L(v.sortChips).map((t: any, $index: number) => (
+                    <Fragment key={$index}>
+                      <button
+                        onClick={t?.click}
+                        style={
+                          {
+                            minHeight: '36px',
+                            padding: '0 12px',
+                            border: '0',
+                            borderRadius: '6px',
+                            background: str(t?.bg),
+                            color: str(t?.fg),
+                            cursor: 'pointer',
+                            fontSize: '12px',
+                          } as CSSProperties
+                        }
+                      >
+                        {T(t?.l)}
+                      </button>
+                    </Fragment>
+                  ))}
                 </div>
-              </>
-            ) : null}
+              </div>
+              {v.rvOn ? (
+                <>
+                  <div
+                    style={
+                      {
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: str(v.handEnd),
+                        alignItems: 'center',
+                        gap: '6px',
+                      } as CSSProperties
+                    }
+                  >
+                    <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>View</span>
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: '2px',
+                        padding: '3px',
+                        borderRadius: '8px',
+                        background: 'var(--bg, oklch(0.16 0.01 60))',
+                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      }}
+                    >
+                      {L(v.rvOpts).map((o: any, $index: number) => (
+                        <Fragment key={$index}>
+                          <button
+                            onClick={o?.click}
+                            aria-pressed={o?.on}
+                            style={
+                              {
+                                minHeight: '36px',
+                                padding: '0 12px',
+                                border: '0',
+                                borderRadius: '6px',
+                                background: str(o?.bg),
+                                color: str(o?.fg),
+                                cursor: 'pointer',
+                                fontSize: '12px',
+                              } as CSSProperties
+                            }
+                          >
+                            {T(o?.l)}
+                          </button>
+                        </Fragment>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              ) : null}
+            </div>
           </div>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: str(v.rCols), gap: str(v.rGap) } as CSSProperties}>

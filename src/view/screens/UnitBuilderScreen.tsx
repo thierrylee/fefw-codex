@@ -7,7 +7,15 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
     <>
       <section
         data-screen-label="Unit builder"
-        style={{ display: 'flex', flexDirection: 'column', gap: '18px', marginTop: str(v.calcTop) } as CSSProperties}
+        style={
+          {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '18px',
+            marginTop: str(v.calcTop),
+            paddingTop: str(v.secPT),
+          } as CSSProperties
+        }
       >
         {v.rlOn ? (
           <>
@@ -88,19 +96,67 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
         ) : null}
         <div style={{ display: str(v.calcHeadDisp), flexDirection: 'column', gap: '4px' } as CSSProperties}>
           <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '10px 16px',
-              flexWrap: 'wrap',
-            }}
+            style={
+              {
+                position: str(v.stickyPos),
+                top: 'var(--hh,0px)',
+                zIndex: '3',
+                background: 'var(--bg, oklch(0.2 0.045 165))',
+                boxShadow: '-32px 0 0 var(--bg, oklch(0.2 0.045 165)),32px 0 0 var(--bg, oklch(0.2 0.045 165))',
+                minHeight: str(v.stickyMH),
+                paddingTop: str(v.stickyPT),
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+                gap: '10px 16px',
+                flexWrap: 'wrap',
+              } as CSSProperties
+            }
           >
-            <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
-              Unit builder
-            </h1>
+            <div
+              style={
+                {
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '16px',
+                  minWidth: '0',
+                  maxWidth: str(v.headMW),
+                } as CSSProperties
+              }
+            >
+              <div
+                style={
+                  {
+                    display: str(v.cbPortD),
+                    position: 'relative',
+                    overflow: 'hidden',
+                    flex: 'none',
+                    width: '44px',
+                    height: '44px',
+                    marginTop: '-5px',
+                    borderRadius: '10px',
+                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  } as CSSProperties
+                }
+              >
+                <div style={{ position: 'absolute', inset: '0', background: str(v.cbPortBg) } as CSSProperties}></div>
+              </div>
+              <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
+                {T(v.cbTitle)}
+              </h1>
+            </div>
           </div>
-          <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))', maxWidth: '62ch', textWrap: 'pretty' }}>
+          <span
+            style={
+              {
+                display: str(v.ciTextD),
+                marginTop: str(v.subGap),
+                color: 'var(--mu, oklch(0.7 0.01 70))',
+                maxWidth: '62ch',
+                textWrap: 'pretty',
+              } as CSSProperties
+            }
+          >
             Units start at Lv 1 in their initial class. Each level adds character + class + mount growth to a running
             total; every full 100% grants +1 to that stat.
           </span>
@@ -125,10 +181,10 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   gridRow: str(v.cdd?.cr),
                   order: str(v.cdd?.co),
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,260px),1fr))',
-                  alignItems: 'start',
-                  gap: '16px 24px',
-                  padding: '20px',
+                  alignItems: str(v.suAl),
+                  gridTemplateColumns: str(v.suCols),
+                  gap: str(v.suGap),
+                  padding: str(v.suPad),
                   borderRadius: 'var(--r, 14px)',
                   background: 'var(--panel, oklch(0.2 0.01 60))',
                   border: '1px solid var(--line, oklch(0.29 0.012 60))',
@@ -136,16 +192,28 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               }
             >
               <div
-                style={{
-                  gridColumn: '1/-1',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  gap: '10px 12px',
-                }}
+                style={
+                  {
+                    gridColumn: '1/-1',
+                    display: str(v.suHdD),
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '10px 12px',
+                  } as CSSProperties
+                }
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '6px 14px', flexWrap: 'wrap' }}>
+                <div
+                  style={
+                    {
+                      display: str(v.uSetD),
+                      alignSelf: 'center',
+                      alignItems: 'center',
+                      gap: '6px 14px',
+                      flexWrap: 'wrap',
+                    } as CSSProperties
+                  }
+                >
                   <span
                     style={{
                       whiteSpace: 'nowrap',
@@ -158,44 +226,54 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     Unit setup
                   </span>
                   <button
-                    onClick={v.toProfile}
+                    data-tip="1"
+                    onClick={v.ciTog}
+                    aria-label="About the builder"
+                    aria-pressed={v.ciOn}
                     style={
                       {
-                        display: str(v.calcCharDisp),
+                        display: str(v.ciBtnD),
                         alignItems: 'center',
-                        padding: '7px 12px',
-                        borderRadius: '999px',
-                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                        justifyContent: 'center',
+                        width: '36px',
+                        height: '36px',
+                        margin: '-8px -6px -8px -6px',
+                        border: '0',
+                        borderRadius: '50%',
                         background: 'transparent',
-                        color: 'var(--tx, #eee)',
                         cursor: 'pointer',
-                        font: "600 12px/1 'IBM Plex Sans',sans-serif",
-                        whiteSpace: 'nowrap',
+                        color: str(v.ciFg),
+                        padding: '0',
                       } as CSSProperties
                     }
-                    className="hv-6"
                   >
-                    {T(v.toProfileLbl)}
+                    <span
+                      style={{
+                        display: 'grid',
+                        placeItems: 'center',
+                        width: '20px',
+                        height: '20px',
+                        boxSizing: 'border-box',
+                        borderRadius: '50%',
+                        border: '1.5px solid currentColor',
+                        font: "600 12px/1 'IBM Plex Mono',monospace",
+                      }}
+                    >
+                      i
+                    </span>
                   </button>
                 </div>
-                <div style={{ display: 'flex', gap: '8px', flex: 'none' }}>
-                  <button
-                    onClick={v.cmpHere}
-                    title="Save this build and compare it with others"
-                    style={{
-                      whiteSpace: 'nowrap',
-                      padding: '9px 16px',
-                      borderRadius: '999px',
-                      border: '1px solid var(--ac, oklch(0.8 0.11 75))',
-                      background: 'var(--ac, oklch(0.8 0.11 75))',
-                      color: 'oklch(0.18 0.01 60)',
-                      font: "600 13px/1 'IBM Plex Sans',sans-serif",
-                      cursor: 'pointer',
-                    }}
-                    className="hv-7"
-                  >
-                    Compare
-                  </button>
+                <div
+                  style={
+                    {
+                      alignSelf: 'center',
+                      display: 'flex',
+                      justifyContent: 'flex-end',
+                      gap: '8px',
+                      flex: str(v.uSetFlex),
+                    } as CSSProperties
+                  }
+                >
                   <button
                     onClick={v.resetCalc}
                     title="Reset build to defaults"
@@ -209,13 +287,24 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       font: "600 12px/1 'IBM Plex Sans',sans-serif",
                       cursor: 'pointer',
                     }}
-                    className="hv-8"
+                    className="hv-6"
                   >
                     Reset build
                   </button>
                 </div>
               </div>
-              <div style={{ display: str(v.calcCharDisp), flexDirection: 'column', gap: '6px' } as CSSProperties}>
+              <div
+                style={
+                  {
+                    gridColumn: str(v.suC2),
+                    gridRow: str(v.suR),
+                    display: str(v.uCharD),
+                    minWidth: '0',
+                    flexDirection: 'column',
+                    gap: '6px',
+                  } as CSSProperties
+                }
+              >
                 <span
                   style={{
                     display: 'flex',
@@ -245,7 +334,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       background: 'var(--panel)',
                       outline: 'none',
                     }}
-                    className="focus-9"
+                    className="focus-7"
                   />
                   <button
                     onMouseDown={v.onCalcClear}
@@ -289,9 +378,11 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       {
                         opacity: str(v.rlOp),
                         pointerEvents: str(v.rlPe),
-                        gridColumn: '1/-1',
+                        gridColumn: str(v.suC3),
+                        gridRow: str(v.suR),
+                        minWidth: '0',
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,200px),1fr))',
+                        gridTemplateColumns: `repeat(auto-fit,minmax(min(100%,${str(v.suRlMin)}),1fr))`,
                         gap: '12px 24px',
                         alignItems: 'start',
                       } as CSSProperties
@@ -943,7 +1034,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 cursor: 'pointer',
                               } as CSSProperties
                             }
-                            className="hv-10"
+                            className="hv-8"
                           >
                             <span style={{ fontWeight: '600', fontSize: '12px' }}>No skill</span>
                           </div>
@@ -983,7 +1074,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                             cursor: 'pointer',
                                           } as CSSProperties
                                         }
-                                        className="hv-10"
+                                        className="hv-8"
                                       >
                                         <span
                                           style={
@@ -1091,17 +1182,33 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           style={
                             {
                               minHeight: '36px',
-                              padding: '0 12px',
+                              padding: '4px 10px',
                               border: '0',
                               borderRadius: '6px',
                               background: str(t?.bg),
                               color: str(t?.fg),
                               cursor: 'pointer',
                               fontSize: '12px',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              gap: '3px',
                             } as CSSProperties
                           }
                         >
-                          {T(t?.l)}
+                          <span style={{ lineHeight: '1' }}>{T(t?.l)}</span>
+                          {t?.hasN ? (
+                            <>
+                              <span
+                                style={
+                                  { font: "500 10px/1 'IBM Plex Mono',monospace", color: str(t?.nFg) } as CSSProperties
+                                }
+                              >
+                                {T(t?.n)}
+                              </span>
+                            </>
+                          ) : null}
                         </button>
                       </Fragment>
                     ))}
@@ -1142,7 +1249,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                   cursor: 'help',
                                 } as CSSProperties
                               }
-                              className="hv-11"
+                              className="hv-9"
                             >
                               <span style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '0' }}>
                                 <span
@@ -1225,7 +1332,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             fontSize: '12px',
                             color: 'var(--mu, oklch(0.7 0.01 70))',
                           }}
-                          className="hv-8"
+                          className="hv-6"
                         >
                           Clear
                         </button>
@@ -1322,7 +1429,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               color: 'var(--mu, oklch(0.7 0.01 70))',
                             } as CSSProperties
                           }
-                          className="hv-8"
+                          className="hv-6"
                         >
                           ×
                         </button>
@@ -1352,7 +1459,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           fontSize: '13px',
                           fontWeight: '600',
                         }}
-                        className="hv-12"
+                        className="hv-10"
                       >
                         + Add ability…
                       </button>
@@ -1385,7 +1492,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             fontSize: '12px',
                             color: 'var(--mu, oklch(0.7 0.01 70))',
                           }}
-                          className="hv-8"
+                          className="hv-6"
                         >
                           Clear
                         </button>
@@ -1480,7 +1587,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 color: 'var(--mu, oklch(0.7 0.01 70))',
                               } as CSSProperties
                             }
-                            className="hv-8"
+                            className="hv-6"
                           >
                             ×
                           </button>
@@ -1601,7 +1708,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           fontSize: '13px',
                           fontWeight: '600',
                         }}
-                        className="hv-12"
+                        className="hv-10"
                       >
                         + Add combat art…
                       </button>
@@ -1634,7 +1741,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             fontSize: '12px',
                             color: 'var(--mu, oklch(0.7 0.01 70))',
                           }}
-                          className="hv-8"
+                          className="hv-6"
                         >
                           Clear
                         </button>
@@ -1746,7 +1853,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               color: 'var(--mu, oklch(0.7 0.01 70))',
                             } as CSSProperties
                           }
-                          className="hv-8"
+                          className="hv-6"
                         >
                           ×
                         </button>
@@ -1776,7 +1883,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           fontSize: '13px',
                           fontWeight: '600',
                         }}
-                        className="hv-12"
+                        className="hv-10"
                       >
                         + Add item…
                       </button>
@@ -1833,7 +1940,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   fontWeight: '600',
                   cursor: 'pointer',
                 }}
-                className="hv-8"
+                className="hv-6"
               >
                 Reset
               </button>
@@ -1868,7 +1975,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         fontWeight: '600',
                         cursor: 'pointer',
                       }}
-                      className="hv-6"
+                      className="hv-11"
                     >
                       Save as new build
                     </button>
@@ -2978,7 +3085,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             placeItems: 'center',
                           } as CSSProperties
                         }
-                        className="hv-13"
+                        className="hv-12"
                       >
                         <svg
                           width="15"
@@ -3011,7 +3118,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       font: "600 13px/1.2 'IBM Plex Mono',monospace",
                       color: 'var(--ac, oklch(0.8 0.11 75))',
                     }}
-                    className="hv-14 focus-15"
+                    className="hv-13 focus-14"
                   />
                   <button
                     onClick={b?.pathTip}
@@ -3031,7 +3138,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                     }}
-                    className="hv-8"
+                    className="hv-6"
                   >
                     {T(b?.kLast)}
                     {' · Lv '}
@@ -3105,16 +3212,20 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       <>
                         <button
                           onClick={b?.load}
-                          style={{
-                            padding: '9px 16px',
-                            borderRadius: '999px',
-                            border: '0',
-                            background: 'var(--ac, oklch(0.8 0.11 75))',
-                            color: 'oklch(0.18 0.01 60)',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            fontSize: '12px',
-                          }}
+                          disabled={b?.loadDis}
+                          style={
+                            {
+                              padding: '9px 16px',
+                              borderRadius: '999px',
+                              border: '0',
+                              background: 'var(--ac, oklch(0.8 0.11 75))',
+                              color: 'oklch(0.18 0.01 60)',
+                              fontWeight: '600',
+                              cursor: str(b?.loadCur),
+                              opacity: str(b?.loadOp),
+                              fontSize: '12px',
+                            } as CSSProperties
+                          }
                         >
                           Load
                         </button>

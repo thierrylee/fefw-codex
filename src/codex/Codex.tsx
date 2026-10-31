@@ -12,6 +12,7 @@ export class Codex extends Component<CodexProps, any> {
   declare am: any
   declare cDrag: any
   declare cOver: any
+  declare calcCmp: any
   declare ck: any
   declare closeSheet: any
   declare cpT: any
@@ -38,6 +39,7 @@ export class Codex extends Component<CodexProps, any> {
   declare od: any
   declare overId: any
   declare pk: any
+  declare profCmp: any
   declare rHov: any
   declare rScr: any
   declare rT: any
@@ -367,6 +369,10 @@ export class Codex extends Component<CodexProps, any> {
         } as any)[s.screen] || 'Codex'
   }
   componentDidUpdate() {
+    {
+      const h = document.querySelector<HTMLElement>('main > header')
+      document.documentElement.style.setProperty('--hh', (h ? h.offsetHeight : 0) + 'px')
+    }
     const s = this.state
     if (this.rScr !== s.screen) {
       this.rScr = s.screen
@@ -1195,6 +1201,7 @@ export class Codex extends Component<CodexProps, any> {
       cur: ok ? 'grab' : 'default',
       dim: this.hDrag === id ? 0.4 : 1,
       sh: on ? (ci > oi ? '-5px 0 0 0 ' : '5px 0 0 0 ') + 'var(--ac, oklch(0.82 0.12 85))' : 'none',
+      shV: on ? (ci > oi ? 'inset 0 3px 0 0 ' : 'inset 0 -3px 0 0 ') + 'var(--ac, oklch(0.82 0.12 85))' : 'none',
       dStart: (e?: any) => {
         if (!ok) return
         e.stopPropagation()
@@ -1284,6 +1291,7 @@ export class Codex extends Component<CodexProps, any> {
         rWide,
         cW,
         bVert,
+        cCols,
         pcTord,
         pcbWideS,
         pctWideS,
@@ -1330,6 +1338,7 @@ export class Codex extends Component<CodexProps, any> {
             rWide,
             cW,
             bVert,
+            cCols,
             pcTord,
             pcbWideS,
             pctWideS,
@@ -2044,6 +2053,27 @@ export class Codex extends Component<CodexProps, any> {
       bar: scr === id ? t.ac : 'transparent',
       go: () => {
         this.rootNav = true
+        if (id === 'compare' && this.state.screen === 'calc' && this.calcCmp) {
+          this.rootNav = false
+          this.calcCmp()
+          return
+        }
+        if (id === 'compare' && this.state.screen === 'profile' && this.state.sel && this.profCmp) {
+          const pc = d && d.chars.find((x?: any) => x.n === this.state.sel)
+          if (pc && pc.part <= P) {
+            this.rootNav = false
+            this.profCmp()
+            return
+          }
+        }
+        if (id === 'calc' && this.state.screen === 'profile' && this.state.sel) {
+          const pc = d && d.chars.find((x?: any) => x.n === this.state.sel)
+          if (pc && pc.part <= P) {
+            this.rootNav = false
+            goCalcFor(pc.n)
+            return
+          }
+        }
         const cur = this.state.screen === 'profile' ? 'profile' : this.state.screen
         if (cur === id) {
           const e: Record<string, any> = { screen: id, sel: this.state.sel, l: this.lbl({ screen: id }) }
@@ -2547,7 +2577,7 @@ export class Codex extends Component<CodexProps, any> {
     // unit builder
     const calcChars = avail.filter((c?: any) => c.g)
     const inPCalc = false
-    const onlyCur = !!st.bOnly
+    const onlyCur = st.bOnly !== false
     const cName = inPCalc ? st.sel : calcChars.find((c?: any) => c.n === st.calc.c) ? st.calc.c : (calcChars[0] || {}).n
     const cGd = (d.chars.find((x?: any) => x.n === cName) || {}).gd
     const gOk = (k?: any) => (P >= 3 || !['Master', 'Divine'].includes(k.tier)) && (!k.rg || !cGd || k.rg === cGd)
@@ -2744,7 +2774,7 @@ export class Codex extends Component<CodexProps, any> {
           name: finalName,
         },
       ]
-      const cmp = [...st.cmp, id].slice(-4)
+      const cmp = [...st.cmp, id].slice(-(narrow ? 5 : 10))
       this.setState({ bname: null })
       this.save({
         builds: nb,
@@ -4000,7 +4030,7 @@ export class Codex extends Component<CodexProps, any> {
               a.n.localeCompare(b.n),
           )
           .map(card))(st.starred || []),
-      rosterSub: `${avail.filter(isRec).length} recruited / ${avail.length} units · sorted by part, ${st.sort !== 'ch' ? 'renown, chapter' : 'chapter, renown'}, support${R === 'All' ? ' (easiest route)' : ''}`,
+      rosterSub: `${avail.filter(isRec).length} recruited / ${avail.length} units`,
       isOverview: st.screen === 'overview',
       isRoster: st.screen === 'roster',
       isProfile: st.screen === 'profile',
@@ -4367,7 +4397,7 @@ export class Codex extends Component<CodexProps, any> {
         this.save({
           screen: 'compare',
           builds: nb,
-          cmp: [...st.cmp.filter((x?: any) => x !== id), id].slice(-4),
+          cmp: [...st.cmp.filter((x?: any) => x !== id), id].slice(-(narrow ? 5 : 10)),
           calc: { ...calc, bid: id },
           ...(st.cchars && !st.cchars.includes(calc.c) ? { cchars: [...st.cchars, calc.c] } : {}),
         })
@@ -4509,7 +4539,7 @@ export class Codex extends Component<CodexProps, any> {
       bOnlyBg: onlyCur ? t.panel2 : 'transparent',
       bOnlyBd: onlyCur ? t.ac : t.line,
       bOnlyLbl: (onlyCur ? '✓ ' : '') + 'Only ' + cName,
-      bOnlyTog: () => this.save({ bOnly: !st.bOnly, bRec: false, bStar: false }),
+      bOnlyTog: () => this.save({ bOnly: !onlyCur, bRec: false, bStar: false }),
       bRecBg: st.bRec ? t.panel2 : 'transparent',
       bRecBd: st.bRec ? t.ac : t.line,
       bRecLbl: (st.bRec ? '✓ ' : '') + 'Recruited',
@@ -4519,8 +4549,9 @@ export class Codex extends Component<CodexProps, any> {
       bStarLbl: (st.bStar ? '✓ ' : '') + 'Starred',
       bStarTog: () => this.save({ bStar: !st.bStar, bOnly: false, bRec: false }),
       showCalc: st.screen === 'calc' || inPCalc,
-      calcHeadDisp: inPCalc ? 'none' : 'flex',
+      calcHeadDisp: inPCalc ? 'none' : narrow ? 'flex' : 'contents',
       calcCharDisp: inPCalc ? 'none' : 'flex',
+      uCharD: inPCalc || narrow ? 'none' : 'flex',
       calcTop: inPCalc ? '-8px' : '0',
       builds: (() => {
         const disp = buildV
@@ -4673,6 +4704,9 @@ export class Codex extends Component<CodexProps, any> {
           onName: (e?: any) => this.save({ builds: builds.map((x?: any) => (x.id === b.id ? { ...x, name: e.target.value } : x)) }),
           c: b.lk ? 'Sealed unit' : b.c,
           blur: b.lk ? 'blur(4px)' : 'none',
+          loadDis: b.lk,
+          loadOp: b.lk ? 0.4 : 1,
+          loadCur: b.lk ? 'not-allowed' : 'pointer',
           bgi: b.lk
             ? 'none'
             : 'url(' + IMG('classes', b.x.stages[b.x.stages.length - 1].k.n) + ') center/cover no-repeat',
@@ -4722,7 +4756,7 @@ export class Codex extends Component<CodexProps, any> {
       const allSer = ser
       const selIds = st.bsel
         ? st.bsel.filter((id?: any) => allSer.some((s?: any) => s.id === id))
-        : allSer.slice(0, 4).map((s?: any) => s.id)
+        : allSer.slice(0, narrow ? 5 : 10).map((s?: any) => s.id)
       const selSorted = allSer.map((s?: any) => s.id).filter((id?: any) => selIds.includes(id))
       const chips = allSer.map((s?: any) => {
         const ix = selSorted.indexOf(s.id),
@@ -4736,7 +4770,8 @@ export class Codex extends Component<CodexProps, any> {
           bd: on ? col : t.line,
           op: on ? 1 : 0.6,
           dot: on ? col : 'transparent',
-          toggle: () => this.save({ bsel: on ? selIds.filter((x?: any) => x !== s.id) : [...selIds, s.id].slice(-4) }),
+          toggle: () =>
+            this.save({ bsel: on ? selIds.filter((x?: any) => x !== s.id) : [...selIds, s.id].slice(-(narrow ? 5 : 10)) }),
         }
       })
       const ser2 = selSorted.map((id?: any, ix?: any) => ({ ...allSer.find((s?: any) => s.id === id), col: CC4[ix] }))
@@ -4773,7 +4808,7 @@ export class Codex extends Component<CodexProps, any> {
           this.save({
             screen: 'compare',
             cchars: base.includes(cName) ? base : [...base, cName],
-            cmp: [...st.cmp.filter((x?: any) => !ids.includes(x)), ...ids].slice(-4),
+            cmp: [...st.cmp.filter((x?: any) => !ids.includes(x)), ...ids].slice(-(narrow ? 5 : 10)),
           })
         },
         band: multi
@@ -4896,11 +4931,11 @@ export class Codex extends Component<CodexProps, any> {
               bo: 5,
             }
           : {
-              rows: 'auto 1fr auto auto auto',
-              cc: '2',
+              rows: 'auto auto auto auto auto',
+              cc: '1 / -1',
               cr: '1',
               pc: '1',
-              pr: '1 / span 2',
+              pr: '2',
               mc: '1 / -1',
               mr: '3',
               ac: '1 / -1',
@@ -4990,12 +5025,13 @@ export class Codex extends Component<CodexProps, any> {
       })
     }
     const usable = [...realU, ...virt]
-    const selB = usable.filter((b?: any) => st.cmp.includes(b.id) && cch.includes(b.c)).slice(0, 4)
+    const selB = usable.filter((b?: any) => st.cmp.includes(b.id) && cch.includes(b.c)).slice(0, narrow ? 5 : 10)
     const vis = st.cmp.filter((x?: any) => {
       const u = usable.find((q?: any) => q.id === x)
       return u && cch.includes(u.c)
     })
     vals.toProfile = open(st.calc && st.calc.c)
+    this.calcCmp = vals.cmpHere
     vals.toProfileLbl = 'View ' + (st.calc && st.calc.c) + '’s profile →'
     vals.noBuilds = cch.length === 0
     const elig = [
@@ -5006,9 +5042,22 @@ export class Codex extends Component<CodexProps, any> {
     vals.addOpts = elig.filter((n?: any) => !cch.includes(n))
     vals.cq = st.cq || ''
     {
-      const DK = ['table', 'radar', 'bars']
+      const DK = ['table', 'gr', 'pj', 'pr', 'radar', 'bars']
       const sv2 = (st.cTord || []).filter((k?: any) => DK.includes(k))
       const ord = [...sv2, ...DK.filter((k?: any) => !sv2.includes(k))]
+      if (!sv2.includes('gr') && sv2.includes('table')) {
+        ord.splice(ord.indexOf('gr'), 1)
+        ord.splice(ord.indexOf('table') + 1, 0, 'gr')
+      }
+      ;[
+        ['pj', 'gr'],
+        ['pr', 'pj'],
+      ].forEach(([k, p]: any) => {
+        if (!sv2.includes(k)) {
+          ord.splice(ord.indexOf(k), 1)
+          ord.splice((ord.indexOf(p) >= 0 ? ord.indexOf(p) : ord.indexOf('table')) + 1, 0, k)
+        }
+      })
       const ct: Record<string, any> = {
         over: (e?: any) => {
           e.preventDefault()
@@ -5051,21 +5100,34 @@ export class Codex extends Component<CodexProps, any> {
       const cW: any = st.cW || {}
       const cwN = narrow
       vals.cwBtn = narrow ? 'none' : 'flex'
+      const NC = narrow ? 1 : Math.min(4, Math.max(2, st.cCols || 3))
+      vals.cNC = NC
+      vals.cGridCols = narrow ? 'minmax(0,1fr)' : 'repeat(' + NC + ',minmax(0,1fr))'
+      vals.cColCtl = narrow ? 'none' : 'flex'
+      vals.cColOpts = [2, 3, 4].map((n?: any) => ({
+        n,
+        bg: n === NC ? t.ac : 'transparent',
+        fg: n === NC ? 'oklch(0.18 0.01 60)' : t.mu,
+        click: () => this.save({ cCols: n }),
+      }))
       ;[
         ['r', 'radar', 1],
         ['b', 'bars', 2],
-        ['t', 'table', 3],
+        ['t', 'table', 9],
+        ['g', 'gr', 9],
+        ['j', 'pj', 2],
+        ['k', 'pr', 1],
       ].forEach(([p, k, d]: any) => {
-        const w = cW[k] || d
+        const w = Math.min(NC, cW[k] || d)
         vals[p + 'Wl'] = w
-        vals[p + 'Bars'] = '▮'.repeat(w) + '▯'.repeat(3 - w)
-        vals[p + 'WideCol'] = cwN ? '1 / -1' : w >= 3 ? '1 / -1' : 'span ' + w
-        vals[p + 'Cyc'] = () => this.save({ cW: { ...cW, [k]: w >= 3 ? 1 : w + 1 } })
+        vals[p + 'Bars'] = '▮'.repeat(w) + '▯'.repeat(NC - w)
+        vals[p + 'WideCol'] = cwN || w >= NC ? '1 / -1' : 'span ' + w
+        vals[p + 'Cyc'] = () => this.save({ cW: { ...cW, [k]: w >= NC ? 1 : w + 1 } })
       })
       vals.bVert = !!st.bVert
       vals.bHoriz = !st.bVert
-      vals.bRotLbl = st.bVert ? '↔ Horizontal' : '↕ Vertical'
-      vals.bRotTip = st.bVert ? 'Horizontal bars' : 'Vertical bars'
+      vals.bRotLbl = st.bVert ? '↕ Vertical' : '↔ Horizontal'
+      vals.bRotTip = st.bVert ? 'Switch to horizontal bars' : 'Switch to vertical bars'
       vals.bRotate = () => this.save({ bVert: !st.bVert })
       vals.bLblDisp = (cW.bars || 2) >= 2 ? 'block' : 'none'
     }
@@ -5121,7 +5183,7 @@ export class Codex extends Component<CodexProps, any> {
         this.save({
           cchars: cch,
           bases: on ? st.bases.filter((x?: any) => x !== n) : [...(st.bases || []), n],
-          cmp: on ? st.cmp.filter((x?: any) => x !== id) : [...vis, id].slice(-4),
+          cmp: on ? st.cmp.filter((x?: any) => x !== id) : [...vis, id].slice(-(narrow ? 5 : 10)),
         })
       },
       profile: () => {
@@ -5193,7 +5255,10 @@ export class Codex extends Component<CodexProps, any> {
                 return
               }
               const shown = st.cmp.includes(b.id)
-              this.save({ cchars: cch, cmp: shown ? st.cmp.filter((x?: any) => x !== b.id) : [...vis, b.id].slice(-4) })
+              this.save({
+                cchars: cch,
+                cmp: shown ? st.cmp.filter((x?: any) => x !== b.id) : [...vis, b.id].slice(-(narrow ? 5 : 10)),
+              })
             },
           }
         }),
@@ -5207,7 +5272,7 @@ export class Codex extends Component<CodexProps, any> {
       }
       const ex = usable.find((b?: any) => b.c === n)
       this.setState({ cq: '' })
-      this.save({ cchars: [...cch, n], cmp: [...vis, ex ? ex.id : 'base:' + n].slice(-4) })
+      this.save({ cchars: [...cch, n], cmp: [...vis, ex ? ex.id : 'base:' + n].slice(-(narrow ? 5 : 10)) })
     }
     vals.cmpSel = selB.map((b?: any, i?: any) => ({
       ...this.hd(
@@ -5316,6 +5381,8 @@ export class Codex extends Component<CodexProps, any> {
                   .join(' · ') || 'Included in shown stat',
               ),
               rng: !r || !sv ? '' : b + r.lo + '–' + (b + r.hi),
+              lon: r && sv ? b + r.lo : null,
+              hin: r && sv ? b + r.hi : null,
               ...mfx(sv ? (r ? r.mst : sum(selB[j].x.rows.map((q?: any) => q.mst || 0))) : 0, v),
               col: v === mx && vs.length > 1 ? t.ac : t.tx,
               fw: v === mx && vs.length > 1 ? 600 : 400,
@@ -5324,16 +5391,37 @@ export class Codex extends Component<CodexProps, any> {
         }
       }),
     )
+    vals.cmpRows.forEach((r?: any) => {
+      if (r.s === 'Σ' || r.s === 'Mov') return
+      const vv = r.cells.flatMap((x?: any) => [parseFloat(x.v) || 0, x.lon, x.hin]).filter((n?: any) => n != null),
+        g0 = Math.min(...vv),
+        g1 = Math.max(...vv),
+        pc = (n?: any) => ((n - g0) / (g1 - g0 || 1)) * 100
+      r.cells.forEach((x?: any, j?: any) => {
+        const av = parseFloat(x.v) || 0,
+          l = x.lon != null ? x.lon : av,
+          hh = x.hin != null ? x.hin : av
+        Object.assign(x, {
+          hasR: true,
+          lb: pc(l).toFixed(1) + '%',
+          lh: 'max(2px,' + (pc(hh) - pc(l)).toFixed(1) + '%)',
+          db: 'calc(' + pc(av).toFixed(1) + '% - 3px)',
+          lc: CC[j],
+        })
+      })
+    })
     vals.cmpNotes = selB
-      .map((b?: any, j?: any) => ({ ch: b.c, col: CC[j], txt: BON.get(b.id).ABS.join(' · ') }))
+      .map((b?: any, j?: any) => ({ ch: b.c, bn: b.nmShow, col: CC[j], txt: BON.get(b.id).ABS.join(' · ') }))
       .filter((n?: any) => n.txt)
     vals.hasCmpNotes = vals.cmpNotes.length > 0
+    const V = S.map((x?: any, i?: any) => i).filter((i?: any) => !(st.cHide || []).includes(S[i])),
+      nV = V.length || 1
     const cx = 170,
       cy = 170,
       RR = 120,
       MX = Math.max(1, ...selB.flatMap((b?: any) => b.x.rows.map((r?: any) => r.t))),
-      pt = (i?: any, v?: any) => {
-        const a = -Math.PI / 2 + (i * 2 * Math.PI) / 9,
+      pt = (k?: any, v?: any) => {
+        const a = -Math.PI / 2 + (k * 2 * Math.PI) / nV,
           r = (Math.min(v, MX) / MX) * RR
         return [cx + r * Math.cos(a), cy + r * Math.sin(a)]
       }
@@ -5345,15 +5433,16 @@ export class Codex extends Component<CodexProps, any> {
     vals.radar = {
       band: multi2
         ? 'M' +
-          S.map((s?: any, i?: any) => P2(pt(i, mx2[i] * MX))).join(' ') +
+          V.map((i?: any, k?: any) => P2(pt(k, mx2[i] * MX))).join(' ') +
           'Z M' +
-          S.map((s?: any, i?: any) => P2(pt(i, mn2[i] * MX))).join(' ') +
+          V.map((i?: any, k?: any) => P2(pt(k, mn2[i] * MX))).join(' ') +
           'Z'
         : '',
-      dots: multi2
+      dots: true
         ? selB.flatMap((b?: any, j?: any) =>
-            S.map((s?: any, i?: any) => {
-              const [x, y] = pt(i, b.x.rows[i].t)
+            V.map((i?: any, k?: any) => {
+              const s = S[i]
+              const [x, y] = pt(k, b.x.rows[i].t)
               return { x, y, col: CC[j], ...tipH(s + ': ' + b.x.rows[i].t + '%', b.c + ' · ' + b.nmShow) }
             }),
           )
@@ -5365,6 +5454,7 @@ export class Codex extends Component<CodexProps, any> {
         items: selB.map((b?: any, j?: any) => ({
           ...tipH(s + ': ' + b.x.rows[i].t + '%', b.c + ' · ' + b.nmShow),
           col: CC[j],
+          nm: b.c + ' · ' + b.nmShow,
           w: Math.min(100, (b.x.rows[i].t / Math.max(100, MX)) * 100) + '%',
           v: b.x.rows[i].t,
         })),
@@ -5372,15 +5462,16 @@ export class Codex extends Component<CodexProps, any> {
       rings: [0.25, 0.5, 0.75, 1]
         .map((f?: any) => f * MX)
         .map((v?: any) =>
-          S.map((s?: any, i?: any) =>
-            pt(i, v)
+          V.map((i?: any, k?: any) =>
+            pt(k, v)
               .map((n?: any) => n.toFixed(1))
               .join(','),
           ).join(' '),
         ),
-      axes: S.map((s?: any, i?: any) => {
-        const [x, y] = pt(i, MX)
-        const [lx, ly] = pt(i, MX * 1.14)
+      axes: V.map((i?: any, k?: any) => {
+        const s = S[i]
+        const [x, y] = pt(k, MX)
+        const [lx, ly] = pt(k, MX * 1.14)
         const sp = Math.round((mx2[i] - mn2[i]) * MX)
         const on = multi2 && sp > 0
         return {
@@ -5389,22 +5480,71 @@ export class Codex extends Component<CodexProps, any> {
           y,
           lxp: (lx / 340) * 100 + '%',
           lyp: (ly / 340) * 100 + '%',
-          lbl: on ? s + ' Δ' + sp : s,
-          col: on ? 'oklch(0.82 0.12 85)' : 'inherit',
-          fw: on ? 600 : 500,
-          op: on ? 1 : 0.75,
+          lbl: s,
+          col: 'inherit',
+          fw: 500,
+          op: 0.75,
         }
       }),
       series: selB.map((b?: any, j?: any) => ({
         col: CC[j],
-        pts: b.x.rows
-          .map((r?: any, i?: any) =>
-            pt(i, r.t)
-              .map((n?: any) => n.toFixed(1))
-              .join(','),
-          )
-          .join(' '),
+        pts: V.map((i?: any, k?: any) =>
+          pt(k, b.x.rows[i].t)
+            .map((n?: any) => n.toFixed(1))
+            .join(','),
+        ).join(' '),
       })),
+    }
+    {
+      const H = this.state.hl,
+        hw = (o?: any, k?: any) => ({
+          ...o,
+          enter: () => this.setState({ hl: k }),
+          leave: () => this.setState({ hl: null }),
+          op: H ? (H === k ? 1 : 0.35) : 1,
+          ol: H === k ? '0 0 0 2px var(--tx, #eee)' : 'none',
+          r: H === k ? 7 : 5,
+        })
+      vals.radar.bars = vals.radar.bars.map((b?: any) => ({
+        ...b,
+        items: (() => {
+          const it = b.items,
+            run = it.map(() => null)
+          for (let i = 0; i < it.length;) {
+            let k = i
+            while (k + 1 < it.length && it[k + 1].v === it[i].v) k++
+            run[i] = { k: k - i + 1, i }
+            i = k + 1
+          }
+          return it.map((x?: any, j?: any) => {
+            const r =
+              run[j] ||
+              (() => {
+                let i = j
+                while (!run[i]) i--
+                return { k: run[i].k, i }
+              })()
+            const first = r.i === j,
+              mid = j === r.i + Math.floor((r.k - 1) / 2)
+            return hw({ ...x, lv: first ? x.v : '', lk: (r.k - 1) / 2, lh: mid ? x.v : '' }, b.s)
+          })
+        })(),
+      }))
+      vals.radar.axes = vals.radar.axes.map((a?: any) => ({
+        ...a,
+        hon: () => this.setState({ hl: a.s }),
+        hoff: () => this.setState({ hl: null }),
+        hop: H === a.s ? 1 : 0.75,
+        hfw: H === a.s ? 600 : 500,
+        lc: H === a.s ? 'var(--tx, #eee)' : 'rgba(255,255,255,.09)',
+        lw: H === a.s ? 2 : 1,
+      }))
+      vals.radar.dots = vals.radar.dots.map((d?: any, k?: any) => ({
+        ...d,
+        r: H === S[V[k % nV]] ? 7 : 5,
+        enter: () => this.setState({ hl: S[V[k % nV]] }),
+        leave: () => this.setState({ hl: null }),
+      }))
     }
     // charts
     const hs = Array.isArray(st.hsel) ? st.hsel : [],
@@ -5635,7 +5775,19 @@ export class Codex extends Component<CodexProps, any> {
               } as any)[scn] || 'Weave Codex'
         vals.headBackOn = scn !== 'roster'
         vals.headSub = scn === 'profile' ? 'Characters' : ''
+        const cu = scn === 'calc' && d.chars.find((x?: any) => x.n === (st.calc && st.calc.c))
+        if (cu && cu.part <= P) {
+          vals.headSub = 'Unit builder'
+          vals.headTitle = cu.n
+          vals.hpOn = narrow
+          vals.hpBgi = 'url(' + IMG('characters', cu.n) + ') 50% 100%/contain no-repeat'
+        }
         vals.headSubOn = !!vals.headSub
+        vals.headTitleShow = true
+        if (!(narrow && st.screen === 'calc' && vals.hpBgi)) vals.hpOn = false
+        vals.pPortD = narrow ? 'none' : 'grid'
+        vals.pHeadD = narrow ? 'none' : 'flex'
+        vals.pHeadMB = narrow ? '-20px' : '0'
         vals.backRosterDisp = narrow ? 'none' : 'block'
         {
           const L: Record<string, any> = {
@@ -5685,7 +5837,7 @@ export class Codex extends Component<CodexProps, any> {
             c.go = c.go || (() => {})
           })
           vals.crumbs = cr
-          vals.hasCrumbs = !narrow && cr.length > 1
+          vals.hasCrumbs = !narrow && cr.length > 1 && !['profile', 'calc', 'compare'].includes(st.screen)
         }
         vals.headBack = () => {
           if (kopenNow) {
@@ -5889,9 +6041,9 @@ export class Codex extends Component<CodexProps, any> {
       }
       {
         const GR: any = [
-          ['Chars', ['roster', 'calc', 'compare', 'charts'], 'roster'],
+          ['Chars', ['roster', 'calc', 'compare'], 'roster'],
           ['Meal', ['match'], 'match'],
-          ['Codex', ['classes', 'abilities', 'arts', 'items'], 'classes'],
+          ['Codex', ['classes', 'abilities', 'arts', 'items', 'charts'], 'classes'],
           ['Settings', ['settings'], 'settings'],
         ]
         const byId: any = {}
@@ -5914,17 +6066,349 @@ export class Codex extends Component<CodexProps, any> {
           }
         })
         const g = GR.find((x?: any) => x[1].includes(scr))
-        vals.subOn = narrow && !!g && g[1].length > 1
+        vals.subW = narrow ? '100%' : '420px'
+        vals.cmpLim = narrow ? 5 : 10
+        vals.cmpLimTxt = narrow ? 'five' : 'ten'
+        {
+          const rbAll = (vals.radar && vals.radar.bars) || []
+          const hid = st.cHide || []
+          const sNames = [
+            ...new Set<any>([
+              ...(vals.cmpRows || []).map((r?: any) => r.s).filter((n?: any) => n !== 'Σ' && n !== 'Mov'),
+              ...rbAll.map((r?: any) => r.s),
+            ]),
+          ]
+          vals.statChips = sNames.map((n?: any) => {
+            const on = !hid.includes(n)
+            return {
+              l: n,
+              on,
+              bg: on ? t.panel2 : 'transparent',
+              fg: on ? t.tx : t.mu,
+              click: () => this.setState({ cHide: on ? [...hid, n] : hid.filter((x?: any) => x !== n) }),
+            }
+          })
+          const rb = rbAll.filter((r?: any) => !hid.includes(r.s))
+          if (vals.radar) vals.radar = { ...vals.radar, bars: rb }
+          vals.barN = rb.length || 1
+          {
+            const all = sNames
+            vals.statCtl = [
+              hid.length
+                ? { l: 'All', fg: t.ac, click: () => this.setState({ cHide: [] }) }
+                : { l: 'None', fg: t.ac, click: () => this.setState({ cHide: all }) },
+            ]
+          }
+          const lg = vals.cmpSel || []
+          const rbG = rbAll,
+            rg2 = rbG.map((r?: any) => {
+              const v = r.items.map((x?: any) => +x.v || 0)
+              return [Math.min(...v), Math.max(...v)]
+            })
+          vals.grStats = rbG.map((r?: any) => ({ s: r.s }))
+          vals.grN = rbG.length || 9
+          vals.grCols = '120px repeat(' + (rbG.length || 9) + ',minmax(0,1fr)) 56px'
+          vals.grWide = !narrow
+          vals.grNarrow = narrow
+          const hP = (q?: any) =>
+              q
+                .match(/oklch\(\S+ \S+ [^\s)/]+/)[0]
+                .slice(6)
+                .split(' ')
+                .map(Number),
+            hB = hP(t.panel2),
+            hA = hP(t.ac),
+            hC = (k?: any) =>
+              `oklch(${(hB[0] + (hA[0] - hB[0]) * k).toFixed(3)} ${(hB[1] + (hA[1] - hB[1]) * k).toFixed(3)} ${(hB[1] < 0.02 ? hA[2] : hB[2]).toFixed(0)})`
+          vals.grRows = lg.map((z?: any, ci?: any) => ({
+            h: z,
+            name: z.ch + ' · ' + z.bn,
+            col: z.col,
+            tot: rbG.reduce((a?: any, r?: any) => a + (+(r.items[ci] || {}).v || 0), 0),
+            cells: rbG.map((r?: any, ri?: any) => {
+              const v = +(r.items[ci] || {}).v || 0,
+                [lo, hi] = rg2[ri],
+                tt = hi > lo ? (v - lo) / (hi - lo) : 0.5
+              const k = Math.max(0, Math.min(1, (v - 10) / 60))
+              return { s: r.s, v: v + '%', bg: hC(k), fg: k > 0.5 ? 'oklch(0.18 0.01 60)' : t.tx }
+            }),
+          }))
+        }
+        {
+          const crp = (vals.cmpRows || []).filter(
+              (r?: any) => r.s !== 'Σ' && r.s !== 'Mov' && !(st.cHide || []).includes(r.s),
+            ),
+            csp = vals.cmpSel || []
+          const pr = (x?: any) => {
+            const v = parseFloat(x.v) || 0,
+              m = String(x.rng || '').match(/(-?\d+(?:\.\d+)?)\s*[–-]\s*(-?\d+(?:\.\d+)?)/)
+            return { v, lo: m ? +m[1] : v, hi: m ? +m[2] : v }
+          }
+          const pj = crp.map((r?: any) => {
+            const q = r.cells.map(pr),
+              mx = Math.max(1, ...q.map((z?: any) => z.hi), ...q.map((z?: any) => z.v))
+            const mn0 = Math.min(...q.map((z?: any) => z.lo), ...q.map((z?: any) => z.v)),
+              sp = Math.max(1, mx - mn0),
+              mn = Math.max(0, mn0 - sp * 0.15)
+            return { s: r.s, q, mx: mx + sp * 0.12, mn }
+          })
+          vals.pjN = pj.length || 1
+          {
+            const h = st.pjH == null ? !narrow : st.pjH !== false
+            vals.pjLblD = csp.length <= 4 ? 'block' : 'none'
+            vals.pjListD = csp.length <= 4 ? 'none' : 'flex'
+            vals.pjListOn = !h
+            vals.pjColsOn = h
+            vals.pjLbl = h ? '↕ Vertical' : '↔ Horizontal'
+            vals.pjTip = h ? 'Switch to horizontal bars' : 'Switch to vertical bars'
+            vals.pjTog = () => this.setState({ pjH: !h })
+          }
+          const HL = this.state.hl,
+            hln = (n?: any) => this.setState({ hl: n }),
+            hlf = () => this.setState({ hl: null })
+          vals.pjRange = pj.map((r?: any) => ({
+            s: r.s,
+            hon: () => hln(r.s),
+            hoff: hlf,
+            op: HL && HL !== r.s ? 0.35 : 1,
+            items: r.q.map((z?: any, i?: any) => ({
+              col: csp[i] ? csp[i].col : '',
+              v: z.v,
+              rg: z.hi > z.lo ? '(' + z.lo + '–' + z.hi + ')' : '',
+              l: ((z.lo - r.mn) / (r.mx - r.mn)) * 100 + '%',
+              w: Math.max(1, ((z.hi - z.lo) / (r.mx - r.mn)) * 100) + '%',
+              a: ((z.v - r.mn) / (r.mx - r.mn)) * 100 + '%',
+              top: ((Math.max(z.v, z.hi) - r.mn) / (r.mx - r.mn)) * 100 + '%',
+              hb: ((z.hi - r.mn) / (r.mx - r.mn)) * 100 + '%',
+              lo: z.lo,
+              hi: z.hi,
+              hasR: z.hi > z.lo,
+              noR: !(z.hi > z.lo),
+            })),
+          }))
+          vals.pjBars = pj.map((r?: any) => ({
+            s: r.s,
+            items: r.q.map((z?: any, i?: any) => ({
+              col: csp[i] ? csp[i].col : '',
+              v: z.v,
+              h: Math.max(2, (z.v / r.mx) * 100) + '%',
+            })),
+          }))
+          {
+            const n = pj.length || 1,
+              c = 170,
+              R = 115,
+              pt = (i?: any, f?: any) => {
+                const a = -Math.PI / 2 + (i * 2 * Math.PI) / n
+                return [c + R * f * Math.cos(a), c + R * f * Math.sin(a)]
+              },
+              fm = (p?: any) => p.map((v?: any) => v.toFixed(1)).join(',')
+            vals.pjRings = [0.25, 0.5, 0.75, 1].map((f?: any) => ({ pts: pj.map((r?: any, i?: any) => fm(pt(i, f))).join(' ') }))
+            vals.pjAxes = pj.map((r?: any, i?: any) => {
+              const [x, y] = pt(i, 1),
+                [lx, ly] = pt(i, 1.14)
+              return {
+                s: r.s,
+                x,
+                y,
+                lx,
+                ly,
+                lxp: (lx / 340) * 100 + '%',
+                lyp: (ly / 340) * 100 + '%',
+                hon: () => hln(r.s),
+                hoff: hlf,
+                hop: HL === r.s ? 1 : 0.75,
+                hfw: HL === r.s ? 600 : 500,
+                lc: HL === r.s ? 'var(--tx, #eee)' : 'rgba(255,255,255,.09)',
+                lw: HL === r.s ? 2 : 1,
+              }
+            })
+            vals.pjVals = csp.flatMap((h?: any, ci?: any) =>
+              pj.map((r?: any, i?: any) => {
+                const [x, y] = pt(i, r.q[ci] ? r.q[ci].v / r.mx : 0)
+                return { x, y, col: h.col, r: HL === r.s ? 7 : 5, hon: () => hln(r.s), hoff: hlf }
+              }),
+            )
+            vals.pjPolys = csp.map((h?: any, ci?: any) => ({
+              col: h.col,
+              pts: pj.map((r?: any, i?: any) => fm(pt(i, r.q[ci] ? r.q[ci].v / r.mx : 0))).join(' '),
+            }))
+          }
+        }
+        {
+          const hz = st.cmpHz !== false,
+            cr = vals.cmpRows || [],
+            cs = vals.cmpSel || []
+          vals.cmpHz = hz
+          vals.cmpBarsOn = narrow
+          vals.cmpHzT = hz && !narrow
+          vals.cmpVt = !hz && !narrow
+          vals.cmpHzBtnD = narrow ? 'none' : 'flex'
+          vals.cmpHzTog = () => this.setState({ cmpHz: !hz })
+          vals.cmpHzTip = hz ? 'Stats as rows' : 'Stats as columns'
+          vals.cmpHzLbl = hz ? '↔ Horizontal' : '↕ Vertical'
+          vals.cmpHzBd = hz ? t.ac : t.line
+          vals.cmpHzFg = hz ? t.ac : t.mu
+          vals.cmpStats = cr.map((r?: any) => ({ s: r.s }))
+          vals.cmpT = cs.map((h?: any, i?: any) => ({ h, cells: cr.map((r?: any) => r.cells[i] || {}) }))
+          {
+            const sr = cr.filter((r?: any) => r.s !== 'Σ' && r.s !== 'Mov'),
+              tr = cr.find((r?: any) => r.s === 'Σ'),
+              mr = cr.find((r?: any) => r.s === 'Mov')
+            vals.cmpN = sr.length || 9
+            const rg2 = sr.map((r?: any) => {
+              const v = r.cells
+                .flatMap((x?: any) => [parseFloat(x.v) || 0, x.lon != null ? x.lon : null, x.hin != null ? x.hin : null])
+                .filter((n?: any) => n != null)
+              return [Math.min(...v), Math.max(...v)]
+            })
+            const rg = sr.map((r?: any) => {
+              const v = r.cells.map((x?: any) => parseFloat(x.v) || 0)
+              return [Math.min(...v), Math.max(...v)]
+            })
+            vals.cmpCards = cs
+              .map((h?: any, ci?: any) => ({
+                h,
+                mov: mr && mr.cells[ci] ? mr.cells[ci].v : '',
+                tot: tr && tr.cells[ci] ? tr.cells[ci].v : '',
+                cells: sr.map((r?: any, ri?: any) => {
+                  const x: any = r.cells[ci] || {},
+                    [g0, g1] = rg2[ri],
+                    pc = (n?: any) => ((n - g0) / (g1 - g0 || 1)) * 100,
+                    av = parseFloat(x.v) || 0,
+                    l = x.lon != null ? x.lon : av,
+                    hh = x.hin != null ? x.hin : av
+                  return {
+                    s: r.s,
+                    v: x.v,
+                    rng: x.rng || '',
+                    col: x.col,
+                    fw: x.fw,
+                    bg: 'oklch(0.8 0.11 75 / ' + (0.1 + 0.3 * (g1 > g0 ? (av - g0) / (g1 - g0) : 0.5)).toFixed(2) + ')',
+                  }
+                }),
+                badges: sr
+                  .map((r?: any) => ({ ...(r.cells[ci] || {}), s: r.s }))
+                  .filter((x?: any) => x.hasAbl || x.hasBadge || x.hasMnt),
+              }))
+              .map((c?: any) => ({ ...c, hasB: c.badges.length > 0 }))
+          }
+          vals.cmpHzCols = (narrow ? '56px' : 'minmax(110px,auto)') + ' repeat(' + cr.length + ',minmax(0,1fr))'
+          vals.cmpRngD = narrow ? 'none' : 'block'
+        }
+        if (vals.invTabs) {
+          const cn: Record<string, any> = { Abilities: vals.abCount, Arts: vals.caCount, Items: vals.itCount }
+          vals.invTabs = vals.invTabs.map((x?: any) => {
+            const c = cn[x.l]
+            if (!c) return { ...x, hasN: false }
+            const m = String(c).match(/^(\d+)\/(\d+)/) || []
+            const full = m[1] && m[1] === m[2]
+            return { ...x, hasN: true, n: m[1] + '/' + m[2], nFg: full ? t.ac : t.mu }
+          })
+        }
+        vals.headMW = narrow ? '100%' : 'calc(100% - 436px)'
+        {
+          const cb = st.screen === 'calc' && d.chars.find((x?: any) => x.n === (st.calc && st.calc.c))
+          const ok = !!cb && cb.part <= P
+          vals.cbTitle = ok ? cb.n : 'Unit builder'
+          vals.cbPortD = ok && !narrow ? 'block' : 'none'
+          vals.cbPortBg = ok ? 'url(' + IMG('characters', cb.n) + ') 50% 8%/cover no-repeat' : 'none'
+        }
+        {
+          const pd = !narrow && (st.screen === 'profile' || st.screen === 'calc' || st.screen === 'compare')
+          vals.subGap = pd ? '12px' : '0'
+          vals.subMB = pd ? '-66px' : '-6px'
+          vals.secPT = '0'
+          vals.stickyPos = pd ? 'sticky' : 'static'
+          vals.tabPos = 'sticky'
+          vals.tabSh = narrow ? '0 0 0 8px var(--bg, oklch(0.2 0.045 165))' : 'none'
+          vals.stickyMH = pd ? '49px' : '0'
+          vals.stickyPT = pd ? '5px' : '0'
+          vals.cmpHeadD = pd ? 'contents' : 'flex'
+        }
+        vals.subOn =
+          !!g && g[1].length > 1 && (st.screen === 'profile' || st.screen === 'calc' || st.screen === 'compare')
+        vals.uSetD = 'flex'
+        vals.suAl = narrow ? 'start' : 'end'
+        vals.suCols = narrow ? 'repeat(auto-fit,minmax(min(100%,260px),1fr))' : 'minmax(0,1fr) minmax(0,2fr)'
+        vals.suC1 = 'auto'
+        vals.suC2 = narrow ? 'auto' : '1'
+        vals.suC3 = narrow ? '1 / -1' : '2'
+        vals.suC4 = 'auto'
+        vals.suR = narrow ? 'auto' : '2'
+        vals.suRlMin = narrow ? '200px' : '150px'
+        vals.suHdD = 'flex'
+        vals.suGap = narrow ? '16px 24px' : '12px 24px'
+        vals.suPad = narrow ? '20px' : '14px 20px'
+        vals.uCmpD = narrow ? 'none' : 'inline-block'
+        vals.uSetFlex = narrow ? '1 1 auto' : 'none'
         vals.subTabs = vals.subOn
           ? g[1].map((id?: any) => ({
-              l: NAV.find((n?: any) => n[0] === id)[2],
-              go: byId[id].go,
+              l: id === 'roster' ? 'Profile' : NAV.find((n?: any) => n[0] === id)[2],
+              go:
+                id === 'roster' && (st.screen === 'calc' ? st.calc && st.calc.c : st.sel)
+                  ? st.screen === 'profile'
+                    ? () => {}
+                    : open(st.screen === 'calc' ? st.calc.c : st.sel)
+                  : byId[id].go,
               bg: id === scr ? t.panel2 : 'transparent',
               fg: id === scr ? t.ac : t.mu,
             }))
           : []
       }
       vals.h1Disp = narrow ? 'none' : 'block'
+      vals.statBarW = narrow ? '100%' : 'auto'
+      vals.statWrap = narrow ? 'nowrap' : 'wrap'
+      vals.statCtlFlex = narrow ? '1.6 1 0' : 'none'
+      vals.statChipFlex = narrow ? '1 1 0' : 'none'
+      vals.statPad = narrow ? '0' : '0 8px'
+      vals.statMinW = narrow ? '0' : '36px'
+      vals.statFs = narrow ? '11px' : '12px'
+      vals.statSepD = narrow ? 'none' : 'block'
+      {
+        const o = !!(st.tip && st.tip.raw === 'calcinfo')
+        vals.ciOn = o
+        vals.ciFg = o ? t.ac : t.mu
+        vals.ciBtnD = narrow ? 'flex' : 'none'
+        vals.ciTextD = narrow ? 'none' : 'block'
+        vals.ciTog = (ev?: any) => {
+          if (this.state.tip && this.state.tip.raw === 'calcinfo') {
+            this.setState({ tip: null })
+            return
+          }
+          const r = ev.currentTarget.getBoundingClientRect(),
+            W = window.innerWidth,
+            H = window.innerHeight,
+            x = Math.max(12, Math.min(r.left, W - 312)),
+            below = r.bottom + 240 < H
+          this.setState({
+            tip: {
+              t: 'Unit builder',
+              hasIc: false,
+              bgi: '',
+              sub: '',
+              body: 'Units start at Lv 1 in their initial class. Each level adds character + class + mount growth to a running total; every full 100% grants +1 to that stat.',
+              bodyCol: 'var(--tx, #eee)',
+              stats: [],
+              hasStats: false,
+              statNote: '',
+              note: '',
+              who: '',
+              whoLbl: '',
+              hasGroups: false,
+              whoGroups: [],
+              hasSk: false,
+              skIcons: [],
+              hasGrids: false,
+              grids: [],
+              x: x + 'px',
+              y: (below ? r.bottom + 8 : r.top - 8) + 'px',
+              tf: below ? 'none' : 'translateY(-100%)',
+              raw: 'calcinfo',
+            },
+          })
+        }
+      }
       {
         const on = !!(st.tip && st.tip.raw === 'statinfo')
         vals.infoOn = on
@@ -6004,6 +6488,9 @@ export class Codex extends Component<CodexProps, any> {
             ['Units & builds', 'b-units'],
             ['Growth profile', 'b-gro'],
             ['Projected stats', 'b-proj'],
+            ['Growth rates', 'b-gr'],
+            ['Projected range', 'b-pj'],
+            ['Projected radar', 'b-pr'],
           ],
           settings: [
             ['Story progress', 's-prog'],
@@ -6721,6 +7208,16 @@ export class Codex extends Component<CodexProps, any> {
     if (c) {
       const locked = c.part > P
       vals.imgErr = this.imgErr
+      vals.hpOn = narrow && st.screen === 'profile'
+      {
+        const cc = st.screen === 'calc' && d.chars.find((x?: any) => x.n === (st.calc && st.calc.c))
+        if (cc && cc.part <= P) {
+          vals.hpOn = narrow
+          vals.hpBgi = 'url(' + IMG('characters', cc.n) + ') 50% 100%/contain no-repeat'
+        }
+      }
+      if (st.screen === 'profile')
+        vals.hpBgi = locked ? 'none' : 'url(' + IMG('characters', c.n) + ') 50% 100%/contain no-repeat'
       vals.p = {
         n: locked ? 'Sealed unit' : c.n,
         bgi: locked ? 'none' : 'url(' + IMG('characters', c.n) + ') 50% 8%/cover no-repeat',
@@ -6742,7 +7239,7 @@ export class Codex extends Component<CodexProps, any> {
             const cur = st.cmp.filter((x?: any) => x !== ex.id)
             this.save({
               screen: 'compare',
-              cmp: [...cur, ex.id].slice(-4),
+              cmp: [...cur, ex.id].slice(-(narrow ? 5 : 10)),
               ...(st.cchars && !st.cchars.includes(c.n) ? { cchars: [...st.cchars, c.n] } : {}),
             })
             return
@@ -6751,7 +7248,7 @@ export class Codex extends Component<CodexProps, any> {
           this.save({
             screen: 'compare',
             cchars: base.includes(c.n) ? base : [...base, c.n],
-            cmp: [...st.cmp, 'base:' + c.n].slice(-4),
+            cmp: [...st.cmp, 'base:' + c.n].slice(-(narrow ? 5 : 10)),
           })
         },
         growth: S.map((s?: any, i?: any) => {
@@ -7203,6 +7700,35 @@ export class Codex extends Component<CodexProps, any> {
           }),
         }
       }
+      {
+        const H = this.state.hl,
+          hh = (s?: any) => ({ hon: () => this.setState({ hl: s }), hoff: () => this.setState({ hl: null }) })
+        for (const R of [vals.p.radar, vals.p.bradar]) {
+          if (!R) continue
+          R.axes = R.axes.map((a?: any) => ({
+            ...a,
+            ...hh(a.s),
+            hop: H === a.s ? 1 : 0.75,
+            hfw: H === a.s ? 600 : 500,
+            lc: H === a.s ? 'var(--tx, #eee)' : 'rgba(255,255,255,.09)',
+            lw: H === a.s ? 2 : 1,
+          }))
+          R.dots = R.dots.map((d?: any, i?: any) => ({
+            ...d,
+            r: H === S[i] ? 7 : 5,
+            enter: () => this.setState({ hl: S[i] }),
+            leave: () => this.setState({ hl: null }),
+          }))
+        }
+        for (const k of ['bcells', 'gcells'])
+          if (vals.p[k])
+            vals.p[k] = vals.p[k].map((b?: any) => ({
+              ...b,
+              ...hh(b.s),
+              ol: H === b.s ? '0 0 0 2px var(--tx, #eee)' : 'none',
+              op: H && H !== b.s ? 0.45 : 1,
+            }))
+      }
       const pc2 = c.g && c.part <= P
       vals.p.lsNarrow = narrow && c.ls.length > 0 && st.ptab !== 'calc'
       vals.p.lsWide = !narrow && c.ls.length > 0 && st.ptab !== 'calc'
@@ -7224,6 +7750,7 @@ export class Codex extends Component<CodexProps, any> {
         ...(c.lab || []).map((a?: any) => ({ lv: a.lv ? 'Lv ' + a.lv : 'Upgrade', n: a.n, e: a.e, mt: MT(a.m) })),
       ].map((x?: any) => ({ ...x, bgi: 'url(' + IMG('abilities', x.n) + ') center/cover no-repeat', ...LVH(x.n) }))
       vals.p.lvlShow = vals.p.lvl.length > 0 && st.ptab !== 'calc'
+      this.profCmp = vals.p.toCmp
       vals.p.lsList = this.lsAll(c)
         .map((l?: any) => ({
           c: l.c,

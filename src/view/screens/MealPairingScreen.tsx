@@ -156,7 +156,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 cursor: 'pointer',
                 fontSize: '12px',
               }}
-              className="hv-17"
+              className="hv-16"
             >
               Reset
             </button>
@@ -238,7 +238,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                             whiteSpace: 'nowrap',
                           } as CSSProperties
                         }
-                        className="hv-18"
+                        className="hv-17"
                       >
                         {T(h?.l)}
                         {T(h?.ar)}
@@ -376,7 +376,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                         cursor: 'pointer',
                       } as CSSProperties
                     }
-                    className="hv-19"
+                    className="hv-18"
                   >
                     <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(g?.m)}</span>
                     <span

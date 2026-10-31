@@ -295,7 +295,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                         padding: '2px 8px',
                         borderRadius: '10px',
                       }}
-                      className="hv-6"
+                      className="hv-11"
                     >
                       <span
                         style={{
@@ -710,7 +710,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                         padding: '2px 8px',
                         borderRadius: '10px',
                       }}
-                      className="hv-6"
+                      className="hv-11"
                     >
                       <span
                         style={{

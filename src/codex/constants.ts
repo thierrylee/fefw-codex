@@ -15,7 +15,18 @@ export const TL: Record<string, any> = {
   'Guest ally': 'Guest ally',
   Guest: 'Guest',
 }
-export const CC = ['oklch(0.8 0.11 75)', 'oklch(0.74 0.1 185)', 'oklch(0.74 0.11 330)', 'oklch(0.78 0.12 150)']
+export const CC = [
+  'oklch(0.8 0.11 75)',
+  'oklch(0.74 0.1 185)',
+  'oklch(0.74 0.11 330)',
+  'oklch(0.78 0.12 150)',
+  'oklch(0.76 0.1 25)',
+  'oklch(0.72 0.1 260)',
+  'oklch(0.82 0.1 110)',
+  'oklch(0.7 0.12 50)',
+  'oklch(0.78 0.08 220)',
+  'oklch(0.7 0.1 355)',
+]
 export const THEMES: Record<string, any> = {
   Emerald: {
     bg: 'oklch(0.2 0.045 165)',
