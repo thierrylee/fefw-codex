@@ -22,14 +22,19 @@ export class Codex extends Component<CodexProps, any> {
   declare idx: any
   declare idxD: any
   declare key: any
+  declare ly: any
   declare md: any
   declare mxDone: any
+  declare od: any
   declare overId: any
   declare pk: any
   declare ready: any
   declare ro: any
   declare rootNav: any
   declare setState: any
+  declare sh: any
+  declare sk: any
+  declare skip: any
   declare spyKeys: any
   declare spyT: any
   state: any = {
@@ -155,14 +160,34 @@ export class Codex extends Component<CodexProps, any> {
     fetch(import.meta.env.BASE_URL + 'database/codex.json')
       .then((r?: any) => r.json())
       .then((d?: any) => {
-        this.ready = true
         this.dec(d)
+        this.ready = true
         this.setState((st?: any) => ({
           d,
           builds: st.builds || [],
           cmp: st.cmp || [],
         }))
       })
+    this.ly = new Map<any, any>()
+    this.sh = (e?: any) => {
+      if (!this.sk) return
+      const t = e.target
+      if (t && t.closest && t.closest('[data-sheet]')) return
+      const y =
+        t === document || t === document.documentElement || t === document.body
+          ? (document.scrollingElement || document.documentElement).scrollTop
+          : t.scrollTop
+      const p = this.ly.get(t)
+      this.ly.set(t, y)
+      if (p == null) return
+      if (y - p > 6 && y > 20) {
+        const k = this.sk
+        this.sk = null
+        if (k[0] === 'p') this.setState({ ppv: '' })
+        else this.setState((s?: any) => ({ cd: s.cd ? { ...s.cd, pv: '' } : s.cd }))
+      }
+    }
+    document.addEventListener('scroll', this.sh, true)
     window.addEventListener('popstate', this.pop)
     document.addEventListener('pointerdown', this.pd)
     document.addEventListener('scroll', this.sc, true)
@@ -217,7 +242,7 @@ export class Codex extends Component<CodexProps, any> {
     }
     if (sc === 'classes' && v) {
       o.ksel = v
-      o.kopen = true
+      o.kopen = !!this.ready
     }
     if (sc === 'calc' && v) {
       const ch = d.chars.find((c?: any) => c.n === v)
@@ -281,6 +306,22 @@ export class Codex extends Component<CodexProps, any> {
   }
   componentDidUpdate() {
     const s = this.state
+    {
+      const n = !!s.narrow,
+        dp = (s.pk ? 1 : 0) + (s.pk && n && s.ppv ? 1 : 0) + (s.cd ? 1 : 0) + (s.cd && n && s.cd.pv ? 1 : 0),
+        od = this.od || 0
+      if (dp > od) {
+        for (let i = od; i < dp; i++) history.pushState(history.state, '')
+        this.od = dp
+      } else if (dp < od) {
+        this.od = dp
+        const hs = history.state
+        if (hs && hs.screen && this.hk(hs) === this.hk(s)) {
+          this.skip = (this.skip || 0) + 1
+          history.go(dp - od)
+        }
+      }
+    }
     if (this.ready && s.screen === 'match') {
       const M: any = s.mx || {},
         dn = !!(s.narrow && M.meal && M.c1 && M.c2 && M.c3)
@@ -322,6 +363,20 @@ export class Codex extends Component<CodexProps, any> {
     this.setState({ trail: tr })
   }
   pop = (e?: any) => {
+    if (this.skip > 0) {
+      this.skip--
+      return
+    }
+    if (this.od > 0) {
+      const s = this.state,
+        n = !!s.narrow
+      this.od--
+      if (s.cd && n && s.cd.pv) this.setState({ cd: { ...s.cd, pv: '' } })
+      else if (s.pk && n && s.ppv) this.setState({ ppv: '', tip: null })
+      else if (s.cd) this.setState({ cd: null, tip: null })
+      else if (s.pk) this.setState({ pk: null, pq: '', pf: 'All', tip: null })
+      return
+    }
     const h = e.state
     if (!h || !h.screen) return
     this.hcur = this.hk(h)
@@ -334,6 +389,7 @@ export class Codex extends Component<CodexProps, any> {
     })
   }
   componentWillUnmount() {
+    document.removeEventListener('scroll', this.sh, true)
     window.removeEventListener('keydown', this.esc)
     window.removeEventListener('scroll', this.stt, true)
     window.removeEventListener('popstate', this.pop)
@@ -1620,6 +1676,7 @@ export class Codex extends Component<CodexProps, any> {
   }
 
   renderVals() {
+    this.sk = null
     const SK = (n?: any) => {
       const f = ({
         Sword: 'sword',
@@ -1831,7 +1888,7 @@ export class Codex extends Component<CodexProps, any> {
           history.pushState({ ...e, trail: [e] }, '')
           this.rootNav = false
           this.setState({ trail: [e], kopen: false })
-        } else this.save({ screen: id })
+        } else this.save(id === 'classes' ? { screen: id, kopen: false } : { screen: id })
         const r = this.rootRef.current
         if (r && phone) r.scrollTop = 0
         else window.scrollTo(0, 0)
@@ -3237,6 +3294,7 @@ export class Codex extends Component<CodexProps, any> {
       })
     const ppv = st.ppv || ''
     const pvr = pk ? pRows.find((r?: any) => r.n === ppv) : null
+    if (narrow && pvr) this.sk = 'p' + ppv
     const pvIt = !!pvr && isIt
     const pvt = pvr ? (isIt ? null : this.tipFor(ppv)) : null
     const pvVs = pvIt && pvr.vs ? pvr.vs : []
@@ -3274,6 +3332,11 @@ export class Codex extends Component<CodexProps, any> {
     const pkVals: Record<string, any> = {
       pkW: narrow ? 'min(640px,100%)' : 'min(1040px,100%)',
       pkSheet: narrow && !!pvr,
+      pkTf: narrow && pvr && this.state.smin === 'p' + ppv ? 'translateY(calc(100% - 56px))' : 'translateY(0)',
+      sheetClick: (e?: any) => {
+        e.stopPropagation()
+        if (this.state.smin) this.setState({ smin: null })
+      },
       pkPvOn: !!pvr,
       pkPvOff: !pvr,
       pkPvClose: () => this.setState({ ppv: '' }),
@@ -3461,12 +3524,14 @@ export class Codex extends Component<CodexProps, any> {
           this.setState({ cd: null, tip: null })
         }
         const isSel = pvN === sel
+        if (narrow && tp) this.sk = 'c' + pvN
         return {
           cdW: narrow ? 'min(640px,100%)' : 'min(1040px,100%)',
           cdCols: narrow ? 'minmax(0,1fr)' : 'minmax(0,1fr) 400px',
           cdBodyH: narrow ? 'min(520px,calc(100vh - 260px))' : 'min(540px,calc(100vh - 230px))',
           cdSplit: !narrow,
           cdSheet: narrow && !!tp,
+          cdTf: narrow && tp && this.state.smin === 'c' + pvN ? 'translateY(calc(100% - 56px))' : 'translateY(0)',
           cdPv: tp || {},
           cdPvOn: !!tp,
           cdPvOff: !tp,

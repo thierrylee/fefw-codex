@@ -1468,23 +1468,29 @@ export function AppView({ v }: { v: VM }) {
                       {v.pkSheet ? (
                         <>
                           <div
-                            onClick={v.stopClick}
-                            style={{
-                              position: 'fixed',
-                              left: '0',
-                              right: '0',
-                              bottom: '0',
-                              zIndex: '92',
-                              maxHeight: '80vh',
-                              overflowY: 'auto',
-                              boxSizing: 'border-box',
-                              padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
-                              borderRadius: '16px 16px 0 0',
-                              background: 'var(--bg, oklch(0.16 0.01 60))',
-                              border: '1px solid var(--ac, oklch(0.8 0.11 75))',
-                              borderBottom: '0',
-                              boxShadow: '0 -18px 50px -12px rgba(0,0,0,.6)',
-                            }}
+                            data-sheet="1"
+                            onClick={v.sheetClick}
+                            style={
+                              {
+                                position: 'fixed',
+                                left: '0',
+                                right: '0',
+                                bottom: '0',
+                                zIndex: '92',
+                                maxHeight: '80vh',
+                                animation: 'wcSheetIn .28s cubic-bezier(.2,.8,.2,1)',
+                                transform: str(v.pkTf),
+                                transition: 'transform .25s cubic-bezier(.2,.8,.2,1)',
+                                overflowY: 'auto',
+                                boxSizing: 'border-box',
+                                padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
+                                borderRadius: '16px 16px 0 0',
+                                background: 'var(--bg, oklch(0.16 0.01 60))',
+                                border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                borderBottom: '0',
+                                boxShadow: '0 -18px 50px -12px rgba(0,0,0,.6)',
+                              } as CSSProperties
+                            }
                           >
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
                               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -2475,23 +2481,29 @@ export function AppView({ v }: { v: VM }) {
                     {v.cdSheet ? (
                       <>
                         <div
-                          onClick={v.stopClick}
-                          style={{
-                            position: 'fixed',
-                            left: '0',
-                            right: '0',
-                            bottom: '0',
-                            zIndex: '92',
-                            maxHeight: '80vh',
-                            overflowY: 'auto',
-                            boxSizing: 'border-box',
-                            padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
-                            borderRadius: '16px 16px 0 0',
-                            background: 'var(--bg, oklch(0.16 0.01 60))',
-                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
-                            borderBottom: '0',
-                            boxShadow: '0 -18px 50px -12px rgba(0,0,0,.6)',
-                          }}
+                          data-sheet="1"
+                          onClick={v.sheetClick}
+                          style={
+                            {
+                              position: 'fixed',
+                              left: '0',
+                              right: '0',
+                              bottom: '0',
+                              zIndex: '92',
+                              maxHeight: '80vh',
+                              animation: 'wcSheetIn .28s cubic-bezier(.2,.8,.2,1)',
+                              transform: str(v.cdTf),
+                              transition: 'transform .25s cubic-bezier(.2,.8,.2,1)',
+                              overflowY: 'auto',
+                              boxSizing: 'border-box',
+                              padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
+                              borderRadius: '16px 16px 0 0',
+                              background: 'var(--bg, oklch(0.16 0.01 60))',
+                              border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                              borderBottom: '0',
+                              boxShadow: '0 -18px 50px -12px rgba(0,0,0,.6)',
+                            } as CSSProperties
+                          }
                         >
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
