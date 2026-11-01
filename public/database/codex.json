@@ -46091,7 +46091,7 @@
    "lic": "Beginner",
    "pri": "None",
    "sec": "Brawling (D), Axe (D), Sword (D)",
-   "comp": "Axe, Brawling, Infantry, Sword",
+   "comp": "Sword, Axe, Brawling, Infantry",
    "bonus": "Sword +1, Axe +1, Brawling +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Gladiator",
    "mounted": false,
@@ -46161,7 +46161,7 @@
    "lic": "Beginner",
    "pri": "None",
    "sec": "Bow (D), Sword (D)",
-   "comp": "Bow, Infantry, Sword",
+   "comp": "Sword, Bow, Infantry",
    "bonus": "Sword +1, Bow +1, Infantry +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Hunter",
    "mounted": false,
@@ -46231,7 +46231,7 @@
    "lic": "Beginner",
    "pri": "None",
    "sec": "Axe (D), Spear (D)",
-   "comp": "Axe, Heavy Armor, Infantry, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Infantry, Heavy Armor",
    "bonus": "Spear +1, Axe +1, Heavy Armor +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Soldier",
    "mounted": false,
@@ -46306,7 +46306,7 @@
    "lic": "Beginner",
    "pri": "Riding (E+)",
    "sec": "Axe (D), Spear (D)",
-   "comp": "Axe, Flying, Riding, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Riding, Flying",
    "bonus": "Spear +1, Riding +1, Flying +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Ornius_Rider",
    "mounted": true,
@@ -46378,7 +46378,7 @@
    "lic": "Beginner",
    "pri": "None",
    "sec": "White Magic (D), Black Magic (D)",
-   "comp": "Axe, Black Magic, Brawling, Sword, White Magic",
+   "comp": "Sword, Axe, Brawling, Black Magic, White Magic",
    "bonus": "Black Magic +1, White Magic +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Diviner",
    "mounted": false,
@@ -46441,7 +46441,7 @@
    "lic": "Specialty",
    "pri": "Sword (C)",
    "sec": "None",
-   "comp": "Infantry, Spear, Sword",
+   "comp": "Sword, Spear, Infantry",
    "bonus": "Sword +2, Infantry +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Myrmidon",
    "mounted": false,
@@ -46515,7 +46515,7 @@
    "lic": "Specialty",
    "pri": "None",
    "sec": "Axe (C), Sword (C)",
-   "comp": "Axe, Brawling, Infantry, Sword",
+   "comp": "Sword, Axe, Brawling, Infantry",
    "bonus": "Axe +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Brigand",
    "mounted": false,
@@ -46742,7 +46742,7 @@
    "lic": "Specialty",
    "pri": "None",
    "sec": "Bow (C), Sword (C)",
-   "comp": "Bow, Infantry, Sword",
+   "comp": "Sword, Bow, Infantry",
    "bonus": "Sword +1, Bow +1, Infantry +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Rogue",
    "mounted": false,
@@ -46816,7 +46816,7 @@
    "lic": "Specialty",
    "pri": "Heavy Armor (E+)",
    "sec": "Axe (C), Spear (C)",
-   "comp": "Axe, Heavy Armor, Infantry, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Infantry, Heavy Armor",
    "bonus": "Spear +1, Axe +1, Heavy Armor +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Armored_Knight",
    "mounted": false,
@@ -46902,7 +46902,7 @@
    "lic": "Specialty",
    "pri": "Riding (D)",
    "sec": "Spear (C), Sword (C)",
-   "comp": "Axe, Riding, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Riding",
    "bonus": "Spear +1, Riding +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Light_Cavalry",
    "mounted": true,
@@ -47052,7 +47052,7 @@
    "lic": "Specialty",
    "pri": "Riding (D)",
    "sec": "Axe (C), Spear (C)",
-   "comp": "Axe, Flying, Riding, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Riding, Flying",
    "bonus": "Spear +1, Axe +1, Riding +1, Flying +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Armored_Ornius_Rider",
    "mounted": true,
@@ -47140,7 +47140,7 @@
    "lic": "Specialty",
    "pri": "Flying (D)",
    "sec": "Spear (C), Sword (C)",
-   "comp": "Flying, Spear, Sword",
+   "comp": "Sword, Spear, Flying",
    "bonus": "Sword +1, Spear +1, Flying +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Wing_Soldier",
    "mounted": false,
@@ -47160,6 +47160,79 @@
     0,
     10,
     0,
+    0
+   ]
+  },
+  {
+   "n": "Shaman",
+   "code": "SH",
+   "tier": "Specialty",
+   "g": [
+    5,
+    -5,
+    15,
+    10,
+    10,
+    -10,
+    10,
+    10,
+    0
+   ],
+   "type": "Infantry",
+   "ut": "infantry",
+   "mov": "6",
+   "w": "Sword, Brawling, White Magic, Black Magic",
+   "lv": "20",
+   "ren": "4",
+   "mods": [
+    0,
+    0,
+    2,
+    1,
+    1,
+    0,
+    2,
+    0,
+    -1
+   ],
+   "ab": [
+    {
+     "t": "Class ability",
+     "n": "Black-Magic Seeker",
+     "e": "Multiplies black magic uses by 2."
+    },
+    {
+     "t": "Class ability",
+     "n": "Magic Hit +3",
+     "e": "When equipped with magic, grants Hit +3."
+    },
+    {
+     "t": "Master ability",
+     "n": "Bind Dexterity",
+     "e": "Inflicts Dex-3 on adjacent foes."
+    }
+   ],
+   "lic": "Specialty",
+   "pri": "Black Magic (C)",
+   "sec": "None",
+   "comp": "Sword, Brawling, Black Magic, White Magic, Infantry",
+   "bonus": "Sword +1, Black Magic +2, White Magic +1",
+   "url": "https://fortunesweave.wiki.fextralife.com/Shaman",
+   "mounted": false,
+   "fl": false,
+   "arm": false,
+   "sp": [],
+   "cs": 3,
+   "cas": 3,
+   "mn": [
+    0,
+    0,
+    10,
+    10,
+    10,
+    0,
+    8,
+    8,
     0
    ]
   },
@@ -47233,7 +47306,7 @@
    "lic": "Specialty",
    "pri": "White Magic (C)",
    "sec": "None",
-   "comp": "Axe, Black Magic, Brawling, Infantry, White Magic",
+   "comp": "Axe, Brawling, Black Magic, White Magic, Infantry",
    "bonus": "Brawling +1, Black Magic +1, White Magic +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Priest",
    "mounted": false,
@@ -47246,158 +47319,6 @@
     0,
     0,
     10,
-    10,
-    0,
-    0,
-    8,
-    10,
-    0
-   ]
-  },
-  {
-   "n": "Shaman",
-   "code": "SH",
-   "tier": "Specialty",
-   "g": [
-    5,
-    -5,
-    15,
-    10,
-    10,
-    -10,
-    10,
-    10,
-    0
-   ],
-   "type": "Infantry",
-   "ut": "infantry",
-   "mov": "6",
-   "w": "Sword, Brawling, White Magic, Black Magic",
-   "lv": "20",
-   "ren": "4",
-   "mods": [
-    0,
-    0,
-    2,
-    1,
-    1,
-    0,
-    2,
-    0,
-    -1
-   ],
-   "ab": [
-    {
-     "t": "Class ability",
-     "n": "Black-Magic Seeker",
-     "e": "Multiplies black magic uses by 2."
-    },
-    {
-     "t": "Class ability",
-     "n": "Magic Hit +3",
-     "e": "When equipped with magic, grants Hit +3."
-    },
-    {
-     "t": "Master ability",
-     "n": "Bind Dexterity",
-     "e": "Inflicts Dex-3 on adjacent foes."
-    }
-   ],
-   "lic": "Specialty",
-   "pri": "Black Magic (C)",
-   "sec": "None",
-   "comp": "Black Magic, Brawling, Infantry, Sword, White Magic",
-   "bonus": "Sword +1, Black Magic +2, White Magic +1",
-   "url": "https://fortunesweave.wiki.fextralife.com/Shaman",
-   "mounted": false,
-   "fl": false,
-   "arm": false,
-   "sp": [],
-   "cs": 3,
-   "cas": 3,
-   "mn": [
-    0,
-    0,
-    10,
-    10,
-    10,
-    0,
-    8,
-    8,
-    0
-   ]
-  },
-  {
-   "n": "Warrior",
-   "code": "WR",
-   "tier": "Advanced",
-   "g": [
-    20,
-    20,
-    -5,
-    0,
-    0,
-    5,
-    -5,
-    0,
-    5
-   ],
-   "type": "Infantry",
-   "ut": "infantry",
-   "mov": "6",
-   "w": "Sword, Brawling, Axe",
-   "lv": "35",
-   "ren": "8",
-   "mods": [
-    4,
-    4,
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0
-   ],
-   "ab": [
-    {
-     "t": "Class ability",
-     "n": "Combat Arts +2",
-     "e": "Unit can equip +2 combat arts.",
-     "sl": 2
-    },
-    {
-     "t": "Class ability",
-     "n": "Axe Hit +5",
-     "e": "When equipped with an axe, grants Hit +5."
-    },
-    {
-     "t": "Class ability",
-     "n": "Brawl Hit +5",
-     "e": "When equipped with gauntlets, grants Hit +5."
-    },
-    {
-     "t": "Master ability",
-     "n": "Practiced Art",
-     "e": "Grants Hit +10 when attacking, with a combat art."
-    }
-   ],
-   "lic": "Advanced",
-   "pri": "None",
-   "sec": "Brawling (B), Axe (B), Sword (B)",
-   "comp": "Axe, Brawling, Infantry, Sword",
-   "bonus": "Infantry +1, Brawling +2, Sword +2, Axe +3",
-   "url": "https://fortunesweave.wiki.fextralife.com/Warrior",
-   "mounted": false,
-   "fl": false,
-   "arm": false,
-   "sp": [],
-   "cs": 3,
-   "cas": 5,
-   "mn": [
-    0,
-    0,
-    0,
     10,
     0,
     0,
@@ -47459,7 +47380,7 @@
    "lic": "Advanced",
    "pri": "Sword (B)",
    "sec": "None",
-   "comp": "Infantry, Spear, Sword",
+   "comp": "Sword, Spear, Infantry",
    "bonus": "Spear +1, Infantry +2, Sword +3",
    "url": "https://fortunesweave.wiki.fextralife.com/Shido",
    "mounted": false,
@@ -47470,36 +47391,36 @@
    "cas": 5
   },
   {
-   "n": "Dancer",
-   "code": "DA",
+   "n": "Warrior",
+   "code": "WR",
    "tier": "Advanced",
    "g": [
-    15,
-    5,
+    20,
+    20,
+    -5,
     0,
-    25,
-    10,
     0,
     5,
-    10,
-    20
+    -5,
+    0,
+    5
    ],
    "type": "Infantry",
    "ut": "infantry",
-   "mov": "5",
-   "w": "Bow, Sword",
+   "mov": "6",
+   "w": "Sword, Brawling, Axe",
    "lv": "35",
    "ren": "8",
    "mods": [
     4,
+    4,
+    0,
+    1,
     0,
     0,
-    9,
-    5,
     0,
     0,
-    0,
-    5
+    0
    ],
    "ab": [
     {
@@ -47510,34 +47431,42 @@
     },
     {
      "t": "Class ability",
-     "n": "Dance",
-     "e": "Allows the use of the Dance Combat Art"
+     "n": "Axe Hit +5",
+     "e": "When equipped with an axe, grants Hit +5."
+    },
+    {
+     "t": "Class ability",
+     "n": "Brawl Hit +5",
+     "e": "When equipped with gauntlets, grants Hit +5."
     },
     {
      "t": "Master ability",
-     "n": "Special Dance",
-     "e": "When using Dance, grants Dex/Spd +3 to target ally for the current phase."
+     "n": "Practiced Art",
+     "e": "Grants Hit +10 when attacking, with a combat art."
     }
    ],
    "lic": "Advanced",
    "pri": "None",
-   "sec": "Bow (B), Sword (B)",
-   "comp": "Bow, Infantry, Sword",
-   "bonus": "Bow +2, Sword +3, Infantry +4",
-   "url": "https://fortunesweave.wiki.fextralife.com/Dancer",
+   "sec": "Brawling (B), Axe (B), Sword (B)",
+   "comp": "Sword, Axe, Brawling, Infantry",
+   "bonus": "Infantry +1, Brawling +2, Sword +2, Axe +3",
+   "url": "https://fortunesweave.wiki.fextralife.com/Warrior",
    "mounted": false,
    "fl": false,
    "arm": false,
    "sp": [],
    "cs": 3,
    "cas": 5,
-   "un": [
-    {
-     "r": "Leda",
-     "ch": 9,
-     "ren": "",
-     "d": "Unlocked by clearing chapter 9."
-    }
+   "mn": [
+    0,
+    0,
+    0,
+    10,
+    0,
+    0,
+    8,
+    10,
+    0
    ]
   },
   {
@@ -47731,7 +47660,7 @@
    "lic": "Advanced",
    "pri": "Riding (D), Bow (B)",
    "sec": "None",
-   "comp": "Bow, Riding, Sword",
+   "comp": "Sword, Bow, Riding",
    "bonus": "Bow +2, Riding +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Forest_Knight",
    "mounted": true,
@@ -47801,7 +47730,7 @@
    "lic": "Advanced",
    "pri": "None",
    "sec": "Bow (B), Sword (B)",
-   "comp": "Bow, Infantry, Sword",
+   "comp": "Sword, Bow, Infantry",
    "bonus": "Bow +2, Sword +2, Infantry +3",
    "url": "https://fortunesweave.wiki.fextralife.com/Ranger",
    "mounted": false,
@@ -47824,6 +47753,211 @@
      "d": "Unlocked by reaching renown level 10."
     }
    ]
+  },
+  {
+   "n": "Guardian",
+   "code": "GD",
+   "tier": "Advanced",
+   "g": [
+    10,
+    10,
+    0,
+    0,
+    5,
+    10,
+    15,
+    5,
+    5
+   ],
+   "type": "Infantry",
+   "ut": "infantry",
+   "mov": "5",
+   "w": "Spear, White Magic",
+   "lv": "35",
+   "ren": "8",
+   "mods": [
+    3,
+    1,
+    0,
+    1,
+    0,
+    3,
+    4,
+    0,
+    0
+   ],
+   "ab": [
+    {
+     "t": "Class ability",
+     "n": "Combat Arts +2",
+     "e": "Unit can equip +2 combat arts.",
+     "sl": 2
+    },
+    {
+     "t": "Class ability",
+     "n": "Magic Heal +10",
+     "e": "When healing an ally with magic, restores +10 HP."
+    },
+    {
+     "t": "Master ability",
+     "n": "Brace",
+     "e": "After defeating a foe, grants Prt +3 until unit's next phase."
+    }
+   ],
+   "lic": "Advanced",
+   "pri": "Spear (B)",
+   "sec": "None",
+   "comp": "Spear, White Magic, Infantry",
+   "bonus": "White Magic +1, Infantry +1, Spear +3",
+   "url": "https://fortunesweave.wiki.fextralife.com/Guardian",
+   "mounted": false,
+   "fl": false,
+   "arm": false,
+   "sp": [],
+   "cs": 3,
+   "cas": 5,
+   "un": [
+    {
+     "r": "Dietrich",
+     "ch": 9,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 9."
+    },
+    {
+     "r": "Theodora",
+     "ch": 9,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 9."
+    }
+   ]
+  },
+  {
+   "n": "Dreadnought",
+   "code": "DN",
+   "tier": "Advanced",
+   "g": [
+    15,
+    15,
+    -5,
+    -10,
+    5,
+    30,
+    -10,
+    0,
+    5
+   ],
+   "type": "Armor",
+   "ut": "armor",
+   "mov": "4",
+   "w": "Spear, Axe",
+   "lv": "35",
+   "ren": "8",
+   "mods": [
+    5,
+    3,
+    0,
+    -5,
+    0,
+    9,
+    -1,
+    0,
+    0
+   ],
+   "ab": [
+    {
+     "t": "Class ability",
+     "n": "Strike-Last Def +5",
+     "e": "If foe attacks first, grants Prt +5 to unit during combat."
+    },
+    {
+     "t": "Class ability",
+     "n": "Combat Arts +2",
+     "e": "Unit can equip +2 combat arts.",
+     "sl": 2
+    },
+    {
+     "t": "Master ability",
+     "n": "Focused Counter",
+     "e": "If foe attacks first, grants Hit +10 to unit during combat."
+    }
+   ],
+   "lic": "Advanced",
+   "pri": "Heavy Armor (D)",
+   "sec": "Axe (B), Spear (B)",
+   "comp": "Spear, Axe, Infantry, Heavy Armor",
+   "bonus": "Infantry +1, Spear +2, Axe +2, Heavy Armor +3",
+   "url": "https://fortunesweave.wiki.fextralife.com/Dreadnought",
+   "mounted": false,
+   "fl": false,
+   "arm": true,
+   "sp": [],
+   "cs": 3,
+   "cas": 5
+  },
+  {
+   "n": "Bardinger",
+   "code": "BD",
+   "tier": "Advanced",
+   "g": [
+    10,
+    10,
+    -5,
+    0,
+    0,
+    5,
+    10,
+    5,
+    10
+   ],
+   "type": "Mounted",
+   "ut": "mounted",
+   "mov": "6",
+   "w": "Spear, Sword, Axe",
+   "lv": "35",
+   "ren": "8",
+   "mods": [
+    3,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    3
+   ],
+   "ab": [
+    {
+     "t": "Class ability",
+     "n": "Combat Arts +2",
+     "e": "Unit can equip +2 combat arts.",
+     "sl": 2
+    },
+    {
+     "t": "Class ability",
+     "n": "Mount/Dismount",
+     "e": "Allows use of Mount and Dismount commands."
+    },
+    {
+     "t": "Master ability",
+     "n": "Aegis",
+     "e": "Unit takes half damage when attacked with a magical attack. Trigger % = 20."
+    }
+   ],
+   "lic": "Advanced",
+   "pri": "Riding (C)",
+   "sec": "Spear (C), Sword (B)",
+   "comp": "Sword, Spear, Axe, Riding",
+   "bonus": "Sword +2, Spear +2, Riding +3, Axe +1",
+   "url": "https://fortunesweave.wiki.fextralife.com/Bardinger",
+   "mounted": true,
+   "fl": false,
+   "arm": false,
+   "sp": [
+    "Horse"
+   ],
+   "cs": 3,
+   "cas": 5
   },
   {
    "n": "Cataphract",
@@ -47883,7 +48017,7 @@
    "lic": "Advanced",
    "pri": "Heavy Armor (E+), Riding (D)",
    "sec": "Axe (B), Spear (B)",
-   "comp": "Axe, Heavy Armor, Riding, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Riding, Heavy Armor",
    "bonus": "Sword +1, Riding +1, Heavy Armor +1, Spear +2, Axe +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Cataphract",
    "mounted": true,
@@ -47900,83 +48034,6 @@
      "ch": 8,
      "ren": "",
      "d": "Unlocked by clearing chapter 8."
-    }
-   ]
-  },
-  {
-   "n": "Guardian",
-   "code": "GD",
-   "tier": "Advanced",
-   "g": [
-    10,
-    10,
-    0,
-    0,
-    5,
-    10,
-    15,
-    5,
-    5
-   ],
-   "type": "Infantry",
-   "ut": "infantry",
-   "mov": "5",
-   "w": "Spear, White Magic",
-   "lv": "35",
-   "ren": "8",
-   "mods": [
-    3,
-    1,
-    0,
-    1,
-    0,
-    3,
-    4,
-    0,
-    0
-   ],
-   "ab": [
-    {
-     "t": "Class ability",
-     "n": "Combat Arts +2",
-     "e": "Unit can equip +2 combat arts.",
-     "sl": 2
-    },
-    {
-     "t": "Class ability",
-     "n": "Magic Heal +10",
-     "e": "When healing an ally with magic, restores +10 HP."
-    },
-    {
-     "t": "Master ability",
-     "n": "Brace",
-     "e": "After defeating a foe, grants Prt +3 until unit's next phase."
-    }
-   ],
-   "lic": "Advanced",
-   "pri": "Spear (B)",
-   "sec": "None",
-   "comp": "Infantry, Spear, White Magic",
-   "bonus": "White Magic +1, Infantry +1, Spear +3",
-   "url": "https://fortunesweave.wiki.fextralife.com/Guardian",
-   "mounted": false,
-   "fl": false,
-   "arm": false,
-   "sp": [],
-   "cs": 3,
-   "cas": 5,
-   "un": [
-    {
-     "r": "Dietrich",
-     "ch": 9,
-     "ren": "",
-     "d": "Unlocked by clearing chapter 9."
-    },
-    {
-     "r": "Theodora",
-     "ch": 9,
-     "ren": "",
-     "d": "Unlocked by clearing chapter 9."
     }
    ]
   },
@@ -48050,213 +48107,6 @@
    "cas": 3
   },
   {
-   "n": "Dreadnought",
-   "code": "DN",
-   "tier": "Advanced",
-   "g": [
-    15,
-    15,
-    -5,
-    -10,
-    5,
-    30,
-    -10,
-    0,
-    5
-   ],
-   "type": "Armor",
-   "ut": "armor",
-   "mov": "4",
-   "w": "Spear, Axe",
-   "lv": "35",
-   "ren": "8",
-   "mods": [
-    5,
-    3,
-    0,
-    -5,
-    0,
-    9,
-    -1,
-    0,
-    0
-   ],
-   "ab": [
-    {
-     "t": "Class ability",
-     "n": "Strike-Last Def +5",
-     "e": "If foe attacks first, grants Prt +5 to unit during combat."
-    },
-    {
-     "t": "Class ability",
-     "n": "Combat Arts +2",
-     "e": "Unit can equip +2 combat arts.",
-     "sl": 2
-    },
-    {
-     "t": "Master ability",
-     "n": "Focused Counter",
-     "e": "If foe attacks first, grants Hit +10 to unit during combat."
-    }
-   ],
-   "lic": "Advanced",
-   "pri": "Heavy Armor (D)",
-   "sec": "Axe (B), Spear (B)",
-   "comp": "Axe, Heavy Armor, Infantry, Spear",
-   "bonus": "Infantry +1, Spear +2, Axe +2, Heavy Armor +3",
-   "url": "https://fortunesweave.wiki.fextralife.com/Dreadnought",
-   "mounted": false,
-   "fl": false,
-   "arm": true,
-   "sp": [],
-   "cs": 3,
-   "cas": 5
-  },
-  {
-   "n": "Bardinger",
-   "code": "BD",
-   "tier": "Advanced",
-   "g": [
-    10,
-    10,
-    -5,
-    0,
-    0,
-    5,
-    10,
-    5,
-    10
-   ],
-   "type": "Mounted",
-   "ut": "mounted",
-   "mov": "6",
-   "w": "Spear, Sword, Axe",
-   "lv": "35",
-   "ren": "8",
-   "mods": [
-    3,
-    0,
-    0,
-    1,
-    0,
-    1,
-    0,
-    0,
-    3
-   ],
-   "ab": [
-    {
-     "t": "Class ability",
-     "n": "Combat Arts +2",
-     "e": "Unit can equip +2 combat arts.",
-     "sl": 2
-    },
-    {
-     "t": "Class ability",
-     "n": "Mount/Dismount",
-     "e": "Allows use of Mount and Dismount commands."
-    },
-    {
-     "t": "Master ability",
-     "n": "Aegis",
-     "e": "Unit takes half damage when attacked with a magical attack. Trigger % = 20."
-    }
-   ],
-   "lic": "Advanced",
-   "pri": "Riding (C)",
-   "sec": "Spear (C), Sword (B)",
-   "comp": "Axe, Riding, Spear, Sword",
-   "bonus": "Sword +2, Spear +2, Riding +3, Axe +1",
-   "url": "https://fortunesweave.wiki.fextralife.com/Bardinger",
-   "mounted": true,
-   "fl": false,
-   "arm": false,
-   "sp": [
-    "Horse"
-   ],
-   "cs": 3,
-   "cas": 5
-  },
-  {
-   "n": "Dragoon",
-   "code": "DG",
-   "tier": "Advanced",
-   "g": [
-    15,
-    5,
-    0,
-    0,
-    5,
-    10,
-    10,
-    10,
-    5
-   ],
-   "type": "Flyer",
-   "ut": "flyer",
-   "mov": "7",
-   "w": "Spear, Sword, Axe",
-   "lv": "35",
-   "ren": "8",
-   "mods": [
-    2,
-    1,
-    0,
-    3,
-    1,
-    1,
-    0,
-    0,
-    0
-   ],
-   "ab": [
-    {
-     "t": "Class ability",
-     "n": "Mount/Dismount",
-     "e": "Allows use of Mount and Dismount commands."
-    },
-    {
-     "t": "Class ability",
-     "n": "Combat Arts +1",
-     "e": "Unit can equip +1 combat arts.",
-     "sl": 1
-    },
-    {
-     "t": "Master ability",
-     "n": "Besieger",
-     "e": "If foe is on favorable terrain, grants Hit +20 to unit during combat."
-    }
-   ],
-   "lic": "Advanced",
-   "pri": "Flying (C)",
-   "sec": "Axe (B), Spear (B)",
-   "comp": "Axe, Flying, Spear, Sword",
-   "bonus": "Sword +1, Spear +1, Axe +3, Flying +3",
-   "url": "https://fortunesweave.wiki.fextralife.com/Dragoon",
-   "mounted": false,
-   "fl": true,
-   "arm": false,
-   "sp": [
-    "Bau"
-   ],
-   "cs": 3,
-   "cas": 4,
-   "un": [
-    {
-     "r": "Cai",
-     "ch": "",
-     "ren": 8,
-     "d": "Unlocked by reaching renown level 8."
-    },
-    {
-     "r": "Theodora",
-     "ch": 11,
-     "ren": "",
-     "d": "Unlocked by clearing chapter 11."
-    }
-   ]
-  },
-  {
    "n": "Caladrius",
    "code": "CL",
    "tier": "Advanced",
@@ -48314,7 +48164,7 @@
    "lic": "Advanced",
    "pri": "Riding (D), Black Magic (B)",
    "sec": "None",
-   "comp": "Axe, Black Magic, Flying, Riding, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Black Magic, Riding, Flying",
    "bonus": "Sword +1, Riding +1, Flying +1, Spear +2, Axe +2, Black Magic +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Caladrius",
    "mounted": true,
@@ -48331,6 +48181,85 @@
      "ch": "",
      "ren": 7,
      "d": "Unlocked by reaching renown level 7."
+    }
+   ]
+  },
+  {
+   "n": "Dragoon",
+   "code": "DG",
+   "tier": "Advanced",
+   "g": [
+    15,
+    5,
+    0,
+    0,
+    5,
+    10,
+    10,
+    10,
+    5
+   ],
+   "type": "Flyer",
+   "ut": "flyer",
+   "mov": "7",
+   "w": "Spear, Sword, Axe",
+   "lv": "35",
+   "ren": "8",
+   "mods": [
+    2,
+    1,
+    0,
+    3,
+    1,
+    1,
+    0,
+    0,
+    0
+   ],
+   "ab": [
+    {
+     "t": "Class ability",
+     "n": "Mount/Dismount",
+     "e": "Allows use of Mount and Dismount commands."
+    },
+    {
+     "t": "Class ability",
+     "n": "Combat Arts +1",
+     "e": "Unit can equip +1 combat arts.",
+     "sl": 1
+    },
+    {
+     "t": "Master ability",
+     "n": "Besieger",
+     "e": "If foe is on favorable terrain, grants Hit +20 to unit during combat."
+    }
+   ],
+   "lic": "Advanced",
+   "pri": "Flying (C)",
+   "sec": "Axe (B), Spear (B)",
+   "comp": "Sword, Spear, Axe, Flying",
+   "bonus": "Sword +1, Spear +1, Axe +3, Flying +3",
+   "url": "https://fortunesweave.wiki.fextralife.com/Dragoon",
+   "mounted": false,
+   "fl": true,
+   "arm": false,
+   "sp": [
+    "Bau"
+   ],
+   "cs": 3,
+   "cas": 4,
+   "un": [
+    {
+     "r": "Cai",
+     "ch": "",
+     "ren": 8,
+     "d": "Unlocked by reaching renown level 8."
+    },
+    {
+     "r": "Theodora",
+     "ch": 11,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 11."
     }
    ]
   },
@@ -48386,7 +48315,7 @@
    "lic": "Advanced",
    "pri": "Black Magic (B)",
    "sec": "None",
-   "comp": "Black Magic, Brawling, Infantry, Sword, White Magic",
+   "comp": "Sword, Brawling, Black Magic, White Magic, Infantry",
    "bonus": "Sword +2, Brawling +1, Black Magic +3, White Magic +1, Infantry +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Ovate",
    "mounted": false,
@@ -48448,7 +48377,7 @@
    "lic": "Advanced",
    "pri": "White Magic (B)",
    "sec": "None",
-   "comp": "Axe, Black Magic, Brawling, Infantry, White Magic",
+   "comp": "Axe, Brawling, Black Magic, White Magic, Infantry",
    "bonus": "Axe +1, Black Magic +1, Infantry +1, Brawling +2, White Magic +3",
    "url": "https://fortunesweave.wiki.fextralife.com/Bishop",
    "mounted": false,
@@ -48515,7 +48444,7 @@
    "lic": "Advanced",
    "pri": "Riding (D)",
    "sec": "White Magic (B), Black Magic (B)",
-   "comp": "Black Magic, Riding, White Magic",
+   "comp": "Black Magic, White Magic, Riding",
    "bonus": "Black Magic +2, White Magic +2, Riding +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Troubadour",
    "mounted": true,
@@ -48538,6 +48467,77 @@
      "ch": "",
      "ren": 10,
      "d": "Unlocked by reaching renown level 10."
+    }
+   ]
+  },
+  {
+   "n": "Dancer",
+   "code": "DA",
+   "tier": "Advanced",
+   "g": [
+    15,
+    5,
+    0,
+    25,
+    10,
+    0,
+    5,
+    10,
+    20
+   ],
+   "type": "Infantry",
+   "ut": "infantry",
+   "mov": "5",
+   "w": "Bow, Sword",
+   "lv": "35",
+   "ren": "8",
+   "mods": [
+    4,
+    0,
+    0,
+    9,
+    5,
+    0,
+    0,
+    0,
+    5
+   ],
+   "ab": [
+    {
+     "t": "Class ability",
+     "n": "Combat Arts +2",
+     "e": "Unit can equip +2 combat arts.",
+     "sl": 2
+    },
+    {
+     "t": "Class ability",
+     "n": "Dance",
+     "e": "Allows the use of the Dance Combat Art"
+    },
+    {
+     "t": "Master ability",
+     "n": "Special Dance",
+     "e": "When using Dance, grants Dex/Spd +3 to target ally for the current phase."
+    }
+   ],
+   "lic": "Advanced",
+   "pri": "None",
+   "sec": "Bow (B), Sword (B)",
+   "comp": "Sword, Bow, Infantry",
+   "bonus": "Bow +2, Sword +3, Infantry +4",
+   "url": "https://fortunesweave.wiki.fextralife.com/Dancer",
+   "mounted": false,
+   "fl": false,
+   "arm": false,
+   "sp": [],
+   "cs": 3,
+   "cas": 5,
+   "un": [
+    {
+     "r": "Leda",
+     "ch": 9,
+     "ren": "",
+     "d": "Unlocked by clearing chapter 9."
     }
    ]
   },
@@ -48594,7 +48594,7 @@
    "lic": "Master",
    "pri": "Sword (A)",
    "sec": "None",
-   "comp": "Infantry, Spear, Sword",
+   "comp": "Sword, Spear, Infantry",
    "bonus": "Sword +4, Spear +1, Infantry +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Swordmaster",
    "mounted": false,
@@ -48662,7 +48662,7 @@
    "lic": "Master",
    "pri": "Riding (D), Black Magic (D), Sword (B)",
    "sec": "None",
-   "comp": "Black Magic, Riding, Sword",
+   "comp": "Sword, Black Magic, Riding",
    "bonus": "None",
    "url": "https://fortunesweave.wiki.fextralife.com/High_Savant",
    "mounted": true,
@@ -48732,7 +48732,7 @@
    "lic": "Master",
    "pri": "None",
    "sec": "Brawling (A), Axe (A), Sword (A)",
-   "comp": "Axe, Brawling, Infantry, Sword",
+   "comp": "Sword, Axe, Brawling, Infantry",
    "bonus": "Infantry +1, Brawling +2, Sword +2, Axe +4",
    "url": "https://fortunesweave.wiki.fextralife.com/Battlemaster",
    "mounted": false,
@@ -48790,7 +48790,7 @@
    "lic": "Master",
    "pri": "White Magic (D), Brawling (B)",
    "sec": "None",
-   "comp": "Brawling, Infantry, White Magic",
+   "comp": "Brawling, White Magic, Infantry",
    "bonus": "None",
    "url": "https://fortunesweave.wiki.fextralife.com/War_Monk",
    "mounted": false,
@@ -48921,7 +48921,7 @@
    "lic": "Master",
    "pri": "Riding (D), Bow (A)",
    "sec": "None",
-   "comp": "Bow, Riding, Sword",
+   "comp": "Sword, Bow, Riding",
    "bonus": "Sword +1, Bow +3, Riding +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Bow_Knight",
    "mounted": true,
@@ -48991,7 +48991,7 @@
    "lic": "Master",
    "pri": "None",
    "sec": "Bow (A), Sword (A)",
-   "comp": "Bow, Infantry, Sword",
+   "comp": "Sword, Bow, Infantry",
    "bonus": "Sword +2, Bow +3, Infantry +4",
    "url": "https://fortunesweave.wiki.fextralife.com/Shadow_Seeker",
    "mounted": false,
@@ -49059,7 +49059,7 @@
    "lic": "Master",
    "pri": "Spear (A)",
    "sec": "None",
-   "comp": "Infantry, Spear, White Magic",
+   "comp": "Spear, White Magic, Infantry",
    "bonus": "Spear +4, White Magic +2, Infantry +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Sentinel",
    "mounted": false,
@@ -49122,7 +49122,7 @@
    "lic": "Master",
    "pri": "Heavy Armor (C)",
    "sec": "Axe (A), Spear (A)",
-   "comp": "Axe, Heavy Armor, Riding, Spear",
+   "comp": "Spear, Axe, Riding, Heavy Armor",
    "bonus": "Spear +2, Axe +2, Infantry +1, Heavy Armor +4",
    "url": "https://fortunesweave.wiki.fextralife.com/Castle_Knight",
    "mounted": false,
@@ -49185,7 +49185,7 @@
    "lic": "Master",
    "pri": "Riding (B)",
    "sec": "Spear (A), Sword (A)",
-   "comp": "Axe, Riding, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Riding",
    "bonus": "Sword +2, Spear +3, Axe +1, Riding +4",
    "url": "https://fortunesweave.wiki.fextralife.com/Orichaldia",
    "mounted": true,
@@ -49250,7 +49250,7 @@
    "lic": "Master",
    "pri": "Heavy Armor (D), Riding (D)",
    "sec": "Axe (A), Spear (A)",
-   "comp": "Axe, Heavy Armor, Riding, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Riding, Heavy Armor",
    "bonus": "Sword +1, Spear +2, Axe +3, Riding +2, Heavy Armor +2",
    "url": "https://fortunesweave.wiki.fextralife.com/Great_Knight",
    "mounted": true,
@@ -49320,7 +49320,7 @@
    "lic": "Master",
    "pri": "Flying (C)",
    "sec": "Spear (A), Sword (A)",
-   "comp": "Flying, Spear, Sword",
+   "comp": "Sword, Spear, Flying",
    "bonus": "Sword +2, Spear +3, Flying +4",
    "url": "https://fortunesweave.wiki.fextralife.com/Celestial_Trooper",
    "mounted": false,
@@ -49385,7 +49385,7 @@
    "lic": "Master",
    "pri": "Flying (C)",
    "sec": "Axe (A), Spear (A)",
-   "comp": "Axe, Flying, Spear, Sword",
+   "comp": "Sword, Spear, Axe, Flying",
    "bonus": "Sword +1, Spear +2, Axe +3, Flying +4",
    "url": "https://fortunesweave.wiki.fextralife.com/Bau_Lord",
    "mounted": false,
@@ -49449,7 +49449,7 @@
    "lic": "Master",
    "pri": "Black Magic (A)",
    "sec": "None",
-   "comp": "Black Magic, Brawling, Infantry, Sword",
+   "comp": "Sword, Brawling, Black Magic, Infantry",
    "bonus": "Sword +2, Brawling +1, Black Magic +4, Infantry +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Druid",
    "mounted": false,
@@ -49511,7 +49511,7 @@
    "lic": "Master",
    "pri": "White Magic (A)",
    "sec": "None",
-   "comp": "Axe, Brawling, Infantry, White Magic",
+   "comp": "Axe, Brawling, White Magic, Infantry",
    "bonus": "Axe +1, Brawling +2, White Magic +4, Infantry +1",
    "url": "https://fortunesweave.wiki.fextralife.com/Wiseman",
    "mounted": false,
@@ -49573,7 +49573,7 @@
    "lic": "Master",
    "pri": "Riding (D)",
    "sec": "White Magic (A), Black Magic (A)",
-   "comp": "Black Magic, Riding, White Magic",
+   "comp": "Black Magic, White Magic, Riding",
    "bonus": "None",
    "url": "https://fortunesweave.wiki.fextralife.com/Valkyrium",
    "mounted": true,
