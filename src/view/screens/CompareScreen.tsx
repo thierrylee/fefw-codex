@@ -122,9 +122,12 @@ export function CompareScreen({ v }: { v: VM }) {
                 onDragOver={g?.dOver}
                 onDrop={g?.dDrop}
                 onDragEnd={g?.dEnd}
+                data-fk={g?.fk}
                 style={
                   {
                     opacity: str(g?.dim),
+                    scale: str(g?.dsc),
+                    transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                     boxShadow: str(g?.sh),
                     cursor: 'grab',
                     display: 'flex',
@@ -458,6 +461,7 @@ export function CompareScreen({ v }: { v: VM }) {
         >
           <div
             data-jump="b-gro"
+            data-fk={v.ct?.radar?.fk}
             draggable="true"
             onDragStart={v.ct?.radar?.start}
             onDragOver={v.ct?.over}
@@ -640,6 +644,7 @@ export function CompareScreen({ v }: { v: VM }) {
             </div>
           </div>
           <div
+            data-fk={v.ct?.bars?.fk}
             draggable="true"
             onDragStart={v.ct?.bars?.start}
             onDragOver={v.ct?.over}
@@ -991,6 +996,7 @@ export function CompareScreen({ v }: { v: VM }) {
           </div>
           <div
             data-jump="b-proj"
+            data-fk={v.ct?.table?.fk}
             draggable="true"
             onDragStart={v.ct?.table?.start}
             onDragOver={v.ct?.over}
@@ -1323,9 +1329,12 @@ export function CompareScreen({ v }: { v: VM }) {
                         onDrop={b?.h?.dDrop}
                         onDragEnd={b?.h?.dEnd}
                         title="Drag to reorder"
+                        data-fk={b?.h?.fk}
                         style={
                           {
                             opacity: str(b?.h?.dim),
+                            scale: str(b?.h?.dsc),
+                            transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                             cursor: str(b?.h?.cur),
                             padding: '8px 6px',
                             borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
@@ -1479,9 +1488,12 @@ export function CompareScreen({ v }: { v: VM }) {
                         onDrop={h?.dDrop}
                         onDragEnd={h?.dEnd}
                         title="Drag to reorder"
+                        data-fk={h?.fk}
                         style={
                           {
                             opacity: str(h?.dim),
+                            scale: str(h?.dsc),
+                            transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                             boxShadow: str(h?.sh),
                             cursor: str(h?.cur),
                             padding: '10px 8px',
@@ -1610,6 +1622,7 @@ export function CompareScreen({ v }: { v: VM }) {
             <>
               <div
                 style={{
+                  gridColumn: '1 / -1',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '6px',
@@ -1633,6 +1646,7 @@ export function CompareScreen({ v }: { v: VM }) {
           ) : null}
           <div
             data-jump="b-gr"
+            data-fk={v.ct?.gr?.fk}
             draggable="true"
             onDragStart={v.ct?.gr?.start}
             onDragOver={v.ct?.over}
@@ -1741,9 +1755,12 @@ export function CompareScreen({ v }: { v: VM }) {
                         onDrop={r?.h?.dDrop}
                         onDragEnd={r?.h?.dEnd}
                         title="Drag to reorder"
+                        data-fk={r?.h?.fk}
                         style={
                           {
                             opacity: str(r?.h?.dim),
+                            scale: str(r?.h?.dsc),
+                            transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                             cursor: str(r?.h?.cur),
                             boxShadow: str(r?.h?.shV),
                             display: 'flex',
@@ -1888,6 +1905,7 @@ export function CompareScreen({ v }: { v: VM }) {
           </div>
           <div
             data-jump="b-pj"
+            data-fk={v.ct?.pj?.fk}
             draggable="true"
             onDragStart={v.ct?.pj?.start}
             onDragOver={v.ct?.over}
@@ -2386,6 +2404,7 @@ export function CompareScreen({ v }: { v: VM }) {
           </div>
           <div
             data-jump="b-pr"
+            data-fk={v.ct?.pr?.fk}
             draggable="true"
             onDragStart={v.ct?.pr?.start}
             onDragOver={v.ct?.over}

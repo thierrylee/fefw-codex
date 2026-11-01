@@ -1352,9 +1352,12 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         onMouseEnter={a?.enter}
                         onMouseLeave={a?.leave}
                         onClick={a?.open}
+                        data-fk={a?.fk}
                         style={
                           {
                             opacity: str(a?.dim),
+                            scale: str(a?.dsc),
+                            transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                             boxShadow: str(a?.sh),
                             display: 'flex',
                             alignItems: 'center',
@@ -1512,9 +1515,12 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         onMouseEnter={a?.enter}
                         onMouseLeave={a?.leave}
                         onClick={a?.open}
+                        data-fk={a?.fk}
                         style={
                           {
                             opacity: str(a?.dim),
+                            scale: str(a?.dsc),
+                            transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                             boxShadow: str(a?.sh),
                             display: 'flex',
                             flexDirection: 'column',
@@ -1761,9 +1767,12 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         onMouseEnter={a?.enter}
                         onMouseLeave={a?.leave}
                         onClick={a?.open}
+                        data-fk={a?.fk}
                         style={
                           {
                             opacity: str(a?.dim),
+                            scale: str(a?.dsc),
+                            transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                             boxShadow: str(a?.sh),
                             display: 'flex',
                             alignItems: 'center',
@@ -2965,6 +2974,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   onDragOver={b?.dOver}
                   onDrop={b?.dDrop}
                   onDragEnd={b?.dEnd}
+                  data-fk={b?.fk}
                   style={
                     {
                       display: 'flex',
@@ -2975,6 +2985,8 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       border: `1px solid ${str(b?.bd)}`,
                       background: 'var(--panel, oklch(0.2 0.01 60))',
                       opacity: str(b?.dim),
+                      scale: str(b?.dsc),
+                      transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                       boxShadow: str(b?.sh),
                       cursor: 'grab',
                     } as CSSProperties

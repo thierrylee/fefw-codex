@@ -252,6 +252,7 @@ export function ProfileScreen({ v }: { v: VM }) {
         <div style={{ display: str(v.pGrid), gridTemplateColumns: str(v.pGridCols), gap: '16px' } as CSSProperties}>
           <div
             data-jump="radar"
+            data-fk={v.pd?.radar?.fk}
             draggable="true"
             onDragStart={v.pd?.radar?.start}
             onDragOver={v.pd?.over}
@@ -442,6 +443,7 @@ export function ProfileScreen({ v }: { v: VM }) {
           </div>
           <div
             data-jump="growth"
+            data-fk={v.pd?.growth?.fk}
             draggable="true"
             onDragStart={v.pd?.growth?.start}
             onDragOver={v.pd?.over}
@@ -705,6 +707,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="bm"
+                data-fk={v.pd?.bm?.fk}
                 draggable="true"
                 onDragStart={v.pd?.bm?.start}
                 onDragOver={v.pd?.over}
@@ -838,6 +841,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="bradar"
+                data-fk={v.pd?.bradar?.fk}
                 draggable="true"
                 onDragStart={v.pd?.bradar?.start}
                 onDragOver={v.pd?.over}
@@ -1032,6 +1036,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="rec"
+                data-fk={v.pd?.rec?.fk}
                 draggable="true"
                 onDragStart={v.pd?.rec?.start}
                 onDragOver={v.pd?.over}
@@ -1251,6 +1256,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="sup"
+                data-fk={v.pd?.sup?.fk}
                 draggable="true"
                 onDragStart={v.pd?.sup?.start}
                 onDragOver={v.pd?.over}
@@ -1374,6 +1380,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="gifts"
+                data-fk={v.pd?.gifts?.fk}
                 draggable="true"
                 onDragStart={v.pd?.gifts?.start}
                 onDragOver={v.pd?.over}
@@ -1474,6 +1481,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="meals"
+                data-fk={v.pd?.meals?.fk}
                 draggable="true"
                 onDragStart={v.pd?.meals?.start}
                 onDragOver={v.pd?.over}
@@ -1566,6 +1574,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="pr"
+                data-fk={v.pd?.pr?.fk}
                 draggable="true"
                 onDragStart={v.pd?.pr?.start}
                 onDragOver={v.pd?.over}
@@ -1643,6 +1652,48 @@ export function ProfileScreen({ v }: { v: VM }) {
                     </span>
                   </button>
                 </div>
+                <span style={{ position: 'relative', display: 'flex' }}>
+                  <input
+                    value={v.p?.prQ ?? ''}
+                    onChange={v.p?.onPrQ}
+                    placeholder="Search quotes and answers"
+                    style={{
+                      width: '100%',
+                      boxSizing: 'border-box',
+                      padding: '8px 36px 8px 12px',
+                      borderRadius: '999px',
+                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      background: 'var(--bg, oklch(0.16 0.01 60))',
+                      color: 'var(--tx, oklch(0.94 0.008 80))',
+                      outline: 'none',
+                    }}
+                  />
+                  <button
+                    onMouseDown={v.p?.onPrClr}
+                    title="Clear"
+                    aria-label="Clear search"
+                    style={
+                      {
+                        display: str(v.p?.prClrD),
+                        position: 'absolute',
+                        right: '4px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        width: str(v.tk28),
+                        height: str(v.tk28),
+                        border: '0',
+                        borderRadius: '50%',
+                        background: 'transparent',
+                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        cursor: 'pointer',
+                        fontSize: '16px',
+                        lineHeight: '1',
+                      } as CSSProperties
+                    }
+                  >
+                    ×
+                  </button>
+                </span>
                 {L(v.p?.pr).map((x: any, $index: number) => (
                   <Fragment key={$index}>
                     <div
@@ -1663,14 +1714,43 @@ export function ProfileScreen({ v }: { v: VM }) {
                           color: 'var(--mu, oklch(0.7 0.01 70))',
                         }}
                       >
-                        “{T(x?.q)}”
+                        “
+                        {L(x?.qp).map((z: any, $index: number) => (
+                          <Fragment key={$index}>
+                            <span
+                              style={
+                                { background: str(z?.bg), color: str(z?.fg), borderRadius: '3px' } as CSSProperties
+                              }
+                            >
+                              {T(z?.t)}
+                            </span>
+                          </Fragment>
+                        ))}
+                        ”
                       </span>
                       <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--ac, oklch(0.82 0.12 85))' }}>
-                        {T(x?.a)}
+                        {L(x?.ap).map((z: any, $index: number) => (
+                          <Fragment key={$index}>
+                            <span
+                              style={
+                                { background: str(z?.bg), color: str(z?.fg), borderRadius: '3px' } as CSSProperties
+                              }
+                            >
+                              {T(z?.t)}
+                            </span>
+                          </Fragment>
+                        ))}
                       </span>
                     </div>
                   </Fragment>
                 ))}
+                {v.p?.prNone ? (
+                  <>
+                    <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                      No matching quotes.
+                    </span>
+                  </>
+                ) : null}
               </div>
             </>
           ) : null}
@@ -1678,6 +1758,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="ls"
+                data-fk={v.pd?.ls?.fk}
                 draggable="true"
                 onDragStart={v.pd?.ls?.start}
                 onDragOver={v.pd?.over}
@@ -1857,6 +1938,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="ls"
+                data-fk={v.pd?.ls?.fk}
                 draggable="true"
                 onDragStart={v.pd?.ls?.start}
                 onDragOver={v.pd?.over}
@@ -2051,6 +2133,7 @@ export function ProfileScreen({ v }: { v: VM }) {
             <>
               <div
                 data-jump="lv"
+                data-fk={v.pd?.lv?.fk}
                 draggable="true"
                 onDragStart={v.pd?.lv?.start}
                 onDragOver={v.pd?.over}

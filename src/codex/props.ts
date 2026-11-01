@@ -1,6 +1,8 @@
 // Display options exposed by the design (its "Display" / "Behavior" props).
 export interface CodexProps {
-  device: 'Responsive' | 'Phone'
+  device: 'Responsive' | 'Phone' | 'Tablet'
+  orientation?: 'Portrait' | 'Landscape'
+  hand?: 'Left' | 'Right'
   navStyle: 'Sidebar' | 'Top tabs'
   theme: 'Emerald' | 'Nocturne' | 'Ink'
   lockStyle: 'Blur teaser' | 'Hide'

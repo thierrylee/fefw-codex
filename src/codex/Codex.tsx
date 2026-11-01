@@ -9,6 +9,10 @@ export class Codex extends Component<CodexProps, any> {
   declare AB: any
   declare IMG: any
   declare SK: any
+  declare _fl: any
+  declare _la: any
+  declare _ln: any
+  declare _lt: any
   declare am: any
   declare cDrag: any
   declare cOver: any
@@ -368,7 +372,60 @@ export class Codex extends Component<CodexProps, any> {
           settings: 'Settings',
         } as any)[s.screen] || 'Codex'
   }
+  flipSnap() {
+    const m: any = {}
+    document.querySelectorAll('[data-fk]').forEach((el?: any) => {
+      ;(m[el.dataset.fk] || (m[el.dataset.fk] = [])).push(el.getBoundingClientRect())
+    })
+    this._fl = m
+  }
+  lk: string | null = null
+  layKey(p?: any) {
+    const d = p.device
+    return d === 'Phone' || d === 'Tablet' ? d[0] + (p.orientation === 'Landscape' ? 'l' : 'p') : 'd'
+  }
   componentDidUpdate() {
+    {
+      const k = this.layKey(this.props)
+      if (this.lk == null) this.lk = k
+      else if (k !== this.lk) {
+        const o = this.lk,
+          s = this.state,
+          LF = ['pOrd', 'pW', 'pCols', 'cTord', 'cW', 'cCols'],
+          lay: Record<string, any> = { ...(s.lay || {}) }
+        lay[o] = {}
+        LF.forEach((f?: any) => {
+          lay[o][f] = s[f]
+        })
+        const nx: any = lay[k] || {},
+          up: Record<string, any> = { lay }
+        LF.forEach((f?: any) => {
+          up[f] = nx[f]
+        })
+        this.lk = k
+        this.save(up)
+        return
+      }
+    }
+    if (this._fl) {
+      const o = this._fl,
+        c: any = {}
+      this._fl = null
+      document.querySelectorAll('[data-fk]').forEach((el?: any) => {
+        const k = el.dataset.fk,
+          n = (c[k] = (c[k] || 0) + 1),
+          a = o[k] && o[k][n - 1]
+        if (!a || !el.animate) return
+        const r = el.getBoundingClientRect(),
+          dx = a.left - r.left,
+          dy = a.top - r.top
+        if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return
+        el.animate([{ translate: dx + 'px ' + dy + 'px' }, { translate: '0 0' }], {
+          duration: 260,
+          easing: 'cubic-bezier(.2,.8,.2,1)',
+        })
+      })
+    }
     {
       const h = document.querySelector<HTMLElement>('main > header')
       document.documentElement.style.setProperty('--hh', (h ? h.offsetHeight : 0) + 'px')
@@ -1197,9 +1254,11 @@ export class Codex extends Component<CodexProps, any> {
       oi = ids.indexOf(this.hOver),
       on = ok && this.hDrag != null && this.hOver === id && ci >= 0 && oi !== ci
     return {
+      fk: String(id),
       drg: ok ? 'true' : 'false',
       cur: ok ? 'grab' : 'default',
       dim: this.hDrag === id ? 0.4 : 1,
+      dsc: this.hDrag === id ? 0.97 : 1,
       sh: on ? (ci > oi ? '-5px 0 0 0 ' : '5px 0 0 0 ') + 'var(--ac, oklch(0.82 0.12 85))' : 'none',
       shV: on ? (ci > oi ? 'inset 0 3px 0 0 ' : 'inset 0 -3px 0 0 ') + 'var(--ac, oklch(0.82 0.12 85))' : 'none',
       dStart: (e?: any) => {
@@ -1224,6 +1283,7 @@ export class Codex extends Component<CodexProps, any> {
       },
       dDrop: (e?: any) => {
         if (me.hDrag == null) return
+        me.flipSnap()
         e.preventDefault()
         e.stopPropagation()
         const from = me.hDrag
@@ -1277,6 +1337,7 @@ export class Codex extends Component<CodexProps, any> {
         cleared,
         cleared2,
         recruited,
+        lay,
         pOrd,
         pW,
         pCols,
@@ -1324,6 +1385,7 @@ export class Codex extends Component<CodexProps, any> {
             cleared,
             cleared2,
             recruited,
+            lay,
             pOrd,
             pW,
             pCols,
@@ -1909,11 +1971,14 @@ export class Codex extends Component<CodexProps, any> {
       pr = this.props
     const thn = THEMES[st.theme] ? st.theme : THEMES[pr.theme] ? pr.theme : 'Emerald'
     const t = THEMES[thn]
-    const phone = (pr.device ?? 'Responsive') === 'Phone'
+    const tablet = pr.device === 'Tablet'
+    const phone = pr.device === 'Phone' || tablet
+    const ls = phone && pr.orientation === 'Landscape'
     const narrow = phone || st.narrow
-    const lh = narrow && st.hand === 'left'
+    const hd = pr.hand === 'Left' ? 'left' : pr.hand === 'Right' ? 'right' : st.hand
+    const lh = narrow && hd === 'left'
     const navTop = st.navTop != null ? !!st.navTop : (pr.navStyle ?? 'Sidebar') === 'Top tabs'
-    const hideLocked = (pr.lockStyle ?? 'Blur teaser') === 'Hide'
+    const hideLocked = false
     const view = pr.calcView ?? 'Stacked bars'
     const MS: string = 'Badge'
     const mfx = (n?: any, avg?: any) => {
@@ -2166,7 +2231,7 @@ export class Codex extends Component<CodexProps, any> {
     ]
     const clrX = CLR.find((y?: any) => y.k === st.clr)
     const CL = st.cleared || []
-    const cmode = pr.clearStyle ?? 'Checkbox'
+    const cmode: string = 'Checkbox'
     const CL2 = st.cleared2 || []
     const togCl = (r?: any) => {
       if (R === r && P === 2) return
@@ -2336,7 +2401,13 @@ export class Codex extends Component<CodexProps, any> {
       sidebar: !narrow && !navTop,
       topTabs: !narrow && navTop,
       showBrandInHead: navTop && !narrow,
-      gridCols: !narrow && !navTop ? (sbC ? '72px' : '248px') + ' minmax(0,1fr)' : 'minmax(0,1fr)',
+      gridCols: ls
+        ? lh
+          ? 'minmax(0,1fr) 76px'
+          : '76px minmax(0,1fr)'
+        : !narrow && !navTop
+          ? (sbC ? '72px' : '248px') + ' minmax(0,1fr)'
+          : 'minmax(0,1fr)',
       navTipOff: () => this.setState({ nt: null }),
       navTip: sbC && st.nt ? st.nt : null,
       hasNavTip: !!(sbC && st.nt),
@@ -2352,13 +2423,22 @@ export class Codex extends Component<CodexProps, any> {
       headPad: narrow ? '14px 16px' : '16px 32px',
       bodyPad: narrow ? '14px 16px 20px' : '28px 32px',
       bottomSpacer: narrow ? '34vh' : '48vh',
+      lsRail: ls,
+      lsDir: ls ? 'row' : 'column',
+      lsGap: ls ? '6px 12px' : '10px',
+      lsAlign: ls ? 'center' : lh ? 'flex-start' : 'flex-end',
+      lsW: ls ? '100%' : 'auto',
+      railOrder: lh ? 2 : 0,
+      railBorder: lh ? 'left' : 'right',
+      railH: ls ? (tablet ? '804px' : '374px') : 'auto',
+      botNavD: ls ? 'none' : 'grid',
       outerPad: phone ? '32px 16px' : '0',
-      appMaxW: phone ? '390px' : 'none',
-      appH: phone ? '844px' : 'auto',
+      appMaxW: tablet ? (ls ? '1100px' : '820px') : phone ? (ls ? '844px' : '390px') : 'none',
+      appH: tablet ? (ls ? '820px' : '1100px') : phone ? (ls ? '390px' : '844px') : 'auto',
       appMinH: phone ? '0' : '100dvh',
       appGridMin: phone ? '100%' : '100dvh',
       appOverflow: phone ? 'auto' : 'visible',
-      appRadius: phone ? '40px' : '0',
+      appRadius: tablet ? '28px' : phone ? '40px' : '0',
       appBorder: phone ? '8px solid #26241f' : '0',
       loading: !d,
       heroSpan: narrow ? 1 : 2,
@@ -3863,26 +3943,45 @@ export class Codex extends Component<CodexProps, any> {
         this.railPing()
       },
       bdMvD: narrow ? 'none' : 'block',
-      bdCols: narrow ? 'repeat(2,minmax(0,1fr))' : 'repeat(auto-fill,minmax(min(100%,230px),1fr))',
-      rvOn: narrow,
+      bdCols: narrow
+        ? ls
+          ? 'repeat(4,minmax(0,1fr))'
+          : 'repeat(2,minmax(0,1fr))'
+        : 'repeat(auto-fill,minmax(min(100%,230px),1fr))',
+      rvOn: !narrow,
       rvOpts: [
-        ['List', 'list'],
-        ['Grid', 'grid'],
-      ].map(([l, v]: any) => {
+        ['List', 'list', 'M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01'],
+        ['Grid', 'grid', 'M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z'],
+      ].map(([l, v, ic]: any) => {
         const on = (st.rview || 'list') === v
-        return { l, on, bg: on ? t.panel2 : 'transparent', fg: on ? t.tx : t.mu, click: () => this.save({ rview: v }) }
+        return {
+          l,
+          ic,
+          on,
+          bg: on ? t.panel2 : 'transparent',
+          fg: on ? t.tx : t.mu,
+          click: () => this.save({ rview: v }),
+        }
       }),
-      rGridOn: narrow && st.rview === 'grid',
-      rListOn: !(narrow && st.rview === 'grid'),
+      rGridOn: st.rview === 'grid',
+      rListOn: st.rview !== 'grid',
       rCols:
-        narrow && st.rview === 'grid' ? 'repeat(3,minmax(0,1fr))' : 'repeat(auto-fill,minmax(min(100%,230px),1fr))',
-      rGap: narrow && st.rview === 'grid' ? '10px' : '12px',
+        st.rview === 'grid'
+          ? narrow
+            ? ls
+              ? 'repeat(5,minmax(0,1fr))'
+              : 'repeat(3,minmax(0,1fr))'
+            : 'repeat(5,minmax(0,1fr))'
+          : narrow
+            ? 'repeat(auto-fill,minmax(min(100%,230px),1fr))'
+            : 'repeat(3,minmax(0,1fr))',
+      rGap: st.rview === 'grid' ? '10px' : '12px',
       handOptOn: narrow,
       handOpts: [
         ['Left', 'left'],
         ['Right', 'right'],
       ].map(([l, v]: any) => {
-        const on = (st.hand || 'right') === v
+        const on = (hd || 'right') === v
         return { l, on, bg: on ? t.panel2 : 'transparent', fg: on ? t.tx : t.mu, click: () => this.save({ hand: v }) }
       }),
       handSelf: lh ? 'flex-start' : 'flex-end',
@@ -4581,7 +4680,9 @@ export class Codex extends Component<CodexProps, any> {
             this.dragId != null && this.overId === b.id && oi !== di
               ? (di > oi ? '-5px 0 0 0 ' : '5px 0 0 0 ') + t.ac
               : 'none',
+          fk: 'b' + b.id,
           dim: this.dragId === b.id ? 0.4 : 1,
+          dsc: this.dragId === b.id ? 0.97 : 1,
           left: () => mv(b.id, bi - 1),
           right: () => mv(b.id, bi + 1),
           dStart: (e?: any) => {
@@ -4601,6 +4702,7 @@ export class Codex extends Component<CodexProps, any> {
             }
           },
           dDrop: (e?: any) => {
+            this.flipSnap()
             e.preventDefault()
             const id = this.dragId
             this.dragId = null
@@ -4907,7 +5009,7 @@ export class Codex extends Component<CodexProps, any> {
       .filter(Boolean)
     {
       vals.cdd = {
-        ic: phone ? 'none' : 'inline-block',
+        ic: 'inline-block',
         ...(narrow
           ? {
               rows: 'none',
@@ -5069,6 +5171,7 @@ export class Codex extends Component<CodexProps, any> {
       }
       ord.forEach((k?: any, i?: any) => {
         ct[k] = {
+          fk: 't' + k,
           o: i,
           op: st.tDrag === k ? 0.45 : 1,
           ol:
@@ -5083,6 +5186,7 @@ export class Codex extends Component<CodexProps, any> {
             this.setState({ tDrag: k })
           },
           drop: (e?: any) => {
+            this.flipSnap()
             e.preventDefault()
             const from = st.tDrag
             if (!from || from === k) {
@@ -5142,7 +5246,9 @@ export class Codex extends Component<CodexProps, any> {
     vals.clearAllCmp = () => this.save({ cchars: [], cmp: [], bases: [] })
     vals.cmpGroups = cch.map((n?: any, ni?: any) => ({
       sh: this.cDrag && this.cOver === n && coi !== cdi ? (cdi > coi ? '-5px 0 0 0 ' : '5px 0 0 0 ') + t.ac : 'none',
+      fk: 'c' + n,
       dim: this.cDrag === n ? 0.4 : 1,
+      dsc: this.cDrag === n ? 0.97 : 1,
       dStart: (e?: any) => {
         this.cDrag = n
         e.dataTransfer.effectAllowed = 'move'
@@ -5160,6 +5266,7 @@ export class Codex extends Component<CodexProps, any> {
         }
       },
       dDrop: (e?: any) => {
+        this.flipSnap()
         e.preventDefault()
         const id = this.cDrag
         this.cDrag = null
@@ -5774,7 +5881,8 @@ export class Codex extends Component<CodexProps, any> {
                 settings: 'Settings',
               } as any)[scn] || 'Weave Codex'
         vals.headBackOn = scn !== 'roster'
-        vals.headSub = scn === 'profile' ? 'Characters' : ''
+        vals.headSub = scn === 'profile' ? 'Characters' : scn === 'roster' && narrow ? vals.rosterSub : ''
+        vals.rosSubD = narrow ? 'none' : 'block'
         const cu = scn === 'calc' && d.chars.find((x?: any) => x.n === (st.calc && st.calc.c))
         if (cu && cu.part <= P) {
           vals.headSub = 'Unit builder'
@@ -5784,6 +5892,9 @@ export class Codex extends Component<CodexProps, any> {
         }
         vals.headSubOn = !!vals.headSub
         vals.headTitleShow = true
+        vals.headTitleML = vals.headBackOn ? '0' : '12px'
+        vals.headProgOn = narrow && st.screen === 'roster'
+        vals.headViewOn = narrow && st.screen === 'roster'
         if (!(narrow && st.screen === 'calc' && vals.hpBgi)) vals.hpOn = false
         vals.pPortD = narrow ? 'none' : 'grid'
         vals.pHeadD = narrow ? 'none' : 'flex'
@@ -6890,10 +7001,25 @@ export class Codex extends Component<CodexProps, any> {
         }
       }
     }
-    vals.tipOn = !!st.tip
-    vals.tip = st.tip || {}
-    vals.afOn = !!st.afTip
-    vals.afTip = st.afTip || {}
+    if (st.tip) this._lt = st.tip
+    if (st.afTip) this._la = st.afTip
+    vals.tipOn = !!this._lt
+    vals.tipOp = st.tip ? 1 : 0
+    vals.tipSc = st.tip ? 1 : 0.9
+    vals.tipOrg = (st.tip || this._lt || {}).tf === 'none' ? '0 0' : '0 100%'
+    vals.tip = st.tip || this._lt || {}
+    vals.afOn = !!this._la
+    vals.afOp = st.afTip ? 1 : 0
+    vals.afSc = st.afTip ? 1 : 0.9
+    vals.afTip = st.afTip || this._la || {}
+    {
+      const nt = sbC && st.nt ? st.nt : null
+      if (nt) this._ln = nt
+      vals.navKeep = !!this._ln
+      vals.navOp = nt ? 1 : 0
+      vals.navSc = nt ? 1 : 0.9
+      vals.navTip = nt || this._ln || {}
+    }
     vals.gItems = G[gtab].filter((g?: any) => !gq || (g.t + ' ' + g.body + ' ' + g.meta).toLowerCase().includes(gq))
     vals.gCount = vals.gItems.length
     vals.gq = st.gq
@@ -7451,8 +7577,44 @@ export class Codex extends Component<CodexProps, any> {
         vals.p.gfLiked = gf.liked.join(', ')
         vals.p.hasLoved = gf.loved.length > 0
         vals.p.hasLiked = gf.liked.length > 0
-        vals.p.pr = pr
-        vals.p.hasPr = pr.length > 0
+        {
+          const pq = (st.prq || '').trim().toLowerCase()
+          const mk = (t?: any, h?: any) => ({
+            t,
+            bg: h ? 'var(--ac, oklch(0.82 0.12 85))' : 'transparent',
+            fg: h ? 'oklch(0.18 0.01 60)' : 'inherit',
+          })
+          const hl = (tx?: any) => {
+            tx = String(tx == null ? '' : tx)
+            if (!pq) return [mk(tx, 0)]
+            const lo = tx.toLowerCase(),
+              o: any = []
+            let i = 0,
+              j: any
+            while ((j = lo.indexOf(pq, i)) >= 0) {
+              if (j > i) o.push(mk(tx.slice(i, j), 0))
+              o.push(mk(tx.slice(j, j + pq.length), 1))
+              i = j + pq.length
+            }
+            if (i < tx.length) o.push(mk(tx.slice(i), 0))
+            return o
+          }
+          const pf = pr
+            .filter((x?: any) => !pq || (x.q + ' ' + x.a).toLowerCase().includes(pq))
+            .map((x?: any) => ({ ...x, qp: hl(x.q), ap: hl(x.a) }))
+          vals.p.pr = pf
+          vals.p.hasPr = pr.length > 0
+          vals.p.prNone = pr.length > 0 && pf.length === 0
+          vals.p.prQ = st.prq || ''
+          vals.p.prClrD = st.prq ? 'block' : 'none'
+          vals.p.onPrQ = (e?: any) => this.setState({ prq: e.target.value })
+          vals.p.onPrClr = (e?: any) => {
+            e.preventDefault()
+            const inp = e.currentTarget.parentNode.querySelector('input')
+            this.setState({ prq: '' }, () => inp && inp.focus())
+          }
+          vals.p.prCnt = pq ? pf.length + ' of ' + pr.length : ''
+        }
         const go = (k?: any) => () => {
           const el = [...document.querySelectorAll('[data-jump="' + k + '"]')].find((e?: any) => e.offsetParent)
           if (!el) return
@@ -7730,8 +7892,8 @@ export class Codex extends Component<CodexProps, any> {
             }))
       }
       const pc2 = c.g && c.part <= P
-      vals.p.lsNarrow = narrow && c.ls.length > 0 && st.ptab !== 'calc'
-      vals.p.lsWide = !narrow && c.ls.length > 0 && st.ptab !== 'calc'
+      vals.p.lsNarrow = narrow && !tablet && !ls && c.ls.length > 0 && st.ptab !== 'calc'
+      vals.p.lsWide = (!narrow || ls || tablet) && c.ls.length > 0 && st.ptab !== 'calc'
       const LVH = (n?: any) => this.hov(n)
       vals.p.lvl = [
         ...(c.pa && !/^(none|\(none)/i.test(c.pa)
@@ -7792,7 +7954,10 @@ export class Codex extends Component<CodexProps, any> {
         }))
       vals.pGrid = ptab === 'calc' ? 'none' : 'grid'
       {
-        const DEF = ['lv', 'bm', 'sup', 'growth', 'rec', 'bradar', 'radar', 'ls', 'pr', 'meals', 'gifts']
+        const DEF =
+          phone && !ls
+            ? ['lv', 'bm', 'sup', 'rec', 'growth', 'bradar', 'radar', 'ls', 'pr', 'meals', 'gifts']
+            : ['lv', 'bm', 'sup', 'growth', 'rec', 'bradar', 'radar', 'ls', 'pr', 'meals', 'gifts']
         const saved = (st.pOrd || []).filter((k?: any) => DEF.includes(k))
         const ord = [...saved, ...DEF.filter((k?: any) => !saved.includes(k))]
         const pd: Record<string, any> = {
@@ -7804,7 +7969,7 @@ export class Codex extends Component<CodexProps, any> {
         }
         const col: any = st.pW || {}
         const DW: Record<string, any> = { pr: 4, rec: 1, radar: 2, gifts: 2, lv: 1, sup: 2, bm: 1, growth: 3, bradar: 2, meals: 2, ls: 4 }
-        const N = narrow ? 3 : Math.min(4, Math.max(2, st.pCols || 4))
+        const N = tablet ? (ls ? 4 : 2) : narrow ? 3 : Math.min(4, Math.max(2, st.pCols || 4))
         pd.n = N
         vals.pColCtl = phone || narrow || ptab === 'calc' ? 'none' : 'flex'
         vals.pColOpts = [2, 3, 4].map((n?: any) => ({
@@ -7814,18 +7979,49 @@ export class Codex extends Component<CodexProps, any> {
           click: () => this.save({ pCols: n }),
         }))
         vals.pGridCols =
-          narrow || N === 3 ? 'repeat(auto-fit,minmax(min(100%,320px),1fr))' : 'repeat(' + N + ',minmax(0,1fr))'
-        ord.forEach((k?: any, i?: any) => {
+          !tablet && (narrow || N === 3)
+            ? 'repeat(auto-fit,minmax(min(100%,320px),1fr))'
+            : 'repeat(' + N + ',minmax(0,1fr))'
+        const ordX =
+          ls && !tablet
+            ? (() => {
+                const o = ord.filter((k?: any) => k !== 'growth')
+                o.splice(o.indexOf('rec') + 1, 0, 'growth')
+                return o
+              })()
+            : ord
+        ordX.forEach((k?: any, i?: any) => {
           const w0 = col[k]
           const w =
-            k === 'ls' ? N : Math.min(N, w0 === undefined ? DW[k] || 1 : w0 === true ? 2 : w0 === false ? 1 : w0)
+            k === 'ls'
+              ? N
+              : Math.min(
+                  N,
+                  w0 === undefined
+                    ? tablet
+                      ? Math.max(1, Math.round(((DW[k] || 1) * N) / 4))
+                      : DW[k] || 1
+                    : w0 === true
+                      ? 2
+                      : w0 === false
+                        ? 1
+                        : w0,
+                )
           const set = (v?: any) => (e?: any) => {
             e.stopPropagation()
             this.save({ pW: { ...col, [k]: v } })
           }
           pd[k] = {
+            fk: 'p' + k,
             o: i,
-            gc: narrow ? 'span 1' : w >= N ? '1 / -1' : 'span ' + w,
+            gc:
+              k === 'ls' || (ls && !tablet && (k === 'growth' || k === 'pr'))
+                ? '1 / -1'
+                : narrow && !tablet
+                  ? 'span 1'
+                  : w >= N
+                    ? '1 / -1'
+                    : 'span ' + w,
             mh: 'none',
             ov: k === 'ls' || k === 'lv' ? 'auto' : 'visible',
             wl: w,
@@ -7852,6 +8048,7 @@ export class Codex extends Component<CodexProps, any> {
               this.setState({ pDrag: k })
             },
             drop: (e?: any) => {
+              this.flipSnap()
               e.preventDefault()
               const from = st.pDrag || e.dataTransfer.getData('text/plain')
               if (!from || from === k) {
@@ -7871,8 +8068,8 @@ export class Codex extends Component<CodexProps, any> {
           const k = ord[+getComputedStyle(el).order]
           if (k && this.state.pOver !== k) this.setState({ pOver: k })
         }
-        pd.ic = phone ? 'none' : 'inline-block'
-        pd.wic = phone || narrow ? 'none' : 'inline-flex'
+        pd.ic = 'inline-block'
+        pd.wic = narrow && !tablet ? 'none' : 'inline-flex'
         vals.p.jumps = vals.p.jumps
           .filter((j?: any) => j.k !== 'lv' || vals.p.lvlShow)
           .sort((a?: any, b?: any) => ord.indexOf(a.k) - ord.indexOf(b.k))

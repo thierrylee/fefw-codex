@@ -20,53 +20,21 @@ export function CharactersScreen({ v }: { v: VM }) {
               <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
                 Characters
               </h1>
-              <button
-                onClick={v.goSettings}
-                title="Change progress in Settings"
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  minHeight: '36px',
-                  padding: '4px 12px 4px 4px',
-                  borderRadius: '999px',
-                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                  background: 'var(--panel, oklch(0.245 0.05 165))',
-                  cursor: 'pointer',
-                  fontSize: '12px',
-                  fontWeight: '500',
-                }}
-                className="hv-4"
-              >
-                <span
-                  style={
-                    {
-                      width: '26px',
-                      height: '26px',
-                      borderRadius: '50%',
-                      display: 'grid',
-                      placeItems: 'center',
-                      background: str(v.partColor),
-                      color: 'oklch(0.18 0.01 60)',
-                      font: "600 10px/1 'IBM Plex Mono',monospace",
-                    } as CSSProperties
-                  }
-                >
-                  {T(v.partRoman)}
-                </span>
-                <span>{T(v.progLabel)}</span>
-                <span style={{ color: 'var(--ac, oklch(0.82 0.12 85))', fontWeight: '600' }}>Change →</span>
-              </button>
             </div>
-            <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(v.rosterSub)}</span>
+            <span style={{ display: str(v.rosSubD), color: 'var(--mu, oklch(0.7 0.01 70))' } as CSSProperties}>
+              {T(v.rosterSub)}
+            </span>
           </div>
           <div
             style={
               {
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-                alignItems: str(v.handEnd),
+                flexDirection: str(v.lsDir),
+                flexWrap: 'wrap',
+                gap: str(v.lsGap),
+                alignItems: str(v.lsAlign),
+                justifyContent: str(v.handEnd),
+                width: str(v.lsW),
                 marginLeft: str(v.handML),
                 marginRight: str(v.handMR),
                 maxWidth: '100%',

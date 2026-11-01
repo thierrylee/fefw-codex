@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import type { CSSProperties } from 'react'
-import { L, T, str, type VM } from './runtime'
+import { L, T, css, str, type VM } from './runtime'
 import { OverviewScreen } from './screens/OverviewScreen'
 import { CharactersScreen } from './screens/CharactersScreen'
 import { ProfileScreen } from './screens/ProfileScreen'
@@ -54,11 +54,16 @@ export function AppView({ v }: { v: VM }) {
           >
             {v.sidebar ? (
               <>
-                {v.hasNavTip ? (
+                {v.navKeep ? (
                   <>
                     <div
                       style={
                         {
+                          opacity: str(v.navOp),
+                          scale: str(v.navSc),
+                          transformOrigin: '0 50%',
+                          transition: 'opacity .15s ease,scale .15s ease',
+                          animation: 'wcTipIn .15s ease',
                           position: 'fixed',
                           zIndex: '60',
                           left: `${str(v.navTip?.x)}px`,
@@ -200,7 +205,69 @@ export function AppView({ v }: { v: VM }) {
                 </aside>
               </>
             ) : null}
-            <main style={{ minWidth: '0', display: 'flex', flexDirection: 'column' }}>
+            {v.lsRail ? (
+              <>
+                <aside
+                  style={css(
+                    `order:${str(v.railOrder)};position:sticky;top:0;align-self:start;height:${str(v.railH)};box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:6px;overflow-y:auto;background:var(--panel, oklch(0.2 0.01 60));border-${str(v.railBorder)}:1px solid var(--line, oklch(0.29 0.012 60))`,
+                  )}
+                >
+                  <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+                    {L(v.navG).map((it: any, $index: number) => (
+                      <Fragment key={$index}>
+                        <button
+                          onClick={it?.go}
+                          style={
+                            {
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              gap: '3px',
+                              minHeight: '56px',
+                              justifyContent: 'center',
+                              border: '0',
+                              background: 'transparent',
+                              color: str(it?.fg),
+                              cursor: 'pointer',
+                              fontSize: '10px',
+                              fontWeight: '500',
+                            } as CSSProperties
+                          }
+                        >
+                          <svg
+                            viewBox="0 0 24 24"
+                            width="22"
+                            height="22"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.7"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            style={{ flex: 'none' }}
+                          >
+                            <path d={it?.icon}></path>
+                          </svg>
+                          <span style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                            {T(it?.short)}
+                            <span
+                              style={
+                                {
+                                  width: '18px',
+                                  height: '3px',
+                                  borderRadius: '2px',
+                                  background: str(it?.bar),
+                                } as CSSProperties
+                              }
+                            ></span>
+                          </span>
+                        </button>
+                      </Fragment>
+                    ))}
+                  </nav>
+                </aside>
+              </>
+            ) : null}
+            <main style={{ minWidth: '0', display: 'flex', flexDirection: 'column', order: '1' }}>
               {v.headOn ? (
                 <>
                   <header
@@ -273,24 +340,17 @@ export function AppView({ v }: { v: VM }) {
                                 </button>
                               </>
                             ) : null}
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: '0' }}>
-                              {v.headSubOn ? (
-                                <>
-                                  <span
-                                    style={{
-                                      font: "500 10px/1 'IBM Plex Mono',monospace",
-                                      letterSpacing: '.14em',
-                                      textTransform: 'uppercase',
-                                      color: 'var(--mu, oklch(0.7 0.01 70))',
-                                      whiteSpace: 'nowrap',
-                                      overflow: 'hidden',
-                                      textOverflow: 'ellipsis',
-                                    }}
-                                  >
-                                    {T(v.headSub)}
-                                  </span>
-                                </>
-                              ) : null}
+                            <div
+                              style={
+                                {
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  gap: '3px',
+                                  minWidth: '0',
+                                  marginLeft: str(v.headTitleML),
+                                } as CSSProperties
+                              }
+                            >
                               {v.headTitleShow ? (
                                 <>
                                   <h1
@@ -308,7 +368,128 @@ export function AppView({ v }: { v: VM }) {
                                   </h1>
                                 </>
                               ) : null}
+                              {v.headSubOn ? (
+                                <>
+                                  <span
+                                    style={{
+                                      font: "500 10px/1 'IBM Plex Mono',monospace",
+                                      letterSpacing: '.14em',
+                                      textTransform: 'uppercase',
+                                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                                      whiteSpace: 'nowrap',
+                                      overflow: 'hidden',
+                                      textOverflow: 'ellipsis',
+                                    }}
+                                  >
+                                    {T(v.headSub)}
+                                  </span>
+                                </>
+                              ) : null}
                             </div>
+                          </div>
+                        </>
+                      ) : null}
+                      {v.headProgOn ? (
+                        <>
+                          <button
+                            onClick={v.goSettings}
+                            title="Change progress in Settings"
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '8px',
+                              flex: 'none',
+                              maxWidth: '50%',
+                              minHeight: '36px',
+                              padding: '4px 12px 4px 4px',
+                              borderRadius: '999px',
+                              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                              background: 'var(--panel, oklch(0.245 0.05 165))',
+                              cursor: 'pointer',
+                              fontSize: '12px',
+                              fontWeight: '500',
+                            }}
+                            className="hv-3"
+                          >
+                            <span
+                              style={
+                                {
+                                  width: '26px',
+                                  height: '26px',
+                                  borderRadius: '50%',
+                                  display: 'grid',
+                                  placeItems: 'center',
+                                  background: str(v.partColor),
+                                  color: 'oklch(0.18 0.01 60)',
+                                  font: "600 10px/1 'IBM Plex Mono',monospace",
+                                } as CSSProperties
+                              }
+                            >
+                              {T(v.partRoman)}
+                            </span>
+                            <span
+                              style={{
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                minWidth: '0',
+                              }}
+                            >
+                              {T(v.progLabel)}
+                            </span>
+                          </button>
+                        </>
+                      ) : null}
+                      {v.headViewOn ? (
+                        <>
+                          <div
+                            style={{
+                              flex: 'none',
+                              display: 'flex',
+                              gap: '2px',
+                              padding: '3px',
+                              borderRadius: '8px',
+                              background: 'var(--bg, oklch(0.16 0.01 60))',
+                              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            }}
+                          >
+                            {L(v.rvOpts).map((o: any, $index: number) => (
+                              <Fragment key={$index}>
+                                <button
+                                  onClick={o?.click}
+                                  aria-pressed={o?.on}
+                                  aria-label={o?.l}
+                                  title={o?.l}
+                                  style={
+                                    {
+                                      width: '36px',
+                                      minHeight: '36px',
+                                      padding: '0',
+                                      display: 'grid',
+                                      placeItems: 'center',
+                                      border: '0',
+                                      borderRadius: '6px',
+                                      background: str(o?.bg),
+                                      color: str(o?.fg),
+                                      cursor: 'pointer',
+                                    } as CSSProperties
+                                  }
+                                >
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    width="18"
+                                    height="18"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="1.7"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                  >
+                                    <path d={o?.ic}></path>
+                                  </svg>
+                                </button>
+                              </Fragment>
+                            ))}
                           </div>
                         </>
                       ) : null}
@@ -481,7 +662,7 @@ export function AppView({ v }: { v: VM }) {
                                   textTransform: 'inherit',
                                 } as CSSProperties
                               }
-                              className="hv-3"
+                              className="hv-4"
                             >
                               {T(c?.l)}
                             </button>
@@ -729,13 +910,15 @@ export function AppView({ v }: { v: VM }) {
                       </>
                     ) : null}
                     <nav
-                      style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(4,1fr)',
-                        padding: '6px 6px 14px',
-                        background: 'var(--panel, oklch(0.2 0.01 60))',
-                        borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
-                      }}
+                      style={
+                        {
+                          display: str(v.botNavD),
+                          gridTemplateColumns: 'repeat(4,1fr)',
+                          padding: '6px 6px 14px',
+                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                          borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        } as CSSProperties
+                      }
                     >
                       {L(v.navG).map((it: any, $index: number) => (
                         <Fragment key={$index}>
@@ -2999,6 +3182,11 @@ export function AppView({ v }: { v: VM }) {
                   <div
                     style={
                       {
+                        opacity: str(v.afOp),
+                        scale: str(v.afSc),
+                        transformOrigin: '0 100%',
+                        transition: 'opacity .15s ease,scale .15s ease',
+                        animation: 'wcTipIn .15s ease',
                         position: 'fixed',
                         left: str(v.afTip?.x),
                         top: str(v.afTip?.y),
@@ -3026,6 +3214,11 @@ export function AppView({ v }: { v: VM }) {
                   <div
                     style={
                       {
+                        opacity: str(v.tipOp),
+                        scale: str(v.tipSc),
+                        transformOrigin: str(v.tipOrg),
+                        transition: 'opacity .15s ease,scale .15s ease',
+                        animation: 'wcTipIn .15s ease',
                         position: 'fixed',
                         left: str(v.tip?.x),
                         top: str(v.tip?.y),

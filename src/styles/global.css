@@ -13,4 +13,5 @@ input[type=range]{accent-color:oklch(0.8 0.11 75)}
 @keyframes wcLblR{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
 @keyframes wcLblL{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
 @keyframes wcSheetIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes wcTipIn{from{opacity:0;scale:.9}}
 input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-text-fill-color:currentColor;caret-color:currentColor;transition:background-color 9999s ease-out 0s;box-shadow:0 0 0 1000px var(--panel,#1c1b18) inset}
