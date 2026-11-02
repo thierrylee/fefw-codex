@@ -1120,6 +1120,94 @@ export function AppView({ v }: { v: VM }) {
                           ×
                         </button>
                       </div>
+                      {v.pkEqOn ? (
+                        <>
+                          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                            {L(v.pkEq).map((e: any, $index: number) => (
+                              <Fragment key={$index}>
+                                <div
+                                  draggable="true"
+                                  data-fk={e?.fk}
+                                  onDragEnd={e?.dE}
+                                  onDragLeave={e?.dL}
+                                  onDragStart={e?.dS}
+                                  onDragOver={e?.dO}
+                                  onDrop={e?.dD}
+                                  style={
+                                    {
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      borderRadius: '999px',
+                                      border: `1px solid ${str(e?.bd)}`,
+                                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                    } as CSSProperties
+                                  }
+                                >
+                                  <button
+                                    onClick={e?.pv}
+                                    onMouseEnter={e?.enter}
+                                    onMouseLeave={e?.leave}
+                                    style={{
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      gap: '6px',
+                                      minWidth: '0',
+                                      padding: '3px 4px 3px 4px',
+                                      border: '0',
+                                      borderRadius: '999px 0 0 999px',
+                                      background: 'transparent',
+                                      color: 'var(--tx, #eee)',
+                                      cursor: 'pointer',
+                                      fontSize: '12px',
+                                    }}
+                                  >
+                                    <span
+                                      style={
+                                        {
+                                          width: '20px',
+                                          height: '20px',
+                                          flex: 'none',
+                                          borderRadius: '50%',
+                                          background: str(e?.bgi),
+                                          backgroundSize: 'cover',
+                                          display: str(e?.icD),
+                                        } as CSSProperties
+                                      }
+                                    ></span>
+                                    <span
+                                      style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
+                                    >
+                                      {T(e?.n)}
+                                    </span>
+                                  </button>
+                                  <button
+                                    onClick={e?.rm}
+                                    title="Remove"
+                                    aria-label="Remove"
+                                    style={
+                                      {
+                                        width: str(v.tk28),
+                                        height: str(v.tk28),
+                                        flex: 'none',
+                                        border: '0',
+                                        borderRadius: '50%',
+                                        background: 'transparent',
+                                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                                        cursor: 'pointer',
+                                        fontSize: '14px',
+                                        lineHeight: '1',
+                                      } as CSSProperties
+                                    }
+                                    className="hv-6"
+                                  >
+                                    ×
+                                  </button>
+                                </div>
+                              </Fragment>
+                            ))}
+                          </div>
+                        </>
+                      ) : null}
                       <span style={{ position: 'relative', display: 'flex' }}>
                         <input
                           value={v.pkQ ?? ''}

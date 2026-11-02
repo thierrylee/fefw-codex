@@ -43,6 +43,7 @@ export class Codex extends Component<CodexProps, any> {
   declare od: any
   declare overId: any
   declare pk: any
+  declare pkDr: any
   declare profCmp: any
   declare rHov: any
   declare rScr: any
@@ -3725,6 +3726,86 @@ export class Codex extends Component<CodexProps, any> {
           : isCa
             ? ' · learnset'
             : ' · learnset, personal & universal'),
+      pkEqOn: pCur.length > 0,
+      pkEq: pCur.map((n?: any) => {
+        const r = pAll.find((x?: any) => x.n === n || (x.vs || []).some((v?: any) => v.n === n))
+        const ic = isIt
+          ? (r && r.cat && r.cat !== 'Accessory' && this.SK(r.cat)) || 'none'
+          : isCa
+            ? 'url(' + IMG('arts', r ? r.c || r.cat : n) + ') center/cover no-repeat'
+            : AB(n)
+        return {
+          n,
+          bgi: ic,
+          icD: ic === 'none' ? 'none' : 'block',
+          ...(isIt || isCa ? {} : this.hov(n)),
+          dS: (e?: any) => {
+            this.pkDr = n
+            try {
+              e.dataTransfer.effectAllowed = 'move'
+              e.dataTransfer.setData('text/plain', n)
+            } catch (x: any) {}
+          },
+          fk: 'pk' + n,
+          dE: (e?: any) => {
+            this.pkDr = null
+            e.currentTarget.style.opacity = ''
+          },
+          dL: (e?: any) => {
+            e.currentTarget.style.boxShadow = ''
+          },
+          dO: (e?: any) => {
+            const f = this.pkDr
+            if (f == null) return
+            e.preventDefault()
+            const L = isIt ? itCur : isCa ? caCur : abCur,
+              el = e.currentTarget
+            el.style.boxShadow =
+              f === n
+                ? ''
+                : L.indexOf(f) < L.indexOf(n)
+                  ? '3px 0 0 0 oklch(0.8 0.11 75)'
+                  : '-3px 0 0 0 oklch(0.8 0.11 75)'
+          },
+          dD: (e?: any) => {
+            e.preventDefault()
+            e.currentTarget.style.boxShadow = ''
+            const f = this.pkDr
+            this.pkDr = null
+            if (f == null || f === n) return
+            this.flipSnap()
+            const L = isIt ? itCur : isCa ? caCur : abCur,
+              k = isIt ? 'it' : isCa ? 'ca' : 'ab',
+              o = L.filter((y?: any) => y !== f),
+              t = o.indexOf(n),
+              fi = L.indexOf(f),
+              ti = L.indexOf(n)
+            o.splice(fi < ti ? t + 1 : t, 0, f)
+            setCalc({ [k]: o })
+          },
+          pv: (e?: any) => {
+            this.setState({ ppv: n })
+            const el = [...document.querySelectorAll('[data-pkn]')].find((x?: any) => x.dataset.pkn === n)
+            if (el) {
+              const p = el.parentElement as HTMLElement,
+                r = el.getBoundingClientRect(),
+                q = p.getBoundingClientRect()
+              p.scrollTo({ top: p.scrollTop + r.top - q.top - (q.height - r.height) / 2, behavior: 'smooth' })
+            }
+          },
+          bd: n === (st.ppv || '') ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
+          rm: (e?: any) => {
+            e.stopPropagation()
+            setCalc(
+              isIt
+                ? { it: itCur.filter((y?: any) => y !== n) }
+                : isCa
+                  ? { ca: caCur.filter((y?: any) => y !== n) }
+                  : { ab: abCur.filter((y?: any) => y !== n) },
+            )
+          },
+        }
+      }),
       pkCount: pCur.length + '/' + pMax + (isCa && caBonus ? ' (+' + caBonus + ')' : ''),
       pkQ: st.pq || '',
       pkClrDisp: st.pq ? 'block' : 'none',
@@ -3829,6 +3910,11 @@ export class Codex extends Component<CodexProps, any> {
         const pvN = cd ? cd.pv || (narrow ? '' : sel) : ''
         const tp = pvN && d.classes.some((x?: any) => x.n === pvN) ? this.classTip(pvN) : null
         const pickCls = (n?: any) => {
+          if (cd.w === 'cur' && cd.add) {
+            vals.addPick(n)
+            this.setState({ cd: null, tip: null })
+            return
+          }
           const f = cd.w === 'st' ? vals.stageLocked[cd.i].onK : cd.w === 'cur' ? vals.onCurK : vals.onRk
           f({ target: { value: n } })
           this.setState({ cd: null, tip: null })
@@ -4285,13 +4371,17 @@ export class Codex extends Component<CodexProps, any> {
             }
           }),
           addStage: () => {
+            this.setState({ cd: { w: 'cur', add: true, q: '', t: this.tierFor(d, cur.lv) } })
+          },
+          addPick: (nm?: any) =>
             upd((n?: any) => {
               const l = n[n.length - 1]
               l.m = calc.m
-              n.push({ k: l.k, lv: l.lv })
-            })
-            this.setState({ cd: { w: 'cur', q: '', t: this.tierFor(d, cur.lv) } })
-          },
+              n.push({ k: nm, lv: l.lv })
+              const nk = d.classes.find((y?: any) => y.n === nm)
+              const mo = d.mounts.find((y?: any) => y.n === calc.m)
+              if (mo && nk && !mountSp(nk).includes(mo.sp)) return { m: 'None', ms: '' }
+            }),
           canAdd: cur.lv < 99,
           canUndo: L > 0,
           undoStage: () =>
