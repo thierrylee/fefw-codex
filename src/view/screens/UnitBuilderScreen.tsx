@@ -555,6 +555,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 {L(v.stageLocked).map((s: any, $index: number) => (
                   <Fragment key={$index}>
                     <div
+                      data-stg="1"
                       style={
                         {
                           display: 'grid',
@@ -691,6 +692,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   </Fragment>
                 ))}
                 <div
+                  data-stcur="1"
                   style={
                     {
                       display: 'flex',
@@ -1355,6 +1357,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         data-fk={a?.fk}
                         style={
                           {
+                            animation: 'wcBuildIn .28s cubic-bezier(.2,.8,.2,1)',
                             opacity: str(a?.dim),
                             scale: str(a?.dsc),
                             transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
@@ -1518,6 +1521,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         data-fk={a?.fk}
                         style={
                           {
+                            animation: 'wcBuildIn .28s cubic-bezier(.2,.8,.2,1)',
                             opacity: str(a?.dim),
                             scale: str(a?.dsc),
                             transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
@@ -1770,6 +1774,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         data-fk={a?.fk}
                         style={
                           {
+                            animation: 'wcBuildIn .28s cubic-bezier(.2,.8,.2,1)',
                             opacity: str(a?.dim),
                             scale: str(a?.dsc),
                             transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
@@ -2832,25 +2837,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               {T(v.buildsN)}
               {' saved · load one, or compare them side by side'}
             </span>
-            <button
-              onClick={v.toggleCode}
-              title="Create a build from a build code"
-              style={{
-                marginLeft: 'auto',
-                marginRight: '6px',
-                padding: '7px 12px',
-                borderRadius: '999px',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                background: 'transparent',
-                color: 'var(--tx, oklch(0.94 0.008 80))',
-                cursor: 'pointer',
-                fontSize: '12px',
-              }}
-            >
-              Add build from code
-            </button>
             <span
               style={{
+                marginLeft: 'auto',
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: '2px',
@@ -2860,6 +2849,23 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 border: '1px solid var(--line, oklch(0.29 0.012 60))',
               }}
             >
+              <button
+                onClick={v.bAllSet}
+                style={
+                  {
+                    minHeight: '36px',
+                    padding: '0 12px',
+                    border: '0',
+                    borderRadius: '6px',
+                    background: str(v.bAllBg),
+                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    cursor: 'pointer',
+                    fontSize: '12px',
+                  } as CSSProperties
+                }
+              >
+                All
+              </button>
               <button
                 onClick={v.bRecTog}
                 style={
@@ -2914,10 +2920,73 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               </button>
             </span>
           </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px 12px', flexWrap: 'wrap' }}>
+            <span
+              style={{ position: 'relative', display: 'flex', flex: '1 1 220px', maxWidth: '360px', minWidth: '0' }}
+            >
+              <input
+                value={v.bqVal ?? ''}
+                onInput={v.onBq}
+                placeholder="Search builds by name, character or class"
+                style={{
+                  width: '100%',
+                  boxSizing: 'border-box',
+                  padding: '8px 36px 8px 12px',
+                  borderRadius: '999px',
+                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  background: 'var(--panel, oklch(0.2 0.01 60))',
+                  outline: 'none',
+                }}
+              />
+              <button
+                onMouseDown={v.onBqClear}
+                title="Clear"
+                aria-label="Clear search"
+                style={
+                  {
+                    display: str(v.bqClrDisp),
+                    position: 'absolute',
+                    right: '4px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: str(v.tk28),
+                    height: str(v.tk28),
+                    border: '0',
+                    borderRadius: '50%',
+                    background: 'transparent',
+                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    cursor: 'pointer',
+                    fontSize: '16px',
+                    lineHeight: '1',
+                  } as CSSProperties
+                }
+              >
+                ×
+              </button>
+            </span>
+            <button
+              onClick={v.toggleCode}
+              title="Create a build from a build code"
+              style={{
+                marginLeft: 'auto',
+                padding: '7px 12px',
+                borderRadius: '999px',
+                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                background: 'transparent',
+                color: 'var(--tx, oklch(0.94 0.008 80))',
+                cursor: 'pointer',
+                fontSize: '12px',
+              }}
+            >
+              Add build from code
+            </button>
+          </div>
           {v.codeOpen ? (
             <>
               <div
+                data-code="1"
                 style={{
+                  animation: 'wcUnfold .28s cubic-bezier(.2,.8,.2,1)',
                   display: 'flex',
                   gap: '8px',
                   alignItems: 'center',
@@ -2977,6 +3046,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   data-fk={b?.fk}
                   style={
                     {
+                      animation: 'wcBuildIn .28s cubic-bezier(.2,.8,.2,1)',
                       display: 'flex',
                       flexDirection: 'column',
                       gap: '8px',

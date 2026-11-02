@@ -83,7 +83,9 @@ export function CharactersScreen({ v }: { v: VM }) {
               </button>
             </span>
             <div
+              data-seg="1"
               style={{
+                position: 'relative',
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: '2px',
@@ -97,13 +99,17 @@ export function CharactersScreen({ v }: { v: VM }) {
                 <Fragment key={$index}>
                   <button
                     onClick={t?.click}
+                    data-on={t?.on}
                     style={
                       {
+                        position: 'relative',
+                        zIndex: '1',
+                        transition: 'color .22s ease',
                         minHeight: '36px',
                         padding: '0 12px',
                         border: '0',
                         borderRadius: '6px',
-                        background: str(t?.bg),
+                        background: 'transparent',
                         color: str(t?.fg),
                         cursor: 'pointer',
                         fontSize: '12px',
@@ -139,7 +145,9 @@ export function CharactersScreen({ v }: { v: VM }) {
               >
                 <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>Sort</span>
                 <div
+                  data-seg="1"
                   style={{
+                    position: 'relative',
                     display: 'flex',
                     flexWrap: 'wrap',
                     gap: '2px',
@@ -153,13 +161,17 @@ export function CharactersScreen({ v }: { v: VM }) {
                     <Fragment key={$index}>
                       <button
                         onClick={t?.click}
+                        data-on={t?.on}
                         style={
                           {
+                            position: 'relative',
+                            zIndex: '1',
+                            transition: 'color .22s ease',
                             minHeight: '36px',
                             padding: '0 12px',
                             border: '0',
                             borderRadius: '6px',
-                            background: str(t?.bg),
+                            background: 'transparent',
                             color: str(t?.fg),
                             cursor: 'pointer',
                             fontSize: '12px',
@@ -232,7 +244,15 @@ export function CharactersScreen({ v }: { v: VM }) {
                 <>
                   {v.rListOn ? (
                     <>
-                      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                      <div
+                        data-rc={c?.n}
+                        style={{
+                          animation: 'wcBuildIn .28s cubic-bezier(.2,.8,.2,1)',
+                          position: 'relative',
+                          display: 'flex',
+                          flexDirection: 'column',
+                        }}
+                      >
                         <button
                           onClick={c?.open}
                           style={
@@ -420,7 +440,15 @@ export function CharactersScreen({ v }: { v: VM }) {
                   ) : null}
                   {v.rGridOn ? (
                     <>
-                      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column' }}>
+                      <div
+                        data-rc={c?.n}
+                        style={{
+                          animation: 'wcBuildIn .28s cubic-bezier(.2,.8,.2,1)',
+                          position: 'relative',
+                          display: 'flex',
+                          flexDirection: 'column',
+                        }}
+                      >
                         <button
                           onClick={c?.open}
                           style={

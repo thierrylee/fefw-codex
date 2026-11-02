@@ -14,11 +14,14 @@ export class Codex extends Component<CodexProps, any> {
   declare _ln: any
   declare _lt: any
   declare am: any
+  declare aoBusy: any
+  declare boBusy: any
   declare cDrag: any
   declare cOver: any
   declare calcCmp: any
   declare ck: any
   declare closeSheet: any
+  declare clrBusy: any
   declare cpT: any
   declare dragId: any
   declare hDrag: any
@@ -40,16 +43,19 @@ export class Codex extends Component<CodexProps, any> {
   declare ly: any
   declare md: any
   declare mxDone: any
+  declare noSh: any
   declare od: any
   declare overId: any
   declare pk: any
   declare pkDr: any
   declare profCmp: any
   declare rHov: any
+  declare rKeep: any
   declare rScr: any
   declare rT: any
   declare ready: any
   declare ro: any
+  declare roBusy: any
   declare rootNav: any
   declare rz: any
   declare seen: any
@@ -113,6 +119,287 @@ export class Codex extends Component<CodexProps, any> {
     setTimeout(() => go('auto'), 550)
     setTimeout(() => go('auto'), 1100)
   }
+  animOut = (fn?: any) => {
+    const p = document.querySelector('[data-cdlg]'),
+      b = p && p.parentElement
+    if (!p || !b || !p.animate || this.aoBusy) {
+      fn()
+      return
+    }
+    this.aoBusy = 1
+    const o: Record<string, any> = { duration: 160, easing: 'ease-in', fill: 'forwards' }
+    b.animate([{ opacity: 1 }, { opacity: 0 }], o)
+    p.animate(
+      [
+        { opacity: 1, transform: 'none' },
+        { opacity: 0, transform: 'translateY(12px) scale(.97)' },
+      ],
+      o,
+    ).onfinish = () => {
+      this.aoBusy = 0
+      fn()
+    }
+  }
+  rmW = (fn?: any) => (e?: any) => {
+    const el = e && e.currentTarget && e.currentTarget.closest && e.currentTarget.closest('[data-fk]')
+    if (e && e.stopPropagation) e.stopPropagation()
+    if (!el || !el.animate || el.dataset.rm) {
+      fn(e)
+      return
+    }
+    el.dataset.rm = '1'
+    el.style.transformOrigin = '50% 0'
+    const h = el.offsetHeight,
+      cs = getComputedStyle(el),
+      full = el.dataset.tip != null
+    const o: Record<string, any> = { duration: 200, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }
+    const k = full
+      ? [
+          { opacity: 1, transform: 'none', maxHeight: h + 'px', overflow: 'hidden' },
+          { opacity: 0, transform: 'scale(.6)', maxHeight: h + 'px', overflow: 'hidden', offset: 0.6 },
+          {
+            opacity: 0,
+            transform: 'scale(.6)',
+            maxHeight: '0px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+            marginTop: '0px',
+            marginBottom: '0px',
+            borderWidth: '0px',
+            overflow: 'hidden',
+          },
+        ]
+      : [
+          { opacity: 1, transform: 'none' },
+          { opacity: 0, transform: 'scale(.5)' },
+        ]
+    el.style.transformOrigin = '50% 0'
+    el.animate(k, { ...o, duration: full ? 260 : 160 }).onfinish = () => {
+      fn(e)
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() =>
+          [el].forEach((el?: any) => {
+            el.getAnimations().forEach((a?: any) => a.cancel())
+            delete el.dataset.rm
+            el.style.transformOrigin = ''
+          }),
+        ),
+      )
+    }
+  }
+  clrW = (fn?: any) => (e?: any) => {
+    const c = e.currentTarget.parentNode.parentNode,
+      rows = [...c.querySelectorAll('[data-fk]')].filter((x?: any) => x.dataset.tip != null && !x.dataset.rm)
+    if (!rows.length || !rows[0].animate || this.clrBusy) {
+      fn()
+      return
+    }
+    this.clrBusy = 1
+    let last: any
+    rows.forEach((el?: any, i?: any) => {
+      el.dataset.rm = '1'
+      el.style.transformOrigin = '50% 0'
+      const h = el.offsetHeight
+      last = el.animate(
+        [
+          { opacity: 1, transform: 'none', maxHeight: h + 'px', overflow: 'hidden' },
+          { opacity: 0, transform: 'scale(.6)', maxHeight: h + 'px', overflow: 'hidden', offset: 0.6 },
+          {
+            opacity: 0,
+            transform: 'scale(.6)',
+            maxHeight: '0px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+            marginTop: '0px',
+            marginBottom: '0px',
+            borderWidth: '0px',
+            overflow: 'hidden',
+          },
+        ],
+        { duration: 260, delay: Math.min(i, 5) * 40, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' },
+      )
+    })
+    last.onfinish = () => {
+      this.clrBusy = 0
+      fn()
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() =>
+          rows.forEach((el?: any) => {
+            el.getAnimations().forEach((a?: any) => a.cancel())
+            delete el.dataset.rm
+            el.style.transformOrigin = ''
+          }),
+        ),
+      )
+    }
+  }
+  bOut = (keep?: any, fn?: any) => {
+    const K = new Set<any>(keep),
+      els = [...document.querySelectorAll('[data-fk]')].filter(
+        (x?: any) => /^b\d+$/.test(x.dataset.fk) && !K.has(x.dataset.fk) && !x.dataset.rm,
+      )
+    if (!els.length || !els[0].animate || this.boBusy) {
+      fn()
+      return
+    }
+    this.boBusy = 1
+    let last: any
+    els.forEach((el?: any, i?: any) => {
+      el.dataset.rm = '1'
+      el.style.transformOrigin = '50% 0'
+      const h = el.offsetHeight
+      last = el.animate(
+        [
+          { opacity: 1, transform: 'none', maxHeight: h + 'px', overflow: 'hidden' },
+          { opacity: 0, transform: 'scale(.6)', maxHeight: h + 'px', overflow: 'hidden', offset: 0.6 },
+          {
+            opacity: 0,
+            transform: 'scale(.6)',
+            maxHeight: '0px',
+            paddingTop: '0px',
+            paddingBottom: '0px',
+            marginTop: '0px',
+            marginBottom: '0px',
+            borderWidth: '0px',
+            overflow: 'hidden',
+          },
+        ],
+        { duration: 260, delay: Math.min(i, 5) * 30, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' },
+      )
+    })
+    last.onfinish = () => {
+      this.boBusy = 0
+      fn()
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() =>
+          els.forEach((el?: any) => {
+            el.getAnimations().forEach((a?: any) => a.cancel())
+            delete el.dataset.rm
+            el.style.transformOrigin = ''
+          }),
+        ),
+      )
+    }
+  }
+  codeOut = (fn?: any) => {
+    const el = document.querySelector<HTMLElement>('[data-code]')
+    if (!el || !el.animate || !this.state.codeO || el.dataset.rm) {
+      fn()
+      return
+    }
+    el.dataset.rm = '1'
+    const h = el.offsetHeight
+    el.animate(
+      [
+        { opacity: 1, clipPath: 'inset(0 0 0 0)', maxHeight: h + 'px', transform: 'none' },
+        {
+          opacity: 0,
+          clipPath: 'inset(0 0 100% 0)',
+          maxHeight: '0px',
+          paddingTop: '0px',
+          paddingBottom: '0px',
+          borderWidth: '0px',
+          transform: 'translateY(-6px)',
+        },
+      ],
+      { duration: 220, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' },
+    ).onfinish = () => {
+      fn()
+    }
+  }
+  rOut = (keep?: any, fn?: any) => {
+    const K = new Set<any>(keep),
+      els = [...document.querySelectorAll('[data-rc]')].filter(
+        (x?: any) => !K.has(x.dataset.rc) && !x.dataset.rm && x.offsetParent,
+      )
+    if (!els.length || !els[0].animate || this.roBusy) {
+      fn()
+      return
+    }
+    this.roBusy = 1
+    els.forEach((el?: any) => {
+      el.dataset.rm = '1'
+      el.style.transformOrigin = '50% 0'
+    })
+    const a = els.map((el?: any) =>
+      el.animate(
+        [
+          { opacity: 1, transform: 'none' },
+          { opacity: 0, transform: 'scale(.6)' },
+        ],
+        { duration: 200, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' },
+      ),
+    )
+    a[a.length - 1].onfinish = () => {
+      this.roBusy = 0
+      fn()
+      setTimeout(
+        () =>
+          els.forEach((el?: any) => {
+            if (!el.isConnected) return
+            el.getAnimations().forEach((x?: any) => x.cancel())
+            delete el.dataset.rm
+            el.style.transformOrigin = ''
+          }),
+        90,
+      )
+    }
+  }
+  stSw = (fn?: any, add?: any) => {
+    const cur = [...document.querySelectorAll<HTMLElement>('[data-stcur]')].find((x?: any) => x.offsetParent)
+    if (!cur || !cur.animate || cur.dataset.rm) {
+      fn()
+      return
+    }
+    const h = cur.offsetHeight,
+      Z: Record<string, any> = {
+        paddingTop: '0px',
+        paddingBottom: '0px',
+        marginTop: '0px',
+        marginBottom: '0px',
+        borderWidth: '0px',
+        overflow: 'hidden',
+      },
+      rs = [...document.querySelectorAll<HTMLElement>('[data-stg]')].filter((x?: any) => x.offsetParent),
+      rH = rs.length ? rs[0].offsetHeight : 44,
+      EX = (el?: any, H?: any, d?: any, S?: any) => {
+        el.style.transformOrigin = '50% 0'
+        return el.animate(
+          [
+            { opacity: 0, transform: 'scale(.6)', maxHeight: '0px', ...Z },
+            { opacity: 1, transform: 'none', maxHeight: H + 'px', overflow: 'hidden' },
+          ],
+          { duration: d, easing: 'cubic-bezier(.2,.8,.2,1)' },
+        )
+      }
+    cur.dataset.rm = '1'
+    cur.style.transformOrigin = '50% 0'
+    cur.animate(
+      [
+        { opacity: 1, transform: 'none', maxHeight: h + 'px', overflow: 'hidden' },
+        { opacity: 1, transform: 'scale(.9)', maxHeight: rH + 'px', overflow: 'hidden' },
+      ],
+      { duration: 240, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' },
+    ).onfinish = () => {
+      const n0 = document.querySelectorAll('[data-stg]').length
+      fn()
+      setTimeout(() => {
+        cur.getAnimations().forEach((a?: any) => a.cancel())
+        delete cur.dataset.rm
+        cur.animate(
+          [
+            { opacity: 1, transform: 'scale(.9)', maxHeight: rH + 'px', overflow: 'hidden' },
+            { opacity: 1, transform: 'none', maxHeight: h + 'px', overflow: 'hidden' },
+          ],
+          { duration: 280, easing: 'cubic-bezier(.2,.8,.2,1)' },
+        ).onfinish = () => {
+          cur.style.transformOrigin = ''
+        }
+      }, 60)
+    }
+  }
+  stIn = (fn?: any) => this.stSw(fn, true)
+  stOut = (fn?: any) => this.stSw(fn, false)
   stt = () => {
     const r = this.rootRef.current
     const y = Math.max(window.scrollY || 0, r && r.scrollHeight > r.clientHeight + 2 ? r.scrollTop : 0)
@@ -239,7 +526,7 @@ export class Codex extends Component<CodexProps, any> {
     }
     this.ly = new Map<any, any>()
     this.sh = (e?: any) => {
-      if (!this.sk) return
+      if (!this.sk || Date.now() < (this.noSh || 0)) return
       const t = e.target
       if (t && t.closest && t.closest('[data-sheet]')) return
       const y =
@@ -385,7 +672,78 @@ export class Codex extends Component<CodexProps, any> {
     const d = p.device
     return d === 'Phone' || d === 'Tablet' ? d[0] + (p.orientation === 'Landscape' ? 'l' : 'p') : 'd'
   }
+  segUpd = () => {
+    const isS = (x?: any) =>
+      (x.style.gap === '2px' && x.style.padding === '3px' && x.style.borderRadius === '8px') ||
+      x.getAttribute('role') === 'tablist'
+    ;[...document.querySelectorAll('div,span')].filter(isS).forEach((c?: any) => {
+      if (!c.offsetParent) return
+      const bs = [...c.querySelectorAll('button')].filter((b?: any) => {
+        let p = b.parentElement
+        while (p && !isS(p)) p = p.parentElement
+        return p === c
+      })
+      if (!bs.length) return
+      const act = (b?: any) =>
+        b.dataset.on != null
+          ? b.dataset.on === 'true'
+          : (() => {
+              const k = b.style.backgroundColor
+              return !!k && k !== 'transparent' && k !== 'rgba(0, 0, 0, 0)'
+            })()
+      bs.forEach((b?: any) => {
+        const bi = b.style.backgroundImage
+        if ((bi && bi !== 'initial' && bi !== 'none') || /url\(|gradient/.test(b.getAttribute('style') || '')) return
+        b.setAttribute('data-sg', '1')
+      })
+      const on = bs.filter((b?: any) => b.hasAttribute('data-sg') && act(b))
+      if (getComputedStyle(c).position === 'static') c.style.position = 'relative'
+      const mk = () => {
+        const n = document.createElement('span')
+        n.style.cssText =
+          'position:absolute;border-radius:' +
+          (c.getAttribute('role') === 'tablist' ? '999px' : '6px') +
+          ';pointer-events:none;z-index:0;background:var(--panel2, oklch(0.25 0.012 60));box-shadow:inset 0 0 0 1px var(--ac, oklch(0.8 0.11 75))'
+        c.prepend(n)
+        return n
+      }
+      const put = (n?: any, b?: any, f?: any, op?: any) => {
+        n.style.transition = f
+          ? 'none'
+          : 'left .25s cubic-bezier(.3,.7,.2,1),width .25s cubic-bezier(.3,.7,.2,1),top .25s cubic-bezier(.3,.7,.2,1),height .25s cubic-bezier(.3,.7,.2,1),opacity .2s ease'
+        n.style.left = b.offsetLeft + 'px'
+        n.style.top = b.offsetTop + 'px'
+        n.style.width = b.offsetWidth + 'px'
+        n.style.height = b.offsetHeight + 'px'
+        n.style.opacity = op
+      }
+      let m = c._m
+      if (!m || !m.s.isConnected) {
+        m = c._m = { s: mk(), f: new Map<any, any>() }
+        m.fresh = 1
+      }
+      const first = m.fresh
+      m.fresh = 0
+      if (on.length === 1) {
+        put(m.s, on[0], first, 1)
+        m.f.forEach((n?: any) => (n.style.opacity = 0))
+      } else {
+        m.s.style.opacity = 0
+        bs.forEach((b?: any) => {
+          if (!b.hasAttribute('data-sg')) return
+          let n = m.f.get(b)
+          const nf = !n || !n.isConnected
+          if (nf) {
+            n = mk()
+            m.f.set(b, n)
+          }
+          put(n, b, nf, on.includes(b) ? 1 : 0)
+        })
+      }
+    })
+  }
   componentDidUpdate() {
+    this.segUpd()
     {
       const k = this.layKey(this.props)
       if (this.lk == null) this.lk = k
@@ -2871,10 +3229,17 @@ export class Codex extends Component<CodexProps, any> {
       st.bname == null || st.bnameC !== calc.c ? (lk0 && lk0.name != null ? lk0.name : defName) : st.bname
     const finalName = bnameVal.trim() || defName
     const nameSame = exb && (exb.name == null ? dnm(this.buildCalc(d, exb) || B) : exb.name) === finalName
-    const bF = (b?: any) =>
-      (!onlyCur || b.c === cName) &&
-      (!st.bRec || ((c?: any) => !!c && isRec(c) && c.part <= P && !gone(c))(d.chars.find((x?: any) => x.n === b.c))) &&
-      (!st.bStar || !!b.star)
+    const bFx = (o?: any, b?: any) =>
+      (o.q != null ? o.q : st.bq || '')
+        .trim()
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean)
+        .every((w?: any) => [b.nm, b.c, b.dn, b.abTxt].join(' ').toLowerCase().includes(w)) &&
+      (!o.only || b.c === cName) &&
+      (!o.rec || ((c?: any) => !!c && isRec(c) && c.part <= P && !gone(c))(d.chars.find((x?: any) => x.n === b.c))) &&
+      (!o.star || !!b.star)
+    const bF = (b?: any) => bFx({ only: onlyCur, rec: st.bRec, star: st.bStar }, b)
     const buildV = builds
       .map((b?: any) => {
         const x = this.buildCalc(d, b)
@@ -3030,10 +3395,10 @@ export class Codex extends Component<CodexProps, any> {
               }
             }, 60)
           },
-          rm: (e?: any) => {
+          rm: this.rmW((e?: any) => {
             e && e.stopPropagation && e.stopPropagation()
             setCalc({ ab: abCur.filter((x?: any) => x !== n) })
-          },
+          }),
         }
       }),
       abCount: abCur.length + '/' + abMax,
@@ -3052,7 +3417,7 @@ export class Codex extends Component<CodexProps, any> {
           setCalc({ ab: [...abCur, m] })
         }
       },
-      abClear: () => setCalc({ ab: [] }),
+      abClear: this.clrW(() => setCalc({ ab: [] })),
       clsName: curCls ? curCls.n : '',
       clsGroups: (() => {
         const cl = (curCls ? curCls.ab || [] : []).map((a?: any) => ({
@@ -3154,10 +3519,10 @@ export class Codex extends Component<CodexProps, any> {
           c: a ? a.c : '',
           e: a ? a.e : '',
           st: '',
-          rm: (e?: any) => {
+          rm: this.rmW((e?: any) => {
             e && e.stopPropagation && e.stopPropagation()
             setCalc({ ca: caCur.filter((x?: any) => x !== n) })
-          },
+          }),
         }
       }),
       caCount: caCur.length + '/' + caMax + (caBonus ? ' (+' + caBonus + ')' : ''),
@@ -3176,7 +3541,7 @@ export class Codex extends Component<CodexProps, any> {
           setCalc({ ca: [...caCur, m] })
         }
       },
-      caClear: () => setCalc({ ca: [] }),
+      caClear: this.clrW(() => setCalc({ ca: [] })),
     }
     const LM: Record<string, any> = { mov: 0, res: 0, bld: 0, chips: [] }
     {
@@ -3308,10 +3673,10 @@ export class Codex extends Component<CodexProps, any> {
                 }
               }, 60)
             },
-            rm: (e?: any) => {
+            rm: this.rmW((e?: any) => {
               e && e.stopPropagation && e.stopPropagation()
               setCalc({ it: itCur.filter((y?: any) => y !== n) })
-            },
+            }),
           }
         })
       })(),
@@ -3320,7 +3685,7 @@ export class Codex extends Component<CodexProps, any> {
       itFull: itCur.length >= itMax,
       itCanAdd: itCur.length < itMax,
       openIt: () => this.setState({ pk: 'it', pq: '', pf: 'All' }),
-      itClear: () => setCalc({ it: [] }),
+      itClear: this.clrW(() => setCalc({ it: [] })),
     }
     const pk = st.pk,
       pq = (st.pq || '').trim().toLowerCase(),
@@ -3690,11 +4055,15 @@ export class Codex extends Component<CodexProps, any> {
         : {},
       pkPickPv: () => {
         if (!pvr || pvDis) return
+        const _cl = () => {
+          if (narrow) this.closeSheet()
+        }
         if (pvIt) {
           if (pvRemove) setCalc({ it: pCur.filter((n?: any) => n !== pvHeld) })
           else if (pvSwitch) setCalc({ it: pCur.map((n?: any) => (n === pvHeld ? pvTarget : n)) })
           else setCalc({ it: [...pCur, pvTarget] })
         } else pvr.go()
+        _cl()
       },
       pkPickLbl: !pvr
         ? ''
@@ -3784,17 +4153,20 @@ export class Codex extends Component<CodexProps, any> {
             setCalc({ [k]: o })
           },
           pv: (e?: any) => {
-            this.setState({ ppv: n })
-            const el = [...document.querySelectorAll('[data-pkn]')].find((x?: any) => x.dataset.pkn === n)
+            const bn = r ? r.n : n,
+              vv = r && r.vs ? r.vs.find((v?: any) => v.n === n) : null
+            this.setState({ ppv: bn, ...(isIt ? { prf: { ...(st.prf || {}), [bn]: vv ? vv.rl : 0 } } : {}) })
+            const el = [...document.querySelectorAll('[data-pkn]')].find((x?: any) => x.dataset.pkn === bn)
             if (el) {
               const p = el.parentElement as HTMLElement,
                 r = el.getBoundingClientRect(),
                 q = p.getBoundingClientRect()
+              this.noSh = Date.now() + 1200
               p.scrollTo({ top: p.scrollTop + r.top - q.top - (q.height - r.height) / 2, behavior: 'smooth' })
             }
           },
-          bd: n === (st.ppv || '') ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
-          rm: (e?: any) => {
+          bd: (r ? r.n : n) === (st.ppv || '') ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
+          rm: this.rmW((e?: any) => {
             e.stopPropagation()
             setCalc(
               isIt
@@ -3803,7 +4175,7 @@ export class Codex extends Component<CodexProps, any> {
                   ? { ca: caCur.filter((y?: any) => y !== n) }
                   : { ab: abCur.filter((y?: any) => y !== n) },
             )
-          },
+          }),
         }
       }),
       pkCount: pCur.length + '/' + pMax + (isCa && caBonus ? ' (+' + caBonus + ')' : ''),
@@ -3815,7 +4187,7 @@ export class Codex extends Component<CodexProps, any> {
         this.setState({ pq: '' }, () => inp && inp.focus())
       },
       onPkQ: (e?: any) => this.setState({ pq: e.target.value }),
-      pkClose: () => this.setState({ pk: null, pq: '', pf: 'All', ppv: '', tip: null }),
+      pkClose: () => this.animOut(() => this.setState({ pk: null, pq: '', pf: 'All', ppv: '', tip: null })),
       pkNone: pRows.length === 0,
       pkRows: pRows,
       pkChipRows: pChipRows,
@@ -3972,7 +4344,7 @@ export class Codex extends Component<CodexProps, any> {
             ...(d.skillOrder || []).filter((n?: any) => d.classes.some((k?: any) => (k.comp || '').split(/,\s*/).includes(n))),
           ],
           onCdQ: (e?: any) => this.setState({ cd: { ...cd, q: e.target.value } }),
-          cdClose: () => this.setState({ cd: null, tip: null }),
+          cdClose: () => this.animOut(() => this.setState({ cd: null, tip: null })),
           cdRows: rows,
           cdNone: !!cd && !rows.length,
           cdChips: ['All', ...TIERS.filter((g?: any) => P >= 3 || !['Master', 'Divine'].includes(g))].map((g?: any) => {
@@ -4149,12 +4521,15 @@ export class Codex extends Component<CodexProps, any> {
       goSaved: () => this.jumpTo('b-saved'),
       // roster
       q: st.q,
-      onQ: (e?: any) => this.setState({ q: e.target.value }),
+      onQ: (e?: any) => {
+        const v = e.target.value
+        this.rOut(this.rKeep({ q: v }), () => this.setState({ q: v }))
+      },
       qClrDisp: st.q ? 'block' : 'none',
       onQClear: (e?: any) => {
         e.preventDefault()
         const inp = e.currentTarget.parentNode.querySelector('input')
-        this.setState({ q: '' }, () => inp && inp.focus())
+        this.rOut(this.rKeep({ q: '' }), () => this.setState({ q: '' }, () => inp && inp.focus()))
       },
       recChips: [
         ['all', 'All'],
@@ -4165,10 +4540,11 @@ export class Codex extends Component<CodexProps, any> {
         const on = (st.rf || 'all') === id
         return {
           l,
+          on,
           bg: on ? t.panel2 : 'transparent',
           bd: on ? t.ac : t.line,
           fg: on ? t.tx : t.mu,
-          click: () => this.setState({ rf: id }),
+          click: () => this.rOut(this.rKeep({ rf: id }), () => this.setState({ rf: id })),
         }
       }),
       sortChips: [
@@ -4178,6 +4554,7 @@ export class Codex extends Component<CodexProps, any> {
         const on = (st.sort || 'ren') === id
         return {
           l,
+          on,
           bg: on ? t.panel2 : 'transparent',
           bd: on ? t.ac : t.line,
           fg: on ? t.tx : t.mu,
@@ -4191,6 +4568,25 @@ export class Codex extends Component<CodexProps, any> {
         fg: st.type === l ? t.tx : t.mu,
         click: () => this.setState({ type: l }),
       })),
+      _rk:
+        ((this.rKeep = (o?: any) =>
+          d.chars
+            .filter(onR)
+            .filter((c?: any) => c.part <= P && !gone(c))
+            .filter((c?: any) => {
+              const rf = o.rf != null ? o.rf : st.rf || 'all'
+              if (rf === 'all') return true
+              if (rf === 'star') return (st.starred || []).includes(c.n)
+              const r = isRec(c) && c.part <= P && !gone(c)
+              return rf === 'yes' ? r : !r && c.part <= P && !gone(c)
+            })
+            .filter((c?: any) => {
+              const q = o.q != null ? o.q : st.q
+              return !q || (c.part <= P && (c.n + ' ' + c.fac).toLowerCase().includes(q.toLowerCase()))
+            })
+            .filter((c?: any) => !(hideLocked && c.part > P))
+            .map((c?: any) => c.n)),
+        0),
       roster: ((SR?: any) =>
         d.chars
           .filter(onR)
@@ -4374,24 +4770,28 @@ export class Codex extends Component<CodexProps, any> {
             this.setState({ cd: { w: 'cur', add: true, q: '', t: this.tierFor(d, cur.lv) } })
           },
           addPick: (nm?: any) =>
-            upd((n?: any) => {
-              const l = n[n.length - 1]
-              l.m = calc.m
-              n.push({ k: nm, lv: l.lv })
-              const nk = d.classes.find((y?: any) => y.n === nm)
-              const mo = d.mounts.find((y?: any) => y.n === calc.m)
-              if (mo && nk && !mountSp(nk).includes(mo.sp)) return { m: 'None', ms: '' }
-            }),
+            this.stIn(() =>
+              upd((n?: any) => {
+                const l = n[n.length - 1]
+                l.m = calc.m
+                n.push({ k: nm, lv: l.lv })
+                const nk = d.classes.find((y?: any) => y.n === nm)
+                const mo = d.mounts.find((y?: any) => y.n === calc.m)
+                if (mo && nk && !mountSp(nk).includes(mo.sp)) return { m: 'None', ms: '' }
+              }),
+            ),
           canAdd: cur.lv < 99,
           canUndo: L > 0,
           undoStage: () =>
-            upd((n?: any) => {
-              n.pop()
-              const l = n[n.length - 1]
-              const pm = l.m
-              delete l.m
-              if (pm !== undefined) return { m: pm, ms: '' }
-            }),
+            this.stOut(() =>
+              upd((n?: any) => {
+                n.pop()
+                const l = n[n.length - 1]
+                const pm = l.m
+                delete l.m
+                if (pm !== undefined) return { m: pm, ms: '' }
+              }),
+            ),
           onCalcM: (e?: any) => {
             const v = e.target.value
             if (calc.stages && calc.stages.length > 1) upd(() => ({ m: v, ms: '' }))
@@ -4643,7 +5043,7 @@ export class Codex extends Component<CodexProps, any> {
       codeOpen: !!st.codeO,
       codeVal: st.codeV ?? '',
       codeMsg: st.codeM || 'Paste a code copied from a build card.',
-      toggleCode: () => this.setState((s?: any) => ({ codeO: !s.codeO, codeM: '' })),
+      toggleCode: () => this.codeOut(() => this.setState((s?: any) => ({ codeO: !s.codeO, codeM: '' }))),
       onCode: (e?: any) => this.setState({ codeV: e.target.value }),
       codeKey: (e?: any) => {
         if (e.key === 'Enter') {
@@ -4724,19 +5124,46 @@ export class Codex extends Component<CodexProps, any> {
         }
         i.click()
       },
+      bqVal: st.bq || '',
+      bqClrDisp: st.bq ? 'block' : 'none',
+      onBq: (e?: any) => this.save({ bq: e.target.value }),
+      onBqClear: (e?: any) => {
+        e.preventDefault()
+        const inp = e.currentTarget.parentNode.querySelector('input')
+        this.save({ bq: '' })
+        inp && inp.focus()
+      },
       buildsTitle: onlyCur ? 'Saved builds for ' + cName : 'Saved builds',
+      bAllBg: !onlyCur && !st.bRec && !st.bStar ? t.panel2 : 'transparent',
+      bAllSet: () =>
+        this.bOut(
+          buildV.map((b?: any) => 'b' + b.id),
+          () => this.save({ bOnly: false, bRec: false, bStar: false }),
+        ),
       bOnlyBg: onlyCur ? t.panel2 : 'transparent',
       bOnlyBd: onlyCur ? t.ac : t.line,
-      bOnlyLbl: (onlyCur ? '✓ ' : '') + 'Only ' + cName,
-      bOnlyTog: () => this.save({ bOnly: !onlyCur, bRec: false, bStar: false }),
+      bOnlyLbl: 'Only ' + cName,
+      bOnlyTog: () =>
+        this.bOut(
+          buildV.filter((b?: any) => bFx({ only: true }, b)).map((b?: any) => 'b' + b.id),
+          () => this.save({ bOnly: true, bRec: false, bStar: false }),
+        ),
       bRecBg: st.bRec ? t.panel2 : 'transparent',
       bRecBd: st.bRec ? t.ac : t.line,
-      bRecLbl: (st.bRec ? '✓ ' : '') + 'Recruited',
-      bRecTog: () => this.save({ bRec: !st.bRec, bOnly: false, bStar: false }),
+      bRecLbl: 'Recruited',
+      bRecTog: () =>
+        this.bOut(
+          buildV.filter((b?: any) => bFx({ rec: true }, b)).map((b?: any) => 'b' + b.id),
+          () => this.save({ bRec: true, bOnly: false, bStar: false }),
+        ),
       bStarBg: st.bStar ? t.panel2 : 'transparent',
       bStarBd: st.bStar ? t.ac : t.line,
-      bStarLbl: (st.bStar ? '✓ ' : '') + 'Starred',
-      bStarTog: () => this.save({ bStar: !st.bStar, bOnly: false, bRec: false }),
+      bStarLbl: 'Starred',
+      bStarTog: () =>
+        this.bOut(
+          buildV.filter((b?: any) => bFx({ star: true }, b)).map((b?: any) => 'b' + b.id),
+          () => this.save({ bStar: true, bOnly: false, bRec: false }),
+        ),
       showCalc: st.screen === 'calc' || inPCalc,
       calcHeadDisp: inPCalc ? 'none' : narrow ? 'flex' : 'contents',
       calcCharDisp: inPCalc ? 'none' : 'flex',
@@ -4753,6 +5180,7 @@ export class Codex extends Component<CodexProps, any> {
           if (i < 0 || to < 0 || to >= ids.length || to === i) return
           ids.splice(i, 1)
           ids.splice(to, 0, id)
+          this.flipSnap()
           const slots = builds.map((x?: any, j?: any) => (ids.includes(x.id) ? j : -1)).filter((j?: any) => j >= 0)
           const by = Object.fromEntries(builds.map((x?: any) => [x.id, x]))
           const nb = builds.slice()
@@ -4929,7 +5357,11 @@ export class Codex extends Component<CodexProps, any> {
               })
             }
           },
-          del: () => this.save({ builds: builds.filter((x?: any) => x.id !== b.id), cmp: st.cmp.filter((i?: any) => i !== b.id) }),
+          del: () =>
+            this.bOut(
+              builds.filter((x?: any) => x.id !== b.id).map((x?: any) => 'b' + x.id),
+              () => this.save({ builds: builds.filter((x?: any) => x.id !== b.id), cmp: st.cmp.filter((i?: any) => i !== b.id) }),
+            ),
         }))
       })(),
     }
@@ -5328,6 +5760,7 @@ export class Codex extends Component<CodexProps, any> {
     const cdi = cch.indexOf(this.cDrag),
       coi = cch.indexOf(this.cOver)
     const cmv = (id?: any, to?: any) => {
+      this.flipSnap()
       const o = cch.filter((x?: any) => x !== id)
       o.splice(to, 0, id)
       this.save({ cchars: o })

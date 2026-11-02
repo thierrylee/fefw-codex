@@ -1063,6 +1063,7 @@ export function AppView({ v }: { v: VM }) {
                       position: 'fixed',
                       inset: '0',
                       zIndex: '90',
+                      animation: 'wcFadeIn .18s ease-out',
                       display: 'grid',
                       placeItems: 'center',
                       padding: '16px',
@@ -1075,6 +1076,7 @@ export function AppView({ v }: { v: VM }) {
                       style={
                         {
                           width: str(v.pkW),
+                          animation: 'wcPopIn .22s cubic-bezier(.2,.8,.2,1)',
                           maxHeight: 'min(720px,calc(100vh - 32px))',
                           display: 'flex',
                           flexDirection: 'column',
@@ -1468,7 +1470,16 @@ export function AppView({ v }: { v: VM }) {
                             >
                               {v.pkPvOn ? (
                                 <>
-                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
+                                  <div
+                                    key={v.pkPv?.t}
+                                    style={{
+                                      animation: 'wcDetIn .22s cubic-bezier(.2,.8,.2,1)',
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      gap: '16px',
+                                      minWidth: '0',
+                                    }}
+                                  >
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                       <div
                                         style={{
@@ -1808,6 +1819,7 @@ export function AppView({ v }: { v: VM }) {
                                 zIndex: '92',
                                 maxHeight: '80vh',
                                 transform: str(v.pkTf),
+                                animation: 'wcSheetIn .25s cubic-bezier(.2,.8,.2,1)',
                                 transition: 'transform .25s cubic-bezier(.2,.8,.2,1)',
                                 display: 'flex',
                                 flexDirection: 'column',
@@ -2206,6 +2218,7 @@ export function AppView({ v }: { v: VM }) {
                       position: 'fixed',
                       inset: '0',
                       zIndex: '90',
+                      animation: 'wcFadeIn .18s ease-out',
                       display: 'grid',
                       placeItems: 'center',
                       padding: '16px',
@@ -2218,6 +2231,7 @@ export function AppView({ v }: { v: VM }) {
                       style={
                         {
                           width: str(v.cdW),
+                          animation: 'wcPopIn .22s cubic-bezier(.2,.8,.2,1)',
                           maxHeight: 'min(720px,calc(100vh - 32px))',
                           display: 'flex',
                           flexDirection: 'column',
@@ -2558,7 +2572,16 @@ export function AppView({ v }: { v: VM }) {
                             >
                               {v.cdPvOn ? (
                                 <>
-                                  <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', minWidth: '0' }}>
+                                  <div
+                                    key={v.cdPv?.t}
+                                    style={{
+                                      animation: 'wcDetIn .22s cubic-bezier(.2,.8,.2,1)',
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      gap: '16px',
+                                      minWidth: '0',
+                                    }}
+                                  >
                                     <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                       <div
                                         style={{
@@ -2890,6 +2913,7 @@ export function AppView({ v }: { v: VM }) {
                               zIndex: '92',
                               maxHeight: '80vh',
                               transform: str(v.cdTf),
+                              animation: 'wcSheetIn .25s cubic-bezier(.2,.8,.2,1)',
                               transition: 'transform .25s cubic-bezier(.2,.8,.2,1)',
                               display: 'flex',
                               flexDirection: 'column',
