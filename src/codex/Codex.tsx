@@ -551,8 +551,10 @@ export class Codex extends Component<CodexProps, any> {
     document.addEventListener('wheel', this.sc, true)
     if (window.ResizeObserver && this.rootRef.current) {
       this.ro = new ResizeObserver((e?: any) => {
-        const n = e[0].contentRect.width < 760
-        if (n !== this.state.narrow) this.setState({ narrow: n })
+        const w = e[0].contentRect.width,
+          n = w < 760,
+          b = Math.round(w / 40) * 40
+        if (n !== this.state.narrow || b !== this.state.rw) this.setState({ narrow: n, rw: b })
       })
       this.ro.observe(this.rootRef.current)
     }
@@ -6690,7 +6692,7 @@ export class Codex extends Component<CodexProps, any> {
             fg: on ? t.tx : t.mu,
             bar: on ? t.ac : 'transparent',
             go:
-              on && scr !== first && ids.length > 1
+              on && scr !== first && ids.length > 1 && first !== 'roster'
                 ? () => {
                     window.scrollTo(0, 0)
                     const r = this.rootRef.current
@@ -6961,7 +6963,9 @@ export class Codex extends Component<CodexProps, any> {
           vals.cmpHeadD = pd ? 'contents' : 'flex'
         }
         vals.subOn =
-          !!g && g[1].length > 1 && (st.screen === 'profile' || st.screen === 'calc' || st.screen === 'compare')
+          !!g &&
+          g[1].length > 1 &&
+          (st.screen === 'profile' || st.screen === 'calc' || st.screen === 'compare' || (narrow && g[0] === 'Codex'))
         vals.uSetD = 'flex'
         vals.suAl = narrow ? 'start' : 'end'
         vals.suCols = narrow ? 'repeat(auto-fit,minmax(min(100%,260px),1fr))' : 'minmax(0,1fr) minmax(0,2fr)'
@@ -8492,13 +8496,15 @@ export class Codex extends Component<CodexProps, any> {
         }
         const col: any = st.pW || {}
         const DW: Record<string, any> = { pr: 4, rec: 1, radar: 2, gifts: 2, lv: 1, sup: 2, bm: 1, growth: 3, bradar: 2, meals: 2, ls: 4 }
-        const N = tablet ? (ls ? 4 : 2) : narrow ? 3 : Math.min(4, Math.max(2, st.pCols || 4))
+        const Ns = Math.min(4, Math.max(2, st.pCols || 4))
+        const avW = (st.rw || 1400) - (navTop ? 0 : sbC ? 72 : 248) - 64
+        const N = tablet ? (ls ? 4 : 2) : narrow ? 3 : Math.min(Ns, Math.max(2, Math.floor((avW + 16) / 256)))
         pd.n = N
         vals.pColCtl = phone || narrow || ptab === 'calc' ? 'none' : 'flex'
         vals.pColOpts = [2, 3, 4].map((n?: any) => ({
           n,
-          bg: n === N ? t.ac : 'transparent',
-          fg: n === N ? 'oklch(0.18 0.01 60)' : t.mu,
+          bg: n === Ns ? t.ac : 'transparent',
+          fg: n === Ns ? 'oklch(0.18 0.01 60)' : t.mu,
           click: () => this.save({ pCols: n }),
         }))
         vals.pGridCols =
