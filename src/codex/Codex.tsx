@@ -21,6 +21,8 @@ export class Codex extends Component<CodexProps, any> {
   declare calcCmp: any
   declare ck: any
   declare closeSheet: any
+  declare restoreY: any
+  declare rstStop: any
   declare clrBusy: any
   declare cpT: any
   declare dragId: any
@@ -65,6 +67,7 @@ export class Codex extends Component<CodexProps, any> {
   declare skip: any
   declare spyKeys: any
   declare spyT: any
+  declare sw: any
   state: any = {
     d: null,
     screen: 'roster',
@@ -422,17 +425,36 @@ export class Codex extends Component<CodexProps, any> {
     try {
       history.scrollRestoration = 'manual'
     } catch (e: any) {}
+    // Re-apply a scroll position for a short while after a layout change, but give up the moment
+    // the user touches/scrolls: forcing the position during their gesture makes the screen stutter.
+    this.restoreY = (y?: any, ry?: any) => {
+      const r = this.rootRef.current
+      if (this.rstStop) this.rstStop()
+      let live = true
+      const evs = ['touchstart', 'wheel', 'pointerdown', 'keydown']
+      const stop = () => {
+        live = false
+        evs.forEach((e?: any) => document.removeEventListener(e, stop, true))
+        this.rstStop = null
+      }
+      this.rstStop = stop
+      evs.forEach((e?: any) => document.addEventListener(e, stop, { capture: true, passive: true }))
+      const f = () => {
+        if (!live) return
+        if (Math.abs(window.scrollY - y) > 1) window.scrollTo(0, y)
+        if (r && Math.abs(r.scrollTop - ry) > 1) r.scrollTop = ry
+      }
+      f()
+      requestAnimationFrame(f)
+      ;[60, 160, 300].forEach((t?: any) => setTimeout(f, t))
+      setTimeout(stop, 320)
+    }
     this.keepY = (fn?: any) => {
       const y = window.scrollY,
         r = this.rootRef.current,
         ry = r ? r.scrollTop : 0
       fn()
-      const f = () => {
-        if (window.scrollY !== y) window.scrollTo(0, y)
-        if (r && r.scrollTop !== ry) r.scrollTop = ry
-      }
-      ;[0, 50, 150, 300, 600].forEach((t?: any) => setTimeout(f, t))
-      requestAnimationFrame(f)
+      this.restoreY(y, ry)
     }
     this.jmAct = () => {
       if (this.state.jmIdle) this.setState({ jmIdle: false })
@@ -835,14 +857,8 @@ export class Codex extends Component<CodexProps, any> {
           }
         })
         if (!lk && this.kY) {
-          const [y, ry] = this.kY,
-            f = () => {
-              window.scrollTo(0, y)
-              if (r) r.scrollTop = ry
-            }
-          f()
-          requestAnimationFrame(f)
-          ;[50, 150, 300, 600].forEach((t?: any) => setTimeout(f, t))
+          const [y, ry] = this.kY
+          this.restoreY(y, ry)
         }
       }
     }
@@ -7004,6 +7020,42 @@ export class Codex extends Component<CodexProps, any> {
               fg: id === scr ? t.ac : t.mu,
             }))
           : []
+        vals.swStart = (e?: any) => {
+          this.sw = null
+          if (!vals.subOn || !e.touches || e.touches.length !== 1) return
+          let el = e.target
+          while (el && el !== e.currentTarget) {
+            const tg = el.tagName
+            if (
+              tg === 'INPUT' ||
+              tg === 'TEXTAREA' ||
+              tg === 'SELECT' ||
+              (el.getAttribute && el.getAttribute('role') === 'slider')
+            )
+              return
+            if (el.scrollWidth > el.clientWidth + 2) {
+              const ox = getComputedStyle(el).overflowX
+              if (ox === 'auto' || ox === 'scroll') return
+            }
+            el = el.parentElement
+          }
+          const p = e.touches[0]
+          this.sw = { x: p.clientX, y: p.clientY, t: Date.now() }
+        }
+        vals.swEnd = (e?: any) => {
+          const s = this.sw
+          this.sw = null
+          const p = e.changedTouches && e.changedTouches[0]
+          if (!s || !p || !vals.subOn) return
+          const dx = p.clientX - s.x,
+            dy = p.clientY - s.y
+          if (Math.abs(dx) < 80 || Math.abs(dx) < Math.abs(dy) * 1.8 || Date.now() - s.t > 700) return
+          const ix = g[1].indexOf(scr),
+            nx = ix + (dx < 0 ? 1 : -1)
+          if (ix < 0 || nx < 0 || nx >= g[1].length) return
+          const f = vals.subTabs[nx] && vals.subTabs[nx].go
+          if (typeof f === 'function') f()
+        }
       }
       vals.h1Disp = narrow ? 'none' : 'block'
       vals.statBarW = narrow ? '100%' : 'auto'

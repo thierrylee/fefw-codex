@@ -563,6 +563,8 @@ export function AppView({ v }: { v: VM }) {
                 </>
               ) : null}
               <div
+                onTouchStart={v.swStart}
+                onTouchEnd={v.swEnd}
                 style={
                   {
                     flex: '1',
