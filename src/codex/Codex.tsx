@@ -670,6 +670,15 @@ export class Codex extends Component<CodexProps, any> {
     this._fl = m
   }
   lk: string | null = null
+  // 'Responsive' resolves to the phone-landscape layout on touch phones held sideways.
+  eff(): any {
+    const p: any = this.props
+    if (p.device !== 'Responsive') return p
+    const w = window.innerWidth,
+      h = window.innerHeight
+    const touch = !!window.matchMedia && window.matchMedia('(pointer: coarse)').matches
+    return touch && w > h && Math.min(w, h) < 600 ? { ...p, device: 'Phone', orientation: 'Landscape' } : p
+  }
   layKey(p?: any) {
     const d = p.device
     return d === 'Phone' || d === 'Tablet' ? d[0] + (p.orientation === 'Landscape' ? 'l' : 'p') : 'd'
@@ -747,7 +756,7 @@ export class Codex extends Component<CodexProps, any> {
   componentDidUpdate() {
     this.segUpd()
     {
-      const k = this.layKey(this.props)
+      const k = this.layKey(this.eff())
       if (this.lk == null) this.lk = k
       else if (k !== this.lk) {
         const o = this.lk,
@@ -2329,7 +2338,9 @@ export class Codex extends Component<CodexProps, any> {
     this.SK = SK
     const st = this.state,
       d = st.d,
-      pr = this.props
+      pr = this.eff()
+    // auto-detected phone: use the phone layout without the device-mockup frame
+    const bare = pr !== this.props
     const thn = THEMES[st.theme] ? st.theme : THEMES[pr.theme] ? pr.theme : 'Emerald'
     const t = THEMES[thn]
     const tablet = pr.device === 'Tablet'
@@ -2791,16 +2802,16 @@ export class Codex extends Component<CodexProps, any> {
       lsW: ls ? '100%' : 'auto',
       railOrder: lh ? 2 : 0,
       railBorder: lh ? 'left' : 'right',
-      railH: ls ? (tablet ? '804px' : '374px') : 'auto',
+      railH: ls ? (bare ? '100dvh' : tablet ? '804px' : '374px') : 'auto',
       botNavD: ls ? 'none' : 'grid',
-      outerPad: phone ? '32px 16px' : '0',
-      appMaxW: tablet ? (ls ? '1100px' : '820px') : phone ? (ls ? '844px' : '390px') : 'none',
-      appH: tablet ? (ls ? '820px' : '1100px') : phone ? (ls ? '390px' : '844px') : 'auto',
-      appMinH: phone ? '0' : '100dvh',
-      appGridMin: phone ? '100%' : '100dvh',
-      appOverflow: phone ? 'auto' : 'visible',
-      appRadius: tablet ? '28px' : phone ? '40px' : '0',
-      appBorder: phone ? '8px solid #26241f' : '0',
+      outerPad: phone && !bare ? '32px 16px' : '0',
+      appMaxW: bare ? 'none' : tablet ? (ls ? '1100px' : '820px') : phone ? (ls ? '844px' : '390px') : 'none',
+      appH: bare ? 'auto' : tablet ? (ls ? '820px' : '1100px') : phone ? (ls ? '390px' : '844px') : 'auto',
+      appMinH: phone && !bare ? '0' : '100dvh',
+      appGridMin: phone && !bare ? '100%' : '100dvh',
+      appOverflow: phone && !bare ? 'auto' : 'visible',
+      appRadius: bare ? '0' : tablet ? '28px' : phone ? '40px' : '0',
+      appBorder: phone && !bare ? '8px solid #26241f' : '0',
       loading: !d,
       heroSpan: narrow ? 1 : 2,
       calcCols: narrow ? 'minmax(0,1fr)' : '300px minmax(0,1fr)',
@@ -8612,6 +8623,6 @@ export class Codex extends Component<CodexProps, any> {
   }
 
   render() {
-    return <AppView v={{ ...this.props, ...this.renderVals() }} />
+    return <AppView v={{ ...this.eff(), ...this.renderVals() }} />
   }
 }
