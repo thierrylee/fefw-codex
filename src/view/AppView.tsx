@@ -39,8 +39,8 @@ export function AppView({ v }: { v: VM }) {
               overflow: str(v.appOverflow),
               borderRadius: str(v.appRadius),
               border: str(v.appBorder),
-              background: 'var(--bg, oklch(0.165 0.008 60))',
-              color: 'var(--tx, oklch(0.94 0.008 80))',
+              background: 'var(--bg, oklch(0.2 0.045 165))',
+              color: 'var(--tx, oklch(0.95 0.02 90))',
               fontFamily: "'IBM Plex Sans',system-ui,sans-serif",
               fontSize: '14px',
               lineHeight: '1.45',
@@ -71,11 +71,11 @@ export function AppView({ v }: { v: VM }) {
                           transform: 'translateY(-50%)',
                           padding: '7px 12px',
                           borderRadius: '8px',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
-                          color: 'var(--tx, oklch(0.94 0.008 80))',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
+                          color: 'var(--tx, oklch(0.95 0.02 90))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           boxShadow: '0 6px 20px oklch(0 0 0 / .4)',
-                          fontSize: '13px',
+                          fontSize: '12px',
                           fontWeight: '500',
                           whiteSpace: 'nowrap',
                           pointerEvents: 'none',
@@ -99,8 +99,8 @@ export function AppView({ v }: { v: VM }) {
                       flexDirection: 'column',
                       gap: 'clamp(8px,3vh,28px)',
                       padding: str(v.sbPad),
-                      borderRight: '1px solid var(--line, oklch(0.29 0.012 60))',
-                      background: 'var(--panel, oklch(0.2 0.01 60))',
+                      borderRight: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                      background: 'var(--panel, oklch(0.245 0.05 165))',
                     } as CSSProperties
                   }
                 >
@@ -138,9 +138,9 @@ export function AppView({ v }: { v: VM }) {
                         display: 'grid',
                         placeItems: 'center',
                         borderRadius: '8px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         fontSize: '14px',
                         lineHeight: '1',
@@ -167,10 +167,10 @@ export function AppView({ v }: { v: VM }) {
                               alignItems: 'center',
                               justifyContent: str(v.sbJust),
                               gap: '12px',
-                              minHeight: '44px',
+                              minHeight: '32px',
                               padding: '10px 12px',
                               border: '0',
-                              borderRadius: '10px',
+                              borderRadius: 'var(--r, 10px)',
                               background: str(it?.bg),
                               color: str(it?.fg),
                               cursor: 'pointer',
@@ -212,7 +212,7 @@ export function AppView({ v }: { v: VM }) {
               <>
                 <aside
                   style={css(
-                    `order:${str(v.railOrder)};position:sticky;top:0;align-self:start;height:${str(v.railH)};box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:6px;overflow-y:auto;background:var(--panel, oklch(0.2 0.01 60));border-${str(v.railBorder)}:1px solid var(--line, oklch(0.29 0.012 60))`,
+                    `order:${str(v.railOrder)};position:sticky;top:0;align-self:start;height:${str(v.railH)};box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;padding:6px;overflow-y:auto;background:var(--panel, oklch(0.245 0.05 165));border-${str(v.railBorder)}:1px solid var(--line, oklch(0.42 0.06 110 / .55))`,
                   )}
                 >
                   <nav style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
@@ -225,7 +225,7 @@ export function AppView({ v }: { v: VM }) {
                               display: 'flex',
                               flexDirection: 'column',
                               alignItems: 'center',
-                              gap: '3px',
+                              gap: '4px',
                               minHeight: '56px',
                               justifyContent: 'center',
                               border: '0',
@@ -293,9 +293,9 @@ export function AppView({ v }: { v: VM }) {
                         display: 'flex',
                         flexWrap: 'wrap',
                         alignItems: 'center',
-                        minHeight: '44px',
+                        minHeight: '32px',
                         justifyContent: 'flex-end',
-                        gap: '14px 24px',
+                        gap: '12px 24px',
                       }}
                     >
                       {v.showBrandInHead ? (
@@ -324,8 +324,8 @@ export function AppView({ v }: { v: VM }) {
                                   aria-label="Back"
                                   style={{
                                     flex: 'none',
-                                    width: '44px',
-                                    height: '44px',
+                                    width: '32px',
+                                    height: '32px',
                                     marginLeft: '-10px',
                                     display: 'grid',
                                     placeItems: 'center',
@@ -334,10 +334,10 @@ export function AppView({ v }: { v: VM }) {
                                     background: 'transparent',
                                     color: 'var(--ac, oklch(0.82 0.12 85))',
                                     cursor: 'pointer',
-                                    fontSize: '22px',
+                                    fontSize: '18px',
                                     lineHeight: '1',
                                   }}
-                                  className="hv-2"
+                                  className="hv-1"
                                 >
                                   ←
                                 </button>
@@ -348,7 +348,7 @@ export function AppView({ v }: { v: VM }) {
                                 {
                                   display: 'flex',
                                   flexDirection: 'column',
-                                  gap: '3px',
+                                  gap: '4px',
                                   minWidth: '0',
                                   marginLeft: str(v.headTitleML),
                                 } as CSSProperties
@@ -359,8 +359,8 @@ export function AppView({ v }: { v: VM }) {
                                   <h1
                                     style={{
                                       margin: '0',
-                                      font: "700 19px/1.2 'Cinzel',serif",
-                                      letterSpacing: '.04em',
+                                      font: "700 18px/1.2 'Cinzel',serif",
+                                      letterSpacing: '.02em',
                                       whiteSpace: 'nowrap',
                                       overflow: 'hidden',
                                       textOverflow: 'ellipsis',
@@ -378,7 +378,7 @@ export function AppView({ v }: { v: VM }) {
                                       font: "500 10px/1 'IBM Plex Mono',monospace",
                                       letterSpacing: '.14em',
                                       textTransform: 'uppercase',
-                                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                                      color: 'var(--mu, oklch(0.78 0.035 120))',
                                       whiteSpace: 'nowrap',
                                       overflow: 'hidden',
                                       textOverflow: 'ellipsis',
@@ -412,7 +412,7 @@ export function AppView({ v }: { v: VM }) {
                               fontSize: '12px',
                               fontWeight: '500',
                             }}
-                            className="hv-3"
+                            className="hv-2"
                           >
                             <span
                               style={
@@ -452,8 +452,8 @@ export function AppView({ v }: { v: VM }) {
                               gap: '2px',
                               padding: '3px',
                               borderRadius: '8px',
-                              background: 'var(--bg, oklch(0.16 0.01 60))',
-                              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                              background: 'var(--bg, oklch(0.2 0.045 165))',
+                              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             }}
                           >
                             {L(v.rvOpts).map((o: any, $index: number) => (
@@ -507,7 +507,7 @@ export function AppView({ v }: { v: VM }) {
                               width: '46px',
                               height: '58px',
                               margin: '-4px 0 -14px',
-                              borderRadius: '10px 10px 0 0',
+                              borderRadius: '12px 12px 0 0',
                             }}
                           >
                             <div
@@ -590,8 +590,8 @@ export function AppView({ v }: { v: VM }) {
                           gap: '4px',
                           padding: '3px',
                           borderRadius: '999px',
-                          background: 'var(--panel, oklch(0.2 0.01 60))',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          background: 'var(--panel, oklch(0.245 0.05 165))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           marginBottom: str(v.subMB),
                           position: str(v.tabPos),
                           top: 'var(--hh,0px)',
@@ -638,7 +638,7 @@ export function AppView({ v }: { v: VM }) {
                         alignItems: 'center',
                         gap: '4px 8px',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
-                        letterSpacing: '.1em',
+                        letterSpacing: '.12em',
                         textTransform: 'uppercase',
                         marginBottom: '-8px',
                       }}
@@ -647,7 +647,9 @@ export function AppView({ v }: { v: VM }) {
                         <Fragment key={$index}>
                           <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <span
-                              style={{ display: str(c?.sepD), color: 'var(--mu, oklch(0.7 0.01 70))' } as CSSProperties}
+                              style={
+                                { display: str(c?.sepD), color: 'var(--mu, oklch(0.78 0.035 120))' } as CSSProperties
+                              }
                             >
                               ›
                             </span>
@@ -660,20 +662,20 @@ export function AppView({ v }: { v: VM }) {
                                   padding: '6px 0',
                                   border: '0',
                                   background: 'transparent',
-                                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                                  color: 'var(--mu, oklch(0.78 0.035 120))',
                                   cursor: 'pointer',
                                   font: 'inherit',
                                   letterSpacing: 'inherit',
                                   textTransform: 'inherit',
                                 } as CSSProperties
                               }
-                              className="hv-4"
+                              className="hv-3"
                             >
                               {T(c?.l)}
                             </button>
                             <span
                               aria-current="page"
-                              style={{ display: str(c?.sD), color: 'var(--tx, oklch(0.95 0.01 90))' } as CSSProperties}
+                              style={{ display: str(c?.sD), color: 'var(--tx, oklch(0.95 0.02 90))' } as CSSProperties}
                             >
                               {T(c?.l)}
                             </span>
@@ -687,7 +689,7 @@ export function AppView({ v }: { v: VM }) {
                   <>
                     <div
                       style={{
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         fontFamily: "'IBM Plex Mono',monospace",
                         fontSize: '12px',
                       }}
@@ -789,7 +791,7 @@ export function AppView({ v }: { v: VM }) {
                               background: 'transparent',
                               color: 'var(--mu, oklch(0.78 0.035 120))',
                               font: 'inherit',
-                              fontSize: '13px',
+                              fontSize: '14px',
                               cursor: 'pointer',
                             }}
                           >
@@ -809,7 +811,7 @@ export function AppView({ v }: { v: VM }) {
                                     background: str(j?.bg),
                                     color: str(j?.fg),
                                     font: 'inherit',
-                                    fontSize: '13px',
+                                    fontSize: '14px',
                                     cursor: 'pointer',
                                   } as CSSProperties
                                 }
@@ -846,10 +848,10 @@ export function AppView({ v }: { v: VM }) {
                               borderRadius: '999px',
                               border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                               background: 'var(--panel2, oklch(0.3 0.055 165))',
-                              color: 'var(--tx, #eee)',
+                              color: 'var(--tx, oklch(0.95 0.02 90))',
                               font: "600 12px/1 'IBM Plex Sans',sans-serif",
                               cursor: 'pointer',
-                              boxShadow: '0 4px 14px rgba(0,0,0,.4)',
+                              boxShadow: '0 6px 20px oklch(0 0 0 / .4)',
                             } as CSSProperties
                           }
                         >
@@ -885,8 +887,8 @@ export function AppView({ v }: { v: VM }) {
                               left: str(v.fabL),
                               right: str(v.fabR),
                               top: '-58px',
-                              width: '44px',
-                              height: '44px',
+                              width: '32px',
+                              height: '32px',
                               borderRadius: '50%',
                               border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                               background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -894,7 +896,7 @@ export function AppView({ v }: { v: VM }) {
                               display: 'grid',
                               placeItems: 'center',
                               cursor: 'pointer',
-                              boxShadow: '0 4px 14px rgba(0,0,0,.4)',
+                              boxShadow: '0 6px 20px oklch(0 0 0 / .4)',
                               padding: '0',
                             } as CSSProperties
                           }
@@ -920,8 +922,8 @@ export function AppView({ v }: { v: VM }) {
                           display: str(v.botNavD),
                           gridTemplateColumns: 'repeat(4,1fr)',
                           padding: '6px 6px 14px',
-                          background: 'var(--panel, oklch(0.2 0.01 60))',
-                          borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          background: 'var(--panel, oklch(0.245 0.05 165))',
+                          borderTop: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         } as CSSProperties
                       }
                     >
@@ -934,7 +936,7 @@ export function AppView({ v }: { v: VM }) {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                gap: '3px',
+                                gap: '4px',
                                 minHeight: '56px',
                                 justifyContent: 'center',
                                 border: '0',
@@ -992,7 +994,7 @@ export function AppView({ v }: { v: VM }) {
                       display: 'grid',
                       placeItems: 'center',
                       padding: '16px',
-                      background: 'oklch(0.1 0.01 60 / .7)',
+                      background: 'oklch(0 0 0 / .7)',
                     }}
                   >
                     <div
@@ -1003,14 +1005,14 @@ export function AppView({ v }: { v: VM }) {
                         flexDirection: 'column',
                         gap: '12px',
                         padding: '20px',
-                        borderRadius: 'var(--r, 14px)',
-                        background: 'var(--panel, oklch(0.2 0.01 60))',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        borderRadius: 'var(--r, 10px)',
+                        background: 'var(--panel, oklch(0.245 0.05 165))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         boxShadow: '0 24px 70px -12px rgba(0,0,0,.6)',
                       }}
                     >
                       <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>Replace which character?</h2>
-                      <span style={{ fontSize: '13px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                      <span style={{ fontSize: '14px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                         {'Three characters are already selected. '}
                         {T(v.mx?.repName)}
                         {' will take the place of:'}
@@ -1021,19 +1023,19 @@ export function AppView({ v }: { v: VM }) {
                             <button
                               onClick={o?.go}
                               style={{
-                                minHeight: '44px',
+                                minHeight: '32px',
                                 padding: '0 14px',
                                 borderRadius: '999px',
-                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                 background: 'transparent',
-                                color: 'var(--tx, #eee)',
+                                color: 'var(--tx, oklch(0.95 0.02 90))',
                                 font: 'inherit',
                                 fontWeight: '600',
-                                fontSize: '13px',
+                                fontSize: '14px',
                                 cursor: 'pointer',
                                 textAlign: 'left',
                               }}
-                              className="hv-5"
+                              className="hv-2"
                             >
                               {T(o?.n)}
                             </button>
@@ -1042,13 +1044,14 @@ export function AppView({ v }: { v: VM }) {
                       </div>
                       <div style={{ display: 'flex', justifyContent: str(v.handEnd) } as CSSProperties}>
                         <button
+                          data-hit="1"
                           onClick={v.mx?.repClose}
                           style={{
                             padding: '7px 12px',
                             borderRadius: '999px',
-                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                            border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                             background: 'transparent',
-                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            color: 'var(--ac, oklch(0.82 0.12 85))',
                             cursor: 'pointer',
                             fontSize: '12px',
                           }}
@@ -1072,7 +1075,7 @@ export function AppView({ v }: { v: VM }) {
                       display: 'grid',
                       placeItems: 'center',
                       padding: '16px',
-                      background: 'oklch(0.1 0.01 60 / .7)',
+                      background: 'oklch(0 0 0 / .7)',
                     }}
                   >
                     <div
@@ -1087,9 +1090,9 @@ export function AppView({ v }: { v: VM }) {
                           flexDirection: 'column',
                           gap: '12px',
                           padding: '20px',
-                          borderRadius: 'var(--r, 14px)',
-                          background: 'var(--panel, oklch(0.2 0.01 60))',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          background: 'var(--panel, oklch(0.245 0.05 165))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           boxShadow: '0 24px 70px -12px rgba(0,0,0,.7)',
                         } as CSSProperties
                       }
@@ -1100,13 +1103,16 @@ export function AppView({ v }: { v: VM }) {
                           style={{
                             font: "500 10px/1 'IBM Plex Mono',monospace",
                             letterSpacing: '.12em',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           {T(v.pkCount)}
                         </span>
-                        <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(v.pkSub)}</span>
+                        <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
+                          {T(v.pkSub)}
+                        </span>
                         <button
+                          data-hit="1"
                           onClick={v.pkClose}
                           aria-label="Close"
                           style={
@@ -1118,11 +1124,11 @@ export function AppView({ v }: { v: VM }) {
                               borderRadius: '50%',
                               background: 'transparent',
                               cursor: 'pointer',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                               fontSize: '16px',
                             } as CSSProperties
                           }
-                          className="hv-6"
+                          className="hv-4"
                         >
                           ×
                         </button>
@@ -1146,11 +1152,12 @@ export function AppView({ v }: { v: VM }) {
                                       alignItems: 'center',
                                       borderRadius: '999px',
                                       border: `1px solid ${str(e?.bd)}`,
-                                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                                     } as CSSProperties
                                   }
                                 >
                                   <button
+                                    data-hit="1"
                                     onClick={e?.pv}
                                     onMouseEnter={e?.enter}
                                     onMouseLeave={e?.leave}
@@ -1163,7 +1170,7 @@ export function AppView({ v }: { v: VM }) {
                                       border: '0',
                                       borderRadius: '999px 0 0 999px',
                                       background: 'transparent',
-                                      color: 'var(--tx, #eee)',
+                                      color: 'var(--tx, oklch(0.95 0.02 90))',
                                       cursor: 'pointer',
                                       fontSize: '12px',
                                     }}
@@ -1188,6 +1195,7 @@ export function AppView({ v }: { v: VM }) {
                                     </span>
                                   </button>
                                   <button
+                                    data-hit="1"
                                     onClick={e?.rm}
                                     title="Remove"
                                     aria-label="Remove"
@@ -1199,13 +1207,13 @@ export function AppView({ v }: { v: VM }) {
                                         border: '0',
                                         borderRadius: '50%',
                                         background: 'transparent',
-                                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
                                         cursor: 'pointer',
                                         fontSize: '14px',
                                         lineHeight: '1',
                                       } as CSSProperties
                                     }
-                                    className="hv-6"
+                                    className="hv-4"
                                   >
                                     ×
                                   </button>
@@ -1232,6 +1240,7 @@ export function AppView({ v }: { v: VM }) {
                           }}
                         />
                         <button
+                          data-hit="1"
                           onClick={v.onPkClear}
                           title="Clear"
                           aria-label="Clear search"
@@ -1267,8 +1276,8 @@ export function AppView({ v }: { v: VM }) {
                                 gap: '2px',
                                 padding: '3px',
                                 borderRadius: '8px',
-                                background: 'var(--bg, oklch(0.16 0.01 60))',
-                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                background: 'var(--bg, oklch(0.2 0.045 165))',
+                                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                 alignSelf: 'flex-start',
                               }}
                             >
@@ -1278,13 +1287,17 @@ export function AppView({ v }: { v: VM }) {
                                     <>
                                       <button
                                         onClick={c?.go}
+                                        data-on={c?.on}
                                         style={
                                           {
+                                            position: 'relative',
+                                            zIndex: '1',
+                                            transition: 'color .22s ease,opacity .22s ease',
                                             minHeight: '36px',
                                             padding: '0 12px',
                                             border: '0',
                                             borderRadius: '6px',
-                                            background: str(c?.bg),
+                                            background: 'transparent',
                                             color: str(c?.fg),
                                             cursor: 'pointer',
                                             fontSize: '12px',
@@ -1305,15 +1318,19 @@ export function AppView({ v }: { v: VM }) {
                                         onMouseLeave={c?.leave}
                                         aria-label={c?.l}
                                         aria-pressed={c?.on}
+                                        data-on={c?.on}
                                         style={
                                           {
+                                            position: 'relative',
+                                            zIndex: '1',
+                                            transition: 'color .22s ease,opacity .22s ease',
                                             width: '36px',
                                             height: '36px',
                                             padding: '3px',
                                             boxSizing: 'border-box',
                                             borderRadius: '6px',
                                             border: '0',
-                                            background: str(c?.bg),
+                                            background: 'transparent',
                                             opacity: str(c?.op),
                                             cursor: 'pointer',
                                           } as CSSProperties
@@ -1374,24 +1391,18 @@ export function AppView({ v }: { v: VM }) {
                                     gap: '10px',
                                     alignItems: 'flex-start',
                                     padding: '9px 12px',
-                                    borderRadius: '10px',
+                                    borderRadius: 'var(--r, 10px)',
                                     border: `1px solid ${str(r?.bd)}`,
+                                    borderBottomColor: str(r?.bb),
+                                    boxShadow: str(r?.sh),
                                     background: str(r?.rbg),
                                     opacity: str(r?.op),
                                     cursor: str(r?.cur),
+                                    transition:
+                                      'background-color .22s ease,box-shadow .22s ease,border-color .22s ease',
                                   } as CSSProperties
                                 }
                               >
-                                <span
-                                  style={{
-                                    flex: 'none',
-                                    width: '14px',
-                                    font: "600 14px/1.3 'IBM Plex Mono',monospace",
-                                    color: 'var(--ac, oklch(0.8 0.11 75))',
-                                  }}
-                                >
-                                  {T(r?.mark)}
-                                </span>
                                 <span
                                   style={
                                     {
@@ -1413,13 +1424,13 @@ export function AppView({ v }: { v: VM }) {
                                     minWidth: '0',
                                   }}
                                 >
-                                  <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
+                                  <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(r?.n)}</span>
                                   <span
                                     style={
                                       {
                                         display: str(r?.stDisp),
                                         font: "500 11px/1.3 'IBM Plex Mono',monospace",
-                                        color: 'var(--ac, oklch(0.8 0.11 75))',
+                                        color: 'var(--ac, oklch(0.82 0.12 85))',
                                       } as CSSProperties
                                     }
                                   >
@@ -1430,7 +1441,7 @@ export function AppView({ v }: { v: VM }) {
                                       {
                                         display: str(r?.eDisp),
                                         fontSize: '12px',
-                                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
                                         textWrap: 'pretty',
                                       } as CSSProperties
                                     }
@@ -1441,9 +1452,9 @@ export function AppView({ v }: { v: VM }) {
                                 <span
                                   style={{
                                     font: "500 10px/1.3 'IBM Plex Mono',monospace",
-                                    letterSpacing: '.1em',
+                                    letterSpacing: '.12em',
                                     textTransform: 'uppercase',
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
                                   }}
                                 >
                                   {T(r?.catL)}
@@ -1454,7 +1465,11 @@ export function AppView({ v }: { v: VM }) {
                           {v.pkNone ? (
                             <>
                               <span
-                                style={{ padding: '16px', textAlign: 'center', color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                                style={{
+                                  padding: '16px',
+                                  textAlign: 'center',
+                                  color: 'var(--mu, oklch(0.78 0.035 120))',
+                                }}
                               >
                                 Nothing matches.
                               </span>
@@ -1469,8 +1484,8 @@ export function AppView({ v }: { v: VM }) {
                                 minWidth: '0',
                                 padding: '16px',
                                 borderRadius: '12px',
-                                background: 'var(--bg, oklch(0.16 0.01 60))',
-                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                background: 'var(--bg, oklch(0.2 0.045 165))',
+                                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                               }}
                             >
                               {v.pkPvOn ? (
@@ -1527,7 +1542,7 @@ export function AppView({ v }: { v: VM }) {
                                           <span
                                             style={{
                                               font: "500 10px/1 'IBM Plex Mono',monospace",
-                                              letterSpacing: '.1em',
+                                              letterSpacing: '.12em',
                                               textTransform: 'uppercase',
                                               color: 'var(--mu, oklch(0.78 0.035 120))',
                                               textAlign: 'right',
@@ -1551,7 +1566,7 @@ export function AppView({ v }: { v: VM }) {
                                       ) : null}
                                       {v.pkPv?.hasE ? (
                                         <>
-                                          <span style={{ fontSize: '13px', lineHeight: '1.45', textWrap: 'pretty' }}>
+                                          <span style={{ fontSize: '14px', lineHeight: '1.45', textWrap: 'pretty' }}>
                                             {T(v.pkPv?.e)}
                                           </span>
                                         </>
@@ -1584,7 +1599,7 @@ export function AppView({ v }: { v: VM }) {
                                                     display: 'flex',
                                                     flexDirection: 'column',
                                                     alignItems: 'center',
-                                                    gap: '3px',
+                                                    gap: '4px',
                                                     padding: '7px 0',
                                                     borderRadius: '6px',
                                                     background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -1636,6 +1651,8 @@ export function AppView({ v }: { v: VM }) {
                                                   onClick={o?.go}
                                                   style={
                                                     {
+                                                      transition:
+                                                        'background-color .22s ease,border-color .22s ease,color .22s ease,opacity .22s ease',
                                                       minWidth: '44px',
                                                       height: '36px',
                                                       padding: '0 10px',
@@ -1643,7 +1660,7 @@ export function AppView({ v }: { v: VM }) {
                                                       borderRadius: '8px',
                                                       border: `1px solid ${str(o?.bd)}`,
                                                       background: str(o?.bg),
-                                                      color: 'var(--tx, #eee)',
+                                                      color: 'var(--tx, oklch(0.95 0.02 90))',
                                                       cursor: 'pointer',
                                                       font: "600 12px/1 'IBM Plex Mono',monospace",
                                                     } as CSSProperties
@@ -1677,8 +1694,8 @@ export function AppView({ v }: { v: VM }) {
                                             flexDirection: 'column',
                                             gap: '4px',
                                             padding: '8px 10px',
-                                            borderRadius: '10px',
-                                            border: '1px dashed var(--ac, oklch(0.8 0.11 75))',
+                                            borderRadius: 'var(--r, 10px)',
+                                            border: '1px dashed var(--ac, oklch(0.82 0.12 85))',
                                           }}
                                         >
                                           <span
@@ -1686,12 +1703,12 @@ export function AppView({ v }: { v: VM }) {
                                               font: "500 10px/1 'IBM Plex Mono',monospace",
                                               letterSpacing: '.14em',
                                               textTransform: 'uppercase',
-                                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                                              color: 'var(--ac, oklch(0.82 0.12 85))',
                                             }}
                                           >
                                             Grants combat art
                                           </span>
-                                          <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(v.pkPv?.ga)}</span>
+                                          <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(v.pkPv?.ga)}</span>
                                           <span
                                             style={{
                                               font: "500 10px/1.4 'IBM Plex Mono',monospace",
@@ -1750,8 +1767,8 @@ export function AppView({ v }: { v: VM }) {
                                         bottom: '-16px',
                                         margin: '0 -16px -16px',
                                         padding: '12px 16px 16px',
-                                        background: 'var(--bg, oklch(0.16 0.01 60))',
-                                        borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                        background: 'var(--bg, oklch(0.2 0.045 165))',
+                                        borderTop: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                         display: 'flex',
                                         flexDirection: 'column',
                                       }}
@@ -1760,10 +1777,10 @@ export function AppView({ v }: { v: VM }) {
                                         onClick={v.pkPickPv}
                                         style={
                                           {
-                                            minHeight: '44px',
+                                            minHeight: '32px',
                                             padding: '10px 16px',
                                             borderRadius: '999px',
-                                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                            border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                                             background: str(v.pkPickBg),
                                             color: str(v.pkPickFg),
                                             opacity: str(v.pkPickOp),
@@ -1780,7 +1797,7 @@ export function AppView({ v }: { v: VM }) {
                               ) : null}
                               {v.pkPvOff ? (
                                 <>
-                                  <span style={{ fontSize: '13px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
+                                  <span style={{ fontSize: '14px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                                     Select a row to preview.
                                   </span>
                                 </>
@@ -1795,13 +1812,13 @@ export function AppView({ v }: { v: VM }) {
                           style={{
                             padding: '7px 12px',
                             borderRadius: '999px',
-                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                            border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                             background: 'transparent',
-                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            color: 'var(--ac, oklch(0.82 0.12 85))',
                             fontWeight: '600',
                             cursor: 'pointer',
                           }}
-                          className="hv-11"
+                          className="hv-1"
                         >
                           Done
                         </button>
@@ -1831,15 +1848,16 @@ export function AppView({ v }: { v: VM }) {
                                 overflowY: 'auto',
                                 boxSizing: 'border-box',
                                 padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
-                                borderRadius: '16px 16px 0 0',
-                                background: 'var(--bg, oklch(0.16 0.01 60))',
-                                border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                borderRadius: '12px 12px 0 0',
+                                background: 'var(--bg, oklch(0.2 0.045 165))',
+                                border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                                 borderBottom: '0',
                                 boxShadow: '0 -18px 50px -12px rgba(0,0,0,.6)',
                               } as CSSProperties
                             }
                           >
                             <div
+                              data-hit="1"
                               onPointerDown={v.sheetDown}
                               onPointerMove={v.sheetMove}
                               onPointerUp={v.sheetUp}
@@ -1859,7 +1877,7 @@ export function AppView({ v }: { v: VM }) {
                                   height: '28px',
                                   margin: '-16px -16px 0',
                                   background: 'inherit',
-                                  borderRadius: '16px 16px 0 0',
+                                  borderRadius: '12px 12px 0 0',
                                   touchAction: 'none',
                                   cursor: 'ns-resize',
                                 } as CSSProperties
@@ -1870,7 +1888,7 @@ export function AppView({ v }: { v: VM }) {
                                   width: '40px',
                                   height: '4px',
                                   borderRadius: '2px',
-                                  background: 'var(--mu, oklch(0.7 0.01 70))',
+                                  background: 'var(--mu, oklch(0.78 0.035 120))',
                                 }}
                               ></span>
                             </div>
@@ -1908,7 +1926,7 @@ export function AppView({ v }: { v: VM }) {
                                       <span
                                         style={{
                                           font: "500 10px/1 'IBM Plex Mono',monospace",
-                                          letterSpacing: '.1em',
+                                          letterSpacing: '.12em',
                                           textTransform: 'uppercase',
                                           color: 'var(--mu, oklch(0.78 0.035 120))',
                                           textAlign: 'right',
@@ -1921,14 +1939,14 @@ export function AppView({ v }: { v: VM }) {
                                         aria-label="Close preview"
                                         style={{
                                           flex: 'none',
-                                          width: '44px',
-                                          height: '44px',
+                                          width: '32px',
+                                          height: '32px',
                                           border: '0',
                                           borderRadius: '50%',
                                           background: 'transparent',
                                           cursor: 'pointer',
                                           color: 'var(--mu, oklch(0.78 0.035 120))',
-                                          fontSize: '20px',
+                                          fontSize: '18px',
                                         }}
                                       >
                                         ×
@@ -1985,7 +2003,7 @@ export function AppView({ v }: { v: VM }) {
                                 ) : null}
                                 {v.pkPv?.hasE ? (
                                   <>
-                                    <span style={{ fontSize: '13px', lineHeight: '1.45', textWrap: 'pretty' }}>
+                                    <span style={{ fontSize: '14px', lineHeight: '1.45', textWrap: 'pretty' }}>
                                       {T(v.pkPv?.e)}
                                     </span>
                                   </>
@@ -2018,7 +2036,7 @@ export function AppView({ v }: { v: VM }) {
                                               display: 'flex',
                                               flexDirection: 'column',
                                               alignItems: 'center',
-                                              gap: '3px',
+                                              gap: '4px',
                                               padding: '7px 0',
                                               borderRadius: '6px',
                                               background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -2070,6 +2088,8 @@ export function AppView({ v }: { v: VM }) {
                                             onClick={o?.go}
                                             style={
                                               {
+                                                transition:
+                                                  'background-color .22s ease,border-color .22s ease,color .22s ease,opacity .22s ease',
                                                 minWidth: '44px',
                                                 height: '36px',
                                                 padding: '0 10px',
@@ -2077,7 +2097,7 @@ export function AppView({ v }: { v: VM }) {
                                                 borderRadius: '8px',
                                                 border: `1px solid ${str(o?.bd)}`,
                                                 background: str(o?.bg),
-                                                color: 'var(--tx, #eee)',
+                                                color: 'var(--tx, oklch(0.95 0.02 90))',
                                                 cursor: 'pointer',
                                                 font: "600 12px/1 'IBM Plex Mono',monospace",
                                               } as CSSProperties
@@ -2111,8 +2131,8 @@ export function AppView({ v }: { v: VM }) {
                                       flexDirection: 'column',
                                       gap: '4px',
                                       padding: '8px 10px',
-                                      borderRadius: '10px',
-                                      border: '1px dashed var(--ac, oklch(0.8 0.11 75))',
+                                      borderRadius: 'var(--r, 10px)',
+                                      border: '1px dashed var(--ac, oklch(0.82 0.12 85))',
                                     }}
                                   >
                                     <span
@@ -2120,12 +2140,12 @@ export function AppView({ v }: { v: VM }) {
                                         font: "500 10px/1 'IBM Plex Mono',monospace",
                                         letterSpacing: '.14em',
                                         textTransform: 'uppercase',
-                                        color: 'var(--ac, oklch(0.8 0.11 75))',
+                                        color: 'var(--ac, oklch(0.82 0.12 85))',
                                       }}
                                     >
                                       Grants combat art
                                     </span>
-                                    <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(v.pkPv?.ga)}</span>
+                                    <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(v.pkPv?.ga)}</span>
                                     <span
                                       style={{
                                         font: "500 10px/1.4 'IBM Plex Mono',monospace",
@@ -2182,8 +2202,8 @@ export function AppView({ v }: { v: VM }) {
                                   bottom: '-16px',
                                   margin: 'auto -16px -16px',
                                   padding: '12px 16px 16px',
-                                  background: 'var(--bg, oklch(0.16 0.01 60))',
-                                  borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                  background: 'var(--bg, oklch(0.2 0.045 165))',
+                                  borderTop: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                   display: 'flex',
                                   flexDirection: 'column',
                                 }}
@@ -2192,10 +2212,10 @@ export function AppView({ v }: { v: VM }) {
                                   onClick={v.pkPickPv}
                                   style={
                                     {
-                                      minHeight: '44px',
+                                      minHeight: '32px',
                                       padding: '10px 16px',
                                       borderRadius: '999px',
-                                      border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                      border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                                       background: str(v.pkPickBg),
                                       color: str(v.pkPickFg),
                                       opacity: str(v.pkPickOp),
@@ -2227,7 +2247,7 @@ export function AppView({ v }: { v: VM }) {
                       display: 'grid',
                       placeItems: 'center',
                       padding: '16px',
-                      background: 'oklch(0.1 0.01 60 / .7)',
+                      background: 'oklch(0 0 0 / .7)',
                     }}
                   >
                     <div
@@ -2242,9 +2262,9 @@ export function AppView({ v }: { v: VM }) {
                           flexDirection: 'column',
                           gap: '12px',
                           padding: '20px',
-                          borderRadius: 'var(--r, 14px)',
-                          background: 'var(--panel, oklch(0.2 0.01 60))',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          background: 'var(--panel, oklch(0.245 0.05 165))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           boxShadow: '0 24px 70px -12px rgba(0,0,0,.7)',
                         } as CSSProperties
                       }
@@ -2255,12 +2275,13 @@ export function AppView({ v }: { v: VM }) {
                           style={{
                             font: "500 10px/1 'IBM Plex Mono',monospace",
                             letterSpacing: '.12em',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           {T(v.cdCount)}
                         </span>
                         <button
+                          data-hit="1"
                           onClick={v.cdClose}
                           aria-label="Close"
                           style={
@@ -2272,11 +2293,11 @@ export function AppView({ v }: { v: VM }) {
                               borderRadius: '50%',
                               background: 'transparent',
                               cursor: 'pointer',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                               fontSize: '16px',
                             } as CSSProperties
                           }
-                          className="hv-6"
+                          className="hv-4"
                         >
                           ×
                         </button>
@@ -2303,8 +2324,8 @@ export function AppView({ v }: { v: VM }) {
                           gap: '2px',
                           padding: '3px',
                           borderRadius: '8px',
-                          background: 'var(--bg, oklch(0.16 0.01 60))',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          background: 'var(--bg, oklch(0.2 0.045 165))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           alignSelf: 'flex-start',
                         }}
                       >
@@ -2312,13 +2333,17 @@ export function AppView({ v }: { v: VM }) {
                           <Fragment key={$index}>
                             <button
                               onClick={c?.go}
+                              data-on={c?.on}
                               style={
                                 {
+                                  position: 'relative',
+                                  zIndex: '1',
+                                  transition: 'color .22s ease,opacity .22s ease',
                                   minHeight: '36px',
                                   padding: '0 12px',
                                   border: '0',
                                   borderRadius: '6px',
-                                  background: str(c?.bg),
+                                  background: 'transparent',
                                   color: str(c?.fg),
                                   cursor: 'pointer',
                                   fontSize: '12px',
@@ -2338,27 +2363,29 @@ export function AppView({ v }: { v: VM }) {
                           gap: '2px',
                           padding: '3px',
                           borderRadius: '8px',
-                          background: 'var(--bg, oklch(0.16 0.01 60))',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          background: 'var(--bg, oklch(0.2 0.045 165))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           alignSelf: 'flex-start',
                         }}
                       >
                         <button
                           onClick={v.cdSkAll}
                           aria-pressed={v.cdSkAllOn}
-                          style={
-                            {
-                              height: '36px',
-                              padding: '0 12px',
-                              boxSizing: 'border-box',
-                              borderRadius: '6px',
-                              border: '0',
-                              background: str(v.cdSkAllBg),
-                              color: 'var(--tx, #eee)',
-                              cursor: 'pointer',
-                              fontSize: '12px',
-                            } as CSSProperties
-                          }
+                          data-on={v.cdSkAllOn}
+                          style={{
+                            position: 'relative',
+                            zIndex: '1',
+                            transition: 'color .22s ease,opacity .22s ease',
+                            height: '36px',
+                            padding: '0 12px',
+                            boxSizing: 'border-box',
+                            borderRadius: '6px',
+                            border: '0',
+                            background: 'transparent',
+                            color: 'var(--tx, oklch(0.95 0.02 90))',
+                            cursor: 'pointer',
+                            fontSize: '12px',
+                          }}
                         >
                           All
                         </button>
@@ -2371,15 +2398,19 @@ export function AppView({ v }: { v: VM }) {
                               onMouseLeave={o?.leave}
                               aria-label={o?.n}
                               aria-pressed={o?.on}
+                              data-on={o?.on}
                               style={
                                 {
+                                  position: 'relative',
+                                  zIndex: '1',
+                                  transition: 'color .22s ease,opacity .22s ease',
                                   width: '36px',
                                   height: '36px',
                                   padding: '3px',
                                   boxSizing: 'border-box',
                                   borderRadius: '6px',
                                   border: '0',
-                                  background: str(o?.bg),
+                                  background: 'transparent',
                                   opacity: str(o?.op),
                                   cursor: 'pointer',
                                 } as CSSProperties
@@ -2435,7 +2466,7 @@ export function AppView({ v }: { v: VM }) {
                                     gap: '10px',
                                     alignItems: 'start',
                                     padding: '9px 12px',
-                                    borderRadius: '10px',
+                                    borderRadius: 'var(--r, 10px)',
                                     border: `1px solid ${str(r?.bd)}`,
                                     background: str(r?.rbg),
                                     opacity: str(r?.op),
@@ -2446,7 +2477,7 @@ export function AppView({ v }: { v: VM }) {
                                 <span
                                   style={{
                                     font: "600 14px/1.3 'IBM Plex Mono',monospace",
-                                    color: 'var(--ac, oklch(0.8 0.11 75))',
+                                    color: 'var(--ac, oklch(0.82 0.12 85))',
                                   }}
                                 >
                                   {T(r?.mark)}
@@ -2464,7 +2495,7 @@ export function AppView({ v }: { v: VM }) {
                                 ></span>
                                 <span style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0' }}>
                                   <span style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '6px' }}>
-                                    <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(r?.n)}</span>
+                                    <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(r?.n)}</span>
                                     {L(r?.badges).map((b: any, $index: number) => (
                                       <Fragment key={$index}>
                                         <span
@@ -2488,6 +2519,7 @@ export function AppView({ v }: { v: VM }) {
                                         {a?.ic ? (
                                           <>
                                             <span
+                                              data-hit="1"
                                               data-tip="1"
                                               onMouseEnter={a?.enter}
                                               onMouseLeave={a?.leave}
@@ -2497,7 +2529,7 @@ export function AppView({ v }: { v: VM }) {
                                                 {
                                                   width: '24px',
                                                   height: '24px',
-                                                  borderRadius: '5px',
+                                                  borderRadius: '6px',
                                                   background: str(a?.bgi),
                                                   cursor: 'help',
                                                 } as CSSProperties
@@ -2507,7 +2539,9 @@ export function AppView({ v }: { v: VM }) {
                                         ) : null}
                                         {a?.noIc ? (
                                           <>
-                                            <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                                            <span
+                                              style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}
+                                            >
                                               {T(a?.n)}
                                             </span>
                                           </>
@@ -2520,7 +2554,7 @@ export function AppView({ v }: { v: VM }) {
                                       <span
                                         style={{
                                           fontSize: '12px',
-                                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                                          color: 'var(--mu, oklch(0.78 0.035 120))',
                                           textWrap: 'pretty',
                                         }}
                                       >
@@ -2542,7 +2576,7 @@ export function AppView({ v }: { v: VM }) {
                                   style={
                                     {
                                       font: "500 10px/1.3 'IBM Plex Mono',monospace",
-                                      letterSpacing: '.1em',
+                                      letterSpacing: '.12em',
                                       textTransform: 'uppercase',
                                       color: str(r?.tc),
                                     } as CSSProperties
@@ -2556,7 +2590,11 @@ export function AppView({ v }: { v: VM }) {
                           {v.cdNone ? (
                             <>
                               <span
-                                style={{ padding: '16px', textAlign: 'center', color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                                style={{
+                                  padding: '16px',
+                                  textAlign: 'center',
+                                  color: 'var(--mu, oklch(0.78 0.035 120))',
+                                }}
                               >
                                 Nothing matches.
                               </span>
@@ -2571,8 +2609,8 @@ export function AppView({ v }: { v: VM }) {
                                 minWidth: '0',
                                 padding: '16px',
                                 borderRadius: '12px',
-                                background: 'var(--bg, oklch(0.16 0.01 60))',
-                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                background: 'var(--bg, oklch(0.2 0.045 165))',
+                                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                               }}
                             >
                               {v.cdPvOn ? (
@@ -2625,7 +2663,7 @@ export function AppView({ v }: { v: VM }) {
                                           <span
                                             style={{
                                               font: "500 10px/1 'IBM Plex Mono',monospace",
-                                              letterSpacing: '.1em',
+                                              letterSpacing: '.12em',
                                               textTransform: 'uppercase',
                                               color: 'var(--mu, oklch(0.78 0.035 120))',
                                               textAlign: 'right',
@@ -2678,7 +2716,7 @@ export function AppView({ v }: { v: VM }) {
                                           <span
                                             style={
                                               {
-                                                fontSize: '13px',
+                                                fontSize: '14px',
                                                 lineHeight: '1.45',
                                                 textWrap: 'pretty',
                                                 color: str(v.cdPv?.bodyCol),
@@ -2720,7 +2758,7 @@ export function AppView({ v }: { v: VM }) {
                                                           display: 'flex',
                                                           flexDirection: 'column',
                                                           alignItems: 'center',
-                                                          gap: '3px',
+                                                          gap: '4px',
                                                           padding: '7px 0',
                                                           borderRadius: '6px',
                                                           background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -2776,7 +2814,7 @@ export function AppView({ v }: { v: VM }) {
                                                     flexDirection: 'column',
                                                     gap: '4px',
                                                     padding: '8px 10px',
-                                                    borderRadius: '10px',
+                                                    borderRadius: 'var(--r, 10px)',
                                                     border: `1px ${str(a?.dashed)} var(--line, oklch(0.42 0.06 110 / .55))`,
                                                   } as CSSProperties
                                                 }
@@ -2808,7 +2846,7 @@ export function AppView({ v }: { v: VM }) {
                                                         } as CSSProperties
                                                       }
                                                     ></span>
-                                                    <span style={{ fontWeight: '600', fontSize: '13px' }}>
+                                                    <span style={{ fontWeight: '600', fontSize: '14px' }}>
                                                       {T(a?.n)}
                                                     </span>
                                                   </span>
@@ -2844,8 +2882,8 @@ export function AppView({ v }: { v: VM }) {
                                         bottom: '-16px',
                                         margin: '0 -16px -16px',
                                         padding: '12px 16px 16px',
-                                        background: 'var(--bg, oklch(0.16 0.01 60))',
-                                        borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                        background: 'var(--bg, oklch(0.2 0.045 165))',
+                                        borderTop: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                         display: 'flex',
                                         flexDirection: 'column',
                                       }}
@@ -2854,10 +2892,10 @@ export function AppView({ v }: { v: VM }) {
                                         onClick={v.cdPickPv}
                                         style={
                                           {
-                                            minHeight: '44px',
+                                            minHeight: '32px',
                                             padding: '10px 16px',
                                             borderRadius: '999px',
-                                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                            border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                                             background: str(v.cdPickBg),
                                             color: str(v.cdPickFg),
                                             fontWeight: '600',
@@ -2873,7 +2911,7 @@ export function AppView({ v }: { v: VM }) {
                               ) : null}
                               {v.cdPvOff ? (
                                 <>
-                                  <span style={{ fontSize: '13px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                                  <span style={{ fontSize: '14px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                                     Select a row to preview the class.
                                   </span>
                                 </>
@@ -2888,13 +2926,13 @@ export function AppView({ v }: { v: VM }) {
                           style={{
                             padding: '7px 12px',
                             borderRadius: '999px',
-                            border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                            border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                             background: 'transparent',
-                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            color: 'var(--ac, oklch(0.82 0.12 85))',
                             fontWeight: '600',
                             cursor: 'pointer',
                           }}
-                          className="hv-11"
+                          className="hv-1"
                         >
                           Cancel
                         </button>
@@ -2925,15 +2963,16 @@ export function AppView({ v }: { v: VM }) {
                               overflowY: 'auto',
                               boxSizing: 'border-box',
                               padding: '16px 16px calc(16px + env(safe-area-inset-bottom))',
-                              borderRadius: '16px 16px 0 0',
-                              background: 'var(--bg, oklch(0.16 0.01 60))',
-                              border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                              borderRadius: '12px 12px 0 0',
+                              background: 'var(--bg, oklch(0.2 0.045 165))',
+                              border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                               borderBottom: '0',
                               boxShadow: '0 -18px 50px -12px rgba(0,0,0,.6)',
                             } as CSSProperties
                           }
                         >
                           <div
+                            data-hit="1"
                             onPointerDown={v.sheetDown}
                             onPointerMove={v.sheetMove}
                             onPointerUp={v.sheetUp}
@@ -2953,7 +2992,7 @@ export function AppView({ v }: { v: VM }) {
                                 height: '28px',
                                 margin: '-16px -16px 0',
                                 background: 'inherit',
-                                borderRadius: '16px 16px 0 0',
+                                borderRadius: '12px 12px 0 0',
                                 touchAction: 'none',
                                 cursor: 'ns-resize',
                               } as CSSProperties
@@ -2964,7 +3003,7 @@ export function AppView({ v }: { v: VM }) {
                                 width: '40px',
                                 height: '4px',
                                 borderRadius: '2px',
-                                background: 'var(--mu, oklch(0.7 0.01 70))',
+                                background: 'var(--mu, oklch(0.78 0.035 120))',
                               }}
                             ></span>
                           </div>
@@ -3002,7 +3041,7 @@ export function AppView({ v }: { v: VM }) {
                                     <span
                                       style={{
                                         font: "500 10px/1 'IBM Plex Mono',monospace",
-                                        letterSpacing: '.1em',
+                                        letterSpacing: '.12em',
                                         textTransform: 'uppercase',
                                         color: 'var(--mu, oklch(0.78 0.035 120))',
                                         textAlign: 'right',
@@ -3015,14 +3054,14 @@ export function AppView({ v }: { v: VM }) {
                                       aria-label="Close preview"
                                       style={{
                                         flex: 'none',
-                                        width: '44px',
-                                        height: '44px',
+                                        width: '32px',
+                                        height: '32px',
                                         border: '0',
                                         borderRadius: '50%',
                                         background: 'transparent',
                                         cursor: 'pointer',
                                         color: 'var(--mu, oklch(0.78 0.035 120))',
-                                        fontSize: '20px',
+                                        fontSize: '18px',
                                       }}
                                     >
                                       ×
@@ -3104,7 +3143,7 @@ export function AppView({ v }: { v: VM }) {
                                   <span
                                     style={
                                       {
-                                        fontSize: '13px',
+                                        fontSize: '14px',
                                         lineHeight: '1.45',
                                         textWrap: 'pretty',
                                         color: str(v.cdPv?.bodyCol),
@@ -3146,7 +3185,7 @@ export function AppView({ v }: { v: VM }) {
                                                   display: 'flex',
                                                   flexDirection: 'column',
                                                   alignItems: 'center',
-                                                  gap: '3px',
+                                                  gap: '4px',
                                                   padding: '7px 0',
                                                   borderRadius: '6px',
                                                   background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -3202,7 +3241,7 @@ export function AppView({ v }: { v: VM }) {
                                             flexDirection: 'column',
                                             gap: '4px',
                                             padding: '8px 10px',
-                                            borderRadius: '10px',
+                                            borderRadius: 'var(--r, 10px)',
                                             border: `1px ${str(a?.dashed)} var(--line, oklch(0.42 0.06 110 / .55))`,
                                           } as CSSProperties
                                         }
@@ -3229,7 +3268,7 @@ export function AppView({ v }: { v: VM }) {
                                                 } as CSSProperties
                                               }
                                             ></span>
-                                            <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(a?.n)}</span>
+                                            <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(a?.n)}</span>
                                           </span>
                                           <span
                                             style={{
@@ -3263,8 +3302,8 @@ export function AppView({ v }: { v: VM }) {
                                 bottom: '-16px',
                                 margin: 'auto -16px -16px',
                                 padding: '12px 16px 16px',
-                                background: 'var(--bg, oklch(0.16 0.01 60))',
-                                borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                background: 'var(--bg, oklch(0.2 0.045 165))',
+                                borderTop: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                 display: 'flex',
                                 flexDirection: 'column',
                               }}
@@ -3273,10 +3312,10 @@ export function AppView({ v }: { v: VM }) {
                                 onClick={v.cdPickPv}
                                 style={
                                   {
-                                    minHeight: '44px',
+                                    minHeight: '32px',
                                     padding: '10px 16px',
                                     borderRadius: '999px',
-                                    border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                                    border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                                     background: str(v.cdPickBg),
                                     color: str(v.cdPickFg),
                                     fontWeight: '600',
@@ -3316,9 +3355,9 @@ export function AppView({ v }: { v: VM }) {
                         border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                         boxShadow: '0 18px 50px -12px rgba(0,0,0,.6)',
                         pointerEvents: 'none',
-                        fontSize: '13px',
+                        fontSize: '12px',
                         lineHeight: '1.3',
-                        color: 'var(--tx, oklch(0.94 0.008 80))',
+                        color: 'var(--tx, oklch(0.95 0.02 90))',
                       } as CSSProperties
                     }
                   >
@@ -3347,7 +3386,7 @@ export function AppView({ v }: { v: VM }) {
                         flexDirection: 'column',
                         gap: '8px',
                         padding: '14px 16px',
-                        borderRadius: 'var(--r, 12px)',
+                        borderRadius: 'var(--r, 10px)',
                         background: 'var(--panel2, oklch(0.3 0.055 165))',
                         border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                         boxShadow: '0 18px 50px -12px rgba(0,0,0,.6)',
@@ -3400,7 +3439,7 @@ export function AppView({ v }: { v: VM }) {
                                   {
                                     width: '24px',
                                     height: '24px',
-                                    borderRadius: '5px',
+                                    borderRadius: '6px',
                                     background: str(x?.bgi),
                                   } as CSSProperties
                                 }
@@ -3413,7 +3452,7 @@ export function AppView({ v }: { v: VM }) {
                     <span
                       style={
                         {
-                          fontSize: '13px',
+                          fontSize: '14px',
                           lineHeight: '1.45',
                           whiteSpace: 'pre-line',
                           textWrap: 'pretty',
@@ -3442,13 +3481,13 @@ export function AppView({ v }: { v: VM }) {
                                     gap: '2px',
                                     padding: '6px 8px',
                                     borderRadius: '6px',
-                                    background: 'var(--panel, oklch(0.2 0.01 60))',
+                                    background: 'var(--panel, oklch(0.245 0.05 165))',
                                   }}
                                 >
                                   <span
                                     style={{
                                       font: "500 9.5px/1 'IBM Plex Mono',monospace",
-                                      letterSpacing: '.06em',
+                                      letterSpacing: '.12em',
                                       textTransform: 'uppercase',
                                       color: 'var(--mu, oklch(0.78 0.035 120))',
                                     }}
@@ -3501,10 +3540,10 @@ export function AppView({ v }: { v: VM }) {
                                           display: 'flex',
                                           flexDirection: 'column',
                                           alignItems: 'center',
-                                          gap: '3px',
+                                          gap: '4px',
                                           padding: '7px 0',
                                           borderRadius: '6px',
-                                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                                          background: 'var(--panel, oklch(0.245 0.05 165))',
                                         }}
                                       >
                                         <span
@@ -3553,7 +3592,7 @@ export function AppView({ v }: { v: VM }) {
                           style={{
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: '3px',
+                            gap: '4px',
                             paddingTop: '8px',
                             borderTop: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           }}

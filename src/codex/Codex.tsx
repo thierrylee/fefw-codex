@@ -515,6 +515,9 @@ export class Codex extends Component<CodexProps, any> {
     fetch(import.meta.env.BASE_URL + 'database/codex.json')
       .then((r?: any) => r.json())
       .then((d?: any) => {
+        ;(d.items || []).forEach((x?: any) => {
+          if (x.cat === 'Dark Magic') x.cat = 'Black Magic'
+        })
         this.dec(d)
         this.ready = true
         this.setState((st?: any) => ({
@@ -736,7 +739,7 @@ export class Codex extends Component<CodexProps, any> {
         n.style.cssText =
           'position:absolute;border-radius:' +
           (c.getAttribute('role') === 'tablist' ? '999px' : '6px') +
-          ';pointer-events:none;z-index:0;background:var(--panel2, oklch(0.25 0.012 60));box-shadow:inset 0 0 0 1px var(--ac, oklch(0.8 0.11 75))'
+          ';pointer-events:none;z-index:0;background:var(--panel2, oklch(0.3 0.055 165));box-shadow:inset 0 0 0 1px var(--ac, oklch(0.82 0.12 85))'
         c.prepend(n)
         return n
       }
@@ -1213,7 +1216,7 @@ export class Codex extends Component<CodexProps, any> {
       t: e ? e.n : raw,
       sub,
       body: e && e.eff ? e.eff : 'Effect not recorded in the workbook yet.',
-      bodyCol: e && e.eff ? 'var(--tx, #eee)' : 'var(--mu, #aaa)',
+      bodyCol: e && e.eff ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--mu, oklch(0.78 0.035 120))',
       note: noteT,
       who,
       whoLbl,
@@ -1229,7 +1232,7 @@ export class Codex extends Component<CodexProps, any> {
         aw = A.w.includes(l.c),
         af = ap ? '▲' : aw ? '▼' : '',
         aft = ap ? l.c + ' +1 EXP' : aw ? l.c + ' -1 EXP' : '',
-        afc = ap ? 'oklch(0.78 0.1 150)' : 'oklch(0.72 0.1 25)'
+        afc = ap ? 'oklch(0.78 0.12 150)' : 'oklch(0.76 0.1 25)'
       const u = U.find((x?: any) => x.c === l.c)
       const afEnter = (ev?: any) => {
           if (!aft) return
@@ -1346,7 +1349,7 @@ export class Codex extends Component<CodexProps, any> {
       bgi: this.SK(n),
       sub: 'Skill',
       body: '',
-      bodyCol: 'var(--mu, #aaa)',
+      bodyCol: 'var(--mu, oklch(0.78 0.035 120))',
       stats: [],
       hasStats: false,
       statNote: '',
@@ -1405,7 +1408,7 @@ export class Codex extends Component<CodexProps, any> {
         t: n,
         sub: 'Item',
         body: 'Not found.',
-        bodyCol: 'var(--mu, #aaa)',
+        bodyCol: 'var(--mu, oklch(0.78 0.035 120))',
         stats: [],
         hasStats: false,
         statNote: '',
@@ -1438,7 +1441,7 @@ export class Codex extends Component<CodexProps, any> {
     return {
       stats,
       hasStats: stats.length > 0,
-      statNote: x.rk ? 'Rank ' + x.rk + (x.rk2 ? ' + ' + x.cat2 + ' ' + x.rk2 : '') : '',
+      statNote: x.rk ? 'Rank ' + x.rk + (x.rk2 ? ' + ' + x.rk2 : '') : '',
       t: x.n,
       sub:
         [
@@ -1448,7 +1451,7 @@ export class Codex extends Component<CodexProps, any> {
           .filter(Boolean)
           .join(' · ') + (x.rel ? ' · Relic' : ''),
       body: x.e || 'No effect recorded in the workbook yet.',
-      bodyCol: x.e ? 'var(--tx, #eee)' : 'var(--mu, #aaa)',
+      bodyCol: x.e ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--mu, oklch(0.78 0.035 120))',
       note: '',
       who: w,
       whoLbl: w ? 'Wielder' : '',
@@ -1504,7 +1507,7 @@ export class Codex extends Component<CodexProps, any> {
         t: n,
         sub: 'Class',
         body: 'Not found.',
-        bodyCol: 'var(--mu, #aaa)',
+        bodyCol: 'var(--mu, oklch(0.78 0.035 120))',
         stats: [],
         hasStats: false,
         statNote: '',
@@ -1525,7 +1528,8 @@ export class Codex extends Component<CodexProps, any> {
       ...(P0 >= 1 && P0 <= 2 && R0 !== 'All' ? [R0] : []),
     ])
     const lock = !!(k.un && k.un.length && P0 >= 1 && !k.un.some((u?: any) => ok0.has(u.r)))
-    const gc = (v?: any) => (v > 0 ? 'var(--tx, #eee)' : v < 0 ? 'oklch(0.74 0.12 30)' : 'var(--mu, oklch(0.78 0.035 120))')
+    const gc = (v?: any) =>
+      v > 0 ? 'var(--tx, oklch(0.95 0.02 90))' : v < 0 ? 'oklch(0.74 0.12 30)' : 'var(--mu, oklch(0.78 0.035 120))'
     const cell = (v?: any, i?: any) => ({ s: SN[i], v: (v > 0 ? '+' : '') + v, col: gc(v) })
     const gsum = (k.g || []).reduce((a?: any, b?: any) => a + b, 0)
     const raise = (() => {
@@ -1584,7 +1588,7 @@ export class Codex extends Component<CodexProps, any> {
                 cells: k.mn.map((v?: any, i?: any) => ({
                   s: SN[i],
                   v: v || '–',
-                  col: v ? 'var(--tx, oklch(0.94 0.008 80))' : 'var(--mu, oklch(0.78 0.035 120))',
+                  col: v ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--mu, oklch(0.78 0.035 120))',
                 })),
               },
             ]
@@ -1614,7 +1618,7 @@ export class Codex extends Component<CodexProps, any> {
       hasSk: !!(k.comp || '').split(/,\s*/).filter((n?: any) => n && !(d.skillMove || []).includes(n) && this.SK(n)).length,
       sub: [k.tier, k.type].filter(Boolean).join(' · ') + (k.lv ? ' · Lv ' + k.lv : ''),
       body: lock ? 'Locked · needs to complete ' + [...new Set<any>(k.un.map((u?: any) => u.r))].join(' / ') + ' path' : '',
-      bodyCol: lock ? 'oklch(0.74 0.12 30)' : 'var(--mu, #aaa)',
+      bodyCol: lock ? 'oklch(0.74 0.12 30)' : 'var(--mu, oklch(0.78 0.035 120))',
       note: k.mov ? 'Mov ' + k.mov : '',
       who: (k.ab || []).length ? ' ' : '',
       whoLbl: 'Class abilities',
@@ -2052,8 +2056,11 @@ export class Codex extends Component<CodexProps, any> {
           const x = (d.items || []).find((y?: any) => y.n === n)
           if (!x) return
           if (x.cat !== 'Accessory') {
-            if (wd || !canUse(x, kc)) return
-            wd = true
+            const ok = canUse(x, kc)
+            if (calc.eq === undefined) {
+              if (wd || !ok) return
+              wd = true
+            } else if (calc.eq !== n || !ok) return
           }
           if (x.m) add(n, x.m, true)
         })
@@ -2318,6 +2325,10 @@ export class Codex extends Component<CodexProps, any> {
       } as any)[n]
       return f ? 'url(' + IMG('skills', f) + ') center/cover no-repeat' : ''
     }
+    const SKA = (n?: any) => {
+      const b = SK(n)
+      return b ? b.replace('/skills/', '/skills_alt/') : ''
+    }
     const SKo = (n?: any, col?: any) => {
       const b = SK(n)
       return { n, col, bgi: b, ic: !!b, noIc: !b, ...this.hov(n, (x?: any) => this.skillTip(x)) }
@@ -2347,7 +2358,7 @@ export class Codex extends Component<CodexProps, any> {
           .replace(/\+/g, '_plus')
           .replace(/[^a-z0-9]+/g, '_')
           .replace(/^_+|_+$/g, '')
-      return 'img/' + (k === 'arts' ? 'combatarts' : k) + '/' + f + '.png'
+      return window.__rim('img/' + (k === 'arts' ? 'combatarts' : k) + '/' + f + '.png')
     }
     this.IMG = IMG
     this.AB = AB
@@ -2397,7 +2408,7 @@ export class Codex extends Component<CodexProps, any> {
               t: '+' + n + ' from mount',
               sub: 'Mount bonus',
               body: 'Shown stats already include this value',
-              bodyCol: 'var(--tx, #eee)',
+              bodyCol: 'var(--tx, oklch(0.95 0.02 90))',
               note: '',
               who: '',
               whoLbl: '',
@@ -2433,7 +2444,7 @@ export class Codex extends Component<CodexProps, any> {
             t,
             sub,
             body: '',
-            bodyCol: 'var(--tx, #eee)',
+            bodyCol: 'var(--tx, oklch(0.95 0.02 90))',
             note: '',
             who: '',
             whoLbl: '',
@@ -2996,7 +3007,7 @@ export class Codex extends Component<CodexProps, any> {
           recBd: r ? t.ac : t.line,
           recBg: r ? t.ac : t.bg,
           recFg: r ? 'oklch(0.18 0.01 60)' : t.mu,
-          cardBd: r ? 'oklch(0.82 0.12 85 / .55)' : t.line,
+          cardBd: r ? t.ac.replace(')', ' / .55)') : t.line,
         }
       })(),
       ...(() => {
@@ -3080,6 +3091,7 @@ export class Codex extends Component<CodexProps, any> {
               ab: sb.ab || [],
               ca: sb.ca || [],
               it: sb.it || [],
+              eq: sb.eq,
               ms: sb.ms || '',
               bid: sb.id,
             }
@@ -3117,10 +3129,10 @@ export class Codex extends Component<CodexProps, any> {
     const calcRows = B
       ? B.rows.map((r?: any, ri?: any) => ({
           chips: [
-            ['Growth', r.t + '%', 'var(--tx, #eee)'],
+            ['Growth', r.t + '%', 'var(--tx, oklch(0.95 0.02 90))'],
             ['Mount', r.mst ? '+' + r.mst : '—', 'oklch(0.74 0.1 300)'],
             ['Bonus', AB9[ri] ? (AB9[ri] > 0 ? '+' : '') + AB9[ri] : '—', 'oklch(0.78 0.12 150)'],
-            ['Min', r.ex ? '+' + r.ex : '—', 'var(--ac, oklch(0.8 0.11 75))'],
+            ['Min', r.ex ? '+' + r.ex : '—', 'var(--ac, oklch(0.82 0.12 85))'],
           ]
             .filter((x?: any) => x[1] !== '—')
             .map(([l, v, c]: any) => ({ l, v, c })),
@@ -3204,6 +3216,14 @@ export class Codex extends Component<CodexProps, any> {
       setCalc(p)
     }
     const builds = st.builds || []
+    const effEq = (x?: any, q?: any) => {
+      const k = q && q.stages && q.stages.length ? q.stages[q.stages.length - 1].k : null,
+        WM: Record<string, any> = { Brawl: 'Brawling', Lance: 'Spear' },
+        ws = (x.it || [])
+          .map((n?: any) => (d.items || []).find((y?: any) => y.n === n))
+          .filter((y?: any) => y && y.cat !== 'Accessory' && !!(k && (k.w || '').split(/,\s*/).includes(WM[y.cat] || y.cat)))
+      return x.eq === undefined ? (ws[0] ? ws[0].n : '') : ws.some((y?: any) => y.n === x.eq) ? x.eq : ''
+    }
     const sk = (x?: any) => {
       const q = this.buildCalc(d, x)
       return q
@@ -3214,6 +3234,7 @@ export class Codex extends Component<CodexProps, any> {
             x.ab || [],
             x.ca || [],
             x.it || [],
+            effEq(x, q),
             x.ms || '',
           ])
         : JSON.stringify(x)
@@ -3238,6 +3259,7 @@ export class Codex extends Component<CodexProps, any> {
           ab: calc.ab || [],
           ca: calc.ca || [],
           it: calc.it || [],
+          eq: calc.eq,
           ms: msCur,
           name: finalName,
         },
@@ -3418,9 +3440,13 @@ export class Codex extends Component<CodexProps, any> {
               if (el) {
                 const p = el.parentElement!
                 p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - 8
-                el.animate([{ background: 'oklch(0.8 0.11 75 / .35)' }, { background: 'transparent' }], {
-                  duration: 1200,
-                })
+                el.animate(
+                  [
+                    { background: 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 35%, transparent)' },
+                    { background: 'transparent' },
+                  ],
+                  { duration: 1200 },
+                )
               }
             }, 60)
           },
@@ -3461,8 +3487,8 @@ export class Codex extends Component<CodexProps, any> {
           bs: 'solid',
           bd: t.line,
           bg: 'transparent',
-          lc: 'var(--mu, oklch(0.7 0.01 70))',
-          nc: 'var(--tx, #eee)',
+          lc: 'var(--mu, oklch(0.78 0.035 120))',
+          nc: 'var(--tx, oklch(0.95 0.02 90))',
           nw: 600,
         }
         const M: Record<string, any> = {
@@ -3470,7 +3496,7 @@ export class Codex extends Component<CodexProps, any> {
           bs: 'dashed',
           bd: t.line,
           bg: 'transparent',
-          lc: 'var(--mu, oklch(0.7 0.01 70))',
+          lc: 'var(--mu, oklch(0.78 0.035 120))',
           nc: 'inherit',
           nw: 600,
         }
@@ -3539,9 +3565,13 @@ export class Codex extends Component<CodexProps, any> {
               if (el) {
                 const p = el.parentElement!
                 p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - 8
-                el.animate([{ background: 'oklch(0.8 0.11 75 / .35)' }, { background: 'transparent' }], {
-                  duration: 1200,
-                })
+                el.animate(
+                  [
+                    { background: 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 35%, transparent)' },
+                    { background: 'transparent' },
+                  ],
+                  { duration: 1200 },
+                )
               }
             }, 60)
           },
@@ -3650,71 +3680,117 @@ export class Codex extends Component<CodexProps, any> {
         })
         return o
       })(),
-      itSel: (() => {
+      ...(() => {
         const WM: Record<string, any> = { Brawl: 'Brawling', Lance: 'Spear' }
         const canUse = (x?: any, k?: any) =>
           x.cat === 'Accessory' || !!(k && (k.w || '').split(/,\s*/).includes(WM[x.cat] || x.cat))
         let wd = false
-        return itCur.map((n?: any) => {
-          const x: any = itMap.get(n) || {}
-          const cu = canUse(x, curCls)
-          const eq = x.cat === 'Accessory' || (cu && !wd && (wd = true))
-          return {
-            n,
-            eq: eq ? 'Equipped' : cu ? 'Unequipped' : "Class can't use",
-            eqCol: eq ? 'oklch(0.78 0.12 150)' : 'var(--mu, oklch(0.7 0.01 70))',
-            eqDim: cu ? 1 : 0.55,
-            ...this.hd(
-              itCur.map((y?: any) => 'it:' + y),
-              'it:' + n,
-              (o?: any) => setCalc({ it: o.map((y?: any) => y.slice(3)) }),
-            ),
-            c: x.cat || '',
-            e: x.e || '',
-            ...(() => {
-              const b = x.cat && x.cat !== 'Accessory' ? this.SK(x.cat) : ''
-              const h = this.hov(x.cat, (q?: any) => this.skillTip(q))
-              return {
-                skBgi: b || 'none',
-                skD: b ? 'block' : 'none',
-                skEnter: h.enter,
-                skLeave: h.leave,
-                skClick: (e?: any) => {
-                  e.stopPropagation()
-                  h.enter(e)
-                },
-              }
-            })(),
-            ...this.hovI(n),
-            st: '',
-            stDisp: 'none',
-            open: () => {
-              const bx = x.bi ? (d.items || []).find((y?: any) => y.id === x.bi) || x : x
-              this.setState({ pk: 'it', pq: '', pf: 'All', ppv: bx.n, prf: { ...(st.prf || {}), [bx.n]: x.rl || 0 } })
-              setTimeout(() => {
-                const el = [...document.querySelectorAll('[data-pkn]')].find((y?: any) => y.getAttribute('data-pkn') === bx.n)
-                if (el) {
-                  const p = el.parentElement!
-                  p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - 8
-                  el.animate([{ background: 'oklch(0.8 0.11 75 / .35)' }, { background: 'transparent' }], {
-                    duration: 1200,
-                  })
+        const o_ = itCur
+          .map((n?: any) => {
+            const x: any = itMap.get(n) || {}
+            const cu = canUse(x, curCls)
+            const acc = x.cat === 'Accessory'
+            const eq = acc || (cu && (calc.eq === undefined ? !wd && (wd = true) : calc.eq === n))
+            return {
+              n,
+              tm: x.t === 'tome',
+              canEq: !acc && cu,
+              eqOn: eq,
+              noEq: acc || !cu,
+              eqBtn: eq ? 'Equipped' : 'Equip',
+              eqBb: eq ? 'oklch(0.78 0.12 150)' : 'var(--line, oklch(0.42 0.06 110 / .55))',
+              eqBfg: eq ? 'oklch(0.78 0.12 150)' : 'var(--tx, oklch(0.95 0.02 90))',
+              eqGo: (e?: any) => {
+                e && e.stopPropagation && e.stopPropagation()
+                this.flipSnap()
+                setCalc({ eq: eq ? '' : n })
+              },
+              eq: eq ? 'Equipped' : cu ? 'Unequipped' : "Class can't use",
+              eqCol: eq ? 'oklch(0.78 0.12 150)' : 'var(--mu, oklch(0.78 0.035 120))',
+              eqDim: cu ? 1 : 0.55,
+              ...this.hd(
+                itCur.map((y?: any) => 'it:' + y),
+                'it:' + n,
+                (o?: any) => setCalc({ it: o.map((y?: any) => y.slice(3)) }),
+              ),
+              c: x.cat || '',
+              e: x.e || '',
+              ...(() => {
+                const b = x.cat && x.cat !== 'Accessory' ? this.SK(x.cat) : ''
+                const h = this.hov(x.cat, (q?: any) => this.skillTip(q))
+                return {
+                  skBgi: b || 'none',
+                  skD: b ? 'block' : 'none',
+                  skEnter: h.enter,
+                  skLeave: h.leave,
+                  skClick: (e?: any) => {
+                    e.stopPropagation()
+                    h.enter(e)
+                  },
                 }
-              }, 60)
+              })(),
+              ...this.hovI(n),
+              st: '',
+              stDisp: 'none',
+              open: () => {
+                const bx = x.bi ? (d.items || []).find((y?: any) => y.id === x.bi) || x : x
+                this.setState({
+                  pk: 'it',
+                  pm: x.t === 'tome' ? 'mg' : '',
+                  pq: '',
+                  pf: 'All',
+                  ppv: bx.n,
+                  prf: { ...(st.prf || {}), [bx.n]: x.rl || 0 },
+                })
+                setTimeout(() => {
+                  const el = [...document.querySelectorAll('[data-pkn]')].find(
+                    (y?: any) => y.getAttribute('data-pkn') === bx.n,
+                  )
+                  if (el) {
+                    const p = el.parentElement!
+                    p.scrollTop += el.getBoundingClientRect().top - p.getBoundingClientRect().top - 8
+                    el.animate(
+                      [
+                        { background: 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 35%, transparent)' },
+                        { background: 'transparent' },
+                      ],
+                      { duration: 1200 },
+                    )
+                  }
+                }, 60)
+              },
+              rm: this.rmW((e?: any) => {
+                e && e.stopPropagation && e.stopPropagation()
+                setCalc({ it: itCur.filter((y?: any) => y !== n) })
+              }),
+            }
+          })
+          .reduce(
+            (o?: any, r?: any) => {
+              ;(r.tm ? o.mgSel : o.itSel).push(r)
+              return o
             },
-            rm: this.rmW((e?: any) => {
-              e && e.stopPropagation && e.stopPropagation()
-              setCalc({ it: itCur.filter((y?: any) => y !== n) })
-            }),
-          }
+            { itSel: [], mgSel: [] },
+          )
+        ;['itSel', 'mgSel'].forEach((k?: any) => {
+          const L = o_[k],
+            i = L.findIndex((r?: any) => r.canEq && r.eqOn)
+          if (i > 0) L.unshift(L.splice(i, 1)[0])
         })
+        return o_
       })(),
       itCount: itCur.length + '/' + itMax,
-      itHas: itCur.length > 0,
+      itN: itCur.filter((n?: any) => (itMap.get(n) || {}).t !== 'tome').length,
+      mgN: itCur.filter((n?: any) => (itMap.get(n) || {}).t === 'tome').length,
+      mgCount: itCur.filter((n?: any) => (itMap.get(n) || {}).t === 'tome').length + '/' + itMax,
+      itHas: itCur.some((n?: any) => (itMap.get(n) || {}).t !== 'tome'),
+      mgHas: itCur.some((n?: any) => (itMap.get(n) || {}).t === 'tome'),
       itFull: itCur.length >= itMax,
       itCanAdd: itCur.length < itMax,
-      openIt: () => this.setState({ pk: 'it', pq: '', pf: 'All' }),
-      itClear: this.clrW(() => setCalc({ it: [] })),
+      openIt: () => this.setState({ pk: 'it', pm: '', pq: '', pf: 'All' }),
+      openMg: () => this.setState({ pk: 'it', pm: 'mg', pq: '', pf: 'All' }),
+      itClear: this.clrW(() => setCalc({ it: itCur.filter((n?: any) => (itMap.get(n) || {}).t === 'tome') })),
+      mgClear: this.clrW(() => setCalc({ it: itCur.filter((n?: any) => (itMap.get(n) || {}).t !== 'tome') })),
     }
     const pk = st.pk,
       pq = (st.pq || '').trim().toLowerCase(),
@@ -3807,7 +3883,7 @@ export class Codex extends Component<CodexProps, any> {
               if (v.bi) (vmap[v.bi] = vmap[v.bi] || []).push(v)
             })
             return (d.items || [])
-              .filter((x?: any) => !x.bi)
+              .filter((x?: any) => !x.bi && (st.pm === 'mg') === (x.t === 'tome'))
               .map((x?: any) => ({ ...x, vs: (vmap[x.id] || []).slice().sort((a?: any, b?: any) => a.rl - b.rl) }))
           })()
             .map((x?: any) => {
@@ -3817,7 +3893,7 @@ export class Codex extends Component<CodexProps, any> {
               return {
                 n: x.n,
                 cat: x.cat,
-                catL: x.cat + (x.rk ? ' · ' + x.rk : '') + (x.rk2 ? ' + ' + x.cat2 + ' ' + x.rk2 : ''),
+                catL: x.cat + (x.rk ? ' · ' + x.rk + (x.rk2 ? ' + ' + x.rk2 : '') : ''),
                 e: x.e || '',
                 st: off ? '⚠ ' + why : '',
                 off,
@@ -3862,7 +3938,9 @@ export class Codex extends Component<CodexProps, any> {
     const have = new Set<any>(pAll.map((x?: any) => x.cat))
     const mkRow = (l?: any) => l.filter((c?: any) => c === 'All' || have.has(c))
     const pRowsDef = isIt
-      ? [['All', 'Sword', 'Lance', 'Axe', 'Bow', 'Brawl', 'Reason', 'Faith', 'Shield', 'Accessory']]
+      ? st.pm === 'mg'
+        ? [['All', ...[...have].sort()]]
+        : [['All', 'Sword', 'Lance', 'Axe', 'Bow', 'Brawl', 'Shield', 'Accessory']]
       : isCa
         ? [['All', ...[...have].sort()]]
         : [
@@ -3870,6 +3948,7 @@ export class Codex extends Component<CodexProps, any> {
             ['Sword', 'Lance', 'Axe', 'Bow', 'Brawl', 'Reason', 'Faith'],
             ['Infantry', 'Armor', 'Cavalry', 'Flying', 'Authority'],
           ]
+    const pkCs = new Set<any>(((curCls && curCls.comp) || '').split(/,\s*/).filter(Boolean).map(SK).filter(Boolean))
     const pChipRows = [
       {
         chips: pRowsDef
@@ -3899,13 +3978,18 @@ export class Codex extends Component<CodexProps, any> {
           .map((x?: any) => x.c)
           .map((c?: any) => ({
             l: c,
-            bgi: SK(c),
+            bgi: pkCs.has(SK(c)) ? SKA(c) : SK(c),
             ic: !!SK(c),
             noIc: !SK(c),
             op: pfv === 'All' || c === pfv ? 1 : 0.5,
+            bd: c === pfv ? 'var(--ac, oklch(0.82 0.12 85))' : 'transparent',
             bg:
-              c === pfv ? 'var(--panel2, oklch(0.25 0.012 60))' : bnOf(c) ? 'oklch(0.8 0.11 75 / .12)' : 'transparent',
-            fg: c === pfv ? 'var(--tx, #eee)' : 'var(--mu, oklch(0.78 0.035 120))',
+              c === pfv
+                ? 'var(--panel2, oklch(0.3 0.055 165))'
+                : bnOf(c)
+                  ? 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 12%, transparent)'
+                  : 'transparent',
+            fg: c === pfv ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--mu, oklch(0.78 0.035 120))',
             on: c === pfv,
             go: () => this.setState({ pf: c }),
             ...(SK(c) ? this.hov(c, (x?: any) => this.skillTip(x)) : {}),
@@ -3939,15 +4023,27 @@ export class Codex extends Component<CodexProps, any> {
           full,
           blk,
           pv: () => this.setState({ ppv: x.n }),
-          mark: on ? '✓' : '+',
-          bd: on || x.n === (st.ppv || '') ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
-          op: full ? 0.45 : x.off ? 0.7 : 1,
-          rbg:
-            x.n === (st.ppv || '')
-              ? 'oklch(0.8 0.11 75 / .12)'
+          bd: on
+            ? 'var(--ac, oklch(0.82 0.12 85))'
+            : x.n === (st.ppv || '')
+              ? 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 55%, var(--line, oklch(0.42 0.06 110 / .55)))'
+              : 'var(--line, oklch(0.42 0.06 110 / .55))',
+          bb: on
+            ? 'var(--ac, oklch(0.82 0.12 85))'
+            : x.n === (st.ppv || '') || bnOf(x.cat)
+              ? 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 55%, var(--line, oklch(0.42 0.06 110 / .55)))'
+              : 'var(--line, oklch(0.42 0.06 110 / .55))',
+          sh: on
+            ? 'inset 0 0 0 1px var(--ac, oklch(0.82 0.12 85))'
+            : x.n === (st.ppv || '')
+              ? 'none'
               : bnOf(x.cat)
-                ? 'oklch(0.8 0.11 75 / .1)'
-                : 'var(--panel2, oklch(0.25 0.012 60))',
+                ? 'inset 0 -1px 0 color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 55%, transparent)'
+                : 'none',
+          op: full ? 0.45 : x.off ? 0.7 : 1,
+          rbg: on
+            ? 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 10%, var(--panel2, oklch(0.3 0.055 165)))'
+            : 'var(--panel2, oklch(0.3 0.055 165))',
           cur: 'pointer',
           stDisp: x.st ? 'block' : 'none',
           eDisp: x.e ? 'block' : 'none',
@@ -4074,8 +4170,8 @@ export class Codex extends Component<CodexProps, any> {
             hasRf: pvVs.length > 0,
             rf: [{ l: 'Base', lv: 0 }, ...pvVs.map((v?: any) => ({ l: '+' + v.rl, lv: v.rl }))].map((o?: any) => ({
               l: o.l,
-              bd: o.lv === prLv ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
-              bg: o.lv === prLv ? 'var(--panel2, oklch(0.25 0.012 60))' : 'transparent',
+              bd: o.lv === prLv ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--line, oklch(0.42 0.06 110 / .55))',
+              bg: o.lv === prLv ? 'var(--panel2, oklch(0.3 0.055 165))' : 'transparent',
               go: () => this.setState({ prf: { ...(st.prf || {}), [ppv]: o.lv } }),
             })),
             rc: pvTV && pvTV.rc ? 'Refine cost: ' + pvTV.rc : '',
@@ -4109,18 +4205,20 @@ export class Codex extends Component<CodexProps, any> {
                 : pvr.full
                   ? 'Slots full'
                   : 'Add',
-      pkPickBg: pvPrim ? 'var(--ac, oklch(0.8 0.11 75))' : 'transparent',
-      pkPickFg: pvPrim ? 'oklch(0.18 0.01 60)' : 'var(--ac, oklch(0.8 0.11 75))',
+      pkPickBg: pvPrim ? 'var(--ac, oklch(0.82 0.12 85))' : 'transparent',
+      pkPickFg: pvPrim ? 'oklch(0.18 0.01 60)' : 'var(--ac, oklch(0.82 0.12 85))',
       pkPickOp: pvDis ? 0.5 : 1,
       pkPickCur: pvDis ? 'not-allowed' : 'pointer',
       abCanAdd: abCur.length < abMax,
       caCanAdd: caCur.length < caMax,
       pkOpen: !!pk,
-      pkTitle: isIt ? 'Add items' : isCa ? 'Add combat arts' : 'Add abilities',
+      pkTitle: isIt ? (st.pm === 'mg' ? 'Add magic' : 'Add items') : isCa ? 'Add combat arts' : 'Add abilities',
       pkSub:
         (chr ? chr.n : '') +
         (isIt
-          ? ' · weapons, tomes, shields & accessories'
+          ? st.pm === 'mg'
+            ? ' · black, white & dark magic'
+            : ' · weapons, shields & accessories'
           : isCa
             ? ' · learnset'
             : ' · learnset, personal & universal'),
@@ -4194,7 +4292,10 @@ export class Codex extends Component<CodexProps, any> {
               p.scrollTo({ top: p.scrollTop + r.top - q.top - (q.height - r.height) / 2, behavior: 'smooth' })
             }
           },
-          bd: (r ? r.n : n) === (st.ppv || '') ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
+          bd:
+            (r ? r.n : n) === (st.ppv || '')
+              ? 'var(--ac, oklch(0.82 0.12 85))'
+              : 'var(--line, oklch(0.42 0.06 110 / .55))',
           rm: this.rmW((e?: any) => {
             e.stopPropagation()
             setCalc(
@@ -4299,12 +4400,12 @@ export class Codex extends Component<CodexProps, any> {
                 mark: k.n === sel ? '✓' : '',
                 bd:
                   k.n === sel || k.n === (cd.pv || (narrow ? '' : sel))
-                    ? 'var(--ac, oklch(0.8 0.11 75))'
-                    : 'var(--line, oklch(0.29 0.012 60))',
+                    ? 'var(--ac, oklch(0.82 0.12 85))'
+                    : 'var(--line, oklch(0.42 0.06 110 / .55))',
                 rbg:
                   k.n === (cd.pv || (narrow ? '' : sel))
-                    ? 'oklch(0.8 0.11 75 / .12)'
-                    : 'var(--panel2, oklch(0.25 0.012 60))',
+                    ? 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 12%, transparent)'
+                    : 'var(--panel2, oklch(0.3 0.055 165))',
                 go: () => this.setState({ cd: { ...cd, pv: k.n } }),
               }))
           : []
@@ -4334,8 +4435,8 @@ export class Codex extends Component<CodexProps, any> {
           cdPvOff: !tp,
           cdPickPv: () => pickCls(pvN),
           cdPickLbl: isSel ? 'Keep this class' : 'Select ' + pvN,
-          cdPickBg: isSel ? 'transparent' : 'var(--ac, oklch(0.8 0.11 75))',
-          cdPickFg: isSel ? 'var(--ac, oklch(0.8 0.11 75))' : 'oklch(0.18 0.01 60)',
+          cdPickBg: isSel ? 'transparent' : 'var(--ac, oklch(0.82 0.12 85))',
+          cdPickFg: isSel ? 'var(--ac, oklch(0.82 0.12 85))' : 'oklch(0.18 0.01 60)',
           cdPvClose: () => this.setState({ cd: { ...cd, pv: '' } }),
           cdOpen: !!cd,
           cdTitle:
@@ -4350,7 +4451,7 @@ export class Codex extends Component<CodexProps, any> {
           onCdSk: (e?: any) => this.setState({ cd: { ...cd, s: e.target.value } }),
           cdSkAll: () => this.setState({ cd: { ...cd, s: 'All skills' } }),
           cdSkAllOn: !cd || !cd.s || cd.s === 'All skills',
-          cdSkAllBd: !cd || !cd.s || cd.s === 'All skills' ? t.ac : t.line,
+          cdSkAllBd: !cd || !cd.s || cd.s === 'All skills' ? t.ac : 'transparent',
           cdSkAllBg: !cd || !cd.s || cd.s === 'All skills' ? t.panel2 : 'transparent',
           cdSkIcons: (d.skillOrder || [])
             .filter((n?: any) => d.classes.some((k?: any) => (k.comp || '').split(/,\s*/).includes(n)))
@@ -4362,7 +4463,7 @@ export class Codex extends Component<CodexProps, any> {
                 bgi: SK(n),
                 ...this.hov(n, (x?: any) => this.skillTip(x)),
                 on,
-                bd: on ? t.ac : t.line,
+                bd: on ? t.ac : 'transparent',
                 bg: on ? t.panel2 : 'transparent',
                 op: cur === 'All skills' || on ? 1 : 0.5,
                 click: () => this.setState({ cd: { ...cd, s: on ? 'All skills' : n } }),
@@ -4380,9 +4481,10 @@ export class Codex extends Component<CodexProps, any> {
             const on = cd && cd.t === g
             return {
               l: g,
-              bd: on ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
-              bg: on ? 'var(--panel2, oklch(0.25 0.012 60))' : 'transparent',
-              fg: on ? 'var(--tx, oklch(0.94 0.008 80))' : 'var(--mu, oklch(0.7 0.01 70))',
+              on: !!on,
+              bd: on ? 'var(--ac, oklch(0.82 0.12 85))' : 'transparent',
+              bg: on ? 'var(--panel2, oklch(0.3 0.055 165))' : 'transparent',
+              fg: on ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--mu, oklch(0.78 0.035 120))',
               go: () => this.setState({ cd: { ...cd, t: g } }),
             }
           }),
@@ -4406,6 +4508,7 @@ export class Codex extends Component<CodexProps, any> {
           ['ab', 'Abilities'],
           ['ca', 'Arts'],
           ['it', 'Items'],
+          ['mg', 'Magic'],
         ]
         return {
           invTabsOn: narrow,
@@ -4495,7 +4598,7 @@ export class Codex extends Component<CodexProps, any> {
         return {
           k,
           on,
-          bd: on ? t.ac : t.line,
+          bd: on ? t.ac : 'transparent',
           bg: on ? t.panel2 : 'transparent',
           fg: on ? t.tx : t.mu,
           c1: x.bg,
@@ -4571,7 +4674,7 @@ export class Codex extends Component<CodexProps, any> {
           l,
           on,
           bg: on ? t.panel2 : 'transparent',
-          bd: on ? t.ac : t.line,
+          bd: on ? t.ac : 'transparent',
           fg: on ? t.tx : t.mu,
           click: () => this.rOut(this.rKeep({ rf: id }), () => this.setState({ rf: id })),
         }
@@ -4585,7 +4688,7 @@ export class Codex extends Component<CodexProps, any> {
           l,
           on,
           bg: on ? t.panel2 : 'transparent',
-          bd: on ? t.ac : t.line,
+          bd: on ? t.ac : 'transparent',
           fg: on ? t.tx : t.mu,
           click: () => this.save({ sort: id }),
         }
@@ -4786,8 +4889,8 @@ export class Codex extends Component<CodexProps, any> {
             return {
               label: t + ' ' + v,
               tip: 'Set to Lv ' + v + ' (' + t + ' class requirement)',
-              bd: cur.lv === v ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--line, oklch(0.29 0.012 60))',
-              bg: cur.lv === v ? 'var(--panel2, oklch(0.25 0.012 60))' : 'transparent',
+              bd: cur.lv === v ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--line, oklch(0.42 0.06 110 / .55))',
+              bg: cur.lv === v ? 'var(--panel2, oklch(0.3 0.055 165))' : 'transparent',
               op: ok ? 1 : 0.4,
               click: () =>
                 upd((n?: any) => {
@@ -4857,8 +4960,8 @@ export class Codex extends Component<CodexProps, any> {
             .map((lv?: any) => ({
               lv,
               go: () => setRlc(lv),
-              bg: B.rl === lv ? 'var(--ac, oklch(0.8 0.11 75))' : 'transparent',
-              fg: B.rl === lv ? 'oklch(0.18 0.01 60)' : 'var(--tx, oklch(0.94 0.008 80))',
+              bg: B.rl === lv ? 'var(--ac, oklch(0.82 0.12 85))' : 'transparent',
+              fg: B.rl === lv ? 'oklch(0.18 0.01 60)' : 'var(--tx, oklch(0.95 0.02 90))',
             }))
         : [],
       onRl: (e?: any) => setRlc(+e.target.value),
@@ -4951,16 +5054,16 @@ export class Codex extends Component<CodexProps, any> {
       ledgerCards: calcRows.map((r?: any) => ({
         s: r.s,
         cells: [
-          ['Char', r.a, 'var(--ac, oklch(0.8 0.11 75))', 500],
+          ['Char', r.a, 'var(--ac, oklch(0.82 0.12 85))', 500],
           ['Class', r.bs, 'oklch(0.74 0.1 185)', 500],
           ['Mount', r.ms, 'oklch(0.74 0.1 300)', 500],
           ['Bonus', r.abD, 'oklch(0.78 0.12 150)', 500],
-          ['Total', r.t, 'var(--tx, #eee)', 600],
+          ['Total', r.t, 'var(--tx, oklch(0.95 0.02 90))', 600],
           ['Class flat', r.cf, 'oklch(0.74 0.1 185)', 500],
-          ['Class min', r.mn, 'var(--ac, oklch(0.8 0.11 75))', 500],
-          ['Base', r.baseV, 'var(--mu, oklch(0.7 0.01 70))', 500],
+          ['Class min', r.mn, 'var(--ac, oklch(0.82 0.12 85))', 500],
+          ['Base', r.baseV, 'var(--mu, oklch(0.78 0.035 120))', 500],
           ['Below avg', r.lo, 'oklch(0.74 0.12 30)', 500],
-          ['Average', r.proj, 'var(--ac, oklch(0.8 0.11 75))', 600],
+          ['Average', r.proj, 'var(--ac, oklch(0.82 0.12 85))', 600],
           ['Above avg', r.hi, 'oklch(0.78 0.12 150)', 500],
         ].map(([l, v, c, fw]: any) => ({ l, v, c, fw })),
       })),
@@ -4980,8 +5083,8 @@ export class Codex extends Component<CodexProps, any> {
       ],
       saveLabel: exists ? (nameSame ? 'Saved ✓' : 'Rename build') : lb ? 'Update build' : 'Save build',
       saveNewOn: !!lb,
-      saveBg: lb ? 'var(--ac, oklch(0.8 0.11 75))' : 'transparent',
-      saveFg: lb ? 'oklch(0.18 0.01 60)' : 'var(--ac, oklch(0.8 0.11 75))',
+      saveBg: lb ? 'var(--ac, oklch(0.82 0.12 85))' : 'transparent',
+      saveFg: lb ? 'oklch(0.18 0.01 60)' : 'var(--ac, oklch(0.82 0.12 85))',
       saveNew: () => mkNew(),
       cmpHere: () => {
         let id: any,
@@ -5003,6 +5106,7 @@ export class Codex extends Component<CodexProps, any> {
               ab: calc.ab || [],
               ca: calc.ca || [],
               it: calc.it || [],
+              eq: calc.eq,
               ms: msCur,
               name: finalName,
             },
@@ -5041,6 +5145,7 @@ export class Codex extends Component<CodexProps, any> {
                     ab: calc.ab || [],
                     ca: calc.ca || [],
                     it: calc.it || [],
+                    eq: calc.eq,
                     ms: msCur,
                     name: finalName,
                   }
@@ -5054,8 +5159,8 @@ export class Codex extends Component<CodexProps, any> {
       buildsN: buildV.filter(bF).length,
       clrItems: CLR.map((x?: any) => ({
         label: x.label,
-        fg: x.k === 'all' ? 'oklch(0.75 0.14 25)' : 'var(--tx, #eee)',
-        bd: x.k === 'all' ? 'oklch(0.62 0.17 25)' : t.line,
+        fg: x.k === 'all' ? 'oklch(0.75 0.14 25)' : 'var(--tx, oklch(0.95 0.02 90))',
+        bd: x.k === 'all' ? 'oklch(0.75 0.14 25)' : t.line,
         ask: () => this.setState({ clr: x.k }),
       })),
       clrOpen: !!clrX,
@@ -5284,7 +5389,7 @@ export class Codex extends Component<CodexProps, any> {
                   '\n' +
                   (b.m === 'None' ? 'No mount' : 'Mount: ' + b.m) +
                   (b.x.rl > 1 ? '\nRecruited at Lv ' + b.x.rl : ''),
-                bodyCol: 'var(--tx, #eee)',
+                bodyCol: 'var(--tx, oklch(0.95 0.02 90))',
                 note: '',
                 who: '',
                 whoLbl: '',
@@ -5319,7 +5424,7 @@ export class Codex extends Component<CodexProps, any> {
                   .map(([l, v]: any) => l + ': ' + v.join(', '))
                   .concat(b.ms ? ['Mount: ' + b.ms] : [])
                   .join('\n'),
-                bodyCol: 'var(--tx, #eee)',
+                bodyCol: 'var(--tx, oklch(0.95 0.02 90))',
                 note: '',
                 who: '',
                 whoLbl: '',
@@ -5380,6 +5485,7 @@ export class Codex extends Component<CodexProps, any> {
                   ab: b.ab || [],
                   ca: b.ca || [],
                   it: b.it || [],
+                  eq: b.eq,
                   ms: b.ms || '',
                   bid: b.id,
                 },
@@ -5888,6 +5994,7 @@ export class Codex extends Component<CodexProps, any> {
                   ab: b.ab || [],
                   ca: b.ca || [],
                   it: b.it || [],
+                  eq: b.eq,
                   ms: b.ms || '',
                   bid: b.id,
                 },
@@ -5964,7 +6071,7 @@ export class Codex extends Component<CodexProps, any> {
             t: txt + ' from abilities',
             sub: 'Ability bonus',
             body,
-            bodyCol: 'var(--tx, #eee)',
+            bodyCol: 'var(--tx, oklch(0.95 0.02 90))',
             note: '',
             who: '',
             whoLbl: '',
@@ -6161,7 +6268,7 @@ export class Codex extends Component<CodexProps, any> {
           enter: () => this.setState({ hl: k }),
           leave: () => this.setState({ hl: null }),
           op: H ? (H === k ? 1 : 0.35) : 1,
-          ol: H === k ? '0 0 0 2px var(--tx, #eee)' : 'none',
+          ol: H === k ? '0 0 0 2px var(--tx, oklch(0.95 0.02 90))' : 'none',
           r: H === k ? 7 : 5,
         })
       vals.radar.bars = vals.radar.bars.map((b?: any) => ({
@@ -6195,7 +6302,7 @@ export class Codex extends Component<CodexProps, any> {
         hoff: () => this.setState({ hl: null }),
         hop: H === a.s ? 1 : 0.75,
         hfw: H === a.s ? 600 : 500,
-        lc: H === a.s ? 'var(--tx, #eee)' : 'rgba(255,255,255,.09)',
+        lc: H === a.s ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--line, oklch(0.42 0.06 110 / .55))',
         lw: H === a.s ? 2 : 1,
       }))
       vals.radar.dots = vals.radar.dots.map((d?: any, k?: any) => ({
@@ -6604,7 +6711,7 @@ export class Codex extends Component<CodexProps, any> {
               if (i.bi) return // forged / refined variants stay out of the catalog
               seen.add(i.n)
               const ch: any = []
-              if (i.rk) ch.push('Rank ' + i.rk + (i.rk2 ? ' + ' + i.cat2 + ' ' + i.rk2 : ''))
+              if (i.rk) ch.push('Rank ' + i.rk + (i.rk2 ? ' + ' + i.rk2 : ''))
               if (i.mt != null) ch.push('Mt ' + i.mt)
               if (i.hit != null) ch.push('Hit ' + i.hit)
               if (i.crt != null) ch.push('Crit ' + i.crt)
@@ -6882,7 +6989,7 @@ export class Codex extends Component<CodexProps, any> {
                 hoff: hlf,
                 hop: HL === r.s ? 1 : 0.75,
                 hfw: HL === r.s ? 600 : 500,
-                lc: HL === r.s ? 'var(--tx, #eee)' : 'rgba(255,255,255,.09)',
+                lc: HL === r.s ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--line, oklch(0.42 0.06 110 / .55))',
                 lw: HL === r.s ? 2 : 1,
               }
             })
@@ -6947,7 +7054,10 @@ export class Codex extends Component<CodexProps, any> {
                     rng: x.rng || '',
                     col: x.col,
                     fw: x.fw,
-                    bg: 'oklch(0.8 0.11 75 / ' + (0.1 + 0.3 * (g1 > g0 ? (av - g0) / (g1 - g0) : 0.5)).toFixed(2) + ')',
+                    bg:
+                      'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) ' +
+                      Math.round((0.1 + 0.3 * (g1 > g0 ? (av - g0) / (g1 - g0) : 0.5)) * 100) +
+                      '%, transparent)',
                   }
                 }),
                 badges: sr
@@ -6960,7 +7070,12 @@ export class Codex extends Component<CodexProps, any> {
           vals.cmpRngD = narrow ? 'none' : 'block'
         }
         if (vals.invTabs) {
-          const cn: Record<string, any> = { Abilities: vals.abCount, Arts: vals.caCount, Items: vals.itCount }
+          const cn: Record<string, any> = {
+            Abilities: vals.abCount,
+            Arts: vals.caCount,
+            Items: vals.itN + '/' + vals.itCount.split('/')[1],
+            Magic: vals.mgCount,
+          }
           vals.invTabs = vals.invTabs.map((x?: any) => {
             const c = cn[x.l]
             if (!c) return { ...x, hasN: false }
@@ -7089,7 +7204,7 @@ export class Codex extends Component<CodexProps, any> {
               bgi: '',
               sub: '',
               body: 'Units start at Lv 1 in their initial class. Each level adds character + class + mount growth to a running total; every full 100% grants +1 to that stat.',
-              bodyCol: 'var(--tx, #eee)',
+              bodyCol: 'var(--tx, oklch(0.95 0.02 90))',
               stats: [],
               hasStats: false,
               statNote: '',
@@ -7125,7 +7240,7 @@ export class Codex extends Component<CodexProps, any> {
             x = Math.max(12, Math.min(r.right - 300, W - 312)),
             below = r.bottom + 320 < H
           const lg: any = [
-            ['Character', 'var(--ac, oklch(0.8 0.11 75))'],
+            ['Character', 'var(--ac, oklch(0.82 0.12 85))'],
             ['Class', 'oklch(0.74 0.1 185)'],
             ...(vals.hasMst ? [['Mount', 'oklch(0.74 0.1 300)']] : []),
             ...(vals.hasAb ? [['Bonus', 'oklch(0.78 0.12 150)']] : []),
@@ -7138,7 +7253,7 @@ export class Codex extends Component<CodexProps, any> {
               bgi: '',
               sub: 'Per-stat breakdown',
               body: vals.projAvg,
-              bodyCol: 'var(--tx, #eee)',
+              bodyCol: 'var(--tx, oklch(0.95 0.02 90))',
               stats: [],
               hasStats: false,
               statNote: '',
@@ -7237,7 +7352,7 @@ export class Codex extends Component<CodexProps, any> {
             return {
               l,
               go: () => this.jumpTo(k),
-              dot: on ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--mu, oklch(0.78 0.035 120))',
+              dot: on ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--mu, oklch(0.78 0.035 120))',
               dop: on ? 1 : 0.55,
               ...((on && !st.railOff) || st.jhv === k
                 ? { lblW: '240px', lblP: '3px 8px', lblBw: '1px' }
@@ -7276,8 +7391,8 @@ export class Codex extends Component<CodexProps, any> {
             vals.jmClose = cl
             vals.jmItems = SC.map(([l, k]: any) => ({
               l,
-              fg: k === spy ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--tx, #eee)',
-              bg: k === spy ? 'var(--panel2, oklch(0.25 0.012 60))' : 'transparent',
+              fg: k === spy ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--tx, oklch(0.95 0.02 90))',
+              bg: k === spy ? 'var(--panel2, oklch(0.3 0.055 165))' : 'transparent',
               click: () => {
                 cl()
                 this.jumpTo(k)
@@ -7322,7 +7437,7 @@ export class Codex extends Component<CodexProps, any> {
             n,
             bgi: SK(n),
             on,
-            bd: on ? t.ac : t.line,
+            bd: on ? t.ac : 'transparent',
             bg: on ? t.panel2 : 'transparent',
             op: kwp === 'All skills' || on ? 1 : 0.5,
             click: () => this.setState({ kwp: on ? 'All skills' : n }),
@@ -7354,7 +7469,7 @@ export class Codex extends Component<CodexProps, any> {
           on,
           bgi: SK(sn),
           bg: on ? t.panel2 : 'transparent',
-          bd: on ? t.ac : t.line,
+          bd: on ? t.ac : 'transparent',
           op: kf === 'All' || on ? 1 : 0.5,
           click: () => this.setState({ kf: on ? 'All' : l }),
           ...this.hov(sn, (x?: any) => this.skillTip(x)),
@@ -7412,7 +7527,7 @@ export class Codex extends Component<CodexProps, any> {
       vals.kSide = narrow ? '0' : 'auto'
       vals.kZ = narrow ? '92' : 'auto'
       vals.kPad = narrow ? '16px 20px calc(20px + env(safe-area-inset-bottom))' : '20px'
-      vals.kRad = narrow ? '16px 16px 0 0' : 'var(--r, 14px)'
+      vals.kRad = narrow ? '16px 16px 0 0' : 'var(--r, 10px)'
       vals.kSh = narrow ? '0 -18px 50px -12px rgba(0,0,0,.6)' : 'none'
       const k = d.classes.find((x?: any) => x.n === selN)
       vals.kHasSel = !!k
@@ -7441,7 +7556,14 @@ export class Codex extends Component<CodexProps, any> {
           return {
             s,
             v: sg(v),
-            col: v > 0 ? 'var(--tx, #eee)' : v > 0 ? 'var(--tx, #eee)' : v < 0 ? 'oklch(0.74 0.12 30)' : t.mu,
+            col:
+              v > 0
+                ? 'var(--tx, oklch(0.95 0.02 90))'
+                : v > 0
+                  ? 'var(--tx, oklch(0.95 0.02 90))'
+                  : v < 0
+                    ? 'oklch(0.74 0.12 30)'
+                    : t.mu,
           }
         })
         const cellsS = S.map((s?: any, i?: any) => {
@@ -7449,7 +7571,14 @@ export class Codex extends Component<CodexProps, any> {
           return {
             s,
             v: sg(v),
-            col: v > 0 ? 'var(--tx, #eee)' : v > 0 ? 'var(--tx, #eee)' : v < 0 ? 'oklch(0.74 0.12 30)' : t.mu,
+            col:
+              v > 0
+                ? 'var(--tx, oklch(0.95 0.02 90))'
+                : v > 0
+                  ? 'var(--tx, oklch(0.95 0.02 90))'
+                  : v < 0
+                    ? 'oklch(0.74 0.12 30)'
+                    : t.mu,
           }
         })
         vals.k = {
@@ -7625,19 +7754,24 @@ export class Codex extends Component<CodexProps, any> {
       const byN = (n?: any) => d.chars.find((x?: any) => x.n === n)
       const KO = ['loves', 'likes', 'neutral', 'dislikes'],
         ML: Record<string, any> = {
-          loves: ['Loves', 'oklch(0.78 0.1 150)', 2],
-          likes: ['Likes', 'oklch(0.78 0.1 110)', 1],
-          neutral: ['Neutral', 'oklch(0.7 0.01 70)', 0],
+          loves: ['Loves', 'oklch(0.78 0.12 150)', 2],
+          likes: ['Likes', 'oklch(0.82 0.1 110)', 1],
+          neutral: ['Neutral', 'oklch(0.78 0.035 120)', 0],
           dislikes: ['Dislikes', 'oklch(0.74 0.12 30)', -2],
         }
       const mop = (c?: any) => {
         const k = !meal ? null : KO.find((k?: any) => ((c.ml || {})[k] || []).includes(meal))
         return k
           ? { l: ML[k][0], col: ML[k][1], p: ML[k][2], w: '76px' }
-          : { l: 'No data', col: 'oklch(0.7 0.01 70)', p: 0, w: '76px' }
+          : { l: 'No data', col: 'oklch(0.78 0.035 120)', p: 0, w: '76px' }
       }
       const SO: Record<string, any> = { A: 6, B: 4, C: 2, '?': 2 },
-        SC: Record<string, any> = { A: 'oklch(0.78 0.1 150)', B: 'oklch(0.78 0.1 110)', C: 'oklch(0.7 0.01 70)', '?': 'oklch(0.7 0.01 70)' }
+        SC: Record<string, any> = {
+          A: 'oklch(0.78 0.12 150)',
+          B: 'oklch(0.82 0.1 110)',
+          C: 'oklch(0.78 0.035 120)',
+          '?': 'oklch(0.78 0.035 120)',
+        }
       const sf = (x?: any, y?: any) => {
         const q = (x.sup || []).find((z?: any) => z.n === y.n)
         return q ? q.r || '?' : null
@@ -7731,7 +7865,7 @@ export class Codex extends Component<CodexProps, any> {
                   const k = KO.find((k?: any) => ((c.ml || {})[k] || []).includes(m))
                   return k
                     ? { l: c.n + ' · ' + ML[k][0], col: ML[k][1], w: '0px', p: ML[k][2] }
-                    : { l: c.n + ' · No data', col: 'oklch(0.7 0.01 70)', w: '0px', p: 0 }
+                    : { l: c.n + ' · No data', col: 'oklch(0.78 0.035 120)', w: '0px', p: 0 }
                 })
                 return {
                   m,
@@ -7742,7 +7876,7 @@ export class Codex extends Component<CodexProps, any> {
               })
               .sort((a?: any, b?: any) => b.score - a.score || a.m.localeCompare(b.m))
           : []
-      const mxMute: string = 'oklch(0.7 0.01 70)',
+      const mxMute: string = 'oklch(0.78 0.035 120)',
         slots = [c1n, c2n, c3n].map((n?: any) => (n ? byN(n) : null)),
         mxHead = slots.map((c?: any, i?: any) => (c ? c.n : 'Character ' + (i + 1))),
         mxRows = slots.map((a?: any, i?: any) => ({
@@ -7758,9 +7892,9 @@ export class Codex extends Component<CodexProps, any> {
         tileCols: narrow ? 'minmax(0,1fr) auto' : 'repeat(auto-fit,minmax(min(100%,200px),1fr))',
         mxHeadB: [c1n, c2n, c3n].map((n?: any, i?: any) => ({
           l: n || (narrow ? 'Pick ' + (i + 1) : 'Character ' + (i + 1)),
-          fg: n ? 'var(--tx, #eee)' : 'var(--ac, oklch(0.8 0.11 75))',
+          fg: n ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--ac, oklch(0.82 0.12 85))',
           bs: n ? 'solid' : 'dashed',
-          bd: n ? 'var(--line, oklch(0.29 0.012 60))' : 'var(--ac, oklch(0.8 0.11 75))',
+          bd: n ? 'var(--line, oklch(0.42 0.06 110 / .55))' : 'var(--ac, oklch(0.82 0.12 85))',
           ar: n ? '' : ' ↓',
           go: () => {
             const has = n && [...document.querySelectorAll('[data-jump="mx:' + n + '"]')].some((e?: any) => e.offsetParent)
@@ -7888,7 +8022,12 @@ export class Codex extends Component<CodexProps, any> {
           cntTxt: r.tot ? String(r.cnt) : '—',
           renTxt: r.ren ? r.ren : '—',
           slTxt: r.sl ? r.sl : '—',
-          sc: r.score >= 8 ? 'oklch(0.78 0.1 150)' : r.score < 0 ? 'oklch(0.74 0.12 30)' : 'var(--tx, #eee)',
+          sc:
+            r.score >= 8
+              ? 'oklch(0.78 0.12 150)'
+              : r.score < 0
+                ? 'oklch(0.74 0.12 30)'
+                : 'var(--tx, oklch(0.95 0.02 90))',
           bg: [c1n, c2n, c3n].includes(r.n) ? t.panel2 : 'transparent',
           pick: () => {
             if (c1n && c2n && c3n && ![c1n, c2n, c3n].includes(r.n)) {
@@ -8101,9 +8240,9 @@ export class Codex extends Component<CodexProps, any> {
           pr = c.pr || []
         const mm: any = c.ml || {}
         vals.p.meals = [
-          ['Loves meal', 'loves', 'oklch(0.78 0.1 150)'],
-          ['Likes meal', 'likes', 'oklch(0.78 0.1 110)'],
-          ['Neutral meal', 'neutral', 'oklch(0.7 0.01 70)'],
+          ['Loves meal', 'loves', 'oklch(0.78 0.12 150)'],
+          ['Likes meal', 'likes', 'oklch(0.82 0.1 110)'],
+          ['Neutral meal', 'neutral', 'oklch(0.78 0.035 120)'],
           ['Dislikes meal', 'dislikes', 'oklch(0.74 0.12 30)'],
         ]
           .filter(([a, k]: any) => (mm[k] || []).length)
@@ -8142,7 +8281,7 @@ export class Codex extends Component<CodexProps, any> {
                         t: s.n,
                         sub: 'Support bonus' + (s.nc ? ' · no support conversation' : ''),
                         body,
-                        bodyCol: 'var(--tx, #eee)',
+                        bodyCol: 'var(--tx, oklch(0.95 0.02 90))',
                         note: '',
                         who: '',
                         whoLbl: '',
@@ -8264,7 +8403,7 @@ export class Codex extends Component<CodexProps, any> {
             sh = !narrow && ((on && !st.railOff) || st.jhv === j.k)
           return {
             ...j,
-            dot: on ? 'var(--ac, oklch(0.8 0.11 75))' : 'var(--mu, oklch(0.78 0.035 120))',
+            dot: on ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--mu, oklch(0.78 0.035 120))',
             dop: on ? 1 : 0.55,
             ...(sh ? { lblW: '240px', lblP: '3px 8px', lblBw: '1px' } : { lblW: '0px', lblP: '3px 0', lblBw: '0px' }),
             enter: () => this.setState({ jhv: j.k }),
@@ -8305,8 +8444,8 @@ export class Codex extends Component<CodexProps, any> {
           vals.jmClose = cl
           vals.jmItems = vals.p.jumps.map((j?: any) => ({
             l: j.l,
-            fg: j.k === spy ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--tx, #eee)',
-            bg: j.k === spy ? 'var(--panel2, oklch(0.25 0.012 60))' : 'transparent',
+            fg: j.k === spy ? 'var(--ac, oklch(0.82 0.12 85))' : 'var(--tx, oklch(0.95 0.02 90))',
+            bg: j.k === spy ? 'var(--panel2, oklch(0.3 0.055 165))' : 'transparent',
             click: () => {
               cl()
               j.go()
@@ -8332,9 +8471,9 @@ export class Codex extends Component<CodexProps, any> {
           return v === Math.max(...pool)
             ? { ar: '★', ac: 'var(--ac, oklch(0.82 0.12 85))' }
             : m >= 0.9
-              ? { ar: '⇈', ac: 'oklch(0.85 0.14 150)' }
+              ? { ar: '⇈', ac: 'oklch(0.78 0.12 150)' }
               : m >= 0.7
-                ? { ar: '↑', ac: 'oklch(0.85 0.14 150)' }
+                ? { ar: '↑', ac: 'oklch(0.78 0.12 150)' }
                 : m <= 0.1
                   ? { ar: '⇊', ac: 'oklch(0.74 0.12 30)' }
                   : m <= 0.3
@@ -8400,7 +8539,7 @@ export class Codex extends Component<CodexProps, any> {
               x,
               y,
               ...tipH(String(cb ? cb[i] : '—'), S[i] + ' base' + (r.top ? ' · highest' : r.low ? ' · lowest' : '')),
-              col: r.top ? 'oklch(0.85 0.14 150)' : r.low ? 'oklch(0.74 0.12 30)' : 'var(--ac, oklch(0.82 0.12 85))',
+              col: r.top ? 'oklch(0.78 0.12 150)' : r.low ? 'oklch(0.74 0.12 30)' : 'var(--ac, oklch(0.82 0.12 85))',
             }
           }),
         }
@@ -8447,7 +8586,7 @@ export class Codex extends Component<CodexProps, any> {
               x,
               y,
               ...tipH(c.g ? c.g[i] + '%' : '—', S[i] + ' growth' + (r.top ? ' · highest' : r.low ? ' · lowest' : '')),
-              col: r.top ? 'oklch(0.85 0.14 150)' : r.low ? 'oklch(0.74 0.12 30)' : 'var(--ac, oklch(0.82 0.12 85))',
+              col: r.top ? 'oklch(0.78 0.12 150)' : r.low ? 'oklch(0.74 0.12 30)' : 'var(--ac, oklch(0.82 0.12 85))',
             }
           }),
         }
@@ -8462,7 +8601,7 @@ export class Codex extends Component<CodexProps, any> {
             ...hh(a.s),
             hop: H === a.s ? 1 : 0.75,
             hfw: H === a.s ? 600 : 500,
-            lc: H === a.s ? 'var(--tx, #eee)' : 'rgba(255,255,255,.09)',
+            lc: H === a.s ? 'var(--tx, oklch(0.95 0.02 90))' : 'var(--line, oklch(0.42 0.06 110 / .55))',
             lw: H === a.s ? 2 : 1,
           }))
           R.dots = R.dots.map((d?: any, i?: any) => ({
@@ -8477,7 +8616,7 @@ export class Codex extends Component<CodexProps, any> {
             vals.p[k] = vals.p[k].map((b?: any) => ({
               ...b,
               ...hh(b.s),
-              ol: H === b.s ? '0 0 0 2px var(--tx, #eee)' : 'none',
+              ol: H === b.s ? '0 0 0 2px var(--tx, oklch(0.95 0.02 90))' : 'none',
               op: H && H !== b.s ? 0.45 : 1,
             }))
       }

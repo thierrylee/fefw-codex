@@ -5,7 +5,7 @@ import { L, T, str, type VM } from '../runtime'
 export function ClassesScreen({ v }: { v: VM }) {
   return (
     <>
-      <section data-screen-label="Classes" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <section data-screen-label="Classes" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {v.rlOn ? (
           <>
             <div
@@ -29,6 +29,7 @@ export function ClassesScreen({ v }: { v: VM }) {
               {L(v.rl).map((j: any, $index: number) => (
                 <Fragment key={$index}>
                   <button
+                    data-hit="1"
                     onClick={j?.go}
                     onMouseEnter={j?.enter}
                     onMouseLeave={j?.leave}
@@ -43,7 +44,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                       border: '0',
                       background: 'transparent',
                       cursor: 'pointer',
-                      color: 'var(--tx, #eee)',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                     }}
                   >
                     <span
@@ -55,9 +56,9 @@ export function ClassesScreen({ v }: { v: VM }) {
                           fontSize: '12px',
                           padding: str(j?.lblP),
                           borderRadius: '6px',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           borderStyle: 'solid',
-                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderColor: 'var(--line, oklch(0.42 0.06 110 / .55))',
                           borderWidth: str(j?.lblBw),
                           whiteSpace: 'nowrap',
                           transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
@@ -89,7 +90,7 @@ export function ClassesScreen({ v }: { v: VM }) {
               display: str(v.kListDisp),
               alignItems: 'flex-start',
               justifyContent: 'space-between',
-              gap: '14px',
+              gap: '12px',
               flexWrap: 'wrap',
             } as CSSProperties
           }
@@ -132,6 +133,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                 }}
               />
               <button
+                data-hit="1"
                 onClick={v.onKClear}
                 title="Clear"
                 aria-label="Clear search"
@@ -174,8 +176,8 @@ export function ClassesScreen({ v }: { v: VM }) {
                   gap: '2px',
                   padding: '3px',
                   borderRadius: '8px',
-                  background: 'var(--bg, oklch(0.16 0.01 60))',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  background: 'var(--bg, oklch(0.2 0.045 165))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 }}
               >
                 <button
@@ -189,7 +191,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                       borderRadius: '6px',
                       border: '0',
                       background: str(v.kwpAllBg),
-                      color: 'var(--tx, #eee)',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                       cursor: 'pointer',
                       fontSize: '12px',
                     } as CSSProperties
@@ -206,15 +208,19 @@ export function ClassesScreen({ v }: { v: VM }) {
                       onMouseLeave={o?.leave}
                       aria-label={o?.n}
                       aria-pressed={o?.on}
+                      data-on={o?.on}
                       style={
                         {
+                          position: 'relative',
+                          zIndex: '1',
+                          transition: 'color .22s ease,opacity .22s ease',
                           width: '36px',
                           height: '36px',
                           padding: '3px',
                           boxSizing: 'border-box',
                           borderRadius: '6px',
                           border: '0',
-                          background: str(o?.bg),
+                          background: 'transparent',
                           opacity: str(o?.op),
                           cursor: 'pointer',
                         } as CSSProperties
@@ -243,8 +249,8 @@ export function ClassesScreen({ v }: { v: VM }) {
                     gap: '2px',
                     padding: '3px',
                     borderRadius: '8px',
-                    background: 'var(--bg, oklch(0.16 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    background: 'var(--bg, oklch(0.2 0.045 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   }}
                 >
                   <button
@@ -258,7 +264,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                         borderRadius: '6px',
                         border: '0',
                         background: str(v.kfAllBg),
-                        color: 'var(--tx, #eee)',
+                        color: 'var(--tx, oklch(0.95 0.02 90))',
                         cursor: 'pointer',
                         fontSize: '12px',
                       } as CSSProperties
@@ -347,7 +353,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                               flexDirection: 'column',
                               gap: '4px',
                               padding: '11px 13px',
-                              borderRadius: '10px',
+                              borderRadius: 'var(--r, 10px)',
                               border: `1px solid ${str(k?.bd)}`,
                               background: str(k?.bg),
                               cursor: 'pointer',
@@ -372,7 +378,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                   height: '32px',
                                   borderRadius: '8px',
                                   overflow: 'hidden',
-                                  background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                  background: 'var(--panel2, oklch(0.3 0.055 165))',
                                   display: 'grid',
                                 }}
                               >
@@ -458,6 +464,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                   {a?.ic ? (
                                     <>
                                       <span
+                                        data-hit="1"
                                         data-tip="1"
                                         onMouseEnter={a?.enter}
                                         onMouseLeave={a?.leave}
@@ -467,7 +474,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                           {
                                             width: '24px',
                                             height: '24px',
-                                            borderRadius: '5px',
+                                            borderRadius: '6px',
                                             background: str(a?.bgi),
                                             cursor: 'help',
                                           } as CSSProperties
@@ -519,7 +526,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                 <>
                   <div
                     onClick={v.sheetClose}
-                    style={{ position: 'fixed', inset: '0', zIndex: '91', background: 'oklch(0.1 0.01 60 / .7)' }}
+                    style={{ position: 'fixed', inset: '0', zIndex: '91', background: 'oklch(0 0 0 / .7)' }}
                   ></div>
                 </>
               ) : null}
@@ -549,6 +556,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                 }
               >
                 <div
+                  data-hit="1"
                   onPointerDown={v.sheetDown}
                   onPointerMove={v.sheetMove}
                   onPointerUp={v.sheetUp}
@@ -568,7 +576,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                       height: '28px',
                       margin: '-16px -20px -8px',
                       background: 'inherit',
-                      borderRadius: '16px 16px 0 0',
+                      borderRadius: '12px 12px 0 0',
                       touchAction: 'none',
                       cursor: 'ns-resize',
                     } as CSSProperties
@@ -579,7 +587,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                       width: '40px',
                       height: '4px',
                       borderRadius: '2px',
-                      background: 'var(--mu, oklch(0.7 0.01 70))',
+                      background: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   ></span>
                 </div>
@@ -594,15 +602,15 @@ export function ClassesScreen({ v }: { v: VM }) {
                           zIndex: '3',
                           alignSelf: str(v.handSelf),
                           flex: 'none',
-                          width: '44px',
-                          height: '44px',
+                          width: '32px',
+                          height: '32px',
                           margin: str(v.handMargin),
                           border: '0',
                           borderRadius: '50%',
                           background: 'transparent',
                           cursor: 'pointer',
                           color: 'var(--mu, oklch(0.78 0.035 120))',
-                          fontSize: '20px',
+                          fontSize: '18px',
                         } as CSSProperties
                       }
                     >
@@ -628,7 +636,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                           height: '44px',
                           borderRadius: '8px',
                           overflow: 'hidden',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           display: 'grid',
                         }}
                       >
@@ -654,7 +662,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                     <span
                       style={{
                         font: "500 10px/1 'IBM Plex Mono',monospace",
-                        letterSpacing: '.1em',
+                        letterSpacing: '.12em',
                         textTransform: 'uppercase',
                         color: 'var(--mu, oklch(0.78 0.035 120))',
                         textAlign: 'right',
@@ -692,7 +700,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                               <span
                                 style={
                                   {
-                                    fontSize: '13px',
+                                    fontSize: '14px',
                                     fontWeight: '600',
                                     lineHeight: '1.2',
                                     padding: '6px 10px',
@@ -723,7 +731,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '3px',
+                    gap: '4px',
                     font: "500 11px/1.4 'IBM Plex Mono',monospace",
                     color: 'var(--mu, oklch(0.78 0.035 120))',
                   }}
@@ -788,7 +796,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                               padding: '10px 12px',
                               borderRadius: '8px',
                               border: '1px solid oklch(0.74 0.12 30)',
-                              fontSize: '13px',
+                              fontSize: '14px',
                               color: 'oklch(0.74 0.12 30)',
                               textWrap: 'pretty',
                             }}
@@ -813,7 +821,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                   flexDirection: 'column',
                                   gap: '6px',
                                   padding: '12px 14px',
-                                  borderRadius: '10px',
+                                  borderRadius: 'var(--r, 10px)',
                                   border: `1px solid ${str(u?.bd)}`,
                                   background: 'var(--panel2, oklch(0.3 0.055 165))',
                                 } as CSSProperties
@@ -869,7 +877,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            gap: '3px',
+                            gap: '4px',
                             padding: '7px 0',
                             borderRadius: '6px',
                             background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -913,7 +921,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                             display: 'flex',
                             flexDirection: 'column',
                             alignItems: 'center',
-                            gap: '3px',
+                            gap: '4px',
                             padding: '7px 0',
                             borderRadius: '6px',
                             background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -959,7 +967,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                gap: '3px',
+                                gap: '4px',
                                 padding: '7px 0',
                                 borderRadius: '6px',
                                 background: 'var(--panel2, oklch(0.3 0.055 165))',
@@ -1015,7 +1023,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                       flexDirection: 'column',
                                       gap: '4px',
                                       padding: '8px 10px',
-                                      borderRadius: '10px',
+                                      borderRadius: 'var(--r, 10px)',
                                       border: `1px ${str(g?.bs)} var(--line, oklch(0.42 0.06 110 / .55))`,
                                     } as CSSProperties
                                   }
@@ -1040,7 +1048,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                           } as CSSProperties
                                         }
                                       ></span>
-                                      <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(a?.n)}</span>
+                                      <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(a?.n)}</span>
                                     </span>
                                     <span
                                       style={{
@@ -1116,7 +1124,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                       </div>
                       {v.k?.noMounts ? (
                         <>
-                          <span style={{ fontSize: '13px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
+                          <span style={{ fontSize: '14px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                             No compatible mounts recorded in the workbook.
                           </span>
                         </>
@@ -1130,7 +1138,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                 flexDirection: 'column',
                                 gap: '8px',
                                 padding: '12px 14px',
-                                borderRadius: '10px',
+                                borderRadius: 'var(--r, 10px)',
                                 background: 'var(--panel2, oklch(0.3 0.055 165))',
                                 border: `1px solid ${str(m?.bd)}`,
                               } as CSSProperties
@@ -1144,7 +1152,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                 alignItems: 'center',
                               }}
                             >
-                              <span style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                              <span style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                                 <span style={{ fontWeight: '600' }}>{T(m?.n)}</span>
                                 <span
                                   style={{
@@ -1158,6 +1166,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                 </span>
                               </span>
                               <button
+                                data-hit="1"
                                 onClick={m?.pick}
                                 style={
                                   {
@@ -1196,7 +1205,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                         display: 'flex',
                                         flexDirection: 'column',
                                         alignItems: 'center',
-                                        gap: '3px',
+                                        gap: '4px',
                                         padding: '7px 0',
                                         borderRadius: '6px',
                                         background: 'var(--panel, oklch(0.245 0.05 165))',
@@ -1252,7 +1261,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                             display: 'flex',
                                             flexDirection: 'column',
                                             alignItems: 'center',
-                                            gap: '3px',
+                                            gap: '4px',
                                             padding: '7px 0',
                                             borderRadius: '6px',
                                             background: 'var(--panel, oklch(0.245 0.05 165))',
@@ -1302,11 +1311,11 @@ export function ClassesScreen({ v }: { v: VM }) {
                                           justifyContent: 'space-between',
                                           gap: '8px',
                                           padding: '8px 10px',
-                                          borderRadius: '10px',
+                                          borderRadius: 'var(--r, 10px)',
                                           border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                           cursor: 'help',
                                         }}
-                                        className="hv-5"
+                                        className="hv-2"
                                       >
                                         <span
                                           style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '0' }}
@@ -1322,7 +1331,7 @@ export function ClassesScreen({ v }: { v: VM }) {
                                               } as CSSProperties
                                             }
                                           ></span>
-                                          <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(x?.v)}</span>
+                                          <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(x?.v)}</span>
                                         </span>
                                         <span
                                           style={{

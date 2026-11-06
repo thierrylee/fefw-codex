@@ -11,7 +11,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
           {
             display: 'flex',
             flexDirection: 'column',
-            gap: '18px',
+            gap: '16px',
             marginTop: str(v.calcTop),
             paddingTop: str(v.secPT),
           } as CSSProperties
@@ -40,6 +40,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               {L(v.rl).map((j: any, $index: number) => (
                 <Fragment key={$index}>
                   <button
+                    data-hit="1"
                     onClick={j?.go}
                     onMouseEnter={j?.enter}
                     onMouseLeave={j?.leave}
@@ -54,7 +55,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       border: '0',
                       background: 'transparent',
                       cursor: 'pointer',
-                      color: 'var(--tx, #eee)',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                     }}
                   >
                     <span
@@ -66,9 +67,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           fontSize: '12px',
                           padding: str(j?.lblP),
                           borderRadius: '6px',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           borderStyle: 'solid',
-                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderColor: 'var(--line, oklch(0.42 0.06 110 / .55))',
                           borderWidth: str(j?.lblBw),
                           whiteSpace: 'nowrap',
                           transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
@@ -134,8 +135,8 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     width: '44px',
                     height: '44px',
                     marginTop: '-5px',
-                    borderRadius: '10px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -151,7 +152,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               {
                 display: str(v.ciTextD),
                 marginTop: str(v.subGap),
-                color: 'var(--mu, oklch(0.7 0.01 70))',
+                color: 'var(--mu, oklch(0.78 0.035 120))',
                 maxWidth: '62ch',
                 textWrap: 'pretty',
               } as CSSProperties
@@ -185,9 +186,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   gridTemplateColumns: str(v.suCols),
                   gap: str(v.suGap),
                   padding: str(v.suPad),
-                  borderRadius: 'var(--r, 14px)',
-                  background: 'var(--panel, oklch(0.2 0.01 60))',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  borderRadius: 'var(--r, 10px)',
+                  background: 'var(--panel, oklch(0.245 0.05 165))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 } as CSSProperties
               }
             >
@@ -209,7 +210,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       display: str(v.uSetD),
                       alignSelf: 'center',
                       alignItems: 'center',
-                      gap: '6px 14px',
+                      gap: '6px 12px',
                       flexWrap: 'wrap',
                     } as CSSProperties
                   }
@@ -220,7 +221,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       font: "500 10px/1 'IBM Plex Mono',monospace",
                       letterSpacing: '.14em',
                       textTransform: 'uppercase',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Unit setup
@@ -275,19 +276,20 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   }
                 >
                   <button
+                    data-hit="1"
                     onClick={v.resetCalc}
                     title="Reset build to defaults"
                     style={{
                       whiteSpace: 'nowrap',
                       padding: '7px 12px',
                       borderRadius: '999px',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       background: 'transparent',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                       font: "600 12px/1 'IBM Plex Sans',sans-serif",
                       cursor: 'pointer',
                     }}
-                    className="hv-6"
+                    className="hv-4"
                   >
                     Reset build
                   </button>
@@ -311,7 +313,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     alignItems: 'center',
                     gap: '8px',
                     fontSize: '12px',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                   }}
                 >
                   Character
@@ -334,9 +336,10 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       background: 'var(--panel)',
                       outline: 'none',
                     }}
-                    className="focus-7"
+                    className="focus-5"
                   />
                   <button
+                    data-hit="1"
                     onMouseDown={v.onCalcClear}
                     title="Clear"
                     aria-label="Clear"
@@ -352,7 +355,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         border: '0',
                         borderRadius: '50%',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         fontSize: '16px',
                         lineHeight: '1',
@@ -395,15 +398,15 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           alignItems: 'center',
                           gap: '8px',
                           fontSize: '12px',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         }}
                       >
                         Recruited at
                         <span
                           style={{
                             marginLeft: 'auto',
-                            font: "600 13px/1 'IBM Plex Mono',monospace",
-                            color: 'var(--tx, oklch(0.94 0.008 80))',
+                            font: "600 12px/1 'IBM Plex Mono',monospace",
+                            color: 'var(--tx, oklch(0.95 0.02 90))',
                           }}
                         >
                           {'Lv '}
@@ -419,9 +422,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             height: '36px',
                             flex: 'none',
                             borderRadius: '999px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             background: 'var(--panel)',
-                            color: 'var(--tx, oklch(0.94 0.008 80))',
+                            color: 'var(--tx, oklch(0.95 0.02 90))',
                             font: "600 16px/1 'IBM Plex Mono',monospace",
                             cursor: 'pointer',
                           }}
@@ -445,9 +448,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             height: '36px',
                             flex: 'none',
                             borderRadius: '999px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             background: 'var(--panel)',
-                            color: 'var(--tx, oklch(0.94 0.008 80))',
+                            color: 'var(--tx, oklch(0.95 0.02 90))',
                             font: "600 16px/1 'IBM Plex Mono',monospace",
                             cursor: 'pointer',
                           }}
@@ -463,7 +466,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           alignItems: 'center',
                           gap: '8px',
                           fontSize: '12px',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         }}
                       >
                         Recruited class
@@ -481,14 +484,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           boxSizing: 'border-box',
                           padding: '8px 12px',
                           borderRadius: '999px',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'var(--panel)',
-                          color: 'var(--tx, oklch(0.94 0.008 80))',
+                          color: 'var(--tx, oklch(0.95 0.02 90))',
                           fontWeight: '600',
                           cursor: 'pointer',
                           textAlign: 'left',
                         }}
-                        className="hv-5"
+                        className="hv-2"
                       >
                         <span
                           style={{
@@ -501,7 +504,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         >
                           {T(v.rkVal)}
                         </span>
-                        <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))', fontSize: '10px' }}>▾</span>
+                        <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))', fontSize: '10px' }}>▾</span>
                       </button>
                     </div>
                   </div>
@@ -520,9 +523,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   flexDirection: 'column',
                   gap: '16px',
                   padding: '20px',
-                  borderRadius: 'var(--r, 14px)',
-                  background: 'var(--panel, oklch(0.2 0.01 60))',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  borderRadius: 'var(--r, 10px)',
+                  background: 'var(--panel, oklch(0.245 0.05 165))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 } as CSSProperties
               }
             >
@@ -535,17 +538,17 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     font: "500 10px/1 'IBM Plex Mono',monospace",
                     letterSpacing: '.14em',
                     textTransform: 'uppercase',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                   }}
                 >
                   <span style={{ display: 'flex', alignItems: 'center' }}>Class path</span>
                   <span
                     style={{
                       marginLeft: 'auto',
-                      font: "600 13px/1 'IBM Plex Mono',monospace",
+                      font: "600 12px/1 'IBM Plex Mono',monospace",
                       letterSpacing: '0',
                       textTransform: 'none',
-                      color: 'var(--tx, oklch(0.94 0.008 80))',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                     }}
                   >
                     {'Lv '}
@@ -563,18 +566,18 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           gap: '10px',
                           alignItems: 'center',
                           padding: '9px 12px',
-                          borderRadius: '10px',
-                          border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                           borderLeft: `4px solid ${str(s?.tc)}`,
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         } as CSSProperties
                       }
                     >
                       <span style={{ font: "600 11px/1 'IBM Plex Mono',monospace" }}>{T(s?.idx)}</span>
-                      <span style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: '0' }}>
+                      <span style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '0' }}>
                         {s?.first ? (
                           <>
-                            <span style={{ fontWeight: '600', color: 'var(--tx, oklch(0.94 0.008 80))' }}>
+                            <span style={{ fontWeight: '600', color: 'var(--tx, oklch(0.95 0.02 90))' }}>
                               {T(s?.k)}
                             </span>
                           </>
@@ -593,14 +596,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 boxSizing: 'border-box',
                                 padding: '8px 12px',
                                 borderRadius: '999px',
-                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                 background: 'var(--panel)',
-                                color: 'var(--tx, oklch(0.94 0.008 80))',
+                                color: 'var(--tx, oklch(0.95 0.02 90))',
                                 fontWeight: '600',
                                 cursor: 'pointer',
                                 textAlign: 'left',
                               }}
-                              className="hv-5"
+                              className="hv-2"
                             >
                               <span
                                 style={{
@@ -613,7 +616,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               >
                                 {T(s?.k)}
                               </span>
-                              <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))', fontSize: '10px' }}>▾</span>
+                              <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))', fontSize: '10px' }}>▾</span>
                             </button>
                           </>
                         ) : null}
@@ -626,7 +629,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               style={{
                                 padding: '8px 12px',
                                 borderRadius: '999px',
-                                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                 background: 'var(--panel)',
                                 width: '100%',
                                 maxWidth: '100%',
@@ -636,7 +639,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             >
                               {L(s?.mOpts).map((o: any, $index: number) => (
                                 <Fragment key={$index}>
-                                  <option value={o ?? ''}>{T(o)}</option>
+                                  <option value={o ?? ''}>{str(o)}</option>
                                 </Fragment>
                               ))}
                             </select>
@@ -659,7 +662,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 borderRadius: '999px',
                                 background: str(s?.tc),
                                 color: 'oklch(0.18 0.01 60)',
-                                letterSpacing: '.06em',
+                                letterSpacing: '.12em',
                               } as CSSProperties
                             }
                           >
@@ -699,16 +702,16 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       flexDirection: 'column',
                       gap: '10px',
                       padding: '12px',
-                      borderRadius: '10px',
-                      border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                      borderRadius: 'var(--r, 10px)',
+                      border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                       borderLeft: `4px solid ${str(v.curTc)}`,
-                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                     } as CSSProperties
                   }
                 >
                   <div style={{ display: 'grid', gridTemplateColumns: '22px 1fr', gap: '10px', alignItems: 'center' }}>
                     <span
-                      style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.8 0.11 75))' }}
+                      style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.82 0.12 85))' }}
                     >
                       {T(v.curIdx)}
                     </span>
@@ -723,7 +726,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               font: "500 10px/1 'IBM Plex Mono',monospace",
                               letterSpacing: '.12em',
                               textTransform: 'uppercase',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             }}
                           >
                             Initial
@@ -745,14 +748,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             boxSizing: 'border-box',
                             padding: '8px 12px',
                             borderRadius: '999px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             background: 'var(--panel)',
-                            color: 'var(--tx, oklch(0.94 0.008 80))',
+                            color: 'var(--tx, oklch(0.95 0.02 90))',
                             fontWeight: '600',
                             cursor: 'pointer',
                             textAlign: 'left',
                           }}
-                          className="hv-5"
+                          className="hv-2"
                         >
                           <span
                             style={{
@@ -765,7 +768,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           >
                             {T(v.curK)}
                           </span>
-                          <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))', fontSize: '10px' }}>▾</span>
+                          <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))', fontSize: '10px' }}>▾</span>
                         </button>
                       </>
                     ) : null}
@@ -796,7 +799,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <span
                           style={{
                             font: "500 10px/1 'IBM Plex Mono',monospace",
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           Mnt
@@ -811,14 +814,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             boxSizing: 'border-box',
                             padding: '8px 12px',
                             borderRadius: '999px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             background: 'var(--panel)',
                             fontWeight: '600',
                           }}
                         >
                           {L(v.mountOpts).map((o: any, $index: number) => (
                             <Fragment key={$index}>
-                              <option value={o ?? ''}>{T(o)}</option>
+                              <option value={o ?? ''}>{str(o)}</option>
                             </Fragment>
                           ))}
                         </select>
@@ -830,7 +833,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       display: 'flex',
                       justifyContent: 'space-between',
                       font: "500 11px/1 'IBM Plex Mono',monospace",
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -841,7 +844,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             borderRadius: '999px',
                             background: str(v.curTc),
                             color: 'oklch(0.18 0.01 60)',
-                            letterSpacing: '.06em',
+                            letterSpacing: '.12em',
                             textTransform: 'uppercase',
                             fontSize: '10px',
                           } as CSSProperties
@@ -863,9 +866,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         height: '36px',
                         flex: 'none',
                         borderRadius: '999px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'var(--panel)',
-                        color: 'var(--tx, oklch(0.94 0.008 80))',
+                        color: 'var(--tx, oklch(0.95 0.02 90))',
                         font: "600 16px/1 'IBM Plex Mono',monospace",
                         cursor: 'pointer',
                       }}
@@ -887,9 +890,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         height: '36px',
                         flex: 'none',
                         borderRadius: '999px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'var(--panel)',
-                        color: 'var(--tx, oklch(0.94 0.008 80))',
+                        color: 'var(--tx, oklch(0.95 0.02 90))',
                         font: "600 16px/1 'IBM Plex Mono',monospace",
                         cursor: 'pointer',
                       }}
@@ -899,7 +902,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     <span
                       style={{
                         font: "500 11px/1 'IBM Plex Mono',monospace",
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         whiteSpace: 'nowrap',
                       }}
                     >
@@ -910,6 +913,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     {L(v.tierJumps).map((j: any, $index: number) => (
                       <Fragment key={$index}>
                         <button
+                          data-hit="1"
                           onClick={j?.click}
                           title={j?.tip}
                           style={
@@ -918,7 +922,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               borderRadius: '999px',
                               border: `1px solid ${str(j?.bd)}`,
                               background: str(j?.bg),
-                              color: 'var(--tx, oklch(0.94 0.008 80))',
+                              color: 'var(--tx, oklch(0.95 0.02 90))',
                               font: "500 11px/1 'IBM Plex Mono',monospace",
                               cursor: 'pointer',
                               opacity: str(j?.op),
@@ -935,6 +939,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   {v.canAdd ? (
                     <>
                       <button
+                        data-hit="1"
                         onClick={v.addStage}
                         style={{
                           flex: '1 1 auto',
@@ -942,7 +947,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           whiteSpace: 'nowrap',
                           padding: '7px 12px',
                           borderRadius: '999px',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'transparent',
                           cursor: 'pointer',
                           fontSize: '12px',
@@ -956,6 +961,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   {v.canUndo ? (
                     <>
                       <button
+                        data-hit="1"
                         onClick={v.undoStage}
                         style={{
                           flex: '0 1 auto',
@@ -963,14 +969,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           whiteSpace: 'nowrap',
                           padding: '7px 12px',
                           borderRadius: '999px',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                          background: 'var(--panel, oklch(0.245 0.05 165))',
                           cursor: 'pointer',
                           fontSize: '12px',
                           fontWeight: '600',
-                          color: 'var(--tx, oklch(0.94 0.008 80))',
+                          color: 'var(--tx, oklch(0.95 0.02 90))',
                         }}
-                        className="hv-5"
+                        className="hv-2"
                       >
                         Undo class
                       </button>
@@ -992,9 +998,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       flexDirection: 'column',
                       gap: '16px',
                       padding: '20px',
-                      borderRadius: 'var(--r, 14px)',
-                      background: 'var(--panel, oklch(0.2 0.01 60))',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      borderRadius: 'var(--r, 10px)',
+                      background: 'var(--panel, oklch(0.245 0.05 165))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     } as CSSProperties
                   }
                 >
@@ -1003,7 +1009,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       font: "500 10px/1 'IBM Plex Mono',monospace",
                       letterSpacing: '.14em',
                       textTransform: 'uppercase',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Paired abilities
@@ -1011,7 +1017,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   {v.mntAbHas ? (
                     <>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                        <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                        <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                           {T(v.mntName)}
                           {' · Paired abilities'}
                         </span>
@@ -1036,7 +1042,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 cursor: 'pointer',
                               } as CSSProperties
                             }
-                            className="hv-8"
+                            className="hv-6"
                           >
                             <span style={{ fontWeight: '600', fontSize: '12px' }}>No skill</span>
                           </div>
@@ -1070,13 +1076,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                             padding: '6px 8px',
                                             minWidth: '0',
                                             overflow: 'hidden',
-                                            borderRadius: '10px',
+                                            borderRadius: 'var(--r, 10px)',
                                             border: `1px solid ${str(a?.bd)}`,
                                             background: str(a?.bg),
                                             cursor: 'pointer',
                                           } as CSSProperties
                                         }
-                                        className="hv-8"
+                                        className="hv-6"
                                       >
                                         <span
                                           style={
@@ -1145,9 +1151,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   flexDirection: 'column',
                   gap: '12px',
                   padding: '20px',
-                  borderRadius: 'var(--r, 14px)',
-                  background: 'var(--panel, oklch(0.2 0.01 60))',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  borderRadius: 'var(--r, 10px)',
+                  background: 'var(--panel, oklch(0.245 0.05 165))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 } as CSSProperties
               }
             >
@@ -1156,7 +1162,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 Inventory
@@ -1170,8 +1176,8 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       gap: '2px',
                       padding: '3px',
                       borderRadius: '8px',
-                      background: 'var(--bg, oklch(0.16 0.01 60))',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      background: 'var(--bg, oklch(0.2 0.045 165))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       alignSelf: 'flex-start',
                       maxWidth: '100%',
                     }}
@@ -1195,7 +1201,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               flexDirection: 'column',
                               alignItems: 'center',
                               justifyContent: 'center',
-                              gap: '3px',
+                              gap: '4px',
                             } as CSSProperties
                           }
                         >
@@ -1245,13 +1251,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                   justifyContent: 'space-between',
                                   gap: '4px 8px',
                                   padding: '8px 10px',
-                                  borderRadius: '10px',
+                                  borderRadius: 'var(--r, 10px)',
                                   border: `1px ${str(g?.bs)} ${str(g?.bd)}`,
                                   background: str(g?.bg),
                                   cursor: 'help',
                                 } as CSSProperties
                               }
-                              className="hv-9"
+                              className="hv-7"
                             >
                               <span style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: '0' }}>
                                 <span
@@ -1267,7 +1273,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 ></span>
                                 <span
                                   style={
-                                    { fontWeight: str(g?.nw), fontSize: '13px', color: str(g?.nc) } as CSSProperties
+                                    { fontWeight: str(g?.nw), fontSize: '14px', color: str(g?.nc) } as CSSProperties
                                   }
                                 >
                                   {T(a?.n)}
@@ -1278,7 +1284,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                   font: "500 10px/1 'IBM Plex Mono',monospace",
                                   letterSpacing: '.12em',
                                   textTransform: 'uppercase',
-                                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                                  color: 'var(--mu, oklch(0.78 0.035 120))',
                                 }}
                               >
                                 {T(a?.t)}
@@ -1289,7 +1295,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                   fontSize: '12px',
                                   lineHeight: '1.4',
                                   textWrap: 'pretty',
-                                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                                  color: 'var(--mu, oklch(0.78 0.035 120))',
                                 }}
                               >
                                 {T(a?.e)}
@@ -1302,7 +1308,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   ))}
                   {v.clsNone ? (
                     <>
-                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                         No class abilities.
                       </span>
                     </>
@@ -1315,7 +1321,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       alignItems: 'center',
                       gap: '8px',
                       fontSize: '12px',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Abilities
@@ -1332,9 +1338,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             background: 'transparent',
                             cursor: 'pointer',
                             fontSize: '12px',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
-                          className="hv-6"
+                          className="hv-4"
                         >
                           Clear
                         </button>
@@ -1366,13 +1372,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             alignItems: 'center',
                             gap: '8px',
                             padding: '8px 10px',
-                            borderRadius: '10px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                            borderRadius: 'var(--r, 10px)',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
                             cursor: 'pointer',
                           } as CSSProperties
                         }
-                        className="hv-5"
+                        className="hv-2"
                       >
                         <span
                           style={
@@ -1391,7 +1397,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           <span
                             style={{
                               fontWeight: '600',
-                              fontSize: '13px',
+                              fontSize: '14px',
                               alignSelf: 'flex-start',
                               borderBottom: '1px dotted var(--ac, oklch(0.82 0.12 85))',
                             }}
@@ -1403,7 +1409,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               {
                                 display: str(a?.wd),
                                 font: "500 11px/1.3 'IBM Plex Mono',monospace",
-                                color: 'var(--ac, oklch(0.8 0.11 75))',
+                                color: 'var(--ac, oklch(0.82 0.12 85))',
                               } as CSSProperties
                             }
                           >
@@ -1414,13 +1420,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               fontSize: '12px',
                               lineHeight: '1.4',
                               textWrap: 'pretty',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             }}
                           >
                             {T(a?.e)}
                           </span>
                         </span>
                         <button
+                          data-hit="1"
                           onClick={a?.rm}
                           title="Remove"
                           aria-label={`Remove ${str(a?.n)}`}
@@ -1432,10 +1439,10 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               borderRadius: '50%',
                               background: 'transparent',
                               cursor: 'pointer',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             } as CSSProperties
                           }
-                          className="hv-6"
+                          className="hv-4"
                         >
                           ×
                         </button>
@@ -1444,7 +1451,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   ))}
                   {v.abFull ? (
                     <>
-                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                         Ability slots full — remove one to add another.
                       </span>
                     </>
@@ -1457,15 +1464,15 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           width: '100%',
                           boxSizing: 'border-box',
                           padding: '10px 12px',
-                          borderRadius: '10px',
-                          border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'transparent',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           cursor: 'pointer',
-                          fontSize: '13px',
+                          fontSize: '14px',
                           fontWeight: '600',
                         }}
-                        className="hv-10"
+                        className="hv-8"
                       >
                         + Add ability…
                       </button>
@@ -1479,7 +1486,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       alignItems: 'center',
                       gap: '8px',
                       fontSize: '12px',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Combat arts
@@ -1496,9 +1503,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             background: 'transparent',
                             cursor: 'pointer',
                             fontSize: '12px',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
-                          className="hv-6"
+                          className="hv-4"
                         >
                           Clear
                         </button>
@@ -1531,13 +1538,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             alignItems: 'stretch',
                             gap: '6px',
                             padding: '8px 10px',
-                            borderRadius: '10px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                            borderRadius: 'var(--r, 10px)',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
                             cursor: 'pointer',
                           } as CSSProperties
                         }
-                        className="hv-5"
+                        className="hv-2"
                       >
                         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                           <span
@@ -1565,7 +1572,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             <span
                               style={{
                                 fontWeight: '600',
-                                fontSize: '13px',
+                                fontSize: '14px',
                                 borderBottom: '1px dotted var(--ac, oklch(0.82 0.12 85))',
                               }}
                             >
@@ -1576,13 +1583,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 font: "500 10px/1 'IBM Plex Mono',monospace",
                                 letterSpacing: '.12em',
                                 textTransform: 'uppercase',
-                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
                               }}
                             >
                               {T(a?.c)}
                             </span>
                           </span>
                           <button
+                            data-hit="1"
                             onClick={a?.rm}
                             title="Remove"
                             aria-label={`Remove ${str(a?.n)}`}
@@ -1594,10 +1602,10 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 borderRadius: '50%',
                                 background: 'transparent',
                                 cursor: 'pointer',
-                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
                               } as CSSProperties
                             }
-                            className="hv-6"
+                            className="hv-4"
                           >
                             ×
                           </button>
@@ -1607,7 +1615,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             fontSize: '12px',
                             lineHeight: '1.4',
                             textWrap: 'pretty',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           {T(a?.e)}
@@ -1628,8 +1636,8 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           alignItems: 'stretch',
                           gap: '6px',
                           padding: '8px 10px',
-                          borderRadius: '10px',
-                          border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'transparent',
                           cursor: 'help',
                         }}
@@ -1657,13 +1665,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               textAlign: 'left',
                             }}
                           >
-                            <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(a?.n)}</span>
+                            <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(a?.n)}</span>
                             <span
                               style={{
                                 font: "400 10px/1 'IBM Plex Mono',monospace",
                                 letterSpacing: '.12em',
                                 textTransform: 'uppercase',
-                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
                               }}
                             >
                               {'From '}
@@ -1676,7 +1684,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             {
                               display: str(a?.stDisp),
                               font: "500 11px/1.3 'IBM Plex Mono',monospace",
-                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                              color: 'var(--ac, oklch(0.82 0.12 85))',
                             } as CSSProperties
                           }
                         >
@@ -1687,7 +1695,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             fontSize: '12px',
                             lineHeight: '1.4',
                             textWrap: 'pretty',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           {T(a?.e)}
@@ -1697,7 +1705,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   ))}
                   {v.caFull ? (
                     <>
-                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                         Combat art slots full — remove one to add another.
                       </span>
                     </>
@@ -1710,15 +1718,15 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           width: '100%',
                           boxSizing: 'border-box',
                           padding: '10px 12px',
-                          borderRadius: '10px',
-                          border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'transparent',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           cursor: 'pointer',
-                          fontSize: '13px',
+                          fontSize: '14px',
                           fontWeight: '600',
                         }}
-                        className="hv-10"
+                        className="hv-8"
                       >
                         + Add combat art…
                       </button>
@@ -1732,12 +1740,12 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       alignItems: 'center',
                       gap: '8px',
                       fontSize: '12px',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Items
                     <span style={{ font: "500 10px/1 'IBM Plex Mono',monospace", letterSpacing: '.12em' }}>
-                      {T(v.itCount)}
+                      {T(v.itN)}
                     </span>
                     {v.itHas ? (
                       <>
@@ -1749,9 +1757,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             background: 'transparent',
                             cursor: 'pointer',
                             fontSize: '12px',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
-                          className="hv-6"
+                          className="hv-4"
                         >
                           Clear
                         </button>
@@ -1767,7 +1775,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         onDragOver={a?.dOver}
                         onDrop={a?.dDrop}
                         onDragEnd={a?.dEnd}
-                        title="Drag to reorder — first weapon is the equipped one"
+                        title="Drag to reorder"
                         onMouseEnter={a?.enter}
                         onMouseLeave={a?.leave}
                         onClick={a?.open}
@@ -1783,13 +1791,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             alignItems: 'center',
                             gap: '8px',
                             padding: '8px 10px',
-                            borderRadius: '10px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                            borderRadius: 'var(--r, 10px)',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
                             cursor: 'pointer',
                           } as CSSProperties
                         }
-                        className="hv-5"
+                        className="hv-2"
                       >
                         <span
                           data-tip="1"
@@ -1814,7 +1822,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         >
                           <span style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
                             <span
-                              style={{ fontWeight: '600', fontSize: '13px', opacity: str(a?.eqDim) } as CSSProperties}
+                              style={{ fontWeight: '600', fontSize: '14px', opacity: str(a?.eqDim) } as CSSProperties}
                             >
                               {T(a?.n)}
                             </span>
@@ -1823,36 +1831,67 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 font: "500 10px/1 'IBM Plex Mono',monospace",
                                 letterSpacing: '.12em',
                                 textTransform: 'uppercase',
-                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
                               }}
                             >
                               {T(a?.c)}
                             </span>
                           </span>
-                          <span
-                            style={
-                              {
-                                font: "600 10px/1 'IBM Plex Mono',monospace",
-                                letterSpacing: '.12em',
-                                textTransform: 'uppercase',
-                                color: str(a?.eqCol),
-                              } as CSSProperties
-                            }
-                          >
-                            {T(a?.eq)}
-                          </span>
+                          {a?.noEq ? (
+                            <>
+                              <span
+                                style={
+                                  {
+                                    font: "600 10px/1 'IBM Plex Mono',monospace",
+                                    letterSpacing: '.12em',
+                                    textTransform: 'uppercase',
+                                    color: str(a?.eqCol),
+                                  } as CSSProperties
+                                }
+                              >
+                                {T(a?.eq)}
+                              </span>
+                            </>
+                          ) : null}
+                          {a?.canEq ? (
+                            <>
+                              <button
+                                data-hit="1"
+                                onClick={a?.eqGo}
+                                aria-pressed={a?.eqOn}
+                                style={
+                                  {
+                                    alignSelf: 'flex-start',
+                                    transition: 'color .22s ease,border-color .22s ease',
+                                    padding: '4px 10px',
+                                    borderRadius: '999px',
+                                    border: `1px solid ${str(a?.eqBb)}`,
+                                    background: 'transparent',
+                                    color: str(a?.eqBfg),
+                                    cursor: 'pointer',
+                                    font: "600 10px/1 'IBM Plex Mono',monospace",
+                                    letterSpacing: '.12em',
+                                    textTransform: 'uppercase',
+                                  } as CSSProperties
+                                }
+                              >
+                                {T(a?.eqBtn)}
+                              </button>
+                            </>
+                          ) : null}
                           <span
                             style={{
                               fontSize: '12px',
                               lineHeight: '1.4',
                               textWrap: 'pretty',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             }}
                           >
                             {T(a?.e)}
                           </span>
                         </span>
                         <button
+                          data-hit="1"
                           onClick={a?.rm}
                           title="Remove"
                           aria-label={`Remove ${str(a?.n)}`}
@@ -1864,10 +1903,10 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               borderRadius: '50%',
                               background: 'transparent',
                               cursor: 'pointer',
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             } as CSSProperties
                           }
-                          className="hv-6"
+                          className="hv-4"
                         >
                           ×
                         </button>
@@ -1876,7 +1915,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   ))}
                   {v.itFull ? (
                     <>
-                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                         Item slots full — remove one to add another.
                       </span>
                     </>
@@ -1889,17 +1928,227 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           width: '100%',
                           boxSizing: 'border-box',
                           padding: '10px 12px',
-                          borderRadius: '10px',
-                          border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'transparent',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           cursor: 'pointer',
-                          fontSize: '13px',
+                          fontSize: '14px',
                           fontWeight: '600',
                         }}
-                        className="hv-10"
+                        className="hv-8"
                       >
                         + Add item…
+                      </button>
+                    </>
+                  ) : null}
+                </div>
+                <div style={{ display: str(v.invD?.mg), flexDirection: 'column', gap: '8px' } as CSSProperties}>
+                  <span
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      fontSize: '12px',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
+                    }}
+                  >
+                    Magic
+                    <span style={{ font: "500 10px/1 'IBM Plex Mono',monospace", letterSpacing: '.12em' }}>
+                      {T(v.mgN)}
+                    </span>
+                    {v.mgHas ? (
+                      <>
+                        <button
+                          onClick={v.mgClear}
+                          style={{
+                            marginLeft: 'auto',
+                            border: '0',
+                            background: 'transparent',
+                            cursor: 'pointer',
+                            fontSize: '12px',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
+                          }}
+                          className="hv-4"
+                        >
+                          Clear
+                        </button>
+                      </>
+                    ) : null}
+                  </span>
+                  {L(v.mgSel).map((a: any, $index: number) => (
+                    <Fragment key={$index}>
+                      <div
+                        data-tip="1"
+                        draggable={a?.drg}
+                        onDragStart={a?.dStart}
+                        onDragOver={a?.dOver}
+                        onDrop={a?.dDrop}
+                        onDragEnd={a?.dEnd}
+                        title="Drag to reorder"
+                        onMouseEnter={a?.enter}
+                        onMouseLeave={a?.leave}
+                        onClick={a?.open}
+                        data-fk={a?.fk}
+                        style={
+                          {
+                            animation: 'wcBuildIn .28s cubic-bezier(.2,.8,.2,1)',
+                            opacity: str(a?.dim),
+                            scale: str(a?.dsc),
+                            transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
+                            boxShadow: str(a?.sh),
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '8px 10px',
+                            borderRadius: 'var(--r, 10px)',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
+                            cursor: 'pointer',
+                          } as CSSProperties
+                        }
+                        className="hv-2"
+                      >
+                        <span
+                          data-tip="1"
+                          onMouseEnter={a?.skEnter}
+                          onMouseLeave={a?.skLeave}
+                          onClick={a?.skClick}
+                          style={
+                            {
+                              display: str(a?.skD),
+                              flex: 'none',
+                              width: '32px',
+                              height: '32px',
+                              borderRadius: '6px',
+                              background: str(a?.skBgi),
+                              opacity: str(a?.eqDim),
+                              cursor: 'help',
+                            } as CSSProperties
+                          }
+                        ></span>
+                        <span
+                          style={{ display: 'flex', flexDirection: 'column', gap: '2px', minWidth: '0', flex: '1' }}
+                        >
+                          <span style={{ display: 'flex', alignItems: 'baseline', gap: '8px', flexWrap: 'wrap' }}>
+                            <span
+                              style={{ fontWeight: '600', fontSize: '14px', opacity: str(a?.eqDim) } as CSSProperties}
+                            >
+                              {T(a?.n)}
+                            </span>
+                            <span
+                              style={{
+                                font: "500 10px/1 'IBM Plex Mono',monospace",
+                                letterSpacing: '.12em',
+                                textTransform: 'uppercase',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
+                              }}
+                            >
+                              {T(a?.c)}
+                            </span>
+                          </span>
+                          {a?.noEq ? (
+                            <>
+                              <span
+                                style={
+                                  {
+                                    font: "600 10px/1 'IBM Plex Mono',monospace",
+                                    letterSpacing: '.12em',
+                                    textTransform: 'uppercase',
+                                    color: str(a?.eqCol),
+                                  } as CSSProperties
+                                }
+                              >
+                                {T(a?.eq)}
+                              </span>
+                            </>
+                          ) : null}
+                          {a?.canEq ? (
+                            <>
+                              <button
+                                data-hit="1"
+                                onClick={a?.eqGo}
+                                aria-pressed={a?.eqOn}
+                                style={
+                                  {
+                                    alignSelf: 'flex-start',
+                                    transition: 'color .22s ease,border-color .22s ease',
+                                    padding: '4px 10px',
+                                    borderRadius: '999px',
+                                    border: `1px solid ${str(a?.eqBb)}`,
+                                    background: 'transparent',
+                                    color: str(a?.eqBfg),
+                                    cursor: 'pointer',
+                                    font: "600 10px/1 'IBM Plex Mono',monospace",
+                                    letterSpacing: '.12em',
+                                    textTransform: 'uppercase',
+                                  } as CSSProperties
+                                }
+                              >
+                                {T(a?.eqBtn)}
+                              </button>
+                            </>
+                          ) : null}
+                          <span
+                            style={{
+                              fontSize: '12px',
+                              lineHeight: '1.4',
+                              textWrap: 'pretty',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                            }}
+                          >
+                            {T(a?.e)}
+                          </span>
+                        </span>
+                        <button
+                          data-hit="1"
+                          onClick={a?.rm}
+                          title="Remove"
+                          aria-label={`Remove ${str(a?.n)}`}
+                          style={
+                            {
+                              width: str(v.tk24),
+                              height: str(v.tk24),
+                              border: '0',
+                              borderRadius: '50%',
+                              background: 'transparent',
+                              cursor: 'pointer',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
+                            } as CSSProperties
+                          }
+                          className="hv-4"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </Fragment>
+                  ))}
+                  {v.itFull ? (
+                    <>
+                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
+                        Inventory full — remove one to add another.
+                      </span>
+                    </>
+                  ) : null}
+                  {v.itCanAdd ? (
+                    <>
+                      <button
+                        onClick={v.openMg}
+                        style={{
+                          width: '100%',
+                          boxSizing: 'border-box',
+                          padding: '10px 12px',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
+                          background: 'transparent',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
+                          cursor: 'pointer',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                        }}
+                        className="hv-8"
+                      >
+                        + Add magic…
                       </button>
                     </>
                   ) : null}
@@ -1918,14 +2167,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 flexDirection: 'column',
                 gap: '10px',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               } as CSSProperties
             }
           >
             <label style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>Build name</span>
+              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>Build name</span>
               <input
                 value={v.bnameVal ?? ''}
                 onChange={v.onBname}
@@ -1948,13 +2197,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 style={{
                   padding: '7px 12px',
                   borderRadius: '999px',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   background: 'transparent',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                   fontWeight: '600',
                   cursor: 'pointer',
                 }}
-                className="hv-6"
+                className="hv-4"
               >
                 Reset
               </button>
@@ -1970,7 +2219,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 {v.saveNewOn ? (
                   <>
                     <span
-                      style={{ font: "500 11px/1 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.8 0.11 75))' }}
+                      style={{ font: "500 11px/1 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.82 0.12 85))' }}
                     >
                       ● Unsaved changes
                     </span>
@@ -1983,13 +2232,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       style={{
                         padding: '7px 12px',
                         borderRadius: '999px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--tx, #eee)',
+                        color: 'var(--tx, oklch(0.95 0.02 90))',
                         fontWeight: '600',
                         cursor: 'pointer',
                       }}
-                      className="hv-11"
+                      className="hv-1"
                     >
                       Save as new build
                     </button>
@@ -2001,7 +2250,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     {
                       padding: '9px 16px',
                       borderRadius: '999px',
-                      border: '1px solid var(--ac, oklch(0.8 0.11 75))',
+                      border: '1px solid var(--ac, oklch(0.82 0.12 85))',
                       background: str(v.saveBg),
                       color: str(v.saveFg),
                       fontWeight: '600',
@@ -2024,11 +2273,11 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 minWidth: '0',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '14px',
+                gap: '12px',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               } as CSSProperties
             }
           >
@@ -2046,15 +2295,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 Per-stat breakdown
               </span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span
-                  style={{ font: "600 12px/1 'IBM Plex Mono',monospace", color: 'var(--tx, oklch(0.94 0.008 80))' }}
-                >
+                <span style={{ font: "600 12px/1 'IBM Plex Mono',monospace", color: 'var(--tx, oklch(0.95 0.02 90))' }}>
                   {'Lv '}
                   {T(v.calcLv)}
                 </span>
@@ -2102,11 +2349,11 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 {
                   display: str(v.infoD),
                   flexWrap: 'wrap',
-                  gap: '6px 14px',
+                  gap: '6px 12px',
                   font: "500 10px/1 'IBM Plex Mono',monospace",
-                  letterSpacing: '.04em',
+                  letterSpacing: '.12em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 } as CSSProperties
               }
             >
@@ -2115,15 +2362,15 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   style={{
                     width: '10px',
                     height: '10px',
-                    borderRadius: '3px',
-                    background: 'var(--ac, oklch(0.8 0.11 75))',
+                    borderRadius: '4px',
+                    background: 'var(--ac, oklch(0.82 0.12 85))',
                   }}
                 ></span>
                 Character
               </span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span
-                  style={{ width: '10px', height: '10px', borderRadius: '3px', background: 'oklch(0.74 0.1 185)' }}
+                  style={{ width: '10px', height: '10px', borderRadius: '4px', background: 'oklch(0.74 0.1 185)' }}
                 ></span>
                 Class
               </span>
@@ -2131,7 +2378,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 <>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span
-                      style={{ width: '10px', height: '10px', borderRadius: '3px', background: 'oklch(0.74 0.1 300)' }}
+                      style={{ width: '10px', height: '10px', borderRadius: '4px', background: 'oklch(0.74 0.1 300)' }}
                     ></span>
                     Mount
                   </span>
@@ -2141,7 +2388,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 <>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <span
-                      style={{ width: '10px', height: '10px', borderRadius: '3px', background: 'oklch(0.78 0.12 150)' }}
+                      style={{ width: '10px', height: '10px', borderRadius: '4px', background: 'oklch(0.78 0.12 150)' }}
                     ></span>
                     Bonus
                   </span>
@@ -2149,7 +2396,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               ) : null}
               <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span
-                  style={{ width: '10px', height: '10px', borderRadius: '3px', background: 'oklch(0.74 0.12 30)' }}
+                  style={{ width: '10px', height: '10px', borderRadius: '4px', background: 'oklch(0.74 0.12 30)' }}
                 ></span>
                 Negative
               </span>
@@ -2164,14 +2411,16 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         justifyContent: 'flex-end',
                         gap: '6px',
                         font: "500 10px/1 'IBM Plex Mono',monospace",
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         textTransform: 'uppercase',
-                        letterSpacing: '.04em',
+                        letterSpacing: '.12em',
                       } as CSSProperties
                     }
                   >
                     <span style={{ width: '30px', textAlign: 'right' }}>Low</span>
-                    <span style={{ width: '40px', textAlign: 'center', color: 'var(--tx, #eee)' }}>Avg</span>
+                    <span style={{ width: '40px', textAlign: 'center', color: 'var(--tx, oklch(0.95 0.02 90))' }}>
+                      Avg
+                    </span>
                     <span style={{ width: '30px', textAlign: 'left' }}>High</span>
                   </div>
                   <div
@@ -2181,9 +2430,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         flexWrap: 'wrap',
                         gap: '8px 10px',
                         font: "500 10px/1 'IBM Plex Mono',monospace",
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         textTransform: 'uppercase',
-                        letterSpacing: '.04em',
+                        letterSpacing: '.12em',
                       } as CSSProperties
                     }
                   >
@@ -2219,7 +2468,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       ) : null}
                       {v.hasMn ? (
                         <>
-                          <span style={{ textAlign: 'right', color: 'var(--ac, oklch(0.8 0.11 75))' }}>Min</span>
+                          <span style={{ textAlign: 'right', color: 'var(--ac, oklch(0.82 0.12 85))' }}>Min</span>
                         </>
                       ) : null}
                       <div
@@ -2233,7 +2482,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         }
                       >
                         <span style={{ textAlign: 'right' }}>Low</span>
-                        <span style={{ textAlign: 'center', color: 'var(--tx, #eee)' }}>Average</span>
+                        <span style={{ textAlign: 'center', color: 'var(--tx, oklch(0.95 0.02 90))' }}>Average</span>
                         <span style={{ textAlign: 'left' }}>High</span>
                       </div>
                     </div>
@@ -2259,7 +2508,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               width: '30px',
                               textAlign: 'right',
                               font: "500 12px/1 'IBM Plex Mono',monospace",
-                              color: 'oklch(0.72 0.1 28)',
+                              color: 'oklch(0.74 0.12 30)',
                               opacity: '.8',
                             }}
                           >
@@ -2270,7 +2519,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               width: '40px',
                               textAlign: 'center',
                               font: "600 18px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                              color: 'var(--ac, oklch(0.82 0.12 85))',
                             }}
                           >
                             {T(r?.proj)}
@@ -2296,7 +2545,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               position: 'relative',
                               height: '18px',
                               borderRadius: '4px',
-                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              background: 'var(--panel2, oklch(0.3 0.055 165))',
                               overflow: 'hidden',
                               display: 'flex',
                             } as CSSProperties
@@ -2316,7 +2565,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 color: 'oklch(0.18 0.01 60)',
                                 height: '100%',
                                 width: str(r?.wa),
-                                background: 'var(--ac, oklch(0.8 0.11 75))',
+                                background: 'var(--ac, oklch(0.82 0.12 85))',
                                 transition: 'width .3s',
                               } as CSSProperties
                             }
@@ -2380,7 +2629,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 height: '100%',
                                 width: str(r?.wn),
                                 background:
-                                  'repeating-linear-gradient(135deg,oklch(0.74 0.12 30) 0 4px,oklch(0.62 0.12 30) 4px 8px)',
+                                  'repeating-linear-gradient(135deg,oklch(0.74 0.12 30) 0 4px,oklch(0.74 0.12 30 / .55) 4px 8px)',
                                 transition: 'width .3s',
                               } as CSSProperties
                             }
@@ -2395,7 +2644,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                                 top: '-2px',
                                 bottom: '-2px',
                                 width: '1px',
-                                background: 'var(--mu, oklch(0.7 0.01 70))',
+                                background: 'var(--mu, oklch(0.78 0.035 120))',
                                 opacity: '.5',
                               } as CSSProperties
                             }
@@ -2413,7 +2662,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             } as CSSProperties
                           }
                         >
-                          <span style={{ font: "600 17px/1 'IBM Plex Mono',monospace", textAlign: 'right' }}>
+                          <span style={{ font: "600 16px/1 'IBM Plex Mono',monospace", textAlign: 'right' }}>
                             {T(r?.t)}%
                           </span>
                           <span></span>
@@ -2421,7 +2670,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             <>
                               <span
                                 style={{
-                                  font: "500 17px/1 'IBM Plex Mono',monospace",
+                                  font: "500 16px/1 'IBM Plex Mono',monospace",
                                   textAlign: 'right',
                                   color: 'oklch(0.74 0.1 300)',
                                 }}
@@ -2434,7 +2683,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             <>
                               <span
                                 style={{
-                                  font: "500 17px/1 'IBM Plex Mono',monospace",
+                                  font: "500 16px/1 'IBM Plex Mono',monospace",
                                   textAlign: 'right',
                                   color: 'oklch(0.74 0.1 185)',
                                 }}
@@ -2447,7 +2696,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             <>
                               <span
                                 style={{
-                                  font: "500 17px/1 'IBM Plex Mono',monospace",
+                                  font: "500 16px/1 'IBM Plex Mono',monospace",
                                   textAlign: 'right',
                                   color: 'oklch(0.78 0.12 150)',
                                 }}
@@ -2460,9 +2709,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             <>
                               <span
                                 style={{
-                                  font: "500 17px/1 'IBM Plex Mono',monospace",
+                                  font: "500 16px/1 'IBM Plex Mono',monospace",
                                   textAlign: 'right',
-                                  color: 'var(--ac, oklch(0.8 0.11 75))',
+                                  color: 'var(--ac, oklch(0.82 0.12 85))',
                                 }}
                               >
                                 {T(r?.mn)}
@@ -2482,9 +2731,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           >
                             <span
                               style={{
-                                font: "500 13px/1 'IBM Plex Mono',monospace",
+                                font: "500 12px/1 'IBM Plex Mono',monospace",
                                 textAlign: 'right',
-                                color: 'oklch(0.72 0.1 28)',
+                                color: 'oklch(0.74 0.12 30)',
                                 opacity: '.8',
                               }}
                             >
@@ -2492,16 +2741,16 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             </span>
                             <span
                               style={{
-                                font: "600 19px/1 'IBM Plex Mono',monospace",
+                                font: "600 16px/1 'IBM Plex Mono',monospace",
                                 textAlign: 'center',
-                                color: 'var(--ac, oklch(0.8 0.11 75))',
+                                color: 'var(--ac, oklch(0.82 0.12 85))',
                               }}
                             >
                               {T(r?.proj)}
                             </span>
                             <span
                               style={{
-                                font: "500 13px/1 'IBM Plex Mono',monospace",
+                                font: "500 12px/1 'IBM Plex Mono',monospace",
                                 textAlign: 'left',
                                 color: 'oklch(0.76 0.1 150)',
                                 opacity: '.8',
@@ -2520,7 +2769,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               flexWrap: 'wrap',
                               gap: '4px 12px',
                               font: "500 11px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             } as CSSProperties
                           }
                         >
@@ -2541,16 +2790,18 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       alignItems: 'baseline',
                       gap: '10px',
                       paddingTop: '10px',
-                      borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      borderTop: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     }}
                   >
                     <span style={{ width: '38px', font: "600 14px/1 'IBM Plex Mono',monospace" }}>Mov</span>
                     <span
-                      style={{ font: "600 19px/1 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.8 0.11 75))' }}
+                      style={{ font: "600 16px/1 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.82 0.12 85))' }}
                     >
                       {T(v.calcMov)}
                     </span>
-                    <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(v.calcMovNote)}</span>
+                    <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
+                      {T(v.calcMovNote)}
+                    </span>
                   </div>
                   {v.abNoteOn ? (
                     <>
@@ -2559,7 +2810,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           {
                             display: str(v.infoB),
                             fontSize: '12px',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                             textWrap: 'pretty',
                           } as CSSProperties
                         }
@@ -2585,9 +2836,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           flexDirection: 'column',
                           gap: '8px',
                           padding: '10px 12px',
-                          borderRadius: '10px',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                         }}
                       >
                         <span style={{ font: "600 12px/1 'IBM Plex Mono',monospace" }}>{T(r?.s)}</span>
@@ -2596,13 +2847,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         >
                           {L(r?.cells).map((x: any, $index: number) => (
                             <Fragment key={$index}>
-                              <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: '0' }}>
+                              <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '0' }}>
                                 <span
                                   style={{
                                     font: "500 10px/1 'IBM Plex Mono',monospace",
                                     letterSpacing: '.08em',
                                     textTransform: 'uppercase',
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
                                   }}
                                 >
                                   {T(x?.l)}
@@ -2643,8 +2894,8 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                             fontSize: '10px',
                             textTransform: 'uppercase',
                             letterSpacing: '.08em',
@@ -2660,7 +2911,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             fontWeight: '600',
                             textAlign: 'right',
                           }}
@@ -2670,9 +2921,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
-                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            color: 'var(--ac, oklch(0.82 0.12 85))',
                           }}
                         >
                           {T(r?.a)}
@@ -2680,7 +2931,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
                             color: 'oklch(0.74 0.1 185)',
                           }}
@@ -2690,7 +2941,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
                             color: 'oklch(0.74 0.1 300)',
                           }}
@@ -2700,7 +2951,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
                             color: 'oklch(0.78 0.12 150)',
                           }}
@@ -2710,7 +2961,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
                             fontWeight: '600',
                           }}
@@ -2720,7 +2971,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
                             color: 'oklch(0.74 0.1 185)',
                           }}
@@ -2730,9 +2981,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
-                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            color: 'var(--ac, oklch(0.82 0.12 85))',
                           }}
                         >
                           {T(r?.mn)}
@@ -2740,9 +2991,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           {T(r?.baseV)}
@@ -2750,7 +3001,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
                             color: 'oklch(0.74 0.12 30)',
                           }}
@@ -2760,9 +3011,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
-                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            color: 'var(--ac, oklch(0.82 0.12 85))',
                             fontWeight: '600',
                           }}
                         >
@@ -2771,7 +3022,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '10px 8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             textAlign: 'right',
                             color: 'oklch(0.78 0.12 150)',
                           }}
@@ -2789,12 +3040,12 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 {
                   display: str(v.infoG),
                   gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,200px),1fr))',
-                  gap: '14px',
+                  gap: '12px',
                   paddingTop: '14px',
-                  borderTop: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  borderTop: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   fontSize: '12px',
                   lineHeight: '1.45',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 } as CSSProperties
               }
             >
@@ -2804,7 +3055,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     font: "600 10px/1 'IBM Plex Mono',monospace",
                     letterSpacing: '.12em',
                     textTransform: 'uppercase',
-                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                   }}
                 >
                   Average
@@ -2817,7 +3068,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     font: "600 10px/1 'IBM Plex Mono',monospace",
                     letterSpacing: '.12em',
                     textTransform: 'uppercase',
-                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                   }}
                 >
                   Below / above avg
@@ -2833,7 +3084,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
         <div data-jump="b-saved" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', flexWrap: 'wrap' }}>
             <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>{T(v.buildsTitle)}</h2>
-            <span style={{ fontSize: '13px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+            <span style={{ fontSize: '14px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
               {T(v.buildsN)}
               {' saved · load one, or compare them side by side'}
             </span>
@@ -2845,8 +3096,8 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 gap: '2px',
                 padding: '3px',
                 borderRadius: '8px',
-                background: 'var(--bg, oklch(0.16 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                background: 'var(--bg, oklch(0.2 0.045 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               }}
             >
               <button
@@ -2858,7 +3109,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     border: '0',
                     borderRadius: '6px',
                     background: str(v.bAllBg),
-                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                     cursor: 'pointer',
                     fontSize: '12px',
                   } as CSSProperties
@@ -2875,7 +3126,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     border: '0',
                     borderRadius: '6px',
                     background: str(v.bRecBg),
-                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                     cursor: 'pointer',
                     fontSize: '12px',
                   } as CSSProperties
@@ -2892,7 +3143,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     border: '0',
                     borderRadius: '6px',
                     background: str(v.bStarBg),
-                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                     cursor: 'pointer',
                     fontSize: '12px',
                   } as CSSProperties
@@ -2910,7 +3161,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     border: '0',
                     borderRadius: '6px',
                     background: str(v.bOnlyBg),
-                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                     cursor: 'pointer',
                     fontSize: '12px',
                   } as CSSProperties
@@ -2933,12 +3184,13 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   boxSizing: 'border-box',
                   padding: '8px 36px 8px 12px',
                   borderRadius: '999px',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                  background: 'var(--panel, oklch(0.2 0.01 60))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                  background: 'var(--panel, oklch(0.245 0.05 165))',
                   outline: 'none',
                 }}
               />
               <button
+                data-hit="1"
                 onMouseDown={v.onBqClear}
                 title="Clear"
                 aria-label="Clear search"
@@ -2954,7 +3206,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     border: '0',
                     borderRadius: '50%',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     fontSize: '16px',
                     lineHeight: '1',
@@ -2965,15 +3217,16 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
               </button>
             </span>
             <button
+              data-hit="1"
               onClick={v.toggleCode}
               title="Create a build from a build code"
               style={{
                 marginLeft: 'auto',
                 padding: '7px 12px',
                 borderRadius: '999px',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 background: 'transparent',
-                color: 'var(--tx, oklch(0.94 0.008 80))',
+                color: 'var(--tx, oklch(0.95 0.02 90))',
                 cursor: 'pointer',
                 fontSize: '12px',
               }}
@@ -2992,9 +3245,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   alignItems: 'center',
                   flexWrap: 'wrap',
                   padding: '12px 14px',
-                  borderRadius: 'var(--r, 14px)',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                  background: 'var(--panel, oklch(0.2 0.01 60))',
+                  borderRadius: 'var(--r, 10px)',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                  background: 'var(--panel, oklch(0.245 0.05 165))',
                 }}
               >
                 <input
@@ -3010,7 +3263,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     borderRadius: '999px',
                     border: '1px solid var(--line)',
                     background: 'var(--panel)',
-                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                     font: "12px 'IBM Plex Mono',monospace",
                   }}
                 />
@@ -3020,7 +3273,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     padding: '9px 16px',
                     borderRadius: '999px',
                     border: '0',
-                    background: 'var(--ac, oklch(0.8 0.11 75))',
+                    background: 'var(--ac, oklch(0.82 0.12 85))',
                     color: 'oklch(0.18 0.01 60)',
                     fontWeight: '600',
                     cursor: 'pointer',
@@ -3028,7 +3281,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                 >
                   Create build
                 </button>
-                <span style={{ flexBasis: '100%', fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                <span style={{ flexBasis: '100%', fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                   {T(v.codeMsg)}
                 </span>
               </div>
@@ -3051,9 +3304,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       flexDirection: 'column',
                       gap: '8px',
                       padding: '12px 14px',
-                      borderRadius: 'var(--r, 14px)',
+                      borderRadius: 'var(--r, 10px)',
                       border: `1px solid ${str(b?.bd)}`,
-                      background: 'var(--panel, oklch(0.2 0.01 60))',
+                      background: 'var(--panel, oklch(0.245 0.05 165))',
                       opacity: str(b?.dim),
                       scale: str(b?.dsc),
                       transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
@@ -3071,7 +3324,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             display: str(v.cdd?.ic),
                             fontSize: '14px',
                             lineHeight: '1',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                             userSelect: 'none',
                           } as CSSProperties
                         }
@@ -3093,6 +3346,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     </span>
                     <span style={{ display: 'flex', gap: '0', margin: '-6px -8px -6px 0' }}>
                       <button
+                        data-hit="1"
                         onClick={b?.left}
                         title="Move earlier"
                         aria-label="Move earlier"
@@ -3105,13 +3359,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             borderRadius: '50%',
                             background: 'transparent',
                             cursor: 'pointer',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           } as CSSProperties
                         }
                       >
                         ←
                       </button>
                       <button
+                        data-hit="1"
                         onClick={b?.right}
                         title="Move later"
                         aria-label="Move later"
@@ -3124,13 +3379,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             borderRadius: '50%',
                             background: 'transparent',
                             cursor: 'pointer',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           } as CSSProperties
                         }
                       >
                         →
                       </button>
                       <button
+                        data-hit="1"
                         onClick={b?.toggleStar}
                         title={b?.starTip}
                         aria-label={b?.starTip}
@@ -3151,6 +3407,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         {T(b?.star)}
                       </button>
                       <button
+                        data-hit="1"
                         onClick={b?.askDel}
                         title="Delete build"
                         aria-label="Delete build"
@@ -3162,12 +3419,12 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             borderRadius: '50%',
                             background: 'transparent',
                             cursor: 'pointer',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                             display: 'grid',
                             placeItems: 'center',
                           } as CSSProperties
                         }
-                        className="hv-12"
+                        className="hv-9"
                       >
                         <svg
                           width="15"
@@ -3191,16 +3448,17 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                     title="Rename build"
                     maxLength={40}
                     style={{
+                      minHeight: 'var(--tap-min, 32px)',
                       padding: '6px 8px',
                       margin: '0 -8px',
                       borderRadius: '6px',
                       border: '1px solid transparent',
                       background: 'transparent',
                       outline: 'none',
-                      font: "600 13px/1.2 'IBM Plex Mono',monospace",
-                      color: 'var(--ac, oklch(0.8 0.11 75))',
+                      font: "600 12px/1.2 'IBM Plex Mono',monospace",
+                      color: 'var(--ac, oklch(0.82 0.12 85))',
                     }}
-                    className="hv-13 focus-14"
+                    className="hv-10 focus-11"
                   />
                   <button
                     onClick={b?.pathTip}
@@ -3213,14 +3471,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                       border: '0',
                       background: 'transparent',
                       cursor: 'pointer',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                       fontSize: '12px',
                       textAlign: 'left',
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                     }}
-                    className="hv-6"
+                    className="hv-4"
                   >
                     {T(b?.kLast)}
                     {' · Lv '}
@@ -3237,9 +3495,9 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         minHeight: '32px',
                         padding: '0 12px',
                         borderRadius: '999px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--tx, oklch(0.94 0.008 80))',
+                        color: 'var(--tx, oklch(0.95 0.02 90))',
                         cursor: 'pointer',
                         fontSize: '12px',
                       } as CSSProperties
@@ -3255,13 +3513,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                         >
                           <span style={{ fontSize: '12px', marginRight: 'auto' }}>Delete this build?</span>
                           <button
+                            data-hit="1"
                             onClick={b?.cancelDel}
                             style={{
                               padding: '7px 12px',
                               borderRadius: '999px',
-                              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                               background: 'transparent',
-                              color: 'var(--tx, oklch(0.94 0.008 80))',
+                              color: 'var(--tx, oklch(0.95 0.02 90))',
                               cursor: 'pointer',
                               fontSize: '12px',
                               lineHeight: '1.2',
@@ -3271,13 +3530,14 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                             Cancel
                           </button>
                           <button
+                            data-hit="1"
                             onClick={b?.del}
                             style={{
                               padding: '7px 12px',
                               borderRadius: '999px',
-                              border: '1px solid transparent',
-                              background: 'oklch(0.62 0.17 25)',
-                              color: '#fff',
+                              border: '1px solid oklch(0.75 0.14 25)',
+                              background: 'transparent',
+                              color: 'oklch(0.75 0.14 25)',
                               fontWeight: '600',
                               cursor: 'pointer',
                               fontSize: '12px',
@@ -3300,7 +3560,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                               padding: '9px 16px',
                               borderRadius: '999px',
                               border: '0',
-                              background: 'var(--ac, oklch(0.8 0.11 75))',
+                              background: 'var(--ac, oklch(0.82 0.12 85))',
                               color: 'oklch(0.18 0.01 60)',
                               fontWeight: '600',
                               cursor: str(b?.loadCur),
@@ -3312,14 +3572,15 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                           Load
                         </button>
                         <button
+                          data-hit="1"
                           onClick={b?.copyCode}
                           title="Copy this build's code"
                           style={{
                             padding: '7px 12px',
                             borderRadius: '999px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             background: 'transparent',
-                            color: 'var(--tx, oklch(0.94 0.008 80))',
+                            color: 'var(--tx, oklch(0.95 0.02 90))',
                             cursor: 'pointer',
                             fontSize: '12px',
                           }}
@@ -3343,7 +3604,7 @@ export function UnitBuilderScreen({ v }: { v: VM }) {
                   padding: '9px 16px',
                   borderRadius: '999px',
                   border: '0',
-                  background: 'var(--ac, oklch(0.8 0.11 75))',
+                  background: 'var(--ac, oklch(0.82 0.12 85))',
                   color: 'oklch(0.18 0.01 60)',
                   fontWeight: '600',
                   cursor: 'pointer',

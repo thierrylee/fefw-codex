@@ -5,23 +5,23 @@ import { L, T, str, type VM } from '../runtime'
 export function CharactersScreen({ v }: { v: VM }) {
   return (
     <>
-      <section data-screen-label="Characters" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <section data-screen-label="Characters" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div
           style={{
             display: 'flex',
             alignItems: 'flex-start',
             justifyContent: 'space-between',
-            gap: '14px',
+            gap: '12px',
             flexWrap: 'wrap',
           }}
         >
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', flex: '1 1 280px', minWidth: '0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px 14px', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px 12px', flexWrap: 'wrap' }}>
               <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
                 Characters
               </h1>
             </div>
-            <span style={{ display: str(v.rosSubD), color: 'var(--mu, oklch(0.7 0.01 70))' } as CSSProperties}>
+            <span style={{ display: str(v.rosSubD), color: 'var(--mu, oklch(0.78 0.035 120))' } as CSSProperties}>
               {T(v.rosterSub)}
             </span>
           </div>
@@ -51,12 +51,13 @@ export function CharactersScreen({ v }: { v: VM }) {
                   boxSizing: 'border-box',
                   padding: '8px 36px 8px 12px',
                   borderRadius: '999px',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                  background: 'var(--panel, oklch(0.2 0.01 60))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                  background: 'var(--panel, oklch(0.245 0.05 165))',
                   outline: 'none',
                 }}
               />
               <button
+                data-hit="1"
                 onMouseDown={v.onQClear}
                 title="Clear"
                 aria-label="Clear search"
@@ -72,7 +73,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                     border: '0',
                     borderRadius: '50%',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     fontSize: '16px',
                     lineHeight: '1',
@@ -91,8 +92,8 @@ export function CharactersScreen({ v }: { v: VM }) {
                 gap: '2px',
                 padding: '3px',
                 borderRadius: '8px',
-                background: 'var(--bg, oklch(0.16 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                background: 'var(--bg, oklch(0.2 0.045 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               }}
             >
               {L(v.recChips).map((t: any, $index: number) => (
@@ -128,7 +129,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                   flexWrap: 'wrap',
                   justifyContent: str(v.handEnd),
                   alignItems: 'center',
-                  gap: '10px 14px',
+                  gap: '10px 12px',
                 } as CSSProperties
               }
             >
@@ -143,7 +144,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                   } as CSSProperties
                 }
               >
-                <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>Sort</span>
+                <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>Sort</span>
                 <div
                   data-seg="1"
                   style={{
@@ -153,8 +154,8 @@ export function CharactersScreen({ v }: { v: VM }) {
                     gap: '2px',
                     padding: '3px',
                     borderRadius: '8px',
-                    background: 'var(--bg, oklch(0.16 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    background: 'var(--bg, oklch(0.2 0.045 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   }}
                 >
                   {L(v.sortChips).map((t: any, $index: number) => (
@@ -197,15 +198,15 @@ export function CharactersScreen({ v }: { v: VM }) {
                       } as CSSProperties
                     }
                   >
-                    <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>View</span>
+                    <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>View</span>
                     <div
                       style={{
                         display: 'flex',
                         gap: '2px',
                         padding: '3px',
                         borderRadius: '8px',
-                        background: 'var(--bg, oklch(0.16 0.01 60))',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        background: 'var(--bg, oklch(0.2 0.045 165))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       }}
                     >
                       {L(v.rvOpts).map((o: any, $index: number) => (
@@ -261,15 +262,15 @@ export function CharactersScreen({ v }: { v: VM }) {
                               gap: '12px',
                               alignItems: 'center',
                               padding: '12px',
-                              borderRadius: 'var(--r, 14px)',
+                              borderRadius: 'var(--r, 10px)',
                               border: `1px solid ${str(c?.cardBd)}`,
-                              background: 'var(--panel, oklch(0.2 0.01 60))',
+                              background: 'var(--panel, oklch(0.245 0.05 165))',
                               cursor: 'pointer',
                               textAlign: 'left',
                               flex: '1',
                             } as CSSProperties
                           }
-                          className="hv-5"
+                          className="hv-2"
                         >
                           <div
                             style={{
@@ -282,9 +283,9 @@ export function CharactersScreen({ v }: { v: VM }) {
                               display: 'grid',
                               placeItems: 'center',
                               background:
-                                'repeating-linear-gradient(135deg,var(--panel2, oklch(0.25 0.012 60)) 0 6px,var(--panel, oklch(0.2 0.01 60)) 6px 12px)',
+                                'repeating-linear-gradient(135deg,var(--panel2, oklch(0.3 0.055 165)) 0 6px,var(--panel, oklch(0.245 0.05 165)) 6px 12px)',
                               font: "600 16px/1 'Cinzel',serif",
-                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                              color: 'var(--ac, oklch(0.82 0.12 85))',
                             }}
                           >
                             {T(c?.init)}
@@ -300,12 +301,12 @@ export function CharactersScreen({ v }: { v: VM }) {
                                 height: '100%',
                                 objectFit: 'cover',
                                 objectPosition: '50% 12%',
-                                background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                background: 'var(--panel2, oklch(0.3 0.055 165))',
                               }}
                             />
                           </div>
                           <div
-                            style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: '0', flex: '1' }}
+                            style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '0', flex: '1' }}
                           >
                             <div
                               style={{
@@ -331,7 +332,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                                 <span
                                   style={{
                                     fontSize: '12px',
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
                                     whiteSpace: 'nowrap',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
@@ -361,7 +362,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                                   display: 'flex',
                                   flexDirection: 'column',
                                   alignItems: 'flex-end',
-                                  gap: '3px',
+                                  gap: '4px',
                                 }}
                               >
                                 {L(c?.renTxt).map((x: any, $index: number) => (
@@ -369,7 +370,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                                     <span
                                       style={{
                                         font: "500 10px/1 'IBM Plex Mono',monospace",
-                                        color: 'var(--ac, oklch(0.8 0.11 75))',
+                                        color: 'var(--ac, oklch(0.82 0.12 85))',
                                         textAlign: 'right',
                                         whiteSpace: 'nowrap',
                                       }}
@@ -383,6 +384,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                           </div>
                         </button>
                         <button
+                          data-hit="1"
                           onClick={c?.toggleStar}
                           title={c?.starTip}
                           style={
@@ -406,6 +408,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                           {T(c?.star)}
                         </button>
                         <button
+                          data-hit="1"
                           onClick={c?.recToggle}
                           onMouseEnter={c?.recEnter}
                           onMouseLeave={c?.recLeave}
@@ -457,16 +460,16 @@ export function CharactersScreen({ v }: { v: VM }) {
                               flexDirection: 'column',
                               gap: '6px',
                               padding: '6px 6px 8px',
-                              borderRadius: 'var(--r, 14px)',
+                              borderRadius: 'var(--r, 10px)',
                               border: `1px solid ${str(c?.cardBd)}`,
-                              background: 'var(--panel, oklch(0.2 0.01 60))',
+                              background: 'var(--panel, oklch(0.245 0.05 165))',
                               cursor: 'pointer',
                               textAlign: 'left',
                               flex: '1',
                               minWidth: '0',
                             } as CSSProperties
                           }
-                          className="hv-5"
+                          className="hv-2"
                         >
                           <div
                             style={{
@@ -474,13 +477,13 @@ export function CharactersScreen({ v }: { v: VM }) {
                               overflow: 'hidden',
                               width: '100%',
                               aspectRatio: '1/1',
-                              borderRadius: '10px',
+                              borderRadius: 'var(--r, 10px)',
                               display: 'grid',
                               placeItems: 'center',
                               background:
-                                'repeating-linear-gradient(135deg,var(--panel2, oklch(0.25 0.012 60)) 0 6px,var(--panel, oklch(0.2 0.01 60)) 6px 12px)',
-                              font: "600 20px/1 'Cinzel',serif",
-                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                                'repeating-linear-gradient(135deg,var(--panel2, oklch(0.3 0.055 165)) 0 6px,var(--panel, oklch(0.245 0.05 165)) 6px 12px)',
+                              font: "600 18px/1 'Cinzel',serif",
+                              color: 'var(--ac, oklch(0.82 0.12 85))',
                             }}
                           >
                             {T(c?.init)}
@@ -496,14 +499,14 @@ export function CharactersScreen({ v }: { v: VM }) {
                                 height: '100%',
                                 objectFit: 'cover',
                                 objectPosition: '50% 12%',
-                                background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                background: 'var(--panel2, oklch(0.3 0.055 165))',
                               }}
                             />
                           </div>
                           <span
                             style={{
                               fontWeight: '600',
-                              fontSize: '13px',
+                              fontSize: '12px',
                               padding: '0 2px',
                               whiteSpace: 'nowrap',
                               overflow: 'hidden',
@@ -518,7 +521,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                               display: 'flex',
                               flexDirection: 'column',
                               justifyContent: 'center',
-                              gap: '3px',
+                              gap: '4px',
                               padding: '0 2px',
                               minHeight: '28px',
                               maxWidth: 'calc(100% - 30px)',
@@ -529,7 +532,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                                 <span
                                   style={{
                                     font: "500 10px/1 'IBM Plex Mono',monospace",
-                                    color: 'var(--ac, oklch(0.8 0.11 75))',
+                                    color: 'var(--ac, oklch(0.82 0.12 85))',
                                     whiteSpace: 'nowrap',
                                     overflow: 'hidden',
                                     textOverflow: 'ellipsis',
@@ -542,6 +545,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                           </span>
                         </button>
                         <button
+                          data-hit="1"
                           onClick={c?.toggleStar}
                           title={c?.starTip}
                           style={
@@ -565,6 +569,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                           {T(c?.star)}
                         </button>
                         <button
+                          data-hit="1"
                           onClick={c?.recToggle}
                           aria-label={c?.recTip}
                           aria-disabled={c?.recFixed}
@@ -606,8 +611,8 @@ export function CharactersScreen({ v }: { v: VM }) {
                           gap: '12px',
                           alignItems: 'center',
                           padding: '12px',
-                          borderRadius: 'var(--r, 14px)',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'transparent',
                           cursor: 'pointer',
                           textAlign: 'left',
@@ -622,19 +627,19 @@ export function CharactersScreen({ v }: { v: VM }) {
                             borderRadius: '12px',
                             display: 'grid',
                             placeItems: 'center',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
                             font: "600 16px/1 'Cinzel',serif",
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           {T(c?.init)}
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', minWidth: '0' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '0' }}>
                           <span style={{ fontWeight: '600' }}>{T(c?.n)}</span>
                           <span
                             style={{
                               font: "500 10px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             }}
                           >
                             Away in Part I · returns in Part II
@@ -652,8 +657,8 @@ export function CharactersScreen({ v }: { v: VM }) {
                           flexDirection: 'column',
                           gap: '6px',
                           padding: '6px 6px 8px',
-                          borderRadius: 'var(--r, 14px)',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'transparent',
                           cursor: 'pointer',
                           textAlign: 'left',
@@ -665,12 +670,12 @@ export function CharactersScreen({ v }: { v: VM }) {
                           style={{
                             width: '100%',
                             aspectRatio: '1/1',
-                            borderRadius: '10px',
+                            borderRadius: 'var(--r, 10px)',
                             display: 'grid',
                             placeItems: 'center',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
-                            font: "600 20px/1 'Cinzel',serif",
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
+                            font: "600 18px/1 'Cinzel',serif",
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           {T(c?.init)}
@@ -678,7 +683,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                         <span
                           style={{
                             fontWeight: '600',
-                            fontSize: '13px',
+                            fontSize: '12px',
                             padding: '0 2px',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
@@ -692,7 +697,7 @@ export function CharactersScreen({ v }: { v: VM }) {
                           style={{
                             font: "500 10px/1 'IBM Plex Mono',monospace",
                             padding: '0 2px',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           Away
@@ -712,10 +717,10 @@ export function CharactersScreen({ v }: { v: VM }) {
                           gap: '12px',
                           alignItems: 'center',
                           padding: '12px',
-                          borderRadius: 'var(--r, 14px)',
-                          border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                           background:
-                            'repeating-linear-gradient(135deg,transparent 0 8px,rgba(255,255,255,.02) 8px 16px)',
+                            'repeating-linear-gradient(135deg,transparent 0 8px,color-mix(in oklch, var(--panel2, oklch(0.3 0.055 165)) 50%, transparent) 8px 16px)',
                         }}
                       >
                         <div
@@ -724,11 +729,11 @@ export function CharactersScreen({ v }: { v: VM }) {
                             width: '52px',
                             height: '52px',
                             borderRadius: '12px',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
                             filter: 'blur(3px)',
                           }}
                         ></div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', minWidth: '0' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', minWidth: '0' }}>
                           <span style={{ fontWeight: '600', filter: 'blur(5px)', userSelect: 'none' }}>{T(c?.n)}</span>
                           <span
                             style={
@@ -750,8 +755,8 @@ export function CharactersScreen({ v }: { v: VM }) {
                           flexDirection: 'column',
                           gap: '6px',
                           padding: '6px 6px 8px',
-                          borderRadius: 'var(--r, 14px)',
-                          border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                           minWidth: '0',
                         }}
                       >
@@ -759,15 +764,15 @@ export function CharactersScreen({ v }: { v: VM }) {
                           style={{
                             width: '100%',
                             aspectRatio: '1/1',
-                            borderRadius: '10px',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                            borderRadius: 'var(--r, 10px)',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
                             filter: 'blur(3px)',
                           }}
                         ></div>
                         <span
                           style={{
                             fontWeight: '600',
-                            fontSize: '13px',
+                            fontSize: '12px',
                             padding: '0 2px',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',

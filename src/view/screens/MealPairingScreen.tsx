@@ -5,7 +5,7 @@ import { L, T, str, type VM } from '../runtime'
 export function MealPairingScreen({ v }: { v: VM }) {
   return (
     <>
-      <section data-screen-label="Meal pairing" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <section data-screen-label="Meal pairing" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {v.rlOn ? (
           <>
             <div
@@ -29,6 +29,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
               {L(v.rl).map((j: any, $index: number) => (
                 <Fragment key={$index}>
                   <button
+                    data-hit="1"
                     onClick={j?.go}
                     onMouseEnter={j?.enter}
                     onMouseLeave={j?.leave}
@@ -43,7 +44,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                       border: '0',
                       background: 'transparent',
                       cursor: 'pointer',
-                      color: 'var(--tx, #eee)',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                     }}
                   >
                     <span
@@ -55,9 +56,9 @@ export function MealPairingScreen({ v }: { v: VM }) {
                           fontSize: '12px',
                           padding: str(j?.lblP),
                           borderRadius: '6px',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           borderStyle: 'solid',
-                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderColor: 'var(--line, oklch(0.42 0.06 110 / .55))',
                           borderWidth: str(j?.lblBw),
                           whiteSpace: 'nowrap',
                           transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
@@ -87,7 +88,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
           <h1 style={{ display: str(v.h1Disp), margin: '0', font: "600 30px/1.1 'Cinzel',serif" } as CSSProperties}>
             Meal pairing
           </h1>
-          <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+          <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>
             Pick a meal and up to three characters; characters with a support to them and a liking for the meal rank
             highest. Tap a row to pair.
           </span>
@@ -100,9 +101,9 @@ export function MealPairingScreen({ v }: { v: VM }) {
               gridTemplateColumns: str(v.mx?.tileCols),
               gap: '12px 16px',
               padding: '16px',
-              borderRadius: 'var(--r, 14px)',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
-              background: 'var(--panel, oklch(0.2 0.01 60))',
+              borderRadius: 'var(--r, 10px)',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+              background: 'var(--panel, oklch(0.245 0.05 165))',
             } as CSSProperties
           }
         >
@@ -112,7 +113,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 font: "500 10px/1 'IBM Plex Mono',monospace",
                 letterSpacing: '.14em',
                 textTransform: 'uppercase',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
+                color: 'var(--mu, oklch(0.78 0.035 120))',
               }}
             >
               Meal
@@ -128,17 +129,17 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 boxSizing: 'border-box',
                 padding: '8px 12px',
                 borderRadius: '999px',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 background: 'var(--panel)',
                 color: 'var(--tx)',
                 colorScheme: 'dark',
                 font: 'inherit',
-                fontSize: '13px',
+                fontSize: '14px',
               }}
             >
               {L(v.mx?.meals).map((o: any, $index: number) => (
                 <Fragment key={$index}>
-                  <option value={o ?? ''}>{T(o)}</option>
+                  <option value={o ?? ''}>{str(o)}</option>
                 </Fragment>
               ))}
             </select>
@@ -150,13 +151,13 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 minHeight: '36px',
                 padding: '0 14px',
                 borderRadius: '999px',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 background: 'transparent',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
+                color: 'var(--mu, oklch(0.78 0.035 120))',
                 cursor: 'pointer',
                 fontSize: '12px',
               }}
-              className="hv-16"
+              className="hv-0"
             >
               Reset
             </button>
@@ -171,9 +172,9 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,160px),1fr))',
                 gap: '16px',
                 padding: '16px',
-                borderRadius: 'var(--r, 14px)',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
+                borderRadius: 'var(--r, 10px)',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
               }}
             >
               <div
@@ -191,7 +192,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 <div
                   style={{
                     padding: '8px',
-                    borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
@@ -203,7 +204,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                       font: "500 10px/1 'IBM Plex Mono',monospace",
                       letterSpacing: '.14em',
                       textTransform: 'uppercase',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Supports
@@ -214,7 +215,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     <div
                       style={{
                         padding: '6px 4px',
-                        borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         display: 'flex',
                         minWidth: '0',
                       }}
@@ -238,7 +239,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                             whiteSpace: 'nowrap',
                           } as CSSProperties
                         }
-                        className="hv-17"
+                        className="hv-13"
                       >
                         {T(h?.l)}
                         {T(h?.ar)}
@@ -251,7 +252,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     <div
                       style={{
                         padding: '8px',
-                        borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'flex-start',
@@ -269,7 +270,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                         <div
                           style={{
                             padding: '8px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -279,7 +280,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                           <span
                             style={
                               {
-                                font: "600 13px/1 'IBM Plex Mono',monospace",
+                                font: "600 12px/1 'IBM Plex Mono',monospace",
                                 color: str(q?.col),
                                 whiteSpace: 'nowrap',
                               } as CSSProperties
@@ -295,7 +296,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 <div
                   style={{
                     padding: '8px',
-                    borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'flex-start',
@@ -311,7 +312,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     <div
                       style={{
                         padding: '8px',
-                        borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -321,7 +322,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                       <span
                         style={
                           {
-                            font: "600 13px/1 'IBM Plex Mono',monospace",
+                            font: "600 12px/1 'IBM Plex Mono',monospace",
                             color: str(q?.m?.col),
                             whiteSpace: 'nowrap',
                           } as CSSProperties
@@ -341,19 +342,19 @@ export function MealPairingScreen({ v }: { v: VM }) {
             <div
               data-jump="mx-sug"
               style={{
-                borderRadius: 'var(--r, 14px)',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
+                borderRadius: 'var(--r, 10px)',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
                 overflow: 'hidden',
               }}
             >
-              <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))' }}>
+              <div style={{ padding: '10px 12px', borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))' }}>
                 <span
                   style={{
                     font: "500 10px/1 'IBM Plex Mono',monospace",
                     letterSpacing: '.14em',
                     textTransform: 'uppercase',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                   }}
                 >
                   Suggested meals
@@ -372,13 +373,13 @@ export function MealPairingScreen({ v }: { v: VM }) {
                         padding: '8px 12px',
                         minHeight: '40px',
                         boxSizing: 'border-box',
-                        borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         cursor: 'pointer',
                       } as CSSProperties
                     }
-                    className="hv-18"
+                    className="hv-1"
                   >
-                    <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(g?.m)}</span>
+                    <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(g?.m)}</span>
                     <span
                       style={
                         {
@@ -423,7 +424,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
             flexWrap: 'wrap',
           }}
         >
-          <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(v.mx?.count)}</span>
+          <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(v.mx?.count)}</span>
           <span
             style={{
               display: 'flex',
@@ -431,8 +432,8 @@ export function MealPairingScreen({ v }: { v: VM }) {
               gap: '2px',
               padding: '3px',
               borderRadius: '8px',
-              background: 'var(--bg, oklch(0.16 0.01 60))',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              background: 'var(--bg, oklch(0.2 0.045 165))',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
             }}
           >
             <button
@@ -521,7 +522,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
               font: "500 10px/1 'IBM Plex Mono',monospace",
               letterSpacing: '.14em',
               textTransform: 'uppercase',
-              color: 'var(--mu, oklch(0.7 0.01 70))',
+              color: 'var(--mu, oklch(0.78 0.035 120))',
             }}
           >
             Sort by
@@ -533,8 +534,8 @@ export function MealPairingScreen({ v }: { v: VM }) {
               gap: '2px',
               padding: '3px',
               borderRadius: '8px',
-              background: 'var(--bg, oklch(0.16 0.01 60))',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              background: 'var(--bg, oklch(0.2 0.045 165))',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
             }}
           >
             {L(v.mx?.sortTabs).map((b: any, $index: number) => (
@@ -564,9 +565,9 @@ export function MealPairingScreen({ v }: { v: VM }) {
         <div
           data-jump="mx-list"
           style={{
-            borderRadius: 'var(--r, 14px)',
-            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-            background: 'var(--panel, oklch(0.2 0.01 60))',
+            borderRadius: 'var(--r, 10px)',
+            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+            background: 'var(--panel, oklch(0.245 0.05 165))',
             overflow: 'hidden',
           }}
         >
@@ -577,7 +578,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 gridTemplateColumns: str(v.mx?.cols),
                 gap: '8px 12px',
                 padding: '10px 12px',
-                borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               } as CSSProperties
             }
           >
@@ -586,7 +587,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 font: "500 10px/1 'IBM Plex Mono',monospace",
                 letterSpacing: '.14em',
                 textTransform: 'uppercase',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
+                color: 'var(--mu, oklch(0.78 0.035 120))',
               }}
             >
               Character
@@ -594,6 +595,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
             {L(v.mx?.sortBtns).map((b: any, $index: number) => (
               <Fragment key={$index}>
                 <button
+                  data-hit="1"
                   onClick={b?.click}
                   title="Sort by highest"
                   style={
@@ -627,9 +629,9 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     gap: '8px 12px',
                     alignItems: 'center',
                     padding: '10px 12px',
-                    minHeight: '44px',
+                    minHeight: '32px',
                     boxSizing: 'border-box',
-                    borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     cursor: 'pointer',
                     background: str(r?.bg),
                   } as CSSProperties
@@ -647,7 +649,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                     } as CSSProperties
                   }
                 >
-                  <span style={{ fontWeight: '600', fontSize: '13px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <span style={{ fontWeight: '600', fontSize: '12px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {T(r?.n)}
                   </span>
                   <span
@@ -657,7 +659,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                         marginLeft: 'auto',
                         flexDirection: 'column',
                         alignItems: 'flex-end',
-                        gap: '3px',
+                        gap: '4px',
                       } as CSSProperties
                     }
                   >
@@ -666,7 +668,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                         <span
                           style={{
                             font: "500 10px/1 'IBM Plex Mono',monospace",
-                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            color: 'var(--ac, oklch(0.82 0.12 85))',
                             textAlign: 'right',
                             whiteSpace: 'nowrap',
                           }}
@@ -685,21 +687,21 @@ export function MealPairingScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       } as CSSProperties
                     }
                   >
                     {'Support '}
-                    <span style={{ letterSpacing: '.04em', textTransform: 'none' }}>
+                    <span style={{ letterSpacing: '.12em', textTransform: 'none' }}>
                       ({T(r?.cntTxt)}
                       {' common)'}
                     </span>
                   </span>
-                  <span style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 18px' }}>
+                  <span style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 16px' }}>
                     {L(r?.sups).map((q: any, $index: number) => (
                       <Fragment key={$index}>
                         <span style={{ font: "500 12px/1.3 'IBM Plex Mono',monospace", whiteSpace: 'nowrap' }}>
-                          <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(q?.nm)}</span>{' '}
+                          <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(q?.nm)}</span>{' '}
                           <span style={{ fontWeight: '600', color: str(q?.col) } as CSSProperties}>{T(q?.rk)}</span>
                         </span>
                       </Fragment>
@@ -713,7 +715,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                 >
                   <span style={{ display: 'none' }}></span>
                   <span
-                    style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                    style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.78 0.035 120))' }}
                   >
                     {T(r?.cntTxt)}
                   </span>
@@ -726,7 +728,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       } as CSSProperties
                     }
                   >
@@ -760,14 +762,17 @@ export function MealPairingScreen({ v }: { v: VM }) {
                             font: "500 10px/1 'IBM Plex Mono',monospace",
                             letterSpacing: '.14em',
                             textTransform: 'uppercase',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           } as CSSProperties
                         }
                       >
                         Renown
                       </span>
                       <span
-                        style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                        style={{
+                          font: "500 12px/1 'IBM Plex Mono',monospace",
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
+                        }}
                       >
                         {T(r?.renTxt)}
                       </span>
@@ -780,14 +785,17 @@ export function MealPairingScreen({ v }: { v: VM }) {
                             font: "500 10px/1 'IBM Plex Mono',monospace",
                             letterSpacing: '.14em',
                             textTransform: 'uppercase',
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                           } as CSSProperties
                         }
                       >
                         Sup lvl
                       </span>
                       <span
-                        style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                        style={{
+                          font: "500 12px/1 'IBM Plex Mono',monospace",
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
+                        }}
                       >
                         {T(r?.slTxt)}
                       </span>
@@ -799,7 +807,7 @@ export function MealPairingScreen({ v }: { v: VM }) {
           ))}
           {v.mx?.empty ? (
             <>
-              <div style={{ padding: '24px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+              <div style={{ padding: '24px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                 No characters with a support to the selected yet. Turn off Support to list everyone.
               </div>
             </>

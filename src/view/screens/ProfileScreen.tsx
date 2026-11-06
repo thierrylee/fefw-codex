@@ -38,8 +38,8 @@ export function ProfileScreen({ v }: { v: VM }) {
                 width: '44px',
                 height: '44px',
                 marginTop: '-5px',
-                borderRadius: '10px',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 display: str(v.pPortD),
               } as CSSProperties
             }
@@ -51,7 +51,7 @@ export function ProfileScreen({ v }: { v: VM }) {
               {
                 display: str(v.pHeadD),
                 alignItems: 'center',
-                gap: '6px 14px',
+                gap: '6px 12px',
                 flexWrap: 'wrap',
                 minWidth: '0',
               } as CSSProperties
@@ -65,7 +65,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                     style={{
                       padding: '4px 10px',
                       borderRadius: '999px',
-                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                       fontSize: '12px',
                     }}
                   >
@@ -98,7 +98,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                   padding: '9px 16px',
                   borderRadius: '999px',
                   border: '0',
-                  background: 'var(--ac, oklch(0.8 0.11 75))',
+                  background: 'var(--ac, oklch(0.82 0.12 85))',
                   color: 'oklch(0.18 0.01 60)',
                   fontWeight: '600',
                   cursor: 'pointer',
@@ -159,7 +159,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                             border: '0',
                             background: 'transparent',
                             cursor: 'pointer',
-                            color: 'var(--tx, #eee)',
+                            color: 'var(--tx, oklch(0.95 0.02 90))',
                           } as CSSProperties
                         }
                       >
@@ -172,9 +172,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                               fontSize: '12px',
                               padding: str(j?.lblP),
                               borderRadius: '6px',
-                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              background: 'var(--panel2, oklch(0.3 0.055 165))',
                               borderStyle: 'solid',
-                              borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                              borderColor: 'var(--line, oklch(0.42 0.06 110 / .55))',
                               borderWidth: str(j?.lblBw),
                               whiteSpace: 'nowrap',
                               transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
@@ -212,7 +212,7 @@ export function ProfileScreen({ v }: { v: VM }) {
               font: "500 10px/1 'IBM Plex Mono',monospace",
               letterSpacing: '.14em',
               textTransform: 'uppercase',
-              color: 'var(--mu, oklch(0.7 0.01 70))',
+              color: 'var(--mu, oklch(0.78 0.035 120))',
             } as CSSProperties
           }
         >
@@ -221,13 +221,14 @@ export function ProfileScreen({ v }: { v: VM }) {
             style={{
               display: 'flex',
               borderRadius: '6px',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               overflow: 'hidden',
             }}
           >
             {L(v.pColOpts).map((o: any, $index: number) => (
               <Fragment key={$index}>
                 <button
+                  data-hit="1"
                   onClick={o?.click}
                   title={`Max ${str(o?.n)} columns`}
                   style={
@@ -270,9 +271,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                 flexDirection: 'column',
                 gap: '10px',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               } as CSSProperties
             }
           >
@@ -286,7 +287,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                       cursor: 'grab',
                       fontSize: '14px',
                       lineHeight: '1',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                       userSelect: 'none',
                     } as CSSProperties
                   }
@@ -298,13 +299,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                     font: "500 10px/1 'IBM Plex Mono',monospace",
                     letterSpacing: '.14em',
                     textTransform: 'uppercase',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                   }}
                 >
                   Growth profile
                 </span>
               </span>
               <button
+                data-hit="1"
                 title={`Tile width: ${str(v.pd?.radar?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                 onClick={v.pd?.radar?.cyc}
                 style={
@@ -316,9 +318,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                     height: '26px',
                     padding: '0 9px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   } as CSSProperties
@@ -335,7 +337,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                 <svg viewBox="0 0 300 290" style={{ display: 'block', width: '100%', overflow: 'visible' }}>
                   {L(v.p?.radar?.rings).map((g: any, $index: number) => (
                     <Fragment key={$index}>
-                      <polygon points={g} fill="none" stroke="rgba(255,255,255,.1)"></polygon>
+                      <polygon points={g} fill="none" stroke="var(--line, oklch(0.42 0.06 110 / .55))"></polygon>
                     </Fragment>
                   ))}
                   {L(v.p?.radar?.axes).map((a: any, $index: number) => (
@@ -404,7 +406,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                   display: 'flex',
                   flexWrap: 'wrap',
                   justifyContent: 'center',
-                  gap: '6px 14px',
+                  gap: '6px 12px',
                   fontSize: '12px',
                   color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
@@ -416,14 +418,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                       height: '10px',
                       borderRadius: '2px',
                       border: '2px solid var(--ac, oklch(0.82 0.12 85))',
-                      background: 'oklch(0.82 0.12 85 / .2)',
+                      background: 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 20%, transparent)',
                     }}
                   ></span>
                   {T(v.p?.n)}
                 </span>
                 <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span
-                    style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'oklch(0.85 0.14 150)' }}
+                    style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'oklch(0.78 0.12 150)' }}
                   ></span>
                   Highest of all units
                 </span>
@@ -461,9 +463,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                 flexDirection: 'column',
                 gap: '10px',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               } as CSSProperties
             }
           >
@@ -477,7 +479,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                       cursor: 'grab',
                       fontSize: '14px',
                       lineHeight: '1',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                       userSelect: 'none',
                     } as CSSProperties
                   }
@@ -489,13 +491,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                     font: "500 10px/1 'IBM Plex Mono',monospace",
                     letterSpacing: '.14em',
                     textTransform: 'uppercase',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                   }}
                 >
                   Base stats & growth
                 </span>
               </span>
               <button
+                data-hit="1"
                 title={`Tile width: ${str(v.pd?.growth?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                 onClick={v.pd?.growth?.cyc}
                 style={
@@ -507,9 +510,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                     height: '26px',
                     padding: '0 9px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   } as CSSProperties
@@ -529,7 +532,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                       font: "500 10px/1 'IBM Plex Mono',monospace",
                       letterSpacing: '.14em',
                       textTransform: 'uppercase',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     {T(v.p?.bcap)}
@@ -547,10 +550,10 @@ export function ProfileScreen({ v }: { v: VM }) {
                               display: 'flex',
                               flexDirection: 'column',
                               alignItems: 'center',
-                              gap: '3px',
+                              gap: '4px',
                               padding: '7px 0',
                               borderRadius: '6px',
-                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              background: 'var(--panel2, oklch(0.3 0.055 165))',
                               opacity: str(b?.op),
                               boxShadow: str(b?.ol),
                             } as CSSProperties
@@ -559,7 +562,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           <span
                             style={{
                               font: "500 9.5px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             }}
                           >
                             {T(b?.s)}
@@ -570,7 +573,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                               alignItems: 'center',
                               gap: '2px',
                               font: "600 12px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--tx, oklch(0.96 0.01 80))',
+                              color: 'var(--tx, oklch(0.95 0.02 90))',
                             }}
                           >
                             {T(b?.v)}
@@ -591,7 +594,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                       font: "500 10px/1 'IBM Plex Mono',monospace",
                       letterSpacing: '.14em',
                       textTransform: 'uppercase',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     {'Growth rates · Σ '}
@@ -608,10 +611,10 @@ export function ProfileScreen({ v }: { v: VM }) {
                               display: 'flex',
                               flexDirection: 'column',
                               alignItems: 'center',
-                              gap: '3px',
+                              gap: '4px',
                               padding: '7px 0',
                               borderRadius: '6px',
-                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              background: 'var(--panel2, oklch(0.3 0.055 165))',
                               opacity: str(g?.op),
                               boxShadow: str(g?.ol),
                             } as CSSProperties
@@ -620,7 +623,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           <span
                             style={{
                               font: "500 9.5px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             }}
                           >
                             {T(g?.s)}
@@ -631,7 +634,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                               alignItems: 'center',
                               gap: '2px',
                               font: "600 12px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--tx, oklch(0.96 0.01 80))',
+                              color: 'var(--tx, oklch(0.95 0.02 90))',
                             }}
                           >
                             {T(g?.v)}
@@ -658,7 +661,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                             width: '14px',
                             height: '8px',
                             borderRadius: '2px',
-                            background: 'oklch(0.78 0.1 150)',
+                            background: 'oklch(0.78 0.12 150)',
                           }}
                         ></span>
                         {T(v.p?.growthNote)}
@@ -672,31 +675,31 @@ export function ProfileScreen({ v }: { v: VM }) {
               style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: '4px 14px',
+                gap: '4px 12px',
                 marginTop: 'auto',
                 fontSize: '12px',
                 color: 'var(--mu, oklch(0.78 0.035 120))',
               }}
             >
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.82 0.12 85))' }}>
                   ★
                 </span>
                 Highest
               </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                <span style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'oklch(0.85 0.14 150)' }}>⇈</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'oklch(0.78 0.12 150)' }}>⇈</span>
                 Top 10%
               </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                <span style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'oklch(0.85 0.14 150)' }}>↑</span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'oklch(0.78 0.12 150)' }}>↑</span>
                 Top 30%
               </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'oklch(0.74 0.12 30)' }}>↓</span>
                 Bottom 30%
               </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <span style={{ font: "600 11px/1 'IBM Plex Mono',monospace", color: 'oklch(0.74 0.12 30)' }}>⇊</span>
                 Bottom 10%
               </span>
@@ -723,9 +726,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                     boxShadow: str(v.pd?.bm?.ol),
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '14px',
+                    gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
+                    borderRadius: 'var(--r, 10px)',
                     background: 'var(--panel, oklch(0.245 0.05 165))',
                     border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
@@ -741,7 +744,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -753,13 +756,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Bloodmark
                     </span>
                   </span>
                   <button
+                    data-hit="1"
                     title={`Tile width: ${str(v.pd?.bm?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                     onClick={v.pd?.bm?.cyc}
                     style={
@@ -771,9 +775,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                         height: '26px',
                         padding: '0 9px',
                         borderRadius: '6px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
                       } as CSSProperties
@@ -799,7 +803,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                               height: '36px',
                               borderRadius: '8px',
                               overflow: 'hidden',
-                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              background: 'var(--panel2, oklch(0.3 0.055 165))',
                               display: 'grid',
                             }}
                           >
@@ -822,7 +826,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           {T(b?.t)}
                         </span>
                       </div>
-                      <span style={{ fontSize: '13px', textWrap: 'pretty' }}>{T(b?.e)}</span>
+                      <span style={{ fontSize: '14px', textWrap: 'pretty' }}>{T(b?.e)}</span>
                       {b?.also ? (
                         <>
                           <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
@@ -859,9 +863,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                     flexDirection: 'column',
                     gap: '10px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -875,7 +879,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -887,13 +891,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Base stats profile
                     </span>
                   </span>
                   <button
+                    data-hit="1"
                     title={`Tile width: ${str(v.pd?.bradar?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                     onClick={v.pd?.bradar?.cyc}
                     style={
@@ -905,9 +910,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                         height: '26px',
                         padding: '0 9px',
                         borderRadius: '6px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
                       } as CSSProperties
@@ -924,7 +929,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                     <svg viewBox="0 0 300 290" style={{ display: 'block', width: '100%', overflow: 'visible' }}>
                       {L(v.p?.bradar?.rings).map((g: any, $index: number) => (
                         <Fragment key={$index}>
-                          <polygon points={g} fill="none" stroke="rgba(255,255,255,.1)"></polygon>
+                          <polygon points={g} fill="none" stroke="var(--line, oklch(0.42 0.06 110 / .55))"></polygon>
                         </Fragment>
                       ))}
                       {L(v.p?.bradar?.axes).map((a: any, $index: number) => (
@@ -993,7 +998,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                       display: 'flex',
                       flexWrap: 'wrap',
                       justifyContent: 'center',
-                      gap: '6px 14px',
+                      gap: '6px 12px',
                       fontSize: '12px',
                       color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
@@ -1005,14 +1010,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                           height: '10px',
                           borderRadius: '2px',
                           border: '2px solid var(--ac, oklch(0.82 0.12 85))',
-                          background: 'oklch(0.82 0.12 85 / .2)',
+                          background: 'color-mix(in oklch, var(--ac, oklch(0.82 0.12 85)) 20%, transparent)',
                         }}
                       ></span>
                       {T(v.p?.n)}
                     </span>
                     <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <span
-                        style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'oklch(0.85 0.14 150)' }}
+                        style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'oklch(0.78 0.12 150)' }}
                       ></span>
                       Highest of all units
                     </span>
@@ -1054,9 +1059,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                     flexDirection: 'column',
                     gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -1070,7 +1075,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -1082,13 +1087,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Recruitment{T(v.p?.recScope)}
                     </span>
                   </span>
                   <button
+                    data-hit="1"
                     title={`Tile width: ${str(v.pd?.rec?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                     onClick={v.pd?.rec?.cyc}
                     style={
@@ -1100,9 +1106,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                         height: '26px',
                         padding: '0 9px',
                         borderRadius: '6px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
                       } as CSSProperties
@@ -1130,8 +1136,8 @@ export function ProfileScreen({ v }: { v: VM }) {
                             flexDirection: 'column',
                             gap: '6px',
                             padding: '12px 14px',
-                            borderRadius: '10px',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                            borderRadius: 'var(--r, 10px)',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
                           }}
                         >
                           <span style={{ fontWeight: '600' }}>{T(r?.route)}</span>
@@ -1160,7 +1166,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                             style={
                               {
                                 fontSize: '12px',
-                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
                                 filter: str(r?.mBlur),
                                 transition: 'filter .2s',
                               } as CSSProperties
@@ -1189,7 +1195,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                                     style={
                                       {
                                         fontSize: '12px',
-                                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                                        color: 'var(--mu, oklch(0.78 0.035 120))',
                                         textWrap: 'pretty',
                                         filter: str(v.p?.recBlur),
                                         userSelect: str(v.p?.recSel),
@@ -1231,14 +1237,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                           onClick={v.p?.recReveal}
                           style={{
                             pointerEvents: 'auto',
-                            minHeight: '44px',
+                            minHeight: '32px',
                             padding: '9px 16px',
                             borderRadius: '999px',
                             border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                            background: 'var(--panel, oklch(0.2 0.01 60))',
-                            color: 'var(--tx, #eee)',
+                            background: 'var(--panel, oklch(0.245 0.05 165))',
+                            color: 'var(--tx, oklch(0.95 0.02 90))',
                             cursor: 'pointer',
-                            fontSize: '13px',
+                            fontSize: '14px',
                             fontWeight: '600',
                             boxShadow: '0 6px 20px oklch(0 0 0 / .4)',
                           }}
@@ -1272,11 +1278,11 @@ export function ProfileScreen({ v }: { v: VM }) {
                     gridColumn: str(v.pd?.sup?.gc),
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '14px',
+                    gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -1290,7 +1296,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -1302,13 +1308,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Supports
                     </span>
                   </span>
                   <button
+                    data-hit="1"
                     title={`Tile width: ${str(v.pd?.sup?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                     onClick={v.pd?.sup?.cyc}
                     style={
@@ -1320,9 +1327,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                         height: '26px',
                         padding: '0 9px',
                         borderRadius: '6px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
                       } as CSSProperties
@@ -1349,7 +1356,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                                 alignItems: 'baseline',
                                 padding: '5px 10px',
                                 borderRadius: '999px',
-                                background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                background: 'var(--panel2, oklch(0.3 0.055 165))',
                                 fontSize: '12px',
                                 cursor: str(s?.cur),
                                 filter: str(s?.blur),
@@ -1396,11 +1403,11 @@ export function ProfileScreen({ v }: { v: VM }) {
                     gridColumn: str(v.pd?.gifts?.gc),
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '14px',
+                    gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -1414,7 +1421,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -1426,13 +1433,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Gifts
                     </span>
                   </span>
                   <button
+                    data-hit="1"
                     title={`Tile width: ${str(v.pd?.gifts?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                     onClick={v.pd?.gifts?.cyc}
                     style={
@@ -1444,9 +1452,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                         height: '26px',
                         padding: '0 9px',
                         borderRadius: '6px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
                       } as CSSProperties
@@ -1461,16 +1469,16 @@ export function ProfileScreen({ v }: { v: VM }) {
                 {v.p?.hasLoved ? (
                   <>
                     <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr', gap: '10px' }}>
-                      <span style={{ fontSize: '12px', color: 'oklch(0.78 0.1 150)' }}>Loved</span>
-                      <span style={{ fontSize: '13px', textWrap: 'pretty' }}>{T(v.p?.gfLoved)}</span>
+                      <span style={{ fontSize: '12px', color: 'oklch(0.78 0.12 150)' }}>Loved</span>
+                      <span style={{ fontSize: '14px', textWrap: 'pretty' }}>{T(v.p?.gfLoved)}</span>
                     </div>
                   </>
                 ) : null}
                 {v.p?.hasLiked ? (
                   <>
                     <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr', gap: '10px' }}>
-                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>Liked</span>
-                      <span style={{ fontSize: '13px', textWrap: 'pretty' }}>{T(v.p?.gfLiked)}</span>
+                      <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>Liked</span>
+                      <span style={{ fontSize: '14px', textWrap: 'pretty' }}>{T(v.p?.gfLiked)}</span>
                     </div>
                   </>
                 ) : null}
@@ -1497,11 +1505,11 @@ export function ProfileScreen({ v }: { v: VM }) {
                     gridColumn: str(v.pd?.meals?.gc),
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '14px',
+                    gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -1515,7 +1523,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -1527,13 +1535,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Meals
                     </span>
                   </span>
                   <button
+                    data-hit="1"
                     title={`Tile width: ${str(v.pd?.meals?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                     onClick={v.pd?.meals?.cyc}
                     style={
@@ -1545,9 +1554,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                         height: '26px',
                         padding: '0 9px',
                         borderRadius: '6px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
                       } as CSSProperties
@@ -1563,7 +1572,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                   <Fragment key={$index}>
                     <div style={{ display: 'grid', gridTemplateColumns: '70px 1fr', gap: '10px' }}>
                       <span style={{ fontSize: '12px', color: str(ml?.col) } as CSSProperties}>{T(ml?.k)}</span>
-                      <span style={{ fontSize: '13px', textWrap: 'pretty' }}>{T(ml?.v)}</span>
+                      <span style={{ fontSize: '14px', textWrap: 'pretty' }}>{T(ml?.v)}</span>
                     </div>
                   </Fragment>
                 ))}
@@ -1592,9 +1601,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                     flexDirection: 'column',
                     gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -1608,7 +1617,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -1620,13 +1629,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Pale Raven answers
                     </span>
                   </span>
                   <button
+                    data-hit="1"
                     title={`Tile width: ${str(v.pd?.pr?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                     onClick={v.pd?.pr?.cyc}
                     style={
@@ -1638,9 +1648,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                         height: '26px',
                         padding: '0 9px',
                         borderRadius: '6px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
                       } as CSSProperties
@@ -1662,13 +1672,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                       boxSizing: 'border-box',
                       padding: '8px 36px 8px 12px',
                       borderRadius: '999px',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                      background: 'var(--bg, oklch(0.16 0.01 60))',
-                      color: 'var(--tx, oklch(0.94 0.008 80))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                      background: 'var(--bg, oklch(0.2 0.045 165))',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                       outline: 'none',
                     }}
                   />
                   <button
+                    data-hit="1"
                     onMouseDown={v.p?.onPrClr}
                     title="Clear"
                     aria-label="Clear search"
@@ -1684,7 +1695,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                         border: '0',
                         borderRadius: '50%',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         fontSize: '16px',
                         lineHeight: '1',
@@ -1703,15 +1714,15 @@ export function ProfileScreen({ v }: { v: VM }) {
                         gap: '4px 16px',
                         alignItems: 'baseline',
                         paddingBottom: '10px',
-                        borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       }}
                     >
                       <span
                         style={{
-                          fontSize: '13px',
+                          fontSize: '14px',
                           fontStyle: 'italic',
                           textWrap: 'pretty',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         }}
                       >
                         “
@@ -1719,7 +1730,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           <Fragment key={$index}>
                             <span
                               style={
-                                { background: str(z?.bg), color: str(z?.fg), borderRadius: '3px' } as CSSProperties
+                                { background: str(z?.bg), color: str(z?.fg), borderRadius: '4px' } as CSSProperties
                               }
                             >
                               {T(z?.t)}
@@ -1728,12 +1739,12 @@ export function ProfileScreen({ v }: { v: VM }) {
                         ))}
                         ”
                       </span>
-                      <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--ac, oklch(0.82 0.12 85))' }}>
+                      <span style={{ fontSize: '14px', fontWeight: '600', color: 'var(--ac, oklch(0.82 0.12 85))' }}>
                         {L(x?.ap).map((z: any, $index: number) => (
                           <Fragment key={$index}>
                             <span
                               style={
-                                { background: str(z?.bg), color: str(z?.fg), borderRadius: '3px' } as CSSProperties
+                                { background: str(z?.bg), color: str(z?.fg), borderRadius: '4px' } as CSSProperties
                               }
                             >
                               {T(z?.t)}
@@ -1746,7 +1757,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                 ))}
                 {v.p?.prNone ? (
                   <>
-                    <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                    <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                       No matching quotes.
                     </span>
                   </>
@@ -1774,11 +1785,11 @@ export function ProfileScreen({ v }: { v: VM }) {
                     gridColumn: str(v.pd?.ls?.gc),
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: '14px',
+                    gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -1792,7 +1803,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -1804,7 +1815,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Learnset by skill rank
@@ -1870,7 +1881,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                               alignItems: 'start',
                               padding: '6px 10px',
                               borderRadius: '8px',
-                              background: 'var(--panel2, oklch(0.25 0.012 60))',
+                              background: 'var(--panel2, oklch(0.3 0.055 165))',
                             }}
                           >
                             <span
@@ -1900,7 +1911,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                                         borderRadius: '6px',
                                         background: str(z?.bg),
                                         cursor: str(z?.cur),
-                                        fontSize: '13px',
+                                        fontSize: '14px',
                                         gap: '8px',
                                       } as CSSProperties
                                     }
@@ -1913,7 +1924,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                                             font: "600 10px/1 'IBM Plex Mono',monospace",
                                             padding: '3px 5px',
                                             borderRadius: '4px',
-                                            background: 'var(--ac, oklch(0.8 0.11 75))',
+                                            background: 'var(--ac, oklch(0.82 0.12 85))',
                                             color: 'oklch(0.18 0.01 60)',
                                           }}
                                         >
@@ -1956,9 +1967,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                     flexDirection: 'column',
                     gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -1972,7 +1983,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -1984,7 +1995,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Learnset by skill rank
@@ -1996,7 +2007,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                     display: 'grid',
                     gridTemplateColumns: '110px repeat(5,minmax(110px,1fr))',
                     gap: '1px',
-                    background: 'var(--line, oklch(0.29 0.012 60))',
+                    background: 'var(--line, oklch(0.42 0.06 110 / .55))',
                     borderRadius: '8px',
                     overflow: 'hidden',
                     minWidth: '660px',
@@ -2007,9 +2018,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                       <div
                         style={{
                           padding: '8px 10px',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           font: "600 11px/1 'IBM Plex Mono',monospace",
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         }}
                       >
                         {T(h)}
@@ -2021,7 +2032,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                       <div
                         style={{
                           padding: '8px 10px',
-                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                          background: 'var(--panel, oklch(0.245 0.05 165))',
                           fontWeight: '600',
                           fontSize: '12px',
                           display: 'flex',
@@ -2109,7 +2120,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                                           font: "600 9.5px/1 'IBM Plex Mono',monospace",
                                           padding: '2px 4px',
                                           borderRadius: '4px',
-                                          background: 'var(--ac, oklch(0.8 0.11 75))',
+                                          background: 'var(--ac, oklch(0.82 0.12 85))',
                                           color: 'oklch(0.18 0.01 60)',
                                         }}
                                       >
@@ -2151,9 +2162,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                     flexDirection: 'column',
                     gap: '12px',
                     padding: '20px',
-                    borderRadius: 'var(--r, 14px)',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -2167,7 +2178,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           cursor: 'grab',
                           fontSize: '14px',
                           lineHeight: '1',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           userSelect: 'none',
                         } as CSSProperties
                       }
@@ -2179,13 +2190,14 @@ export function ProfileScreen({ v }: { v: VM }) {
                         font: "500 10px/1 'IBM Plex Mono',monospace",
                         letterSpacing: '.14em',
                         textTransform: 'uppercase',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                       }}
                     >
                       Personal abilities
                     </span>
                   </span>
                   <button
+                    data-hit="1"
                     title={`Tile width: ${str(v.pd?.lv?.wl)} of ${str(v.pd?.n)} columns — click to change`}
                     onClick={v.pd?.lv?.cyc}
                     style={
@@ -2197,9 +2209,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                         height: '26px',
                         padding: '0 9px',
                         borderRadius: '6px',
-                        border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                        border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         font: "500 11px/1 'IBM Plex Mono',monospace",
                       } as CSSProperties
@@ -2216,7 +2228,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                     display: 'grid',
                     gridTemplateColumns: '90px 1fr',
                     gap: '1px',
-                    background: 'var(--line, oklch(0.29 0.012 60))',
+                    background: 'var(--line, oklch(0.42 0.06 110 / .55))',
                     borderRadius: '8px',
                     overflow: 'hidden',
                   }}
@@ -2224,9 +2236,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                   <div
                     style={{
                       padding: '8px 10px',
-                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                       font: "600 11px/1 'IBM Plex Mono',monospace",
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Unlock
@@ -2234,9 +2246,9 @@ export function ProfileScreen({ v }: { v: VM }) {
                   <div
                     style={{
                       padding: '8px 10px',
-                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                       font: "600 11px/1 'IBM Plex Mono',monospace",
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Ability
@@ -2246,7 +2258,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                       <div
                         style={{
                           padding: '8px 10px',
-                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                          background: 'var(--panel, oklch(0.245 0.05 165))',
                           font: "600 12px/1.4 'IBM Plex Mono',monospace",
                           color: 'var(--ac, oklch(0.82 0.12 85))',
                         }}
@@ -2260,7 +2272,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                         onClick={a?.enter}
                         style={{
                           padding: '8px 10px',
-                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                          background: 'var(--panel, oklch(0.245 0.05 165))',
                           fontWeight: '600',
                           fontSize: '12px',
                           display: 'flex',
@@ -2277,7 +2289,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                             height: '28px',
                             borderRadius: '6px',
                             overflow: 'hidden',
-                            background: 'var(--panel2, oklch(0.25 0.012 60))',
+                            background: 'var(--panel2, oklch(0.3 0.055 165))',
                             display: 'grid',
                           }}
                         >
@@ -2289,7 +2301,7 @@ export function ProfileScreen({ v }: { v: VM }) {
                           style={{
                             textDecoration: 'underline dotted',
                             textUnderlineOffset: '4px',
-                            textDecorationColor: 'var(--mu, oklch(0.7 0.01 70))',
+                            textDecorationColor: 'var(--mu, oklch(0.78 0.035 120))',
                           }}
                         >
                           {T(a?.n)}

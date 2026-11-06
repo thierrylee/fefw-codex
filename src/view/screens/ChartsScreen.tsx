@@ -5,7 +5,7 @@ import { L, T, str, type VM } from '../runtime'
 export function ChartsScreen({ v }: { v: VM }) {
   return (
     <>
-      <section data-screen-label="Charts" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <section data-screen-label="Charts" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
           <div
             style={{
@@ -26,8 +26,8 @@ export function ChartsScreen({ v }: { v: VM }) {
                 gap: '2px',
                 padding: '3px',
                 borderRadius: '8px',
-                background: 'var(--bg, oklch(0.16 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                background: 'var(--bg, oklch(0.2 0.045 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               }}
             >
               {L(v.chartJumps).map((j: any, $index: number) => (
@@ -54,7 +54,7 @@ export function ChartsScreen({ v }: { v: VM }) {
               ))}
             </div>
           </div>
-          <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+          <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>
             Base character growths for every unit you can field.
           </span>
         </div>
@@ -63,12 +63,12 @@ export function ChartsScreen({ v }: { v: VM }) {
           style={
             {
               padding: '20px',
-              borderRadius: 'var(--r, 14px)',
-              background: 'var(--panel, oklch(0.2 0.01 60))',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              borderRadius: 'var(--r, 10px)',
+              background: 'var(--panel, oklch(0.245 0.05 165))',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               display: str(v.chD?.gro),
               flexDirection: 'column',
-              gap: '14px',
+              gap: '12px',
               minWidth: '0',
             } as CSSProperties
           }
@@ -78,13 +78,13 @@ export function ChartsScreen({ v }: { v: VM }) {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
-              gap: '10px 14px',
+              gap: '10px 12px',
               flexWrap: 'wrap',
             }}
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '0' }}>
-              <h2 style={{ margin: '0', font: "600 17px/1.2 'Cinzel',serif" }}>Growth heatmap</h2>
-              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+              <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>Growth heatmap</h2>
+              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                 Base growth % for every unit. Click column headers to select several; rows sort by the total of the
                 selected stats.
               </span>
@@ -125,9 +125,9 @@ export function ChartsScreen({ v }: { v: VM }) {
                           flexDirection: 'column',
                           gap: '8px',
                           padding: '10px 12px',
-                          borderRadius: '10px',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                          background: 'var(--bg, oklch(0.16 0.01 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                          background: 'var(--bg, oklch(0.2 0.045 165))',
                           cursor: 'pointer',
                           textAlign: 'left',
                           color: 'inherit',
@@ -137,7 +137,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                           <span
                             style={{
                               font: "500 11px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                               minWidth: '20px',
                             }}
                           >
@@ -157,8 +157,8 @@ export function ChartsScreen({ v }: { v: VM }) {
                           </span>
                           <span
                             style={{
-                              font: "600 13px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                              font: "600 12px/1 'IBM Plex Mono',monospace",
+                              color: 'var(--ac, oklch(0.82 0.12 85))',
                             }}
                           >
                             {T(r?.tot)}
@@ -187,8 +187,8 @@ export function ChartsScreen({ v }: { v: VM }) {
                               >
                                 <span
                                   style={{
-                                    font: "500 8.5px/1 'IBM Plex Mono',monospace",
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                    font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
                                   }}
                                 >
                                   {T(x?.s)}
@@ -232,7 +232,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                     top: '0',
                     zIndex: '2',
                     padding: '0 8px 8px',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
                   }}
                 >
                   <span></span>
@@ -241,7 +241,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                       font: "500 10px/1 'IBM Plex Mono',monospace",
                       letterSpacing: '.14em',
                       textTransform: 'uppercase',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Unit
@@ -249,6 +249,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                   {L(v.hmHeadS).map((h: any, $index: number) => (
                     <Fragment key={$index}>
                       <button
+                        data-hit="1"
                         onClick={h?.click}
                         style={
                           {
@@ -259,7 +260,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                             color: str(h?.fg),
                             cursor: 'pointer',
                             font: "600 11px/1 'IBM Plex Mono',monospace",
-                            letterSpacing: '.06em',
+                            letterSpacing: '.12em',
                           } as CSSProperties
                         }
                       >
@@ -268,6 +269,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                     </Fragment>
                   ))}
                   <button
+                    data-hit="1"
                     onClick={v.hmSig?.click}
                     style={
                       {
@@ -293,16 +295,16 @@ export function ChartsScreen({ v }: { v: VM }) {
                         gap: '4px',
                         alignItems: 'stretch',
                         padding: '2px 8px',
-                        borderRadius: '10px',
+                        borderRadius: 'var(--r, 10px)',
                       }}
-                      className="hv-11"
+                      className="hv-1"
                     >
                       <span
                         style={{
                           display: 'grid',
                           placeItems: 'center',
                           font: "500 10px/1 'IBM Plex Mono',monospace",
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         }}
                       >
                         {T(r?.rank)}
@@ -348,8 +350,8 @@ export function ChartsScreen({ v }: { v: VM }) {
                         style={{
                           display: 'grid',
                           placeItems: 'center',
-                          font: "600 13px/1 'IBM Plex Mono',monospace",
-                          color: 'var(--ac, oklch(0.8 0.11 75))',
+                          font: "600 12px/1 'IBM Plex Mono',monospace",
+                          color: 'var(--ac, oklch(0.82 0.12 85))',
                         }}
                       >
                         {T(r?.tot)}
@@ -364,7 +366,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                     gap: '10px',
                     padding: '14px 8px 0',
                     font: "500 10px/1 'IBM Plex Mono',monospace",
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                   }}
                 >
                   <span>10%</span>
@@ -389,12 +391,12 @@ export function ChartsScreen({ v }: { v: VM }) {
           style={
             {
               padding: '20px',
-              borderRadius: 'var(--r, 14px)',
-              background: 'var(--panel, oklch(0.2 0.01 60))',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              borderRadius: 'var(--r, 10px)',
+              background: 'var(--panel, oklch(0.245 0.05 165))',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               display: str(v.chD?.exp),
               flexDirection: 'column',
-              gap: '14px',
+              gap: '12px',
               minWidth: '0',
             } as CSSProperties
           }
@@ -404,16 +406,16 @@ export function ChartsScreen({ v }: { v: VM }) {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
-              gap: '10px 14px',
+              gap: '10px 12px',
               flexWrap: 'wrap',
             }}
           >
             <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '0' }}>
-              <h2 style={{ margin: '0', font: "600 17px/1.2 'Cinzel',serif" }}>
+              <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>
                 {'Expected stats at Lv '}
                 {T(v.bmLv)}
               </h2>
-              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                 Base + growth × (Lv − 1), personal growth only, shaded within each stat. Small text shows Lv 1 base and
                 growth %. Click column headers to select several; rows sort by the total of the selected stats.
               </span>
@@ -424,7 +426,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                 alignItems: 'center',
                 gap: '10px',
                 font: "500 11px/1 'IBM Plex Mono',monospace",
-                color: 'var(--mu, oklch(0.7 0.01 70))',
+                color: 'var(--mu, oklch(0.78 0.035 120))',
               }}
             >
               <button
@@ -435,9 +437,9 @@ export function ChartsScreen({ v }: { v: VM }) {
                   height: '36px',
                   flex: 'none',
                   borderRadius: '999px',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   background: 'var(--panel)',
-                  color: 'var(--tx, oklch(0.94 0.008 80))',
+                  color: 'var(--tx, oklch(0.95 0.02 90))',
                   font: "600 16px/1 'IBM Plex Mono',monospace",
                   cursor: 'pointer',
                 }}
@@ -451,7 +453,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                 value={v.bmLv ?? ''}
                 onInput={v.onBmLv}
                 aria-label="Level"
-                style={{ width: '160px', maxWidth: '40vw', accentColor: 'var(--ac, oklch(0.8 0.11 75))' }}
+                style={{ width: '160px', maxWidth: '40vw', accentColor: 'var(--ac, oklch(0.82 0.12 85))' }}
               />
               <button
                 onClick={v.bmInc}
@@ -461,9 +463,9 @@ export function ChartsScreen({ v }: { v: VM }) {
                   height: '36px',
                   flex: 'none',
                   borderRadius: '999px',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   background: 'var(--panel)',
-                  color: 'var(--tx, oklch(0.94 0.008 80))',
+                  color: 'var(--tx, oklch(0.95 0.02 90))',
                   font: "600 16px/1 'IBM Plex Mono',monospace",
                   cursor: 'pointer',
                 }}
@@ -477,8 +479,8 @@ export function ChartsScreen({ v }: { v: VM }) {
                 gap: '2px',
                 padding: '3px',
                 borderRadius: '8px',
-                background: 'var(--bg, oklch(0.16 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                background: 'var(--bg, oklch(0.2 0.045 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               }}
             >
               {L(v.bmDecOpts).map((o: any, $index: number) => (
@@ -540,9 +542,9 @@ export function ChartsScreen({ v }: { v: VM }) {
                           flexDirection: 'column',
                           gap: '8px',
                           padding: '10px 12px',
-                          borderRadius: '10px',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                          background: 'var(--bg, oklch(0.16 0.01 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                          background: 'var(--bg, oklch(0.2 0.045 165))',
                           cursor: 'pointer',
                           textAlign: 'left',
                           color: 'inherit',
@@ -552,7 +554,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                           <span
                             style={{
                               font: "500 11px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                               minWidth: '20px',
                             }}
                           >
@@ -572,8 +574,8 @@ export function ChartsScreen({ v }: { v: VM }) {
                           </span>
                           <span
                             style={{
-                              font: "600 13px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                              font: "600 12px/1 'IBM Plex Mono',monospace",
+                              color: 'var(--ac, oklch(0.82 0.12 85))',
                             }}
                           >
                             {T(r?.tot)}
@@ -602,8 +604,8 @@ export function ChartsScreen({ v }: { v: VM }) {
                               >
                                 <span
                                   style={{
-                                    font: "500 8.5px/1 'IBM Plex Mono',monospace",
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                    font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
                                   }}
                                 >
                                   {T(x?.s)}
@@ -647,7 +649,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                     top: '0',
                     zIndex: '2',
                     padding: '0 8px 8px',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
                   }}
                 >
                   <span></span>
@@ -656,7 +658,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                       font: "500 10px/1 'IBM Plex Mono',monospace",
                       letterSpacing: '.14em',
                       textTransform: 'uppercase',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     }}
                   >
                     Unit
@@ -664,6 +666,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                   {L(v.bmHeadS).map((h: any, $index: number) => (
                     <Fragment key={$index}>
                       <button
+                        data-hit="1"
                         onClick={h?.click}
                         style={
                           {
@@ -674,7 +677,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                             color: str(h?.fg),
                             cursor: 'pointer',
                             font: "600 11px/1 'IBM Plex Mono',monospace",
-                            letterSpacing: '.06em',
+                            letterSpacing: '.12em',
                           } as CSSProperties
                         }
                       >
@@ -683,6 +686,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                     </Fragment>
                   ))}
                   <button
+                    data-hit="1"
                     onClick={v.bmSig?.click}
                     style={
                       {
@@ -708,16 +712,16 @@ export function ChartsScreen({ v }: { v: VM }) {
                         gap: '4px',
                         alignItems: 'stretch',
                         padding: '2px 8px',
-                        borderRadius: '10px',
+                        borderRadius: 'var(--r, 10px)',
                       }}
-                      className="hv-11"
+                      className="hv-1"
                     >
                       <span
                         style={{
                           display: 'grid',
                           placeItems: 'center',
                           font: "500 10px/1 'IBM Plex Mono',monospace",
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         }}
                       >
                         {T(r?.rank)}
@@ -748,7 +752,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: '3px',
+                                gap: '4px',
                                 height: '44px',
                                 minWidth: '0',
                                 overflow: 'hidden',
@@ -759,13 +763,13 @@ export function ChartsScreen({ v }: { v: VM }) {
                               } as CSSProperties
                             }
                           >
-                            <span style={{ font: "600 13px/1 'IBM Plex Mono',monospace" }}>{T(x?.v)}</span>
+                            <span style={{ font: "600 12px/1 'IBM Plex Mono',monospace" }}>{T(x?.v)}</span>
                             <span
                               style={{
                                 maxWidth: '100%',
                                 whiteSpace: 'nowrap',
                                 overflow: 'hidden',
-                                font: "500 8.5px/1 'IBM Plex Mono',monospace",
+                                font: "500 9.5px/1 'IBM Plex Mono',monospace",
                                 letterSpacing: '-.02em',
                                 opacity: '.6',
                               }}
@@ -779,8 +783,8 @@ export function ChartsScreen({ v }: { v: VM }) {
                         style={{
                           display: 'grid',
                           placeItems: 'center',
-                          font: "600 13px/1 'IBM Plex Mono',monospace",
-                          color: 'var(--ac, oklch(0.8 0.11 75))',
+                          font: "600 12px/1 'IBM Plex Mono',monospace",
+                          color: 'var(--ac, oklch(0.82 0.12 85))',
                         }}
                       >
                         {T(r?.tot)}
@@ -795,7 +799,7 @@ export function ChartsScreen({ v }: { v: VM }) {
                     gap: '10px',
                     padding: '14px 8px 0',
                     font: "500 10px/1 'IBM Plex Mono',monospace",
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                   }}
                 >
                   <span>Lowest</span>

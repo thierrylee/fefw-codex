@@ -5,13 +5,13 @@ import { L, T, str, type VM } from '../runtime'
 export function CatalogScreen({ v }: { v: VM }) {
   return (
     <>
-      <section data-screen-label={v.xTitle} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <section data-screen-label={v.xTitle} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <div
           style={{
             display: 'flex',
             alignItems: 'flex-end',
             justifyContent: 'space-between',
-            gap: '14px',
+            gap: '12px',
             flexWrap: 'wrap',
           }}
         >
@@ -50,6 +50,7 @@ export function CatalogScreen({ v }: { v: VM }) {
                 }}
               />
               <button
+                data-hit="1"
                 onClick={v.onXClear}
                 title="Clear"
                 aria-label="Clear search"
@@ -85,8 +86,8 @@ export function CatalogScreen({ v }: { v: VM }) {
                       gap: '2px',
                       padding: '3px',
                       borderRadius: '8px',
-                      background: 'var(--bg, oklch(0.16 0.01 60))',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      background: 'var(--bg, oklch(0.2 0.045 165))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     }}
                   >
                     {L(row?.tabs).map((t: any, $index: number) => (
@@ -135,7 +136,7 @@ export function CatalogScreen({ v }: { v: VM }) {
                   flexDirection: 'column',
                   gap: '8px',
                   padding: '12px 14px',
-                  borderRadius: '10px',
+                  borderRadius: 'var(--r, 10px)',
                   border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   background: 'var(--panel, oklch(0.245 0.05 165))',
                 }}
@@ -150,7 +151,7 @@ export function CatalogScreen({ v }: { v: VM }) {
                           height: '32px',
                           borderRadius: '8px',
                           overflow: 'hidden',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           display: 'grid',
                         }}
                       >
@@ -188,7 +189,7 @@ export function CatalogScreen({ v }: { v: VM }) {
                       <span
                         style={{
                           font: "500 10px/1 'IBM Plex Mono',monospace",
-                          letterSpacing: '.06em',
+                          letterSpacing: '.12em',
                           color: 'var(--mu, oklch(0.78 0.035 120))',
                           opacity: '.7',
                         }}

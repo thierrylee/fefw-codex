@@ -17,12 +17,12 @@ export function OverviewScreen({ v }: { v: VM }) {
                   padding: '16px 18px',
                   borderRadius: '12px',
                   border: `1px dashed ${str(v.partColor)}`,
-                  background: 'var(--panel2, oklch(0.25 0.012 60))',
+                  background: 'var(--panel2, oklch(0.3 0.055 165))',
                 } as CSSProperties
               }
             >
               <span style={{ fontWeight: '600' }}>Choose your path</span>
-              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+              <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                 No saved progress yet. Start at the Prologue, or jump to a route.
               </span>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
@@ -33,7 +33,7 @@ export function OverviewScreen({ v }: { v: VM }) {
                       style={
                         {
                           cursor: 'pointer',
-                          minHeight: '44px',
+                          minHeight: '32px',
                           padding: '0 16px',
                           borderRadius: '999px',
                           border: `1px solid ${str(v.partColor)}`,
@@ -70,7 +70,7 @@ export function OverviewScreen({ v }: { v: VM }) {
             {T(v.availN)}
             {' units at your side'}
           </h1>
-          <p style={{ margin: '0', color: 'var(--mu, oklch(0.7 0.01 70))', maxWidth: '60ch', textWrap: 'pretty' }}>
+          <p style={{ margin: '0', color: 'var(--mu, oklch(0.78 0.035 120))', maxWidth: '60ch', textWrap: 'pretty' }}>
             {T(v.overviewSub)}
           </p>
         </div>
@@ -85,9 +85,9 @@ export function OverviewScreen({ v }: { v: VM }) {
                 flexDirection: 'column',
                 gap: '16px',
                 padding: '22px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 boxShadow: 'var(--glow, none)',
               } as CSSProperties
             }
@@ -106,7 +106,7 @@ export function OverviewScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 Current build
@@ -117,7 +117,7 @@ export function OverviewScreen({ v }: { v: VM }) {
                   padding: '9px 16px',
                   borderRadius: '999px',
                   border: '0',
-                  background: 'var(--ac, oklch(0.8 0.11 75))',
+                  background: 'var(--ac, oklch(0.82 0.12 85))',
                   color: 'oklch(0.18 0.01 60)',
                   fontWeight: '600',
                   cursor: 'pointer',
@@ -126,14 +126,14 @@ export function OverviewScreen({ v }: { v: VM }) {
                 Open unit builder
               </button>
             </div>
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '18px', flexWrap: 'wrap' }}>
-              <div style={{ font: "600 56px/0.9 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.8 0.11 75))' }}>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '16px', flexWrap: 'wrap' }}>
+              <div style={{ font: "600 56px/0.9 'IBM Plex Mono',monospace", color: 'var(--ac, oklch(0.82 0.12 85))' }}>
                 {T(v.calcTotal)}
-                <span style={{ fontSize: '22px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>%</span>
+                <span style={{ fontSize: '18px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>%</span>
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingBottom: '4px' }}>
                 <div style={{ font: "600 18px/1.2 'Cinzel',serif" }}>{T(v.calcC)}</div>
-                <div style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                <div style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                   {T(v.calcPathLbl)}
                   {T(v.calcMLabel)}
                 </div>
@@ -155,7 +155,7 @@ export function OverviewScreen({ v }: { v: VM }) {
                       display: 'flex',
                       flexDirection: 'column',
                       alignItems: 'center',
-                      gap: '5px',
+                      gap: '6px',
                       height: '100%',
                       justifyContent: 'flex-end',
                     }}
@@ -166,14 +166,17 @@ export function OverviewScreen({ v }: { v: VM }) {
                           width: '100%',
                           maxWidth: '26px',
                           borderRadius: '4px 4px 1px 1px',
-                          background: 'var(--ac, oklch(0.8 0.11 75))',
+                          background: 'var(--ac, oklch(0.82 0.12 85))',
                           opacity: '.9',
                           height: str(row?.hMini),
                         } as CSSProperties
                       }
                     ></div>
                     <span
-                      style={{ font: "500 10px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                      style={{
+                        font: "500 10px/1 'IBM Plex Mono',monospace",
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
+                      }}
                     >
                       {T(row?.s)}
                     </span>
@@ -188,9 +191,9 @@ export function OverviewScreen({ v }: { v: VM }) {
               flexDirection: 'column',
               gap: '12px',
               padding: '22px',
-              borderRadius: 'var(--r, 14px)',
-              background: 'var(--panel, oklch(0.2 0.01 60))',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              borderRadius: 'var(--r, 10px)',
+              background: 'var(--panel, oklch(0.245 0.05 165))',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
             }}
           >
             <div
@@ -198,7 +201,7 @@ export function OverviewScreen({ v }: { v: VM }) {
                 font: "500 10px/1 'IBM Plex Mono',monospace",
                 letterSpacing: '.14em',
                 textTransform: 'uppercase',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
+                color: 'var(--mu, oklch(0.78 0.035 120))',
               }}
             >
               Highest base growth
@@ -221,7 +224,7 @@ export function OverviewScreen({ v }: { v: VM }) {
                 >
                   <span style={{ fontWeight: '500' }}>{T(g?.n)}</span>
                   <span
-                    style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.7 0.01 70))' }}
+                    style={{ font: "500 12px/1 'IBM Plex Mono',monospace", color: 'var(--mu, oklch(0.78 0.035 120))' }}
                   >
                     {T(g?.tot)}%
                   </span>
@@ -230,7 +233,7 @@ export function OverviewScreen({ v }: { v: VM }) {
                       gridColumn: '1/-1',
                       height: '4px',
                       borderRadius: '2px',
-                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                       overflow: 'hidden',
                     }}
                   >
@@ -240,7 +243,7 @@ export function OverviewScreen({ v }: { v: VM }) {
                           display: 'block',
                           height: '100%',
                           width: str(g?.w),
-                          background: 'var(--ac, oklch(0.8 0.11 75))',
+                          background: 'var(--ac, oklch(0.82 0.12 85))',
                         } as CSSProperties
                       }
                     ></span>
@@ -255,7 +258,7 @@ export function OverviewScreen({ v }: { v: VM }) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ display: 'flex', alignItems: 'baseline', gap: '10px', flexWrap: 'wrap' }}>
                 <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>Sealed until later parts</h2>
-                <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))', fontSize: '13px' }}>
+                <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))', fontSize: '14px' }}>
                   {T(v.sealedN)}
                   {' units · advance the progress stepper to reveal'}
                 </span>
@@ -275,22 +278,22 @@ export function OverviewScreen({ v }: { v: VM }) {
                         alignItems: 'center',
                         gap: '12px',
                         padding: '12px',
-                        borderRadius: 'var(--r, 14px)',
-                        border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                        borderRadius: 'var(--r, 10px)',
+                        border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                         background:
-                          'repeating-linear-gradient(135deg,transparent 0 8px,rgba(255,255,255,.02) 8px 16px)',
+                          'repeating-linear-gradient(135deg,transparent 0 8px,color-mix(in oklch, var(--panel2, oklch(0.3 0.055 165)) 50%, transparent) 8px 16px)',
                       }}
                     >
                       <div
                         style={{
                           width: '40px',
                           height: '40px',
-                          borderRadius: '10px',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          borderRadius: 'var(--r, 10px)',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           filter: 'blur(3px)',
                         }}
                       ></div>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '3px', minWidth: '0' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', minWidth: '0' }}>
                         <span style={{ fontWeight: '600', filter: 'blur(5px)', userSelect: 'none' }}>{T(c?.n)}</span>
                         <span
                           style={{ font: "500 10px/1 'IBM Plex Mono',monospace", color: str(c?.pcol) } as CSSProperties}

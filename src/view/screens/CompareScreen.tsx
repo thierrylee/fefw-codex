@@ -7,7 +7,7 @@ export function CompareScreen({ v }: { v: VM }) {
     <>
       <section
         data-screen-label="Compare"
-        style={{ display: 'flex', flexDirection: 'column', gap: '18px', paddingTop: str(v.secPT) } as CSSProperties}
+        style={{ display: 'flex', flexDirection: 'column', gap: '16px', paddingTop: str(v.secPT) } as CSSProperties}
       >
         {v.rlOn ? (
           <>
@@ -32,6 +32,7 @@ export function CompareScreen({ v }: { v: VM }) {
               {L(v.rl).map((j: any, $index: number) => (
                 <Fragment key={$index}>
                   <button
+                    data-hit="1"
                     onClick={j?.go}
                     onMouseEnter={j?.enter}
                     onMouseLeave={j?.leave}
@@ -46,7 +47,7 @@ export function CompareScreen({ v }: { v: VM }) {
                       border: '0',
                       background: 'transparent',
                       cursor: 'pointer',
-                      color: 'var(--tx, #eee)',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                     }}
                   >
                     <span
@@ -58,9 +59,9 @@ export function CompareScreen({ v }: { v: VM }) {
                           fontSize: '12px',
                           padding: str(j?.lblP),
                           borderRadius: '6px',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           borderStyle: 'solid',
-                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderColor: 'var(--line, oklch(0.42 0.06 110 / .55))',
                           borderWidth: str(j?.lblBw),
                           whiteSpace: 'nowrap',
                           transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
@@ -105,7 +106,7 @@ export function CompareScreen({ v }: { v: VM }) {
           >
             Compare builds
           </h1>
-          <span style={{ marginTop: str(v.subGap), color: 'var(--mu, oklch(0.7 0.01 70))' } as CSSProperties}>
+          <span style={{ marginTop: str(v.subGap), color: 'var(--mu, oklch(0.78 0.035 120))' } as CSSProperties}>
             {'Pick up to '}
             {T(v.cmpLimTxt)}
             {
@@ -136,36 +137,38 @@ export function CompareScreen({ v }: { v: VM }) {
                     minWidth: '0',
                     maxWidth: '100%',
                     padding: '8px 8px 10px 14px',
-                    borderRadius: 'var(--r, 14px)',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                    background: 'var(--panel, oklch(0.2 0.01 60))',
+                    borderRadius: 'var(--r, 10px)',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                    background: 'var(--panel, oklch(0.245 0.05 165))',
                   } as CSSProperties
                 }
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{ fontWeight: '600', fontSize: '13px' }}>{T(g?.name)}</span>
+                    <span style={{ fontWeight: '600', fontSize: '14px' }}>{T(g?.name)}</span>
                     <button
+                      data-hit="1"
                       onClick={g?.profile}
                       style={
                         {
                           height: str(v.tk28),
                           padding: '0 10px',
                           borderRadius: '999px',
-                          border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           background: 'transparent',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                           cursor: 'pointer',
                           fontSize: '12px',
                           lineHeight: '1',
                         } as CSSProperties
                       }
-                      className="hv-15"
+                      className="hv-12"
                     >
                       View Profile
                     </button>
                   </div>
                   <button
+                    data-hit="1"
                     onClick={g?.close}
                     title="Hide this character (builds are kept)"
                     style={
@@ -175,13 +178,13 @@ export function CompareScreen({ v }: { v: VM }) {
                         border: '0',
                         borderRadius: '50%',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         fontSize: '16px',
                         lineHeight: '1',
                       } as CSSProperties
                     }
-                    className="hv-16"
+                    className="hv-0"
                   >
                     ×
                   </button>
@@ -203,6 +206,7 @@ export function CompareScreen({ v }: { v: VM }) {
                         }
                       >
                         <button
+                          data-hit="1"
                           onClick={b?.toggle}
                           title={b?.tip}
                           style={{
@@ -236,7 +240,7 @@ export function CompareScreen({ v }: { v: VM }) {
                               {
                                 display: str(b?.rmDisp),
                                 marginLeft: '2px',
-                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
                                 lineHeight: '1',
                               } as CSSProperties
                             }
@@ -255,13 +259,13 @@ export function CompareScreen({ v }: { v: VM }) {
                             minWidth: '44px',
                             padding: '0 10px',
                             border: '0',
-                            borderLeft: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderLeft: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             background: 'transparent',
-                            color: 'var(--ac, oklch(0.8 0.11 75))',
+                            color: 'var(--ac, oklch(0.82 0.12 85))',
                             cursor: 'pointer',
                             fontSize: '14px',
                           }}
-                          className="hv-6"
+                          className="hv-4"
                         >
                           ↗
                         </button>
@@ -278,9 +282,9 @@ export function CompareScreen({ v }: { v: VM }) {
                         minHeight: '34px',
                         padding: '7px 12px',
                         borderRadius: '999px',
-                        border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                        border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                         background: 'transparent',
-                        color: 'var(--mu, oklch(0.7 0.01 70))',
+                        color: 'var(--mu, oklch(0.78 0.035 120))',
                         cursor: 'pointer',
                         fontSize: '12px',
                       } as CSSProperties
@@ -297,7 +301,7 @@ export function CompareScreen({ v }: { v: VM }) {
                       minWidth: '100%',
                       fontSize: '12px',
                       lineHeight: '1.35',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                     } as CSSProperties
                   }
                 >
@@ -313,14 +317,15 @@ export function CompareScreen({ v }: { v: VM }) {
               gap: '8px',
               alignSelf: 'stretch',
               padding: '8px 8px 10px 14px',
-              borderRadius: 'var(--r, 14px)',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
-              background: 'var(--panel, oklch(0.2 0.01 60))',
+              borderRadius: 'var(--r, 10px)',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+              background: 'var(--panel, oklch(0.245 0.05 165))',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px' }}>
-              <span style={{ fontWeight: '600', fontSize: '13px' }}>Characters</span>
+              <span style={{ fontWeight: '600', fontSize: '14px' }}>Characters</span>
               <button
+                data-hit="1"
                 onClick={v.clearAllCmp}
                 style={
                   {
@@ -330,13 +335,13 @@ export function CompareScreen({ v }: { v: VM }) {
                     border: '0',
                     borderRadius: '999px',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     fontSize: '12px',
                     lineHeight: '1',
                   } as CSSProperties
                 }
-                className="hv-16"
+                className="hv-0"
               >
                 Remove all
               </button>
@@ -350,10 +355,10 @@ export function CompareScreen({ v }: { v: VM }) {
                   minHeight: '36px',
                   padding: '0 4px 0 12px',
                   borderRadius: '999px',
-                  border: '1px dashed var(--line, oklch(0.29 0.012 60))',
+                  border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
                 }}
               >
-                <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>+ Add</span>
+                <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>+ Add</span>
                 <input
                   list="cmp-chars"
                   value={v.cq ?? ''}
@@ -362,6 +367,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   autoComplete="off"
                   style={{
                     width: '170px',
+                    minHeight: 'var(--tap-min, 32px)',
                     padding: '4px 8px',
                     border: '0',
                     background: 'transparent',
@@ -384,7 +390,7 @@ export function CompareScreen({ v }: { v: VM }) {
             </div>
           </div>
         </div>
-        <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+        <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
           {'Tap a build to show/hide it (max '}
           {T(v.cmpLim)}) · × hides a character
         </span>
@@ -393,9 +399,9 @@ export function CompareScreen({ v }: { v: VM }) {
             <div
               style={{
                 padding: '24px',
-                borderRadius: 'var(--r, 14px)',
-                border: '1px dashed var(--line, oklch(0.29 0.012 60))',
-                color: 'var(--mu, oklch(0.7 0.01 70))',
+                borderRadius: 'var(--r, 10px)',
+                border: '1px dashed var(--line, oklch(0.42 0.06 110 / .55))',
+                color: 'var(--mu, oklch(0.78 0.035 120))',
               }}
             >
               No characters selected — add one above to compare its saved builds.
@@ -412,7 +418,7 @@ export function CompareScreen({ v }: { v: VM }) {
               font: "500 10px/1 'IBM Plex Mono',monospace",
               letterSpacing: '.14em',
               textTransform: 'uppercase',
-              color: 'var(--mu, oklch(0.7 0.01 70))',
+              color: 'var(--mu, oklch(0.78 0.035 120))',
             } as CSSProperties
           }
         >
@@ -421,13 +427,14 @@ export function CompareScreen({ v }: { v: VM }) {
             style={{
               display: 'flex',
               borderRadius: '6px',
-              border: '1px solid var(--line, oklch(0.29 0.012 60))',
+              border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               overflow: 'hidden',
             }}
           >
             {L(v.cColOpts).map((o: any, $index: number) => (
               <Fragment key={$index}>
                 <button
+                  data-hit="1"
                   onClick={o?.click}
                   title={`Max ${str(o?.n)} columns`}
                   style={
@@ -476,9 +483,9 @@ export function CompareScreen({ v }: { v: VM }) {
                 boxShadow: str(v.ct?.radar?.ol),
                 cursor: 'grab',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -500,7 +507,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 <span
@@ -521,6 +528,7 @@ export function CompareScreen({ v }: { v: VM }) {
                 Growth rates
               </span>
               <button
+                data-hit="1"
                 title={`Tile width: ${str(v.rWl)} of ${str(v.cNC)} columns — click to change`}
                 onClick={v.rCyc}
                 style={
@@ -532,9 +540,9 @@ export function CompareScreen({ v }: { v: VM }) {
                     height: '26px',
                     padding: '0 9px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   } as CSSProperties
@@ -546,17 +554,17 @@ export function CompareScreen({ v }: { v: VM }) {
                 </span>
               </button>
             </div>
-            <div style={{ alignSelf: 'flex-start', display: 'flex', flexWrap: 'wrap', gap: '6px 14px' }}>
+            <div style={{ alignSelf: 'flex-start', display: 'flex', flexWrap: 'wrap', gap: '6px 12px' }}>
               {L(v.cmpSel).map((h: any, $index: number) => (
                 <Fragment key={$index}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}>
                     <span
                       style={
-                        { width: '10px', height: '10px', borderRadius: '3px', background: str(h?.col) } as CSSProperties
+                        { width: '10px', height: '10px', borderRadius: '4px', background: str(h?.col) } as CSSProperties
                       }
                     ></span>
                     <span>{T(h?.ch)}</span>
-                    <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(h?.bn)}</span>
+                    <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(h?.bn)}</span>
                   </span>
                 </Fragment>
               ))}
@@ -565,7 +573,7 @@ export function CompareScreen({ v }: { v: VM }) {
               <svg viewBox="0 0 340 340" style={{ display: 'block', width: '100%', overflow: 'visible' }}>
                 {L(v.radar?.rings).map((g: any, $index: number) => (
                   <Fragment key={$index}>
-                    <polygon points={g} fill="none" stroke="rgba(255,255,255,.09)"></polygon>
+                    <polygon points={g} fill="none" stroke="var(--line, oklch(0.42 0.06 110 / .55))"></polygon>
                   </Fragment>
                 ))}
                 {L(v.radar?.axes).map((a: any, $index: number) => (
@@ -659,9 +667,9 @@ export function CompareScreen({ v }: { v: VM }) {
                 boxShadow: str(v.ct?.bars?.ol),
                 cursor: 'grab',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -683,7 +691,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 <span
@@ -705,14 +713,15 @@ export function CompareScreen({ v }: { v: VM }) {
               </span>
               <span style={{ display: 'flex', gap: '6px' }}>
                 <button
+                  data-hit="1"
                   onClick={v.bRotate}
                   title={v.bRotTip}
                   style={{
                     padding: '7px 12px',
                     borderRadius: '999px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   }}
@@ -720,6 +729,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   {T(v.bRotLbl)}
                 </button>
                 <button
+                  data-hit="1"
                   title={`Tile width: ${str(v.bWl)} of ${str(v.cNC)} columns — click to change`}
                   onClick={v.bCyc}
                   style={
@@ -731,9 +741,9 @@ export function CompareScreen({ v }: { v: VM }) {
                       height: '26px',
                       padding: '0 9px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       background: 'transparent',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                       cursor: 'pointer',
                       font: "500 11px/1 'IBM Plex Mono',monospace",
                     } as CSSProperties
@@ -746,17 +756,17 @@ export function CompareScreen({ v }: { v: VM }) {
                 </button>
               </span>
             </div>
-            <div style={{ alignSelf: 'flex-start', display: 'flex', flexWrap: 'wrap', gap: '6px 14px' }}>
+            <div style={{ alignSelf: 'flex-start', display: 'flex', flexWrap: 'wrap', gap: '6px 12px' }}>
               {L(v.cmpSel).map((h: any, $index: number) => (
                 <Fragment key={$index}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}>
                     <span
                       style={
-                        { width: '10px', height: '10px', borderRadius: '3px', background: str(h?.col) } as CSSProperties
+                        { width: '10px', height: '10px', borderRadius: '4px', background: str(h?.col) } as CSSProperties
                       }
                     ></span>
                     <span>{T(h?.ch)}</span>
-                    <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(h?.bn)}</span>
+                    <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(h?.bn)}</span>
                   </span>
                 </Fragment>
               ))}
@@ -774,8 +784,8 @@ export function CompareScreen({ v }: { v: VM }) {
                   gap: '2px',
                   padding: '3px',
                   borderRadius: '8px',
-                  background: 'var(--bg, oklch(0.16 0.01 60))',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  background: 'var(--bg, oklch(0.2 0.045 165))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 } as CSSProperties
               }
             >
@@ -809,7 +819,7 @@ export function CompareScreen({ v }: { v: VM }) {
                       display: str(v.statSepD),
                       width: '1px',
                       margin: '6px 2px',
-                      background: 'var(--line, oklch(0.29 0.012 60))',
+                      background: 'var(--line, oklch(0.42 0.06 110 / .55))',
                     } as CSSProperties
                   }
                 ></span>
@@ -853,7 +863,7 @@ export function CompareScreen({ v }: { v: VM }) {
                         }}
                       >
                         <span style={{ font: "600 12px/1 'IBM Plex Mono',monospace" }}>{T(r?.s)}</span>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                           {L(r?.items).map((x: any, $index: number) => (
                             <Fragment key={$index}>
                               <div
@@ -866,8 +876,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                     {
                                       display: 'block',
                                       height: '16px',
-                                      borderRadius: '3px',
-                                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                      borderRadius: '4px',
+                                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                                       overflow: 'hidden',
                                       position: 'relative',
                                       boxShadow: str(x?.ol),
@@ -901,7 +911,7 @@ export function CompareScreen({ v }: { v: VM }) {
                                         top: '0',
                                         bottom: '0',
                                         width: '1px',
-                                        background: 'var(--mu, oklch(0.7 0.01 70))',
+                                        background: 'var(--mu, oklch(0.78 0.035 120))',
                                         opacity: '.6',
                                       } as CSSProperties
                                     }
@@ -914,7 +924,9 @@ export function CompareScreen({ v }: { v: VM }) {
                       </div>
                     </Fragment>
                   ))}
-                  <span style={{ fontSize: '11px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>Tick = 100% growth</span>
+                  <span style={{ fontSize: '11px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
+                    Tick = 100% growth
+                  </span>
                 </div>
               </>
             ) : null}
@@ -941,7 +953,7 @@ export function CompareScreen({ v }: { v: VM }) {
                               display: 'flex',
                               alignItems: 'flex-end',
                               gap: '2px',
-                              borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                              borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             }}
                           >
                             {L(r?.items).map((x: any, $index: number) => (
@@ -957,7 +969,7 @@ export function CompareScreen({ v }: { v: VM }) {
                                       minWidth: '0',
                                       height: str(x?.w),
                                       background: str(x?.col),
-                                      borderRadius: '3px 3px 0 0',
+                                      borderRadius: '2px 2px 0 0',
                                       position: 'relative',
                                       opacity: str(x?.op),
                                       boxShadow: str(x?.ol),
@@ -1011,9 +1023,9 @@ export function CompareScreen({ v }: { v: VM }) {
                 boxShadow: str(v.ct?.table?.ol),
                 cursor: 'grab',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 overflowX: 'auto',
                 display: 'flex',
                 flexDirection: 'column',
@@ -1027,7 +1039,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 <span
@@ -1048,6 +1060,7 @@ export function CompareScreen({ v }: { v: VM }) {
                 Projected stats · average with range
               </span>
               <button
+                data-hit="1"
                 onClick={v.cmpHzTog}
                 title={v.cmpHzTip}
                 aria-pressed={v.cmpHz}
@@ -1058,9 +1071,9 @@ export function CompareScreen({ v }: { v: VM }) {
                     marginLeft: 'auto',
                     padding: '7px 12px',
                     borderRadius: '999px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   } as CSSProperties
@@ -1069,6 +1082,7 @@ export function CompareScreen({ v }: { v: VM }) {
                 {T(v.cmpHzLbl)}
               </button>
               <button
+                data-hit="1"
                 title={`Tile width: ${str(v.tWl)} of ${str(v.cNC)} columns — click to change`}
                 onClick={v.tCyc}
                 style={
@@ -1080,9 +1094,9 @@ export function CompareScreen({ v }: { v: VM }) {
                     height: '26px',
                     padding: '0 9px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   } as CSSProperties
@@ -1106,16 +1120,16 @@ export function CompareScreen({ v }: { v: VM }) {
                             flexDirection: 'column',
                             gap: '8px',
                             padding: '10px 12px',
-                            borderRadius: '10px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                            background: 'var(--bg, oklch(0.16 0.01 60))',
+                            borderRadius: 'var(--r, 10px)',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            background: 'var(--bg, oklch(0.2 0.045 165))',
                             borderLeft: `3px solid ${str(c?.h?.col)}`,
                           } as CSSProperties
                         }
                       >
                         <span style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
                           <span
-                            style={{ flex: '1', minWidth: '0', display: 'flex', flexDirection: 'column', gap: '3px' }}
+                            style={{ flex: '1', minWidth: '0', display: 'flex', flexDirection: 'column', gap: '4px' }}
                           >
                             <span
                               style={{
@@ -1130,7 +1144,7 @@ export function CompareScreen({ v }: { v: VM }) {
                             <span
                               style={{
                                 font: "500 10px/1.2 'IBM Plex Mono',monospace",
-                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
                                 whiteSpace: 'nowrap',
                                 overflow: 'hidden',
                                 textOverflow: 'ellipsis',
@@ -1144,26 +1158,26 @@ export function CompareScreen({ v }: { v: VM }) {
                               display: 'flex',
                               alignItems: 'baseline',
                               gap: '10px',
-                              font: "600 13px/1 'IBM Plex Mono',monospace",
+                              font: "600 12px/1 'IBM Plex Mono',monospace",
                             }}
                           >
                             <span
                               style={{
                                 font: "500 10px/1 'IBM Plex Mono',monospace",
-                                color: 'var(--mu, oklch(0.7 0.01 70))',
+                                color: 'var(--mu, oklch(0.78 0.035 120))',
                               }}
                             >
                               {'Mov '}
                               <span
                                 style={{
-                                  font: "600 13px/1 'IBM Plex Mono',monospace",
-                                  color: 'var(--tx, oklch(0.94 0.008 80))',
+                                  font: "600 12px/1 'IBM Plex Mono',monospace",
+                                  color: 'var(--tx, oklch(0.95 0.02 90))',
                                 }}
                               >
                                 {T(c?.mov)}
                               </span>
                             </span>
-                            <span style={{ color: 'var(--ac, oklch(0.8 0.11 75))' }}>{T(c?.tot)}</span>
+                            <span style={{ color: 'var(--ac, oklch(0.82 0.12 85))' }}>{T(c?.tot)}</span>
                           </span>
                         </span>
                         <span
@@ -1183,8 +1197,8 @@ export function CompareScreen({ v }: { v: VM }) {
                               >
                                 <span
                                   style={{
-                                    font: "500 8.5px/1 'IBM Plex Mono',monospace",
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                    font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
                                   }}
                                 >
                                   {T(x?.s)}
@@ -1207,8 +1221,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                 </span>
                                 <span
                                   style={{
-                                    font: "500 8.5px/1 'IBM Plex Mono',monospace",
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                    font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
                                     whiteSpace: 'nowrap',
                                   }}
                                 >
@@ -1229,7 +1243,7 @@ export function CompareScreen({ v }: { v: VM }) {
                                       alignItems: 'center',
                                       gap: '4px',
                                       font: "500 10px/1 'IBM Plex Mono',monospace",
-                                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                                      color: 'var(--mu, oklch(0.78 0.035 120))',
                                     }}
                                   >
                                     {T(x?.s)}
@@ -1299,21 +1313,21 @@ export function CompareScreen({ v }: { v: VM }) {
                     {
                       display: 'grid',
                       gridTemplateColumns: str(v.cmpHzCols),
-                      font: "500 13px/1 'IBM Plex Mono',monospace",
+                      font: "500 12px/1 'IBM Plex Mono',monospace",
                     } as CSSProperties
                   }
                 >
                   <div
-                    style={{ padding: '10px 6px', borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))' }}
+                    style={{ padding: '10px 6px', borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))' }}
                   ></div>
                   {L(v.cmpStats).map((s: any, $index: number) => (
                     <Fragment key={$index}>
                       <div
                         style={{
                           padding: '10px 4px',
-                          borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                          borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                           textAlign: 'center',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         }}
                       >
                         {T(s?.s)}
@@ -1337,12 +1351,12 @@ export function CompareScreen({ v }: { v: VM }) {
                             transition: 'opacity .18s ease,scale .18s ease,box-shadow .18s ease',
                             cursor: str(b?.h?.cur),
                             padding: '8px 6px',
-                            borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                            borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             boxShadow: str(b?.h?.shV),
                             borderLeft: `3px solid ${str(b?.h?.col)}`,
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: '3px',
+                            gap: '4px',
                             minWidth: '0',
                             justifyContent: 'center',
                             fontFamily: "'IBM Plex Sans'",
@@ -1357,7 +1371,7 @@ export function CompareScreen({ v }: { v: VM }) {
                         <span
                           style={{
                             font: "500 10px/1.2 'IBM Plex Mono',monospace",
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -1373,13 +1387,13 @@ export function CompareScreen({ v }: { v: VM }) {
                             style={
                               {
                                 padding: '8px 2px',
-                                borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                 background: str(x?.bg),
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                gap: '3px',
+                                gap: '4px',
                                 minWidth: '0',
                               } as CSSProperties
                             }
@@ -1444,7 +1458,7 @@ export function CompareScreen({ v }: { v: VM }) {
                                 {
                                   display: str(v.cmpRngD),
                                   fontSize: '10px',
-                                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                                  color: 'var(--mu, oklch(0.78 0.035 120))',
                                   whiteSpace: 'nowrap',
                                 } as CSSProperties
                               }
@@ -1471,13 +1485,13 @@ export function CompareScreen({ v }: { v: VM }) {
                     {
                       display: 'grid',
                       gridTemplateColumns: str(v.cmpCols),
-                      font: "500 13px/1 'IBM Plex Mono',monospace",
+                      font: "500 12px/1 'IBM Plex Mono',monospace",
                       minWidth: '280px',
                     } as CSSProperties
                   }
                 >
                   <div
-                    style={{ padding: '10px 8px', borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))' }}
+                    style={{ padding: '10px 8px', borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))' }}
                   ></div>
                   {L(v.cmpSel).map((h: any, $index: number) => (
                     <Fragment key={$index}>
@@ -1515,7 +1529,7 @@ export function CompareScreen({ v }: { v: VM }) {
                         <span
                           style={{
                             font: "500 10px/1.2 'IBM Plex Mono',monospace",
-                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                            color: 'var(--mu, oklch(0.78 0.035 120))',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
@@ -1532,8 +1546,8 @@ export function CompareScreen({ v }: { v: VM }) {
                       <div
                         style={{
                           padding: '9px 8px',
-                          borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
-                          color: 'var(--mu, oklch(0.7 0.01 70))',
+                          borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                          color: 'var(--mu, oklch(0.78 0.035 120))',
                         }}
                       >
                         {T(r?.s)}
@@ -1544,13 +1558,13 @@ export function CompareScreen({ v }: { v: VM }) {
                             style={
                               {
                                 padding: '8px',
-                                borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                                borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                                 background: str(x?.bg),
                                 boxShadow: `inset 3px 0 0 ${str(x?.bar)}`,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'flex-end',
-                                gap: '3px',
+                                gap: '4px',
                               } as CSSProperties
                             }
                           >
@@ -1601,7 +1615,7 @@ export function CompareScreen({ v }: { v: VM }) {
                                 {T(x?.v)}
                               </span>
                             </span>
-                            <span style={{ fontSize: '10px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                            <span style={{ fontSize: '10px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                               {T(x?.rng)}
                             </span>
                             {x?.hasMnt ? (
@@ -1627,7 +1641,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   flexDirection: 'column',
                   gap: '6px',
                   fontSize: '12px',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 {L(v.cmpNotes).map((n: any, $index: number) => (
@@ -1635,7 +1649,7 @@ export function CompareScreen({ v }: { v: VM }) {
                     <div>
                       <span style={{ color: str(n?.col), fontWeight: '600' } as CSSProperties}>{T(n?.ch)}</span>
                       {' · '}
-                      <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(n?.bn)}</span>
+                      <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(n?.bn)}</span>
                       {' · '}
                       {T(n?.txt)}
                     </div>
@@ -1661,9 +1675,9 @@ export function CompareScreen({ v }: { v: VM }) {
                 boxShadow: str(v.ct?.gr?.ol),
                 cursor: 'grab',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '10px',
@@ -1676,7 +1690,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 <span
@@ -1697,6 +1711,7 @@ export function CompareScreen({ v }: { v: VM }) {
                 Growth rates · total per stat
               </span>
               <button
+                data-hit="1"
                 title={`Tile width: ${str(v.gWl)} of ${str(v.cNC)} columns — click to change`}
                 onClick={v.gCyc}
                 style={
@@ -1708,9 +1723,9 @@ export function CompareScreen({ v }: { v: VM }) {
                     height: '26px',
                     padding: '0 9px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   } as CSSProperties
@@ -1738,12 +1753,14 @@ export function CompareScreen({ v }: { v: VM }) {
                   <span></span>
                   {L(v.grStats).map((s: any, $index: number) => (
                     <Fragment key={$index}>
-                      <span style={{ padding: '6px 0', textAlign: 'center', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                      <span
+                        style={{ padding: '6px 0', textAlign: 'center', color: 'var(--mu, oklch(0.78 0.035 120))' }}
+                      >
                         {T(s?.s)}
                       </span>
                     </Fragment>
                   ))}
-                  <span style={{ padding: '6px 0', textAlign: 'center', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                  <span style={{ padding: '6px 0', textAlign: 'center', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                     Σ
                   </span>
                   {L(v.grRows).map((r: any, $index: number) => (
@@ -1766,7 +1783,7 @@ export function CompareScreen({ v }: { v: VM }) {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'center',
-                            gap: '3px',
+                            gap: '4px',
                             padding: '4px 6px',
                             borderLeft: `3px solid ${str(r?.col)}`,
                             minWidth: '0',
@@ -1802,8 +1819,8 @@ export function CompareScreen({ v }: { v: VM }) {
                         style={{
                           display: 'grid',
                           placeItems: 'center',
-                          font: "600 13px/1 'IBM Plex Mono',monospace",
-                          color: 'var(--ac, oklch(0.8 0.11 75))',
+                          font: "600 12px/1 'IBM Plex Mono',monospace",
+                          color: 'var(--ac, oklch(0.82 0.12 85))',
                         }}
                       >
                         {T(r?.tot)}
@@ -1825,9 +1842,9 @@ export function CompareScreen({ v }: { v: VM }) {
                             flexDirection: 'column',
                             gap: '8px',
                             padding: '10px 12px',
-                            borderRadius: '10px',
-                            border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                            background: 'var(--bg, oklch(0.16 0.01 60))',
+                            borderRadius: 'var(--r, 10px)',
+                            border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                            background: 'var(--bg, oklch(0.2 0.045 165))',
                             borderLeft: `3px solid ${str(r?.col)}`,
                           } as CSSProperties
                         }
@@ -1847,8 +1864,8 @@ export function CompareScreen({ v }: { v: VM }) {
                           </span>
                           <span
                             style={{
-                              font: "600 13px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--ac, oklch(0.8 0.11 75))',
+                              font: "600 12px/1 'IBM Plex Mono',monospace",
+                              color: 'var(--ac, oklch(0.82 0.12 85))',
                             }}
                           >
                             {T(r?.tot)}
@@ -1871,8 +1888,8 @@ export function CompareScreen({ v }: { v: VM }) {
                               >
                                 <span
                                   style={{
-                                    font: "500 8.5px/1 'IBM Plex Mono',monospace",
-                                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                                    font: "500 9.5px/1 'IBM Plex Mono',monospace",
+                                    color: 'var(--mu, oklch(0.78 0.035 120))',
                                   }}
                                 >
                                   {T(x?.s)}
@@ -1920,12 +1937,12 @@ export function CompareScreen({ v }: { v: VM }) {
                 boxShadow: str(v.ct?.pj?.ol),
                 cursor: 'grab',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '14px',
+                gap: '12px',
                 minWidth: '0',
               } as CSSProperties
             }
@@ -1936,7 +1953,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 <span
@@ -1958,14 +1975,15 @@ export function CompareScreen({ v }: { v: VM }) {
               </span>
               <span style={{ display: 'flex', gap: '6px' }}>
                 <button
+                  data-hit="1"
                   onClick={v.pjTog}
                   title={v.pjTip}
                   style={{
                     padding: '7px 12px',
                     borderRadius: '999px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   }}
@@ -1973,6 +1991,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   {T(v.pjLbl)}
                 </button>
                 <button
+                  data-hit="1"
                   title={`Tile width: ${str(v.jWl)} of ${str(v.cNC)} columns — click to change`}
                   onClick={v.jCyc}
                   style={
@@ -1984,9 +2003,9 @@ export function CompareScreen({ v }: { v: VM }) {
                       height: '26px',
                       padding: '0 9px',
                       borderRadius: '6px',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       background: 'transparent',
-                      color: 'var(--mu, oklch(0.7 0.01 70))',
+                      color: 'var(--mu, oklch(0.78 0.035 120))',
                       cursor: 'pointer',
                       font: "500 11px/1 'IBM Plex Mono',monospace",
                     } as CSSProperties
@@ -1999,17 +2018,17 @@ export function CompareScreen({ v }: { v: VM }) {
                 </button>
               </span>
             </div>
-            <div style={{ alignSelf: 'flex-start', display: 'flex', flexWrap: 'wrap', gap: '6px 14px' }}>
+            <div style={{ alignSelf: 'flex-start', display: 'flex', flexWrap: 'wrap', gap: '6px 12px' }}>
               {L(v.cmpSel).map((h: any, $index: number) => (
                 <Fragment key={$index}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}>
                     <span
                       style={
-                        { width: '10px', height: '10px', borderRadius: '3px', background: str(h?.col) } as CSSProperties
+                        { width: '10px', height: '10px', borderRadius: '4px', background: str(h?.col) } as CSSProperties
                       }
                     ></span>
                     <span>{T(h?.ch)}</span>
-                    <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(h?.bn)}</span>
+                    <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(h?.bn)}</span>
                   </span>
                 </Fragment>
               ))}
@@ -2028,8 +2047,8 @@ export function CompareScreen({ v }: { v: VM }) {
                     gap: '2px',
                     padding: '3px',
                     borderRadius: '8px',
-                    background: 'var(--bg, oklch(0.16 0.01 60))',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    background: 'var(--bg, oklch(0.2 0.045 165))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   } as CSSProperties
                 }
               >
@@ -2063,7 +2082,7 @@ export function CompareScreen({ v }: { v: VM }) {
                         display: str(v.statSepD),
                         width: '1px',
                         margin: '6px 2px',
-                        background: 'var(--line, oklch(0.29 0.012 60))',
+                        background: 'var(--line, oklch(0.42 0.06 110 / .55))',
                       } as CSSProperties
                     }
                   ></span>
@@ -2112,7 +2131,7 @@ export function CompareScreen({ v }: { v: VM }) {
                           }
                         >
                           <span style={{ font: "600 12px/1 'IBM Plex Mono',monospace" }}>{T(r?.s)}</span>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
                             {L(r?.items).map((x: any, $index: number) => (
                               <Fragment key={$index}>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -2122,8 +2141,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                       flex: '1 1 0',
                                       minWidth: '0',
                                       height: '16px',
-                                      borderRadius: '3px',
-                                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                      borderRadius: '4px',
+                                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                                     }}
                                   >
                                     <span
@@ -2162,8 +2181,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                               left: str(x?.hb),
                                               transform: 'translateY(-50%)',
                                               marginLeft: '4px',
-                                              font: "400 9px/1 'IBM Plex Mono',monospace",
-                                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                                              font: "400 9.5px/1 'IBM Plex Mono',monospace",
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
                                               opacity: '.7',
                                             } as CSSProperties
                                           }
@@ -2178,8 +2197,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                               left: str(x?.l),
                                               transform: 'translate(-100%,-50%)',
                                               marginLeft: '-4px',
-                                              font: "400 9px/1 'IBM Plex Mono',monospace",
-                                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                                              font: "400 9.5px/1 'IBM Plex Mono',monospace",
+                                              color: 'var(--mu, oklch(0.78 0.035 120))',
                                               opacity: '.7',
                                             } as CSSProperties
                                           }
@@ -2196,8 +2215,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                           left: str(x?.a),
                                           transform: 'translate(-50%,-50%)',
                                           padding: '2px 3px',
-                                          borderRadius: '3px',
-                                          background: 'var(--panel, oklch(0.2 0.01 60))',
+                                          borderRadius: '4px',
+                                          background: 'var(--panel, oklch(0.245 0.05 165))',
                                           font: "600 10px/1 'IBM Plex Mono',monospace",
                                         } as CSSProperties
                                       }
@@ -2275,7 +2294,7 @@ export function CompareScreen({ v }: { v: VM }) {
                               display: 'flex',
                               alignItems: 'stretch',
                               gap: '2px',
-                              borderBottom: '1px solid var(--line, oklch(0.29 0.012 60))',
+                              borderBottom: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                             }}
                           >
                             {L(r?.items).map((x: any, $index: number) => (
@@ -2288,8 +2307,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                     style={{
                                       position: 'absolute',
                                       inset: '0',
-                                      borderRadius: '3px',
-                                      background: 'var(--panel2, oklch(0.25 0.012 60))',
+                                      borderRadius: '4px',
+                                      background: 'var(--panel2, oklch(0.3 0.055 165))',
                                       overflow: 'hidden',
                                     }}
                                   >
@@ -2331,8 +2350,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                             transform: 'translateX(-50%)',
                                             bottom: str(x?.hb),
                                             paddingBottom: '2px',
-                                            font: "400 9px/1 'IBM Plex Mono',monospace",
-                                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                                            font: "400 9.5px/1 'IBM Plex Mono',monospace",
+                                            color: 'var(--mu, oklch(0.78 0.035 120))',
                                             opacity: '.7',
                                           } as CSSProperties
                                         }
@@ -2348,8 +2367,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                             transform: 'translate(-50%,100%)',
                                             bottom: str(x?.l),
                                             paddingTop: '2px',
-                                            font: "400 9px/1 'IBM Plex Mono',monospace",
-                                            color: 'var(--mu, oklch(0.7 0.01 70))',
+                                            font: "400 9.5px/1 'IBM Plex Mono',monospace",
+                                            color: 'var(--mu, oklch(0.78 0.035 120))',
                                             opacity: '.7',
                                           } as CSSProperties
                                         }
@@ -2368,8 +2387,8 @@ export function CompareScreen({ v }: { v: VM }) {
                                         bottom: str(x?.a),
                                         marginBottom: '-5px',
                                         padding: '2px 3px',
-                                        borderRadius: '3px',
-                                        background: 'var(--panel, oklch(0.2 0.01 60))',
+                                        borderRadius: '4px',
+                                        background: 'var(--panel, oklch(0.245 0.05 165))',
                                         font: "600 10px/1 'IBM Plex Mono',monospace",
                                       } as CSSProperties
                                     }
@@ -2389,7 +2408,7 @@ export function CompareScreen({ v }: { v: VM }) {
                             style={{
                               textAlign: 'center',
                               font: "500 10px/1 'IBM Plex Mono',monospace",
-                              color: 'var(--mu, oklch(0.7 0.01 70))',
+                              color: 'var(--mu, oklch(0.78 0.035 120))',
                             }}
                           >
                             {T(r?.s)}
@@ -2419,12 +2438,12 @@ export function CompareScreen({ v }: { v: VM }) {
                 boxShadow: str(v.ct?.pr?.ol),
                 cursor: 'grab',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
-                background: 'var(--panel, oklch(0.2 0.01 60))',
-                border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                borderRadius: 'var(--r, 10px)',
+                background: 'var(--panel, oklch(0.245 0.05 165))',
+                border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '14px',
+                gap: '12px',
                 minWidth: '0',
               } as CSSProperties
             }
@@ -2435,7 +2454,7 @@ export function CompareScreen({ v }: { v: VM }) {
                   font: "500 10px/1 'IBM Plex Mono',monospace",
                   letterSpacing: '.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--mu, oklch(0.7 0.01 70))',
+                  color: 'var(--mu, oklch(0.78 0.035 120))',
                 }}
               >
                 <span
@@ -2456,6 +2475,7 @@ export function CompareScreen({ v }: { v: VM }) {
                 Projected stats · radar
               </span>
               <button
+                data-hit="1"
                 title={`Tile width: ${str(v.kWl)} of ${str(v.cNC)} columns — click to change`}
                 onClick={v.kCyc}
                 style={
@@ -2467,9 +2487,9 @@ export function CompareScreen({ v }: { v: VM }) {
                     height: '26px',
                     padding: '0 9px',
                     borderRadius: '6px',
-                    border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                    border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                     background: 'transparent',
-                    color: 'var(--mu, oklch(0.7 0.01 70))',
+                    color: 'var(--mu, oklch(0.78 0.035 120))',
                     cursor: 'pointer',
                     font: "500 11px/1 'IBM Plex Mono',monospace",
                   } as CSSProperties
@@ -2481,17 +2501,17 @@ export function CompareScreen({ v }: { v: VM }) {
                 </span>
               </button>
             </div>
-            <div style={{ alignSelf: 'flex-start', display: 'flex', flexWrap: 'wrap', gap: '6px 14px' }}>
+            <div style={{ alignSelf: 'flex-start', display: 'flex', flexWrap: 'wrap', gap: '6px 12px' }}>
               {L(v.cmpSel).map((h: any, $index: number) => (
                 <Fragment key={$index}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12px' }}>
                     <span
                       style={
-                        { width: '10px', height: '10px', borderRadius: '3px', background: str(h?.col) } as CSSProperties
+                        { width: '10px', height: '10px', borderRadius: '4px', background: str(h?.col) } as CSSProperties
                       }
                     ></span>
                     <span>{T(h?.ch)}</span>
-                    <span style={{ color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(h?.bn)}</span>
+                    <span style={{ color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(h?.bn)}</span>
                   </span>
                 </Fragment>
               ))}
@@ -2501,7 +2521,7 @@ export function CompareScreen({ v }: { v: VM }) {
                 <svg viewBox="0 0 340 340" style={{ display: 'block', width: '100%', overflow: 'visible' }}>
                   {L(v.pjRings).map((p: any, $index: number) => (
                     <Fragment key={$index}>
-                      <polygon points={p?.pts} fill="none" stroke="rgba(255,255,255,.09)"></polygon>
+                      <polygon points={p?.pts} fill="none" stroke="var(--line, oklch(0.42 0.06 110 / .55))"></polygon>
                     </Fragment>
                   ))}
                   {L(v.pjAxes).map((a: any, $index: number) => (

@@ -5,7 +5,7 @@ import { L, T, str, type VM } from '../runtime'
 export function SettingsScreen({ v }: { v: VM }) {
   return (
     <>
-      <section data-screen-label="Settings" style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+      <section data-screen-label="Settings" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {v.rlOn ? (
           <>
             <div
@@ -29,6 +29,7 @@ export function SettingsScreen({ v }: { v: VM }) {
               {L(v.rl).map((j: any, $index: number) => (
                 <Fragment key={$index}>
                   <button
+                    data-hit="1"
                     onClick={j?.go}
                     onMouseEnter={j?.enter}
                     onMouseLeave={j?.leave}
@@ -43,7 +44,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                       border: '0',
                       background: 'transparent',
                       cursor: 'pointer',
-                      color: 'var(--tx, #eee)',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                     }}
                   >
                     <span
@@ -55,9 +56,9 @@ export function SettingsScreen({ v }: { v: VM }) {
                           fontSize: '12px',
                           padding: str(j?.lblP),
                           borderRadius: '6px',
-                          background: 'var(--panel2, oklch(0.25 0.012 60))',
+                          background: 'var(--panel2, oklch(0.3 0.055 165))',
                           borderStyle: 'solid',
-                          borderColor: 'var(--line, oklch(0.29 0.012 60))',
+                          borderColor: 'var(--line, oklch(0.42 0.06 110 / .55))',
                           borderWidth: str(j?.lblBw),
                           whiteSpace: 'nowrap',
                           transition: 'max-width .3s cubic-bezier(.2,.8,.2,1),padding .3s,border-width .3s',
@@ -98,7 +99,7 @@ export function SettingsScreen({ v }: { v: VM }) {
             flexDirection: 'column',
             gap: '0',
             padding: '20px',
-            borderRadius: 'var(--r, 14px)',
+            borderRadius: 'var(--r, 10px)',
             background: 'var(--panel, oklch(0.245 0.05 165))',
             border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
           }}
@@ -227,7 +228,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                     display: 'flex',
                     flexDirection: 'column',
                     padding: '6px',
-                    borderRadius: 'var(--r, 14px)',
+                    borderRadius: 'var(--r, 10px)',
                     border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   }}
                 >
@@ -291,6 +292,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                     {r?.showChk ? (
                       <>
                         <button
+                          data-hit="1"
                           onClick={r?.toggle}
                           title={r?.chkTip}
                           style={
@@ -380,6 +382,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                     {r?.showChk ? (
                       <>
                         <button
+                          data-hit="1"
                           onClick={r?.p2?.toggle}
                           title={r?.p2?.chkTip}
                           style={
@@ -438,6 +441,8 @@ export function SettingsScreen({ v }: { v: VM }) {
                       onClick={c?.click}
                       style={
                         {
+                          transition:
+                            'background-color .22s ease,border-color .22s ease,color .22s ease,opacity .22s ease',
                           minHeight: '36px',
                           padding: '4px 12px',
                           borderRadius: '999px',
@@ -480,7 +485,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                     borderRadius: '999px',
                     border: `1px dashed ${str(v.tc?.l0)}`,
                     fontSize: '12px',
-                    color: 'var(--tx, #eee)',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                   } as CSSProperties
                 }
               >
@@ -555,7 +560,7 @@ export function SettingsScreen({ v }: { v: VM }) {
             flexDirection: 'column',
             gap: '0',
             padding: '20px',
-            borderRadius: 'var(--r, 14px)',
+            borderRadius: 'var(--r, 10px)',
             background: 'var(--panel, oklch(0.245 0.05 165))',
             border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
           }}
@@ -588,10 +593,11 @@ export function SettingsScreen({ v }: { v: VM }) {
                   onClick={o?.click}
                   style={
                     {
+                      transition: 'background-color .22s ease,border-color .22s ease,color .22s ease,opacity .22s ease',
                       display: 'flex',
                       alignItems: 'center',
                       gap: '10px',
-                      minHeight: '44px',
+                      minHeight: '32px',
                       padding: '6px 12px 6px 8px',
                       borderRadius: '12px',
                       border: `1px solid ${str(o?.bd)}`,
@@ -638,7 +644,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                 flexDirection: 'column',
                 gap: '0',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
+                borderRadius: 'var(--r, 10px)',
                 background: 'var(--panel, oklch(0.245 0.05 165))',
                 border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               }}
@@ -671,8 +677,8 @@ export function SettingsScreen({ v }: { v: VM }) {
                   gap: '2px',
                   padding: '3px',
                   borderRadius: '8px',
-                  background: 'var(--bg, oklch(0.16 0.01 60))',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  background: 'var(--bg, oklch(0.2 0.045 165))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   alignSelf: 'flex-start',
                 }}
               >
@@ -711,7 +717,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                 flexDirection: 'column',
                 gap: '0',
                 padding: '20px',
-                borderRadius: 'var(--r, 14px)',
+                borderRadius: 'var(--r, 10px)',
                 background: 'var(--panel, oklch(0.245 0.05 165))',
                 border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
               }}
@@ -744,8 +750,8 @@ export function SettingsScreen({ v }: { v: VM }) {
                   gap: '2px',
                   padding: '3px',
                   borderRadius: '8px',
-                  background: 'var(--bg, oklch(0.16 0.01 60))',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                  background: 'var(--bg, oklch(0.2 0.045 165))',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                   alignSelf: 'flex-start',
                 }}
               >
@@ -782,7 +788,7 @@ export function SettingsScreen({ v }: { v: VM }) {
             flexDirection: 'column',
             gap: '12px',
             padding: '20px',
-            borderRadius: 'var(--r, 14px)',
+            borderRadius: 'var(--r, 10px)',
             background: 'var(--panel, oklch(0.245 0.05 165))',
             border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
           }}
@@ -808,9 +814,9 @@ export function SettingsScreen({ v }: { v: VM }) {
                 borderRadius: '999px',
                 border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 background: 'transparent',
-                color: 'var(--tx, #eee)',
+                color: 'var(--tx, oklch(0.95 0.02 90))',
                 cursor: 'pointer',
-                fontSize: '13px',
+                fontSize: '14px',
               }}
             >
               Export builds (file)
@@ -822,9 +828,9 @@ export function SettingsScreen({ v }: { v: VM }) {
                 borderRadius: '999px',
                 border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 background: 'transparent',
-                color: 'var(--tx, #eee)',
+                color: 'var(--tx, oklch(0.95 0.02 90))',
                 cursor: 'pointer',
-                fontSize: '13px',
+                fontSize: '14px',
               }}
             >
               Import builds (file)
@@ -836,9 +842,9 @@ export function SettingsScreen({ v }: { v: VM }) {
                 borderRadius: '999px',
                 border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                 background: 'transparent',
-                color: 'var(--tx, #eee)',
+                color: 'var(--tx, oklch(0.95 0.02 90))',
                 cursor: 'pointer',
-                fontSize: '13px',
+                fontSize: '14px',
               }}
             >
               Export / import as text
@@ -852,12 +858,12 @@ export function SettingsScreen({ v }: { v: VM }) {
                   flexDirection: 'column',
                   gap: '8px',
                   padding: '12px 14px',
-                  borderRadius: 'var(--r, 14px)',
-                  border: '1px solid var(--line, oklch(0.29 0.012 60))',
-                  background: 'var(--panel, oklch(0.2 0.01 60))',
+                  borderRadius: 'var(--r, 10px)',
+                  border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
+                  background: 'var(--panel, oklch(0.245 0.05 165))',
                 }}
               >
-                <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>
+                <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>
                   One build per line: character-id (R5 class-code) @mount-id: class code + level sequence, then optional
                   | ab: … | ca: … | it: … | ms: mount-skill code | nm: name | star — e.g. lilian (R5 HN) @wild-horse:
                   HN20 AR35 | ms: PAAL | nm: Scout. Recruit and mount parts are optional.
@@ -872,7 +878,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                     borderRadius: 'var(--r)',
                     border: '1px solid var(--line)',
                     background: 'var(--panel)',
-                    color: 'var(--tx, oklch(0.94 0.008 80))',
+                    color: 'var(--tx, oklch(0.95 0.02 90))',
                     font: "12px/1.5 'IBM Plex Mono',monospace",
                     resize: 'vertical',
                   }}
@@ -884,7 +890,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                       padding: '9px 16px',
                       borderRadius: '999px',
                       border: '0',
-                      background: 'var(--ac, oklch(0.8 0.11 75))',
+                      background: 'var(--ac, oklch(0.82 0.12 85))',
                       color: 'oklch(0.18 0.01 60)',
                       fontWeight: '600',
                       cursor: 'pointer',
@@ -897,9 +903,9 @@ export function SettingsScreen({ v }: { v: VM }) {
                     style={{
                       padding: '7px 12px',
                       borderRadius: '999px',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       background: 'transparent',
-                      color: 'var(--tx, oklch(0.94 0.008 80))',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                       cursor: 'pointer',
                     }}
                   >
@@ -910,15 +916,15 @@ export function SettingsScreen({ v }: { v: VM }) {
                     style={{
                       padding: '7px 12px',
                       borderRadius: '999px',
-                      border: '1px solid var(--line, oklch(0.29 0.012 60))',
+                      border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       background: 'transparent',
-                      color: 'var(--tx, oklch(0.94 0.008 80))',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                       cursor: 'pointer',
                     }}
                   >
                     Reload from saved
                   </button>
-                  <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.7 0.01 70))' }}>{T(v.txtMsg)}</span>
+                  <span style={{ fontSize: '12px', color: 'var(--mu, oklch(0.78 0.035 120))' }}>{T(v.txtMsg)}</span>
                 </div>
               </div>
             </>
@@ -931,7 +937,7 @@ export function SettingsScreen({ v }: { v: VM }) {
             flexDirection: 'column',
             gap: '12px',
             padding: '20px',
-            borderRadius: 'var(--r, 14px)',
+            borderRadius: 'var(--r, 10px)',
             background: 'var(--panel, oklch(0.245 0.05 165))',
             border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
           }}
@@ -956,13 +962,14 @@ export function SettingsScreen({ v }: { v: VM }) {
                   onClick={c?.ask}
                   style={
                     {
+                      transition: 'background-color .22s ease,border-color .22s ease,color .22s ease,opacity .22s ease',
                       padding: '7px 12px',
                       borderRadius: '999px',
                       border: `1px solid ${str(c?.bd)}`,
                       background: 'transparent',
                       color: str(c?.fg),
                       cursor: 'pointer',
-                      fontSize: '13px',
+                      fontSize: '14px',
                     } as CSSProperties
                   }
                 >
@@ -979,7 +986,7 @@ export function SettingsScreen({ v }: { v: VM }) {
             flexDirection: 'column',
             gap: '12px',
             padding: '20px',
-            borderRadius: 'var(--r, 14px)',
+            borderRadius: 'var(--r, 10px)',
             background: 'var(--panel, oklch(0.245 0.05 165))',
             border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
           }}
@@ -1000,7 +1007,8 @@ export function SettingsScreen({ v }: { v: VM }) {
                 href="https://game8.co/games/Fire-Emblem-Fortunes-Weave"
                 target="_blank"
                 rel="noopener"
-                style={{ fontSize: '13px' }}
+                data-hit="1"
+                style={{ fontSize: '14px' }}
               >
                 Game8
               </a>
@@ -1010,7 +1018,8 @@ export function SettingsScreen({ v }: { v: VM }) {
                 href="https://serenesforest.net/fortunes-weave/"
                 target="_blank"
                 rel="noopener"
-                style={{ fontSize: '13px' }}
+                data-hit="1"
+                style={{ fontSize: '14px' }}
               >
                 Serenes Forest
               </a>
@@ -1020,13 +1029,14 @@ export function SettingsScreen({ v }: { v: VM }) {
                 href="https://fortunesweave.wiki.fextralife.com/"
                 target="_blank"
                 rel="noopener"
-                style={{ fontSize: '13px' }}
+                data-hit="1"
+                style={{ fontSize: '14px' }}
               >
                 FextraLife
               </a>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '2px 12px' }}>
-              <a href="https://fortunesweave.co.uk/" target="_blank" rel="noopener" style={{ fontSize: '13px' }}>
+              <a href="https://fortunesweave.co.uk/" target="_blank" rel="noopener" data-hit="1" style={{ fontSize: '14px' }}>
                 FortunesWeave.co.uk
               </a>
             </div>
@@ -1035,6 +1045,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                 href="https://marigoldfe.com/fortunes-weave/"
                 target="_blank"
                 rel="noopener"
+                data-hit="1"
                 style={{ fontSize: '13px' }}
               >
                 Marigold
@@ -1045,7 +1056,8 @@ export function SettingsScreen({ v }: { v: VM }) {
                 href="https://docs.google.com/spreadsheets/d/1YW5AdvPUbLPr1RAGlnotcRaNTFCQPTKiIgshwrcdUtE"
                 target="_blank"
                 rel="noopener"
-                style={{ fontSize: '13px' }}
+                data-hit="1"
+                style={{ fontSize: '14px' }}
               >
                 Learnset sheet
               </a>
@@ -1058,13 +1070,14 @@ export function SettingsScreen({ v }: { v: VM }) {
                 href="https://www.reddit.com/r/fireemblem/"
                 target="_blank"
                 rel="noopener"
-                style={{ fontSize: '13px' }}
+                data-hit="1"
+                style={{ fontSize: '14px' }}
               >
                 Reddit
               </a>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'baseline', gap: '2px 12px' }}>
-              <span style={{ fontSize: '13px' }}>InGame data compiled by Thierry LEE</span>
+              <span style={{ fontSize: '14px' }}>InGame data compiled by Thierry LEE</span>
             </div>
           </div>
         </div>
@@ -1079,7 +1092,7 @@ export function SettingsScreen({ v }: { v: VM }) {
                 display: 'grid',
                 placeItems: 'center',
                 padding: '16px',
-                background: 'oklch(0.1 0.01 60 / .7)',
+                background: 'oklch(0 0 0 / .7)',
               }}
             >
               <div
@@ -1089,12 +1102,12 @@ export function SettingsScreen({ v }: { v: VM }) {
                   width: 'min(100%,420px)',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '14px',
+                  gap: '12px',
                   padding: '22px',
-                  borderRadius: 'var(--r, 14px)',
+                  borderRadius: 'var(--r, 10px)',
                   background: 'var(--panel, oklch(0.245 0.05 165))',
                   border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
-                  color: 'var(--tx, #eee)',
+                  color: 'var(--tx, oklch(0.95 0.02 90))',
                 }}
               >
                 <h2 style={{ margin: '0', font: "600 18px/1.2 'Cinzel',serif" }}>{T(v.clrTitle)}</h2>
@@ -1111,9 +1124,9 @@ export function SettingsScreen({ v }: { v: VM }) {
                       borderRadius: '999px',
                       border: '1px solid var(--line, oklch(0.42 0.06 110 / .55))',
                       background: 'transparent',
-                      color: 'var(--tx, #eee)',
+                      color: 'var(--tx, oklch(0.95 0.02 90))',
                       cursor: 'pointer',
-                      fontSize: '13px',
+                      fontSize: '14px',
                     }}
                   >
                     Cancel
@@ -1123,12 +1136,12 @@ export function SettingsScreen({ v }: { v: VM }) {
                     style={{
                       padding: '7px 12px',
                       borderRadius: '999px',
-                      border: '0',
-                      background: 'oklch(0.62 0.17 25)',
-                      color: '#fff',
+                      border: '1px solid oklch(0.75 0.14 25)',
+                      background: 'transparent',
+                      color: 'oklch(0.75 0.14 25)',
                       fontWeight: '600',
                       cursor: 'pointer',
-                      fontSize: '13px',
+                      fontSize: '14px',
                     }}
                   >
                     {T(v.clrBtn)}

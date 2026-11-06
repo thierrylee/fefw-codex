@@ -4,12 +4,17 @@ a{color:oklch(0.8 0.11 75)}
 a:hover{color:oklch(0.88 0.09 75)}
 *{box-sizing:border-box}
 select,input,button{font:inherit;color:inherit}
-select option,select optgroup{background:#1c1a17;color:#eee}
-input[type=range]{accent-color:oklch(0.8 0.11 75)}
+select option,select optgroup{background:var(--panel2, oklch(0.3 0.055 165));color:var(--tx, oklch(0.95 0.02 90))}
+input[type=range]{accent-color:var(--ac, oklch(0.82 0.12 85));min-height:var(--tap-min,32px)}
 ::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:8px}
+::-webkit-scrollbar-thumb{background:var(--line, oklch(0.42 0.06 110 / .55));border-radius:8px}
 /* From the design's global <style> (not carried over by tools/design-import). */
-@media (hover:hover){[data-rh]:hover{background:var(--panel2, rgba(255,255,255,.06))!important}}
+/* Touch targets (FE FW Design System): every control is at least tap-min (32px). A control drawn
+   smaller keeps its look and gets an invisible hit area that reaches tap-min ([data-hit]). */
+:root{--tap-min:32px}
+[data-hit]{position:relative}
+[data-hit]::after{content:"";position:absolute;left:50%;top:50%;width:max(100%,var(--tap-min,32px));height:max(100%,var(--tap-min,32px));transform:translate(-50%,-50%)}
+@media (hover:hover){[data-rh]:hover{background:var(--panel2, oklch(0.3 0.055 165))!important}}
 @keyframes wcLblR{from{opacity:0;transform:translateX(-16px)}to{opacity:1;transform:none}}
 @keyframes wcLblL{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
 @keyframes wcSheetIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
@@ -20,4 +25,4 @@ input[type=range]{accent-color:oklch(0.8 0.11 75)}
 @keyframes wcBuildIn{from{opacity:0;transform:scale(.92) translateY(-6px)}}
 @keyframes wcUnfold{from{opacity:0;clip-path:inset(0 0 100% 0);transform:translateY(-6px)}to{opacity:1;clip-path:inset(0 0 0 0);transform:none}}
 [data-sg]{background:transparent!important;position:relative;z-index:1;transition:color .22s ease}
-input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-text-fill-color:currentColor;caret-color:currentColor;transition:background-color 9999s ease-out 0s;box-shadow:0 0 0 1000px var(--panel,#1c1b18) inset}
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{-webkit-text-fill-color:currentColor;caret-color:currentColor;transition:background-color 9999s ease-out 0s;box-shadow:0 0 0 1000px var(--panel, oklch(0.245 0.05 165)) inset}
